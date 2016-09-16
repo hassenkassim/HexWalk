@@ -84,6 +84,7 @@
 'Assets/Script/Gamefield.cs'
 'Assets/Script/GeneratePath.cs'
 'Assets/Script/LevelStart.cs'
+'Assets/Script/MenuManager.cs'
 'Assets/Script/PlayerController.cs'
 'Assets/Script/TouchInput.cs'
 'Assets/Script/cameraPostion.cs'

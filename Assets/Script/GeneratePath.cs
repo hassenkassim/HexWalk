@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Linq;
 
-
+/*
+ * This class should generate a path randomly in the future
+ * */
 public class GeneratePath : MonoBehaviour {
 
 	private GameObject[] objs;

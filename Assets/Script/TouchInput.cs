@@ -15,6 +15,9 @@ public class TouchInput : MonoBehaviour {
 		#if UNITY_EDITOR
 		if (Input.GetMouseButton(0)||Input.GetMouseButtonDown(0) || Input.GetMouseButtonUp(0) ) {
 
+			Gameplay.player.changeColorRandom();
+
+
 			touchesOld = new GameObject[touchList.Count];
 			touchList.CopyTo (touchesOld);
 			touchList.Clear ();

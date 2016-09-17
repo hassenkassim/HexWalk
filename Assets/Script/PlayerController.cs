@@ -2,6 +2,10 @@
 using System.Collections;
 using UnityEngine.UI;
 
+
+/*
+ * This class controls the player and the collisions with other gameobjects
+ * */
 public class PlayerController : MonoBehaviour {
 	public float rotationPeriod = 0.3f;		// 隣に移動するのにかかる時間
 	public float sideLength = 1f;			// Cubeの辺の長さ
@@ -16,43 +20,10 @@ public class PlayerController : MonoBehaviour {
 	Quaternion fromRotation;				// 回転前のCubeのクォータニオン
 	Quaternion toRotation;					// 回転後のCubeのクォータニオン
 
-	private int count; 
-	private int limitMoves = 10+1;
-	public Text countText;
-	public Text waitText;
-
-
 	// Use this for initialization
 	void Start () {
 		radius = sideLength * Mathf.Sqrt (2f) / 2f;
-		count = 0;
-		SetCountText ();
-
 	}
-
-	void OnCollisionEnter(Collision coll)
-	{
-		if (coll.collider.gameObject.CompareTag("Button")) {
-			coll.gameObject.GetComponent<Renderer> ().material.color = Color.yellow;
-			count = count + 1;
-			SetCountText ();
-
-		}
-
-		// try to make it better...
-		if (coll.collider.gameObject.CompareTag ("firstButton")) {			
-			SetWaitText (true);
-			StartCoroutine ("waitForSomeSec");
-			SetWaitText (false);
-		}
-
-	}
-
-
-	void OnCollisionExit(Collision collisionInfo) {
-		collisionInfo.gameObject.GetComponent<Renderer> ().material.color = Color.black;
-		}
-
 
 	// Update is called once per frame
 	void Update () {
@@ -65,9 +36,23 @@ public class PlayerController : MonoBehaviour {
 			y = Input.GetAxisRaw ("Vertical");
 		}
 
+		//check if move is allowed
+		if (checkOutside (x,y)) {
+			return;
+		}
+
+
 		if ((x != 0 || y != 0) && !isRotate) {
-			directionX = y;																// 回転方向セット (x,yどちらかは必ず0)
-			directionZ = x;																// 回転方向セット (x,yどちらかは必ず0)
+
+			if (x != 0) {
+				Gameplay.player.setGamePosition (new Vector2 (Gameplay.player.getGamePosition ().x + x, Gameplay.player.getGamePosition ().y));
+			} else if (y != 0) {
+				Gameplay.player.setGamePosition (new Vector2 (Gameplay.player.getGamePosition ().x, Gameplay.player.getGamePosition ().y + y));
+			}
+			Debug.Log ("Player Position: " + Gameplay.player.getGamePosition());
+
+			directionX = -x;																// 回転方向セット (x,yどちらかは必ず0)
+			directionZ = y;																// 回転方向セット (x,yどちらかは必ず0)
 			startPos = transform.position;												// 回転前の座標を保持
 			fromRotation = transform.rotation;											// 回転前のクォータニオンを保持
 			transform.Rotate (directionZ * 90, 0, directionX * 90, Space.World);		// 回転方向に90度回転させる
@@ -105,22 +90,33 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
-
-
-
-
-	// Hilfsmethoden
-	void SetCountText(){
-		limitMoves = limitMoves - count;
-		countText.text = limitMoves.ToString()+ " Movements left!" ;
+	void OnCollisionEnter(Collision coll)
+	{
+		if (coll.collider.gameObject.CompareTag("Field")) {
+			coll.gameObject.GetComponent<Renderer> ().material.color = Color.yellow;
+		}
 	}
-	void SetWaitText(bool on){
-		if (on)
-			waitText.text = " Try to keep the way it in your mind ..";
-		else
-			waitText.text = "";
+
+
+	void OnCollisionExit(Collision collisionInfo) {
+		collisionInfo.gameObject.GetComponent<Renderer> ().material.color = Color.black;
 	}
-	IEnumerator waitForSomeSec(){
-		yield return new WaitForSeconds (5);
+
+
+	bool checkOutside(float x, float y){
+		if (x == -1) {
+			if (Gameplay.player.getGamePosition ().x == 0)
+				return true;
+		} else if (x == 1) {
+			if (Gameplay.player.getGamePosition ().x == Gamefield.width - 1)
+				return true;
+		} else if (y == -1) {
+			if (Gameplay.player.getGamePosition ().y == 0)
+				return true;
+		} else if (y == 1) {
+			if (Gameplay.player.getGamePosition ().y == Gamefield.height - 1)
+				return true;
+		}
+		return false;
 	}
 }

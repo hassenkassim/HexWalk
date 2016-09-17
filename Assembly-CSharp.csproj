@@ -45,14 +45,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Script\CameraPosition.cs" />
      <Compile Include="Assets\Script\Field.cs" />
      <Compile Include="Assets\Script\Gamefield.cs" />
+     <Compile Include="Assets\Script\Gameplay.cs" />
      <Compile Include="Assets\Script\GeneratePath.cs" />
-     <Compile Include="Assets\Script\LevelStart.cs" />
+     <Compile Include="Assets\Script\InputHandler.cs" />
+     <Compile Include="Assets\Script\Player.cs" />
      <Compile Include="Assets\Script\PlayerController.cs" />
      <Compile Include="Assets\Script\TouchInput.cs" />
-     <Compile Include="Assets\Script\cameraPostion.cs" />
-     <Compile Include="Assets\Script\tmp.cs" />
  <Reference Include="UnityEngine.Networking">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>

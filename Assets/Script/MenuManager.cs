@@ -45,7 +45,7 @@ public class MenuManager : MonoBehaviour {
 	//BUTTON FUNCTION
 	public void onStartGame()
 	{
-		
+		Application.LoadLevel ("scene1");
 	}
 
 	public void onGameMode()

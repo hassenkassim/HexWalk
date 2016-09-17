@@ -7,7 +7,7 @@ using UnityEngine.UI;
  * This class controls the player and the collisions with other gameobjects
  * */
 public class PlayerController : MonoBehaviour {
-	public float rotationPeriod = 0.3f;		// 隣に移動するのにかかる時間
+	public float rotationPeriod = 0.25f;		// 隣に移動するのにかかる時間
 	public float sideLength = 1f;			// Cubeの辺の長さ
 
 	bool isRotate = false;					// Cubeが回転中かどうかを検出するフラグ
@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour {
 
 		//check if move is allowed
 		if (checkOutside (x,y)) {
+			Debug.Log ("Player out of Gamefield, No Rotation possible!");
 			return;
 		}
 

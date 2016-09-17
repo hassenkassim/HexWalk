@@ -12,13 +12,12 @@ public class Field {
 		field = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		field.name = name;
 		field.tag = "Field";
-		setScale (new Vector3 (0.9f, 0.3f, 0.9f));
+		setScale (new Vector3 (0.8f, 0.1f, 0.8f));
 	}
 
 	public Field(string name, System.Type[] comp, Color col){
 		field = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		field.GetComponent<MeshRenderer> ().material.color = col;
-		field.transform.localScale = new Vector3 (0.9f, 0.3f, 0.9f);
 	}
 
 	public void setScale(Vector3 scale){

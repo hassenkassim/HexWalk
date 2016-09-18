@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 
@@ -6,6 +7,16 @@ using System.Collections;
  * This class starts and keeps track of the Game
  * */
 public class Gameplay : MonoBehaviour {
+	
+		/*
+		 * Ablauf Spiel:
+		 * 1. Felder kurz aus Vogelperspektive anzeigen
+		 * 2. Pfad aufblinken lassen
+		 * 3. Kamera herunterschwingen und Pfad verstecken
+		 * 4. Spieler kann Player kontrollieren
+		 * */
+
+
 
 	public static Player player;
 	public static Camera cam;
@@ -23,6 +34,7 @@ public class Gameplay : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+
 		//Create Player
 		player = new Player();
 		player.setColor (Color.cyan);
@@ -34,6 +46,8 @@ public class Gameplay : MonoBehaviour {
 		//Setup Camera
 		cam = Camera.main;
 		cam.gameObject.AddComponent <CameraPosition>();
+
+
 
 		SoundOffBtn.gameObject.SetActive (false);
 		SoundOnBtn.gameObject.SetActive (false);
@@ -97,13 +111,13 @@ public class Gameplay : MonoBehaviour {
 
 	public void onRestart(){
 		Time.timeScale = 1;
-		Application.LoadLevel ("GameScene");
+		SceneManager.LoadScene ("GameScene");
 	}
 
 	public void onMainMenu(){
 
 		Time.timeScale = 1;
-		Application.LoadLevel ("MenuScene");
+		SceneManager.LoadScene ("MenuScene");
 	}
 
 	public void onSoundOn(){
@@ -132,7 +146,6 @@ public class Gameplay : MonoBehaviour {
 	}
 
 
-	// BOOLEAN FOR PLAYERPREFS
 	// BOOLEAN FOR PLAYERPREFS
 	public static void SetBool(string name, bool booleanValue) 
 	{

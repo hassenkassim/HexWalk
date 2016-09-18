@@ -12,15 +12,12 @@ public class Pathfinder {
 	Vector2 start;
 	Vector2 end;
 
-	int width;
-	int height;
-
 	public Pathfinder(Vector2 start, Vector2 end){
 		if (Gameplay.gamefield != null) {
 			path = new List<Vector2> ();
 			this.start = start;
 			this.end = end;
-			//width = Gameplay.
+			findRandomPath ();
 		} else {
 			Debug.Log ("No Gamefield, can't find any paths without a Gamefield!");
 		}
@@ -69,7 +66,7 @@ public class Pathfinder {
 			Vector2 tmp = new Vector2 (current.x - 1, current.y);
 			if(!path.Contains(tmp)) nextSteps.Add (tmp);
 		}
-		if (current.y < Gameplay.gamefield.height) {
+		if (current.y < Gameplay.gamefield.height-1) {
 			Vector2 tmp = new Vector2 (current.x, current.y+1);
 			if(!path.Contains(tmp)) nextSteps.Add (tmp);
 		}

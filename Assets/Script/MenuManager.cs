@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SocialPlatforms;
@@ -48,7 +49,7 @@ public class MenuManager : MonoBehaviour {
 	//BUTTON FUNCTION
 	public void onStartGame()
 	{
-		Application.LoadLevel ("GameScene");
+		SceneManager.LoadScene ("GameScene");
 	}
 
 	public void onGameMode()

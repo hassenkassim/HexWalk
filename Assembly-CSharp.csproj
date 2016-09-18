@@ -49,7 +49,6 @@
      <Compile Include="Assets\Script\Field.cs" />
      <Compile Include="Assets\Script\Gamefield.cs" />
      <Compile Include="Assets\Script\Gameplay.cs" />
-     <Compile Include="Assets\Script\GeneratePath.cs" />
      <Compile Include="Assets\Script\InputHandler.cs" />
      <Compile Include="Assets\Script\MenuManager.cs" />
      <Compile Include="Assets\Script\Pathfinder.cs" />

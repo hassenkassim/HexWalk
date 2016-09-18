@@ -47,6 +47,11 @@ public class Gameplay : MonoBehaviour {
 		} else {
 			AudioListener.pause = false;
 		}
+
+
+		Pathfinder pathfinder = new Pathfinder (new Vector2 (0, 0), new Vector2 (0, Gameplay.gamefield.height - 1));
+		pathfinder.findRandomPath ();
+
 	}
 
 	// Update is called once per frame

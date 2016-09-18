@@ -70,6 +70,8 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
+
+
 	void FixedUpdate() {
 
 		if (isRotate) {
@@ -117,13 +119,13 @@ public class PlayerController : MonoBehaviour {
 			if (Gameplay.player.getGamePosition ().x == 0)
 				return true;
 		} else if (x == 1) {
-			if (Gameplay.player.getGamePosition ().x == Gamefield.width - 1)
+			if (Gameplay.player.getGamePosition ().x == Gameplay.gamefield.width - 1)
 				return true;
 		} else if (y == -1) {
 			if (Gameplay.player.getGamePosition ().y == 0)
 				return true;
 		} else if (y == 1) {
-			if (Gameplay.player.getGamePosition ().y == Gamefield.height - 1)
+			if (Gameplay.player.getGamePosition ().y == Gameplay.gamefield.height - 1)
 				return true;
 		}
 		return false;

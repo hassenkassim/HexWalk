@@ -67,10 +67,6 @@ public class Player {
 		playerobj.transform.localScale = scale;
 	}
 
-	public void addComponent(string componentName){
-		AddComponentByString(componentName);
-	}
-
 
 	public void setColor(Color col){
 		playerobj.GetComponent<MeshRenderer> ().material.color = col;
@@ -92,21 +88,8 @@ public class Player {
 		return playerobj.transform.rotation;
 	}
 		
-	/*public List<object> getComponents(){
-		playerobj.GetComponents(typeof(Component));
-	}*/
-		
 	public Color getColor(){
 		return playerobj.GetComponent<MeshRenderer> ().material.color;
-	}
-
-
-	public Component AddComponentByString(string componentName)
-	{
-		var type = System.Type.GetType(componentName);
-		if (type == null || !typeof(Component).IsAssignableFrom(type))
-			return null;
-		return playerobj.AddComponent(type);
 	}
 
 }

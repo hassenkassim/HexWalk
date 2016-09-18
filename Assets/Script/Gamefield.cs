@@ -6,9 +6,9 @@ using System.Collections;
  * This class organizes the gamefield
  * */
 public class Gamefield {
-	public static Field[,] fields;
-	public static int width;
-	public static int height;
+	public Field[,] fields;
+	public int width;
+	public int height;
 
 
 	public Gamefield(int w, int h){

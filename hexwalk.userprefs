@@ -1,11 +1,24 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+<<<<<<< HEAD
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Gameplay.cs">
+    <Files>
+      <File FileName="Assets/Script/Player.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Gameplay.cs" Line="95" Column="39" />
+      <File FileName="Assets/Script/TouchInput.cs" Line="28" Column="34" />
+      <File FileName="Assets/Script/PlayerController.cs" Line="31" Column="31" />
+      <File FileName="Assets/Script/MenuManager.cs" Line="32" Column="33" />
+      <File FileName="Assets/Script/Field.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/InputHandler.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/GeneratePath.cs" Line="1" Column="1" />
+=======
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Field.cs">
     <Files>
       <File FileName="Assets/Script/Player.cs" Line="1" Column="1" />
       <File FileName="Assets/Script/Field.cs" Line="17" Column="2" />
       <File FileName="Assets/Script/MenuManager.cs" Line="53" Column="3" />
       <File FileName="Assets/Script/Gamefield.cs" Line="17" Column="37" />
+>>>>>>> 6726d281178f1b48afa6ec5545c20f725ed8f4d0
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

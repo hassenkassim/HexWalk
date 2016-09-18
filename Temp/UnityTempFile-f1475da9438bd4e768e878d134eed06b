@@ -9,7 +9,7 @@
 -r:'/Applications/Unity/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll'
 -r:'/Applications/Unity/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Common.dll'
 -define:UNITY_5_3_OR_NEWER
--define:UNITY_5_3_6
+-define:UNITY_5_3_5
 -define:UNITY_5_3
 -define:UNITY_5
 -define:ENABLE_NEW_BUGREPORTER
@@ -77,7 +77,6 @@
 -define:UNITY_EDITOR
 -define:UNITY_EDITOR_64
 -define:UNITY_EDITOR_OSX
--define:UNITY_TEAM_LICENSE
 'Assets/Script/CameraPosition.cs'
 'Assets/Script/Field.cs'
 'Assets/Script/Gamefield.cs'

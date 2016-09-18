@@ -24,15 +24,18 @@ public class MenuManager : MonoBehaviour {
 
 		if (PlayerPrefs.HasKey ("soundIsOn") == false) {
 			SoundOffBtn.gameObject.SetActive (false);
+			AudioListener.pause = false;
 		
 		} else {
 			if (GetBool ("soundIsOn") == true) {
 				SoundOffBtn.gameObject.SetActive (false);
+				AudioListener.pause = false;
 			} else {
 				SoundOnBtn.gameObject.SetActive (false);
 			}
 			
 		}
+
 			
 
 	}
@@ -162,7 +165,7 @@ public class MenuManager : MonoBehaviour {
 
 	// BOOLEAN FOR PLAYERPREFS
 	// BOOLEAN FOR PLAYERPREFS
-		public static void SetBool(string name, bool booleanValue) 
+	public static void SetBool(string name, bool booleanValue) 
 	{
 		PlayerPrefs.SetInt(name, booleanValue ? 1 : 0);
 	}

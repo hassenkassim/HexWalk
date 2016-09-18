@@ -20,9 +20,15 @@ public class PlayerController : MonoBehaviour {
 	Quaternion fromRotation;				// 回転前のCubeのクォータニオン
 	Quaternion toRotation;					// 回転後のCubeのクォータニオン
 
+	AudioClip rotationSound = null;
+
+
+
+
 	// Use this for initialization
 	void Start () {
 		radius = sideLength * Mathf.Sqrt (2f) / 2f;
+		rotationSound = (AudioClip)Resources.Load("jump");
 	}
 
 	// Update is called once per frame
@@ -88,6 +94,7 @@ public class PlayerController : MonoBehaviour {
 				directionZ = 0;
 				rotationTime = 0;
 			}
+				
 		}
 	}
 
@@ -95,6 +102,7 @@ public class PlayerController : MonoBehaviour {
 	{
 		if (coll.collider.gameObject.CompareTag("Field")) {
 			coll.gameObject.GetComponent<Renderer> ().material.color = Color.yellow;
+			AudioSource.PlayClipAtPoint (rotationSound, transform.position, 10f);
 		}
 	}
 

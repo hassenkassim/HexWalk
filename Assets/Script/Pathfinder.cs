@@ -45,8 +45,7 @@ public class Pathfinder {
 			tmp = possibleSteps [i];
 		}
 	}
-
-
+		
 
 
 	/*

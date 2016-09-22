@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.UI;
 
 
 /*
@@ -22,18 +23,17 @@ public class Gameplay : MonoBehaviour {
 	public static Camera cam;
 	public static Gamefield gamefield;
 
-	public GameObject PauseBtn;
-	public GameObject SoundOnBtn;
-	public GameObject SoundOffBtn;
-	public GameObject ContinueBtn;
-	public GameObject RestartBtn;
-	public GameObject MainMenuBtn;
-	public GameObject ExitBtn;
-
+	// Buttons
+	public GameObject pauseBtn;
+	public GameObject soundOnBtn;
+	public GameObject soundOffBtn;
+	public GameObject continueBtn;
+	public GameObject restartBtn;
+	public GameObject mainMenuBtn;
+	public GameObject exitBtn;
 
 	// Use this for initialization
 	void Start () {
-
 
 		//Create Player
 		player = new Player();
@@ -47,14 +47,13 @@ public class Gameplay : MonoBehaviour {
 		cam = Camera.main;
 		cam.gameObject.AddComponent <CameraPosition>();
 
-
-
-		SoundOffBtn.gameObject.SetActive (false);
-		SoundOnBtn.gameObject.SetActive (false);
-		ContinueBtn.gameObject.SetActive (false);
-		RestartBtn.gameObject.SetActive (false);
-		MainMenuBtn.gameObject.SetActive (false);
-		ExitBtn.gameObject.SetActive (false);
+		//Setup Button
+		soundOffBtn.gameObject.SetActive (false);
+		soundOnBtn.gameObject.SetActive (false);
+		continueBtn.gameObject.SetActive (false);
+		restartBtn.gameObject.SetActive (false);
+		mainMenuBtn.gameObject.SetActive (false);
+		exitBtn.gameObject.SetActive (false);
 
 		if (GetBool ("soundIsOn") == false) {
 			AudioListener.pause = true;
@@ -62,33 +61,34 @@ public class Gameplay : MonoBehaviour {
 			AudioListener.pause = false;
 		}
 
-
+		// Call Pathfinder constructor
 		Pathfinder pathfinder = new Pathfinder (new Vector2 (0, 0), new Vector2 (0, Gameplay.gamefield.height - 1));
 		pathfinder.findRandomPath ();
 
 	}
 
-	// Update is called once per frame
+
 	void Update () {
 		
 	}
 
+	// Button functions
 	public void onPause(){
 
 		Time.timeScale = 0;
 
 		if (GetBool ("soundIsOn") == false) {
-			SoundOffBtn.gameObject.SetActive (true);
+			soundOffBtn.gameObject.SetActive (true);
 		} else {
-			SoundOnBtn.gameObject.SetActive (true);
+			soundOnBtn.gameObject.SetActive (true);
 			AudioListener.pause = true;
 		}
 			
-		ContinueBtn.gameObject.SetActive (true);
-		RestartBtn.gameObject.SetActive (true);
-		MainMenuBtn.gameObject.SetActive (true);
-		ExitBtn.gameObject.SetActive (true);
-		PauseBtn.gameObject.SetActive (false);
+		continueBtn.gameObject.SetActive (true);
+		restartBtn.gameObject.SetActive (true);
+		mainMenuBtn.gameObject.SetActive (true);
+		exitBtn.gameObject.SetActive (true);
+		pauseBtn.gameObject.SetActive (false);
 
 	}
 
@@ -100,13 +100,13 @@ public class Gameplay : MonoBehaviour {
 			AudioListener.pause = false;
 		}
 
-		SoundOffBtn.gameObject.SetActive (false);
-		SoundOnBtn.gameObject.SetActive (false);
-		ContinueBtn.gameObject.SetActive (false);
-		RestartBtn.gameObject.SetActive (true);
-		MainMenuBtn.gameObject.SetActive (false);
-		ExitBtn.gameObject.SetActive (false);
-		PauseBtn.gameObject.SetActive (true);
+		soundOffBtn.gameObject.SetActive (false);
+		soundOnBtn.gameObject.SetActive (false);
+		continueBtn.gameObject.SetActive (false);
+		restartBtn.gameObject.SetActive (false);
+		mainMenuBtn.gameObject.SetActive (false);
+		exitBtn.gameObject.SetActive (false);
+		pauseBtn.gameObject.SetActive (true);
 	}
 
 	public void onRestart(){
@@ -122,23 +122,19 @@ public class Gameplay : MonoBehaviour {
 
 	public void onSoundOn(){
 
-		SoundOnBtn.gameObject.SetActive (false);
-		SoundOffBtn.gameObject.SetActive (true);
+		soundOnBtn.gameObject.SetActive (false);
+		soundOffBtn.gameObject.SetActive (true);
 
 		SetBool("soundIsOn", false);
 		PlayerPrefs.Save();
-
-		//AudioListener.pause = true;
 	}
 
 	public void onSoundOff(){
-		SoundOnBtn.gameObject.SetActive (true);
-		SoundOffBtn.gameObject.SetActive (false);
+		soundOnBtn.gameObject.SetActive (true);
+		soundOffBtn.gameObject.SetActive (false);
 
 		SetBool ("soundIsOn", true);
 		PlayerPrefs.Save();
-
-		//AudioListener.pause = false;
 	}
 
 	public void onExit(){
@@ -146,7 +142,7 @@ public class Gameplay : MonoBehaviour {
 	}
 
 
-	// BOOLEAN FOR PLAYERPREFS
+	// Method for boolean PlayerPrefs
 	public static void SetBool(string name, bool booleanValue) 
 	{
 		PlayerPrefs.SetInt(name, booleanValue ? 1 : 0);

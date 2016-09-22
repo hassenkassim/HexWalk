@@ -104,8 +104,20 @@ public class PlayerController : MonoBehaviour {
 	{
 		if (coll.collider.gameObject.CompareTag("Field")) {
 
-			coll.gameObject.GetComponent<Renderer> ().material.color = Color.yellow;
-			AudioSource.PlayClipAtPoint (rotationSound, transform.position, 10f);
+			//Alles was ich brauche bekomme ich durch unsere Gameplay Klasse. Egal was ich brauche, ich gehe zuerst ins Gameplay rein, dann entweder Gamefield, 
+			//oder Player oder Path, je nachdem was ich brauche und dann rufe ich den jeweiligen Getter auf!
+			Vector2 platePos = Gameplay.player.getGamePosition ();//dazu gehe ich in unser Gameplay->Player->getGamePosition
+			if (Gameplay.pathfinder.path.Contains (platePos)) {
+				Gameplay.gamefield.getField ((int)platePos.x, (int)platePos.y).setColor (Color.green);
+			} else {
+				Gameplay.gamefield.getField ((int)platePos.x, (int)platePos.y).setColor (Color.red);
+			}
+
+
+
+
+			//coll.gameObject.GetComponent<Renderer> ().material.color = Color.yellow;
+			//AudioSource.PlayClipAtPoint (rotationSound, transform.position, 10f);
 			//Vector2 platePos = new Vector2(Input.coll.x , Input.coll.y);
 			//if (Pathfinder.path.Contains (platePos) == true) {
 			//	AudioSource.PlayClipAtPoint (rotationSound, transform.position, 10f);

@@ -8,9 +8,9 @@ using System.Collections.Generic;
  * */
 public class Pathfinder {
 
-	List<Vector2> path;
-	Vector2 start;
-	Vector2 end;
+	public List<Vector2> path;
+	public Vector2 start;
+	public Vector2 end;
 
 	public Pathfinder(Vector2 start, Vector2 end){
 		if (Gameplay.gamefield != null) {
@@ -41,7 +41,7 @@ public class Pathfinder {
 			path.Add (possibleSteps [i]);
 			Debug.Log ("x: " + (int)possibleSteps [i].x + "  y: " + (int)possibleSteps [i].y);
 
-			Gameplay.gamefield.getField ((int)possibleSteps [i].x, (int)possibleSteps [i].y).setColor (Color.red);
+			Gameplay.gamefield.getField ((int)possibleSteps [i].x, (int)possibleSteps [i].y).setColor (Color.yellow);
 			tmp = possibleSteps [i];
 		}
 	}

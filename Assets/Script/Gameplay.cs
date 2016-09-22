@@ -22,6 +22,7 @@ public class Gameplay : MonoBehaviour {
 	public static Player player;
 	public static Camera cam;
 	public static Gamefield gamefield;
+	public static Pathfinder pathfinder;
 
 	// Buttons
 	public GameObject pauseBtn;
@@ -62,7 +63,7 @@ public class Gameplay : MonoBehaviour {
 		}
 
 		// Call Pathfinder constructor
-		Pathfinder pathfinder = new Pathfinder (new Vector2 (0, 0), new Vector2 (0, Gameplay.gamefield.height - 1));
+		pathfinder = new Pathfinder (new Vector2 (0, 0), new Vector2 (0, Gameplay.gamefield.height - 1));
 		pathfinder.findRandomPath ();
 
 	}

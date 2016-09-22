@@ -103,8 +103,13 @@ public class PlayerController : MonoBehaviour {
 	void OnCollisionEnter(Collision coll)
 	{
 		if (coll.collider.gameObject.CompareTag("Field")) {
+
 			coll.gameObject.GetComponent<Renderer> ().material.color = Color.yellow;
 			AudioSource.PlayClipAtPoint (rotationSound, transform.position, 10f);
+			//Vector2 platePos = new Vector2(Input.coll.x , Input.coll.y);
+			//if (Pathfinder.path.Contains (platePos) == true) {
+			//	AudioSource.PlayClipAtPoint (rotationSound, transform.position, 10f);
+			//}
 		}
 	}
 

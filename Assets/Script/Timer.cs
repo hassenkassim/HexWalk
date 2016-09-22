@@ -3,12 +3,12 @@ using System.Collections;
 
 public class Timer : MonoBehaviour {
 
-	public float timer = 2;
+	public float timer;
 	bool pathHided = false;
 
 	// Use this for initialization
 	void Start () {
-
+		timer = 4;
 	}
 	
 	// Update is called once per frame
@@ -40,11 +40,11 @@ public class Timer : MonoBehaviour {
 	}
 
 	void hidePath(){
-		int a = Gameplay.gamefield.getFieldWidth();
-		int b = Gameplay.gamefield.getFieldHeight();
-		for (int i = 1; i <= a; i++) {
-			for (int j = 1; j <= b; j++){
-				Gameplay.gamefield.getField (i - 1, j - 1).setColor (Color.white);
+		int a = Gameplay.gamefield.getFieldWidth() - 1;
+		int b = Gameplay.gamefield.getFieldHeight() - 1;
+		for (int i = 0; i <= a; i++) {
+			for (int j = 0; j <= b; j++){
+				Gameplay.gamefield.getField (i, j).setColor (Color.white);
 			}
 				
 		}

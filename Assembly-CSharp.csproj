@@ -47,6 +47,7 @@
   <ItemGroup>
      <Compile Include="Assets\Script\CameraPosition.cs" />
      <Compile Include="Assets\Script\Field.cs" />
+     <Compile Include="Assets\Script\GameOver.cs" />
      <Compile Include="Assets\Script\Gamefield.cs" />
      <Compile Include="Assets\Script\Gameplay.cs" />
      <Compile Include="Assets\Script\InputHandler.cs" />

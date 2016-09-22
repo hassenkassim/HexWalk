@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 /*
@@ -34,7 +35,7 @@ public class PlayerController : MonoBehaviour {
 
 		// score value
 		score = 0;
-		scoreText = GameObject.Find("scoreText").GetComponent<Text>();
+		scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
 
 	
 	}
@@ -122,7 +123,7 @@ public class PlayerController : MonoBehaviour {
 				displayScore ();
 			} else {
 				Gameplay.gamefield.getField ((int)platePos.x, (int)platePos.y).setColor (Color.red);
-
+				//SceneManager.LoadScene ("GameOverScene");
 			}
 
 

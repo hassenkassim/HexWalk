@@ -41,8 +41,7 @@ public class Gameplay : MonoBehaviour {
 		player.setColor (Color.cyan);
 
 		//Create Gamefield
-		gamefield = new Gamefield (4, 8);
-		gamefield.getField (1, 1).setColor (Color.cyan);
+		gamefield = new Gamefield (6, 12);
 
 		//Setup Camera
 		cam = Camera.main;
@@ -64,8 +63,6 @@ public class Gameplay : MonoBehaviour {
 
 		// Call Pathfinder constructor
 		pathfinder = new Pathfinder (new Vector2 (0, 0), new Vector2 (0, Gameplay.gamefield.height - 1));
-		pathfinder.findRandomPath ();
-
 	}
 
 

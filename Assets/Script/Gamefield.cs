@@ -27,4 +27,11 @@ public class Gamefield {
 		return fields[row,column];
 	}
 
+	public int getFieldWidth(){
+		return width;
+	}
+
+	public int getFieldHeight(){
+		return height;
+	}
 }

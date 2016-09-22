@@ -22,13 +22,21 @@ public class PlayerController : MonoBehaviour {
 
 	AudioClip rotationSound = null;
 
+	int score;
 
+	Text scoreText;
 
 
 	// Use this for initialization
 	void Start () {
 		radius = sideLength * Mathf.Sqrt (2f) / 2f;
 		rotationSound = (AudioClip)Resources.Load("jump");
+
+		// score value
+		score = 0;
+		scoreText = GameObject.Find("scoreText").GetComponent<Text>();
+
+	
 	}
 
 	// Update is called once per frame
@@ -68,10 +76,10 @@ public class PlayerController : MonoBehaviour {
 			rotationTime = 0;															// 回転中の経過時間を0に。
 			isRotate = true;															// 回転中フラグをたてる。
 		}
+
+
 	}
-
-
-
+		
 	void FixedUpdate() {
 
 		if (isRotate) {
@@ -109,8 +117,12 @@ public class PlayerController : MonoBehaviour {
 			Vector2 platePos = Gameplay.player.getGamePosition ();//dazu gehe ich in unser Gameplay->Player->getGamePosition
 			if (Gameplay.pathfinder.path.Contains (platePos)) {
 				Gameplay.gamefield.getField ((int)platePos.x, (int)platePos.y).setColor (Color.green);
+				AudioSource.PlayClipAtPoint (rotationSound, transform.position, 10f);
+				score = score + 1;
+				displayScore ();
 			} else {
 				Gameplay.gamefield.getField ((int)platePos.x, (int)platePos.y).setColor (Color.red);
+
 			}
 
 
@@ -127,7 +139,7 @@ public class PlayerController : MonoBehaviour {
 
 
 	void OnCollisionExit(Collision collisionInfo) {
-		collisionInfo.gameObject.GetComponent<Renderer> ().material.color = Color.black;
+		//collisionInfo.gameObject.GetComponent<Renderer> ().material.color = Color.black;
 	}
 
 
@@ -146,5 +158,10 @@ public class PlayerController : MonoBehaviour {
 				return true;
 		}
 		return false;
+	}
+
+	public void displayScore(){
+		scoreText.text = "Score: " + score.ToString ();
+
 	}
 }

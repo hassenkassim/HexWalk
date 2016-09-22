@@ -1,27 +1,15 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-<<<<<<< HEAD
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Pathfinder.cs">
-    <Files>
-      <File FileName="Assets/Script/PlayerController.cs" Line="23" Column="33" />
-      <File FileName="Assets/Script/TouchInput.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Player.cs" Line="14" Column="2" />
-      <File FileName="Assets/Script/Field.cs" Line="14" Column="23" />
-      <File FileName="Assets/Script/MenuManager.cs" Line="21" Column="3" />
-      <File FileName="Assets/Script/Gamefield.cs" Line="27" Column="1" />
-      <File FileName="Assets/Script/Pathfinder.cs" Line="51" Column="4" />
-      <File FileName="Assets/Script/Gameplay.cs" Line="123" Column="26" />
-=======
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Gameplay.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/PlayerController.cs">
     <Files>
       <File FileName="Assets/Script/CameraPosition.cs" Line="13" Column="16" />
       <File FileName="Assets/Script/Gamefield.cs" Line="21" Column="17" />
-      <File FileName="Assets/Script/Pathfinder.cs" Line="11" Column="2" />
-      <File FileName="Assets/Script/Field.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Gameplay.cs" Line="70" Column="2" />
-      <File FileName="Assets/Script/Player.cs" Line="12" Column="9" />
-      <File FileName="Assets/Script/PlayerController.cs" Line="110" Column="31" />
->>>>>>> 36257fab7e550eaccbaf74d20d4eb039ed7a7321
+      <File FileName="Assets/Script/Pathfinder.cs" Line="29" Column="16" />
+      <File FileName="Assets/Script/Field.cs" Line="13" Column="21" />
+      <File FileName="Assets/Script/Gameplay.cs" Line="39" Column="25" />
+      <File FileName="Assets/Script/Player.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/PlayerController.cs" Line="107" Column="21" />
+      <File FileName="Assets/Script/Timer.cs" Line="24" Column="17" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

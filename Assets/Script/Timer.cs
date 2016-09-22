@@ -3,7 +3,8 @@ using System.Collections;
 
 public class Timer : MonoBehaviour {
 
-	public float timer = 6;
+	public float timer = 2;
+	bool pathHided = false;
 
 	// Use this for initialization
 	void Start () {
@@ -31,10 +32,23 @@ public class Timer : MonoBehaviour {
 		} else {
 			if (timer > -3) {
 				GUI.Label (new Rect (300, 80, 250, 50), "Let's go!!!", myStyle);
+				if (pathHided == false) {
+					hidePath ();
+				}
 			}
 		}
+	}
 
-
+	void hidePath(){
+		int a = Gameplay.gamefield.getFieldWidth();
+		int b = Gameplay.gamefield.getFieldHeight();
+		for (int i = 1; i <= a; i++) {
+			for (int j = 1; j <= b; j++){
+				Gameplay.gamefield.getField (i - 1, j - 1).setColor (Color.white);
+			}
+				
+		}
+		pathHided = true;
 	}
 }
 

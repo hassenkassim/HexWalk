@@ -62,7 +62,7 @@ public class Gameplay : MonoBehaviour {
 		}
 
 		// Call Pathfinder constructor
-		pathfinder = new Pathfinder (new Vector2 (0, 0), new Vector2 (0, Gameplay.gamefield.height - 1));
+		pathfinder = new Pathfinder ();
 	}
 
 

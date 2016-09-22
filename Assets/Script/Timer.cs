@@ -40,14 +40,23 @@ public class Timer : MonoBehaviour {
 	}
 
 	void hidePath(){
-		int a = Gameplay.gamefield.getFieldWidth() - 1;
+
+		if (Gameplay.pathfinder.path != null) {
+			for (int i = 0; i < Gameplay.pathfinder.path.Count-1; i++) {
+				Gameplay.gamefield.getField ((int)Gameplay.pathfinder.path[i].x, (int)Gameplay.pathfinder.path[i].y).setColor(Color.white);
+			}
+		}
+
+
+		/*int a = Gameplay.gamefield.getFieldWidth() - 1;
 		int b = Gameplay.gamefield.getFieldHeight() - 1;
 		for (int i = 0; i <= a; i++) {
 			for (int j = 0; j <= b; j++){
+				
 				Gameplay.gamefield.getField (i, j).setColor (Color.white);
 			}
 				
-		}
+		}*/
 		pathHided = true;
 	}
 }

@@ -12,12 +12,16 @@ public class Pathfinder {
 	public Vector2 start;
 	public Vector2 end;
 
-	public Pathfinder(Vector2 start, Vector2 end){
+	public Pathfinder(){
 		if (Gameplay.gamefield != null) {
+			this.start = new Vector2(Random.Range(0, Gameplay.gamefield.width-1), 0);
+			this.end = new Vector2(Random.Range(0, Gameplay.gamefield.width-1), Gameplay.gamefield.height-1);
 			path = new List<Vector2> ();
-			this.start = start;
-			this.end = end;
 			findRandomPath ();
+			Gameplay.gamefield.getField ((int)end.x, (int)end.y).setColor (Color.blue);
+			if (Gameplay.player != null) {
+				Gameplay.player.setPositionByGamePosition (start);
+			}
 		} else {
 			Debug.Log ("No Gamefield, can't find any paths without a Gamefield!");
 		}
@@ -29,7 +33,6 @@ public class Pathfinder {
 		while(!tmp.Equals(end)){
 			//find possible next steps
 			List<Vector2> possibleSteps = getNextPossibleSteps(tmp);
-
 
 			if (possibleSteps.Count == 0) {
 				Debug.Log ("No next Step possible! Abort!");
@@ -44,6 +47,7 @@ public class Pathfinder {
 			Gameplay.gamefield.getField ((int)possibleSteps [i].x, (int)possibleSteps [i].y).setColor (Color.yellow);
 			tmp = possibleSteps [i];
 		}
+		Debug.Log ("RandomPath generated successfully!");
 	}
 		
 
@@ -56,6 +60,16 @@ public class Pathfinder {
 	 * */
 	private List<Vector2> getNextPossibleSteps(Vector2 current){
 		List<Vector2> nextSteps = new List<Vector2> ();
+
+		//Player is on the last row, it should only be able to go to end, not the other way round
+		if (current.y == Gameplay.gamefield.height - 1) {
+			//compare x value of CURRENT and END field
+			if (current.x < end.x) {
+				nextSteps.Add (new Vector2(current.x+1,current.y));
+				return nextSteps;
+			}
+		}
+
 
 		if (current.x < Gameplay.gamefield.width-1) {
 			Vector2 tmp = new Vector2 (current.x + 1, current.y);

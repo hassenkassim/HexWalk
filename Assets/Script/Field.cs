@@ -32,6 +32,10 @@ public class Field {
 		field.transform.position = new Vector3 (x, 1, y);
 	}
 
+	public Transform getTransform(){
+		return field.transform;
+	}
+
 
 
 }

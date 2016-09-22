@@ -55,6 +55,12 @@ public class Player {
 		playerobj.transform.position = pos;
 	}
 
+	//sets actual transform position by coordinates
+	public void setPositionByGamePosition(Vector2 pos){
+		playerobj.transform.position = new Vector3(pos.x, 3, pos.y);
+		setGamePosition (pos);
+	}
+
 	public void setGamePosition(Vector2 pos){
 		gamePosition = pos;
 	}

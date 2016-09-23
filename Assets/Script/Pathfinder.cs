@@ -65,8 +65,9 @@ public class Pathfinder {
 		if (current.y == Gameplay.gamefield.height - 1) {
 			//compare x value of CURRENT and END field
 			if (current.x < end.x) {
-				nextSteps.Add (new Vector2(current.x+1,current.y));
-				return nextSteps;
+				nextSteps.Add (new Vector2 (current.x + 1, current.y));
+			} else {
+				nextSteps.Add (new Vector2 (current.x - 1, current.y));
 			}
 		}
 

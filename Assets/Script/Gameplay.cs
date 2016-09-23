@@ -41,7 +41,7 @@ public class Gameplay : MonoBehaviour {
 		player.setColor (Color.cyan);
 
 		//Create Gamefield
-		gamefield = new Gamefield (6, 12);
+		gamefield = new Gamefield (5, 7);
 
 		//Setup Camera
 		cam = Camera.main;

@@ -39,7 +39,7 @@ public class GameplayController : MonoBehaviour {
 			txt = "Ready?";
 			if (timer1 < 0) {
 				showID = SHOWREMAIN;
-				timer1 = 5;
+				timer1 = 10;
 			}
 			break;
 		case SHOWREMAIN:

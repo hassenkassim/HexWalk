@@ -13,6 +13,7 @@ public class Pathfinder {
 	public Vector2 end;
 	public bool coloring;
 	public bool coloringWhite;
+	public int pointer;
 
 	public Pathfinder(){
 		if (Gameplay.gamefield != null) {
@@ -24,6 +25,7 @@ public class Pathfinder {
 			if (Gameplay.player != null) {
 				Gameplay.player.setPositionByGamePosition (start);
 			}
+			pointer = 0;
 		} else {
 			Debug.Log ("No Gamefield, can't find any paths without a Gamefield!");
 		}

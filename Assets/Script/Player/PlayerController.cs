@@ -116,13 +116,22 @@ public class PlayerController : MonoBehaviour {
 			//Alles was ich brauche bekomme ich durch unsere Gameplay Klasse. Egal was ich brauche, ich gehe zuerst ins Gameplay rein, dann entweder Gamefield, 
 			//oder Player oder Path, je nachdem was ich brauche und dann rufe ich den jeweiligen Getter auf!
 			Vector2 platePos = Gameplay.player.getGamePosition ();//dazu gehe ich in unser Gameplay->Player->getGamePosition
-			if (Gameplay.pathfinder.path.Contains (platePos)) {
-				Gameplay.gamefield.getField ((int)platePos.x, (int)platePos.y).setColor (Color.green);
+			Field field = Gameplay.gamefield.getField((int)platePos.x, (int) platePos.y);
+			int pointer = Gameplay.pathfinder.pointer;
+			if(field.getColor().Equals(Color.green)) return;
+			if (field.getColor ().Equals (Color.blue)) {
+				Gameplay.pathfinder.pointer = -1;
+				print ("WON!");
+			}
+			if (Gameplay.pathfinder.path[pointer].Equals(platePos)) {
+				Gameplay.pathfinder.pointer++;
+				field.setColor (Color.green);
 				AudioSource.PlayClipAtPoint (rotationSound, transform.position, 10f);
 				score = score + 1;
 				displayScore ();
 			} else {
-				Gameplay.gamefield.getField ((int)platePos.x, (int)platePos.y).setColor (Color.red);
+				field.setColor (Color.red);
+				print ("GAMEOVER!");
 				//SceneManager.LoadScene ("GameOverScene");
 			}
 

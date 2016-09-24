@@ -36,6 +36,10 @@ public class Field {
 		return field.transform;
 	}
 
+	public Color getColor(){
+		return field.GetComponent<MeshRenderer> ().material.color;
+	}
+
 
 
 }

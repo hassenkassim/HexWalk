@@ -107,7 +107,6 @@ public class CameraPosition : MonoBehaviour {
 		}
 
 		Debug.Log ("Camera 2 reached!");
-		Gameplay.pathfinder.hidePath ();
 
 		changing = false;
 		follow = true;

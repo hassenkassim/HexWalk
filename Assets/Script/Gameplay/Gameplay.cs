@@ -23,6 +23,8 @@ public class Gameplay : MonoBehaviour {
 	public static Camera cam;
 	public static Gamefield gamefield;
 	public static Pathfinder pathfinder;
+	public static GameObject Eventsystem;
+
 
 	// Buttons
 	public GameObject pauseBtn;
@@ -35,6 +37,8 @@ public class Gameplay : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		Eventsystem = GameObject.Find("EventSystem");
 
 		//Create Player
 		player = new Player();

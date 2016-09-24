@@ -10,6 +10,7 @@ public class GameplayController : MonoBehaviour {
 	const int SHOWREADY = 0;
 	const int SHOWREMAIN = 1;
 	const int SHOWNOTHING = 2;
+	const int SHOWNOTHING2 = 3;
 	int showID;
 
 	public float timer1;
@@ -47,14 +48,17 @@ public class GameplayController : MonoBehaviour {
 				Gameplay.pathfinder.coloring = true;
 			if (timer1 < 0) {
 				showID = SHOWNOTHING;
-				Gameplay.pathfinder.hidePath ();
 				Gameplay.cam.GetComponent<CameraPosition> ().startTransition ();
 			}
 			break;
 		case SHOWNOTHING:
-			if (Gameplay.pathfinder != null)
+			if (Gameplay.pathfinder != null) {
 				Gameplay.pathfinder.coloringWhite = true;
+				showID = SHOWNOTHING2;
+			}
 			txt = "";
+			break;
+		case SHOWNOTHING2:
 			break;
 		}
 

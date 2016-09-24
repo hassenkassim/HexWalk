@@ -90,13 +90,14 @@ public class Pathfinder {
 		return nextSteps;
 	}
 
-	public void hidePath(){
-		if (path != null) {
-			for (int i = 0; i < path.Count-1; i++) {
-				Gameplay.gamefield.getField ((int)path[i].x, (int)path[i].y).setColor(Color.white);
-			}
-		}
+
+	public IEnumerator paintField(Color col, float timetowait, int i){
+		yield return new WaitForSeconds (timetowait);
+		Gameplay.gamefield.getField ((int)path [i].x, (int)path [i].y).setColor (col);
+		yield break;
 	}
+
+
 
 
 

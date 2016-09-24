@@ -50,12 +50,13 @@
      <Compile Include="Assets\Script\GameOver.cs" />
      <Compile Include="Assets\Script\Gamefield.cs" />
      <Compile Include="Assets\Script\Gameplay.cs" />
+     <Compile Include="Assets\Script\GameplayController.cs" />
      <Compile Include="Assets\Script\InputHandler.cs" />
      <Compile Include="Assets\Script\MenuManager.cs" />
      <Compile Include="Assets\Script\Pathfinder.cs" />
+     <Compile Include="Assets\Script\PathfinderController.cs" />
      <Compile Include="Assets\Script\Player.cs" />
      <Compile Include="Assets\Script\PlayerController.cs" />
-     <Compile Include="Assets\Script\Timer.cs" />
      <Compile Include="Assets\Script\TouchInput.cs" />
  <Reference Include="UnityEngine.Networking">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>

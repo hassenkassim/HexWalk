@@ -41,11 +41,7 @@ public class Gameplay : MonoBehaviour {
 		player.setColor (Color.cyan);
 
 		//Create Gamefield
-		gamefield = new Gamefield (5, 7);
-
-		//Setup Camera
-		cam = Camera.main;
-		cam.gameObject.AddComponent <CameraPosition>();
+		gamefield = new Gamefield (5, 10);
 
 		//Setup Button
 		soundOffBtn.gameObject.SetActive (false);
@@ -63,6 +59,10 @@ public class Gameplay : MonoBehaviour {
 
 		// Call Pathfinder constructor
 		pathfinder = new Pathfinder ();
+
+		//Setup Camera
+		cam = Camera.main;
+		cam.gameObject.AddComponent <CameraPosition>();
 	}
 
 

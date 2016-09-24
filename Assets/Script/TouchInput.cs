@@ -17,7 +17,6 @@ public class TouchInput : MonoBehaviour {
 
 			Gameplay.player.changeColorRandom();
 
-
 			touchesOld = new GameObject[touchList.Count];
 			touchList.CopyTo (touchesOld);
 			touchList.Clear ();

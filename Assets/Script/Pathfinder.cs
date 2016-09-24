@@ -11,6 +11,8 @@ public class Pathfinder {
 	public List<Vector2> path;
 	public Vector2 start;
 	public Vector2 end;
+	public bool coloring;
+	public bool coloringWhite;
 
 	public Pathfinder(){
 		if (Gameplay.gamefield != null) {
@@ -44,7 +46,7 @@ public class Pathfinder {
 			path.Add (possibleSteps [i]);
 			Debug.Log ("x: " + (int)possibleSteps [i].x + "  y: " + (int)possibleSteps [i].y);
 
-			Gameplay.gamefield.getField ((int)possibleSteps [i].x, (int)possibleSteps [i].y).setColor (Color.yellow);
+			//Gameplay.gamefield.getField ((int)possibleSteps [i].x, (int)possibleSteps [i].y).setColor (Color.yellow);
 			tmp = possibleSteps [i];
 		}
 		Debug.Log ("RandomPath generated successfully!");
@@ -88,6 +90,13 @@ public class Pathfinder {
 		return nextSteps;
 	}
 
+	public void hidePath(){
+		if (path != null) {
+			for (int i = 0; i < path.Count-1; i++) {
+				Gameplay.gamefield.getField ((int)path[i].x, (int)path[i].y).setColor(Color.white);
+			}
+		}
+	}
 
 
 

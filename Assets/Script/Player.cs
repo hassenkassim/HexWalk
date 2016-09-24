@@ -66,7 +66,7 @@ public class Player {
 	}
 
 	public void setRotation(Vector3 rot){
-		playerobj.transform.rotation = Quaternion.Euler(rot.x, rot.y, rot.z);;
+		playerobj.transform.rotation = Quaternion.Euler(rot.x, rot.y, rot.z);
 	}
 
 	public void setScale(Vector3 scale){
@@ -96,6 +96,10 @@ public class Player {
 		
 	public Color getColor(){
 		return playerobj.GetComponent<MeshRenderer> ().material.color;
+	}
+
+	public Transform getTransform(){
+		return playerobj.transform;
 	}
 
 }

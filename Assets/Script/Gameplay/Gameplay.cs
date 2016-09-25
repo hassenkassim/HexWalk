@@ -35,6 +35,14 @@ public class Gameplay : MonoBehaviour {
 	public GameObject mainMenuBtn;
 	public GameObject exitBtn;
 
+
+	//Gameover Canvas
+	public Canvas gameOverCanvas;
+	public Text highscoreText;
+	public Text scoreText;
+	public PlayerController playerController;
+
+
 	// Use this for initialization
 	void Start () {
 
@@ -67,6 +75,10 @@ public class Gameplay : MonoBehaviour {
 		//Setup Camera
 		cam = Camera.main;
 		cam.gameObject.AddComponent <CameraPosition>();
+
+		//Setup gameover Text
+		gameOverCanvas.enabled = false;
+
 	}
 
 
@@ -143,6 +155,11 @@ public class Gameplay : MonoBehaviour {
 		Application.Quit();
 	}
 
+	public void onGameOver(){
+		Time.timeScale = 0;
+		gameOverCanvas.enabled = true;
+		GameOver.displayGameover ();
+	}
 
 	// Method for boolean PlayerPrefs
 	public static void SetBool(string name, bool booleanValue) 
@@ -164,4 +181,6 @@ public class Gameplay : MonoBehaviour {
 
 		return defaultValue;
 	}
+
+
 }

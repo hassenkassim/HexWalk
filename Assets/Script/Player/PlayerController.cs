@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour {
 
 	AudioClip rotationSound = null;
 
-	int score;
+	static int score;
 
 	Text scoreText;
 
@@ -172,6 +172,9 @@ public class PlayerController : MonoBehaviour {
 
 	public void displayScore(){
 		scoreText.text = "Score: " + score.ToString ();
+	}
 
+	public static int getScore(){
+		return score;
 	}
 }

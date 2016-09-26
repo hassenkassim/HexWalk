@@ -18,20 +18,18 @@ public class Gameplay : MonoBehaviour {
 		 * 4. Spieler kann Player kontrollieren
 		 * */
 
-
-
 	public static Player player;
 	public static Camera cam;
 	public static Gamefield gamefield;
 	public static Pathfinder pathfinder;
 	public static GameObject Eventsystem;
-
 	public static GameObject pauseBtn;
-	public GameObject gameoverBtn;
 
 	// Use this for initialization
 	void Start () {
 
+		print("FieldWidth: " + PlayerPrefs.GetInt("gameFieldWidth"));
+		print("FieldHeight: " + PlayerPrefs.GetInt("gameFieldHeight"));
 		Eventsystem = GameObject.Find("EventSystem");
 
 		//Create Player
@@ -39,9 +37,9 @@ public class Gameplay : MonoBehaviour {
 		player.setColor (Color.cyan);
 
 		//Create Gamefield
-		gamefield = new Gamefield (5, 10);
 
-
+		gamefield = new Gamefield (PlayerPrefs.GetInt("gameFieldWidth"), PlayerPrefs.GetInt("gameFieldHeight"));
+		//gamefield = new Gamefield (4, 5);
 
 		// Call Pathfinder constructor
 		pathfinder = new Pathfinder ();
@@ -52,7 +50,8 @@ public class Gameplay : MonoBehaviour {
 
 		//Setup Button
 		pauseBtn = GameObject.Find("PauseButton");
-		gameoverBtn = GameObject.Find ("GameOverButton");
+
+		Time.timeScale = 1;
 
 	}
 

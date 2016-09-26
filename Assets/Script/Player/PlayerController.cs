@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+
 
 
 /*
@@ -119,9 +119,12 @@ public class PlayerController : MonoBehaviour {
 			int pointer = Gameplay.pathfinder.pointer;
 			if(field.getColor().Equals(Color.green)) return;
 			if (field.getColor ().Equals (Color.blue)) {
-				Gameplay.pathfinder.pointer = -1;
+				Gameplay.pathfinder.pointer = - 1;
 				print ("WON!");
+				LevelManager.levelUp ();
+
 			}
+
 			if (Gameplay.pathfinder.path[pointer].Equals(platePos)) {
 				Gameplay.pathfinder.pointer++;
 				field.setColor (Color.green);
@@ -132,6 +135,7 @@ public class PlayerController : MonoBehaviour {
 				field.setColor (Color.red);
 				print ("GAMEOVER!");
 				GameOver.displayGameover ();
+
 			}
 
 

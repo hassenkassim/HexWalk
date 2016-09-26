@@ -53,6 +53,8 @@
      <Compile Include="Assets\Script\Gameplay\GameplayController.cs" />
      <Compile Include="Assets\Script\Input\InputHandler.cs" />
      <Compile Include="Assets\Script\Input\TouchInput.cs" />
+     <Compile Include="Assets\Script\Joker.cs" />
+     <Compile Include="Assets\Script\LevelManager.cs" />
      <Compile Include="Assets\Script\MenuManager.cs" />
      <Compile Include="Assets\Script\Path\Pathfinder.cs" />
      <Compile Include="Assets\Script\Path\PathfinderController.cs" />

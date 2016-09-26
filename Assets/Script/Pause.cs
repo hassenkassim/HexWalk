@@ -5,14 +5,12 @@ using UnityEngine.SceneManagement;
 public class Pause : MonoBehaviour {
 
 	// Buttons
-
 	public GameObject soundOnBtn;
 	public GameObject soundOffBtn;
 	public GameObject continueBtn;
 	public GameObject restartBtn;
 	public GameObject mainMenuBtn;
 	public GameObject exitBtn;
-	public GameObject gameoverBtn;
 
 	public Canvas pauseCanvas;
 
@@ -90,6 +88,7 @@ public class Pause : MonoBehaviour {
 
 	public void onMainMenu(){
 		Time.timeScale = 1;
+		LevelManager.levelReset ();
 		SceneManager.LoadScene ("MenuScene");
 	}
 
@@ -112,13 +111,6 @@ public class Pause : MonoBehaviour {
 
 	public void onExit(){
 		Application.Quit();
-	}
-
-
-	// GameOver Screen, to delete after Tests
-	public void gameOver(){
-		GameOver.displayGameover ();
-
 	}
 
 

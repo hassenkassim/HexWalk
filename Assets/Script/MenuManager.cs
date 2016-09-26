@@ -15,8 +15,7 @@ public class MenuManager : MonoBehaviour {
 	public bool soundIsOn = true;
 
 
-	//INITIAL FUNCTION
-	//INITIAL FUNCTION
+	//Initial function
 	void Awake(){
 
 
@@ -40,13 +39,8 @@ public class MenuManager : MonoBehaviour {
 			
 
 	}
-	//INITIAL FUNCTION
-	//INITIAL FUNCTION
 
-
-
-	//BUTTON FUNCTION
-	//BUTTON FUNCTION
+	//Button function
 	public void onStartGame()
 	{
 		SceneManager.LoadScene ("GameScene");
@@ -65,8 +59,7 @@ public class MenuManager : MonoBehaviour {
 
 	public void onShare()
 	{
-		int score = 1;
-		IntentShareText ("This game is awesome! I scored" + score.ToString() + ". Get the game from play store: balblaLink!");
+		Share.IntentShareText ("This game is awesome! Get the game from play store: balblaLink!");
 	}
 		
 	public void onLeaderboard()
@@ -113,59 +106,8 @@ public class MenuManager : MonoBehaviour {
 
 		AudioListener.pause = false;
 	}
-	//BUTTON FUNCTION
-	//BUTTON FUNCTION
 
-
-	// SHARE FUNCTION (for ANDROID!!!!!)
-	// SHARE FUNCTION (for ANDROID!!!!!)
-	static AndroidJavaClass IntentClass;
-	static AndroidJavaObject sendIntent;
-	static AndroidJavaClass UnityPlayer;
-	static AndroidJavaObject currentActivity;
-
-
-	static bool IsInitialized = false;
-
-	static void Initialize(){
-		if (IsInitialized)
-			return;
-		IsInitialized = true;
-
-		string className = "android.content.Intent";
-		IntentClass = new AndroidJavaClass (className);
-		sendIntent = new AndroidJavaObject (className);
-
-		UnityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer"); 
-		// jni.FindClass("com.unity3d.player.UnityPlayer"); 
-		currentActivity = UnityPlayer.GetStatic<AndroidJavaObject>("currentActivity"); 
-	}
-
-	public static void IntentShareText(string text){
-
-		if (Application.platform != RuntimePlatform.Android)
-			return;
-		
-		//#if UNITY_ANDROID
-
-
-		if (!IsInitialized)
-			Initialize ();
-
-		sendIntent.Call<AndroidJavaObject> ("setAction", IntentClass.GetStatic<string> ("ACTION_SEND"));
-		sendIntent.Call<AndroidJavaObject> ("putExtra", IntentClass.GetStatic<string> ("EXTRA_TEXT"), text);
-		sendIntent.Call<AndroidJavaObject> ("setType", "text/plain");
-
-
-		currentActivity.Call("startActivity", sendIntent);
-	}
-	// SHARE FUNCTION (FOR ANDROID!!!!!)
-	// SHARE FUNCTION (FOR ANDROID!!!!!)
-
-
-
-	// BOOLEAN FOR PLAYERPREFS
-	// BOOLEAN FOR PLAYERPREFS
+	// Boolean for PlayerPrefs
 	public static void SetBool(string name, bool booleanValue) 
 	{
 		PlayerPrefs.SetInt(name, booleanValue ? 1 : 0);
@@ -185,13 +127,8 @@ public class MenuManager : MonoBehaviour {
 
 			return defaultValue;
 	}
-	// BOOLEAN FOR PLAYERPREFS
-	// BOOLEAN FOR PLAYERPREFS
 
-
-
-	//LEADERBOARD FUNCTION
-	//LEADERBOARD FUNCTION
+	//Leaderboard function
 	ILeaderboard m_Leaderboard;
 
 	void DoLeaderboard () {
@@ -205,6 +142,5 @@ public class MenuManager : MonoBehaviour {
 		foreach (IScore score in m_Leaderboard.scores)
 			Debug.Log(score);
 	}
-	//LEADERBOARD FUNCTION
-	//LEADERBOARD FUNCTION
+
 }

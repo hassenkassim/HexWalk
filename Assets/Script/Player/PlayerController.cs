@@ -36,7 +36,6 @@ public class PlayerController : MonoBehaviour {
 		// score value
 		score = 0;
 		scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
-
 	
 	}
 
@@ -132,7 +131,7 @@ public class PlayerController : MonoBehaviour {
 			} else {
 				field.setColor (Color.red);
 				print ("GAMEOVER!");
-				//SceneManager.LoadScene ("GameOverScene");
+				GameOver.displayGameover ();
 			}
 
 

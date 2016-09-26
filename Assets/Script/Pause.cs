@@ -83,6 +83,7 @@ public class Pause : MonoBehaviour {
 
 	public void onRestart(){
 		Time.timeScale = 1;
+		LevelManager.levelReset ();
 		SceneManager.LoadScene ("GameScene");
 	}
 

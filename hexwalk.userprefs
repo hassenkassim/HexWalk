@@ -2,6 +2,7 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Gameplay/Gameplay.cs">
     <Files>
+<<<<<<< HEAD
       <File FileName="Assets/Script/Path/PathfinderController.cs" Line="30" Column="2" />
       <File FileName="Assets/Script/Gameplay/GameplayController.cs" Line="47" Column="36" />
       <File FileName="Assets/Script/Gameplay/Gameplay.cs" Line="50" Column="17" />
@@ -11,6 +12,13 @@
       <File FileName="Assets/Script/Player/PlayerController.cs" Line="129" Column="51" />
       <File FileName="Assets/Script/Gamefield/Field.cs" Line="39" Column="24" />
       <File FileName="Assets/Script/Gamefield/Gamefield.cs" Line="1" Column="1" />
+=======
+      <File FileName="Assets/Script/GameOver.cs" Line="58" Column="3" />
+      <File FileName="Assets/Script/Player/PlayerController.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Gameplay/Gameplay.cs" Line="65" Column="21" />
+      <File FileName="Assets/Script/LevelManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Pause.cs" Line="1" Column="1" />
+>>>>>>> 8ab2c9b98816ecd359767453cbaf1ae44d9cc799
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

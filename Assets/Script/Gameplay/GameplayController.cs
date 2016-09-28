@@ -27,7 +27,7 @@ public class GameplayController : MonoBehaviour {
 		myStyle.fontSize = 32;
 
 		//setup all timer here
-		timer1 = 3;
+		timer1 = 2;
 		showID = SHOWREADY;
 
 	}
@@ -39,7 +39,7 @@ public class GameplayController : MonoBehaviour {
 			txt = "Ready?";
 			if (timer1 < 0) {
 				showID = SHOWREMAIN;
-				timer1 = 10;
+				timer1 = 2;
 			}
 			break;
 		case SHOWREMAIN:

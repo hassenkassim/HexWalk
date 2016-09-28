@@ -55,5 +55,5 @@ public class GameOver : MonoBehaviour {
 		Share.IntentShareText ("This game is awesome! " + PlayerController.getScore ().ToString() + ". Get the game from play store: balblaLink!");
 		
 	}
-			
+		
 }

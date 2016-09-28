@@ -48,6 +48,8 @@ public class Gameplay : MonoBehaviour {
 		cam = Camera.main;
 		cam.gameObject.AddComponent <CameraPosition>();
 
+
+
 		//Setup Button
 		pauseBtn = GameObject.Find("PauseButton");
 

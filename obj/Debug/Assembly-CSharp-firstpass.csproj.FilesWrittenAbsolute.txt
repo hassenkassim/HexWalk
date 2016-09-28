@@ -1,0 +1,17 @@
+/Users/tolgaguzay/Desktop/Business/hexwalk/Temp/bin/Debug/Assembly-CSharp-firstpass.dll.mdb
+/Users/tolgaguzay/Desktop/Business/hexwalk/Temp/bin/Debug/Assembly-CSharp-firstpass.dll
+/Users/tolgaguzay/Desktop/Business/hexwalk/obj/Debug/Assembly-CSharp-firstpass.dll
+/Users/tolgaguzay/Desktop/Business/hexwalk/obj/Debug/Assembly-CSharp-firstpass.dll.mdb
+/Users/tolgaguzay/Desktop/Business/hexwalk/Temp/bin/Debug/UnityEngine.dll
+/Users/tolgaguzay/Desktop/Business/hexwalk/Temp/bin/Debug/UnityEditor.dll
+/Users/tolgaguzay/Desktop/Business/hexwalk/Temp/bin/Debug/UnityEngine.Networking.dll
+/Users/tolgaguzay/Desktop/Business/hexwalk/Temp/bin/Debug/UnityEngine.UI.dll
+/Users/tolgaguzay/Desktop/Business/hexwalk/Temp/bin/Debug/Mono.Cecil.dll
+/Users/tolgaguzay/Desktop/Business/hexwalk/Temp/bin/Debug/Unity.SerializationLogic.dll
+/Users/tolgaguzay/Desktop/Business/hexwalk/Temp/bin/Debug/Unity.DataContract.dll
+/Users/tolgaguzay/Desktop/Business/hexwalk/Temp/bin/Debug/ICSharpCode.NRefactory.dll
+/Users/tolgaguzay/Desktop/Business/hexwalk/Temp/bin/Debug/Unity.UNetWeaver.dll
+/Users/tolgaguzay/Desktop/Business/hexwalk/Temp/bin/Debug/Unity.UNetWeaver.dll.mdb
+/Users/tolgaguzay/Desktop/Business/hexwalk/Temp/bin/Debug/Unity.CecilTools.dll
+/Users/tolgaguzay/Desktop/Business/hexwalk/Temp/bin/Debug/Mono.Cecil.Pdb.dll
+/Users/tolgaguzay/Desktop/Business/hexwalk/Temp/bin/Debug/Mono.Cecil.Mdb.dll

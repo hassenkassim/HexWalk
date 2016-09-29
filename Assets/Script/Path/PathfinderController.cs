@@ -12,16 +12,22 @@ public class PathfinderController : MonoBehaviour {
 	void Update () {
 		if (Gameplay.pathfinder != null && Gameplay.pathfinder.coloring == true) {
 			Gameplay.pathfinder.coloring = false;
-			paintPath (Color.yellow, 0.1f);
+			paintColorPath (0.1f);
 		} else if (Gameplay.pathfinder != null && Gameplay.pathfinder.coloringWhite == true) {
 			Gameplay.pathfinder.coloringWhite = false;
-			paintPath (Color.white, 0.1f);
+			paintWhitePath (0.1f);
 		}
 	}
 
-	public void paintPath(Color col, float timebetweenfields){
+	public void paintWhitePath(float timebetweenfields){
+		for (int i = 1; i < Gameplay.pathfinder.path.Count-1; i++) {
+			StartCoroutine(Gameplay.pathfinder.paintField(Color.white,i*timebetweenfields,i));
+		}
+	}
+
+	public void paintColorPath(float timebetweenfields){
 		for (int i = 0; i < Gameplay.pathfinder.path.Count-1; i++) {
-			StartCoroutine(Gameplay.pathfinder.paintField(col,i*timebetweenfields,i));
+			StartCoroutine(Gameplay.pathfinder.paintField(Gameplay.pathfinder.pathcolor[i],i*timebetweenfields,i));
 		}
 	}
 

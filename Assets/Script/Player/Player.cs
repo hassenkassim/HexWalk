@@ -11,6 +11,7 @@ public class Player {
 
 	GameObject playerobj;
 	Vector2 gamePosition;
+	Color curColor;
 
 	public Player(){
 		playerobj = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -20,7 +21,8 @@ public class Player {
 		playerobj.transform.rotation = Quaternion.Euler(0, 0, 0);
 		setScale (new Vector3 (0.5f, 0.5f, 0.5f));
 		playerobj.tag = "Player";
-
+		curColor = Col.GRUEN;
+		setColor (curColor);
 		setGamePosition (new Vector2 (0, 0));
 
 		Rigidbody playerRigidBody = playerobj.AddComponent<Rigidbody>(); // Add the rigidbody
@@ -33,18 +35,7 @@ public class Player {
 
 	public void changeColorRandom(){
 		int i = Random.Range(0, 3);
-		switch(i){
-		case 0:
-			setColor (Color.blue);
-			break;
-		case 1:
-			setColor (Color.red);
-			break;
-		case 2:
-			setColor (Color.green);
-			break;
-		}
-			
+		setColor (Col.colors [i]);
 	}
 		
 	public void setName(string name){
@@ -75,6 +66,7 @@ public class Player {
 
 
 	public void setColor(Color col){
+		curColor = col;
 		playerobj.GetComponent<MeshRenderer> ().material.color = col;
 	}
 
@@ -95,7 +87,7 @@ public class Player {
 	}
 		
 	public Color getColor(){
-		return playerobj.GetComponent<MeshRenderer> ().material.color;
+		return curColor;
 	}
 
 	public Transform getTransform(){

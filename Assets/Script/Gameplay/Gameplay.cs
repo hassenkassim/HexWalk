@@ -25,8 +25,11 @@ public class Gameplay : MonoBehaviour {
 	public static GameObject Eventsystem;
 	public static GameObject pauseBtn;
 
+	public static int gamestate;
+
 	// Use this for initialization
 	void Start () {
+		gamestate = 0;
 
 		print("FieldWidth: " + PlayerPrefs.GetInt("gameFieldWidth"));
 		print("FieldHeight: " + PlayerPrefs.GetInt("gameFieldHeight"));
@@ -34,7 +37,6 @@ public class Gameplay : MonoBehaviour {
 
 		//Create Player
 		player = new Player();
-		player.setColor (Color.cyan);
 
 		//Create Gamefield
 
@@ -42,7 +44,7 @@ public class Gameplay : MonoBehaviour {
 		//gamefield = new Gamefield (4, 5);
 
 		// Call Pathfinder constructor
-		pathfinder = new Pathfinder ();
+		pathfinder = new Pathfinder (2);
 
 		//Setup Camera
 		cam = Camera.main;

@@ -9,17 +9,26 @@ using System.Collections.Generic;
 public class Pathfinder {
 
 	public List<Vector2> path;
+	public List<Color> pathcolor;
 	public Vector2 start;
+	public Color startColor;
 	public Vector2 end;
+	public Color endColor;
 	public bool coloring;
 	public bool coloringWhite;
+	public int colorCount;
 	public int pointer;
 
-	public Pathfinder(){
+	public Pathfinder(int colorCount){
 		if (Gameplay.gamefield != null) {
 			this.start = new Vector2(Random.Range(0, Gameplay.gamefield.width-1), 0);
+			this.startColor = Color.green;
 			this.end = new Vector2(Random.Range(0, Gameplay.gamefield.width-1), Gameplay.gamefield.height-1);
+			this.endColor = Color.black; //TODO: Finish Flag
+
+			this.colorCount = colorCount;
 			path = new List<Vector2> ();
+			pathcolor = new List<Color>();
 			findRandomPath ();
 			Gameplay.gamefield.getField ((int)end.x, (int)end.y).setColor (Color.blue);
 			if (Gameplay.player != null) {
@@ -34,6 +43,7 @@ public class Pathfinder {
 	public void findRandomPath(){
 		Vector2 tmp = start;
 		path.Add (start);
+		pathcolor.Add (Color.green);
 		while(!tmp.Equals(end)){
 			//find possible next steps
 			List<Vector2> possibleSteps = getNextPossibleSteps(tmp);
@@ -47,6 +57,9 @@ public class Pathfinder {
 			int i = Random.Range(0, possibleSteps.Count);
 			path.Add (possibleSteps [i]);
 			Debug.Log ("x: " + (int)possibleSteps [i].x + "  y: " + (int)possibleSteps [i].y);
+
+			int j = Random.Range(0, colorCount);
+			pathcolor.Add (Col.colors [j]);
 
 			//Gameplay.gamefield.getField ((int)possibleSteps [i].x, (int)possibleSteps [i].y).setColor (Color.yellow);
 			tmp = possibleSteps [i];

@@ -41,14 +41,50 @@ public class PlayerController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		if(Gameplay.gamestate == 0) return;
+
 
 		float x = 0;
 		float y = 0;
 
-		x = Input.GetAxisRaw ("Horizontal");
-		if (x == 0) {
-			y = Input.GetAxisRaw ("Vertical");
-		}
+
+
+		//
+		//TODO: Export this section to Input Manager!
+		//
+		#if UNITY_EDITOR
+			x = Input.GetAxisRaw ("Horizontal");
+			if (x == 0) {
+				y = Input.GetAxisRaw ("Vertical");
+			}
+		#endif
+
+		#if UNITY_ANDROID || UNITY_IPHONE
+
+		if (SwipeManager.IsSwipingLeft()) {
+			x = -1;
+		} else
+			if(SwipeManager.IsSwipingRight()) {
+				x = 1;
+			} else
+				if(SwipeManager.IsSwipingDown()) {
+					y = -1;
+				} else
+					if(SwipeManager.IsSwipingUp()) {
+						y = 1;
+					}else
+						if(Input.touchCount > 0){
+							
+							if (Input.touches[0].phase == TouchPhase.Ended) {
+								Gameplay.player.setColor (Col.nextColor (Gameplay.player.getColor ()));
+							}
+
+						}
+		#endif
+
+
+
+
 
 		//check if move is allowed
 		if (checkOutside (x,y)) {
@@ -76,7 +112,6 @@ public class PlayerController : MonoBehaviour {
 			rotationTime = 0;															// 回転中の経過時間を0に。
 			isRotate = true;															// 回転中フラグをたてる。
 		}
-
 
 	}
 		
@@ -125,9 +160,9 @@ public class PlayerController : MonoBehaviour {
 
 			}
 
-			if (Gameplay.pathfinder.path[pointer].Equals(platePos)) {
+			if (Gameplay.pathfinder.path[pointer].Equals(platePos) && Gameplay.player.getColor().Equals(Gameplay.pathfinder.pathcolor[pointer])) {
 				Gameplay.pathfinder.pointer++;
-				field.setColor (Color.green);
+				field.setColor (Gameplay.player.getColor());
 				AudioSource.PlayClipAtPoint (rotationSound, transform.position, 10f);
 				score = score + 1;
 				displayScore ();

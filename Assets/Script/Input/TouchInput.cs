@@ -13,9 +13,10 @@ public class TouchInput : MonoBehaviour {
 	void Update () {
 
 		#if UNITY_EDITOR
-		if (Input.GetMouseButton(0)||Input.GetMouseButtonDown(0) || Input.GetMouseButtonUp(0) ) {
+		if (Input.GetMouseButton (0) || Input.GetMouseButtonDown (0) || Input.GetMouseButtonUp (0)) {
 
-			Gameplay.player.changeColorRandom();
+			if (Input.GetMouseButtonUp (0))
+				Gameplay.player.setColor (Col.nextColor (Gameplay.player.getColor ()));
 
 			touchesOld = new GameObject[touchList.Count];
 			touchList.CopyTo (touchesOld);
@@ -28,13 +29,13 @@ public class TouchInput : MonoBehaviour {
 
 				touchList.Add (recipient);
 
-				if (Input.GetMouseButtonDown(0)) {
+				if (Input.GetMouseButtonDown (0)) {
 					recipient.SendMessage ("OnTouchDown", hit.point, SendMessageOptions.DontRequireReceiver);
 				}
-				if (Input.GetMouseButtonUp(0)) {
+				if (Input.GetMouseButtonUp (0)) {
 					recipient.SendMessage ("OnTouchUp", hit.point, SendMessageOptions.DontRequireReceiver);
 				}
-				if (Input.GetMouseButton(0)) {
+				if (Input.GetMouseButton (0)) {
 					recipient.SendMessage ("OnTouchStay", hit.point, SendMessageOptions.DontRequireReceiver);
 				}
 			}
@@ -47,39 +48,9 @@ public class TouchInput : MonoBehaviour {
 		}
 		#endif
 
-		if (Input.touchCount>0 ) {
+		#if UNITY_ANDROID || UNITY_IPHONE
 
-			touchesOld = new GameObject[touchList.Count];
-			touchList.CopyTo (touchesOld);
-			touchList.Clear ();
-			foreach (Touch touch in Input.touches){
-				
-				Ray ray = Camera.main.ScreenPointToRay (touch.position);
-
-				if (Physics.Raycast (ray, out hit, touchInputMask)) {
-					GameObject recipient = hit.transform.gameObject;
-
-					touchList.Add (recipient);
-
-					if (touch.phase == TouchPhase.Began) {
-						recipient.SendMessage ("OnTouchDown", hit.point, SendMessageOptions.DontRequireReceiver);
-					}
-					if (touch.phase == TouchPhase.Ended) {
-						recipient.SendMessage ("OnTouchUp", hit.point, SendMessageOptions.DontRequireReceiver);
-					}
-					if (touch.phase == TouchPhase.Stationary || touch.phase == TouchPhase.Moved) {
-						recipient.SendMessage ("OnTouchStay", hit.point, SendMessageOptions.DontRequireReceiver);
-					}
-					if (touch.phase == TouchPhase.Canceled) {
-						recipient.SendMessage ("OnTouchExit", hit.point, SendMessageOptions.DontRequireReceiver);
-					}
-				}
-			}
-			foreach (GameObject g in touchesOld) {
-				if (!touchList.Contains (g)) {
-					g.SendMessage ("OnTouchExit", hit.point, SendMessageOptions.DontRequireReceiver);
-				}
-			}
-		}
+			
+		#endif
 	}
 }

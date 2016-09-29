@@ -66,13 +66,14 @@ public class Pathfinder {
 		List<Vector2> nextSteps = new List<Vector2> ();
 
 		//Player is on the last row, it should only be able to go to end, not the other way round
-		if (current.y == Gameplay.gamefield.height - 1) {
+		if (((int)current.y) == Gameplay.gamefield.height - 1) {
 			//compare x value of CURRENT and END field
 			if (current.x < end.x) {
 				nextSteps.Add (new Vector2 (current.x + 1, current.y));
 			} else {
 				nextSteps.Add (new Vector2 (current.x - 1, current.y));
 			}
+			return nextSteps;
 		}
 
 

@@ -81,6 +81,7 @@
 -define:CROSS_PLATFORM_INPUT
 -define:MOBILE_INPUT
 'Assets/Script/Background/BackgroundColor.cs'
+'Assets/Script/Background/Starfield.cs'
 'Assets/Script/Camera/CameraPosition.cs'
 'Assets/Script/GameOver.cs'
 'Assets/Script/Gamefield/Field.cs'
@@ -98,6 +99,5 @@
 'Assets/Script/Player/Player.cs'
 'Assets/Script/Player/PlayerController.cs'
 'Assets/Script/Share.cs'
-'Assets/Script/Starfield.cs'
 -r:'/Applications/Unity/Unity.app/Contents/Frameworks/Mono/lib/mono/unity/System.Runtime.Serialization.dll'
 -r:'/Applications/Unity/Unity.app/Contents/Frameworks/Mono/lib/mono/unity/System.Xml.Linq.dll'

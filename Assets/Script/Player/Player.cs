@@ -1,4 +1,11 @@
-﻿using UnityEngine;
+﻿/************************************************
+ * HAMOTO Production 2016						*
+ * Project: HexWalk								*
+ * Authors: Tolga, Mohamed, Dursun, Hassen		*
+ * Year: 2016									*
+ *************************************************/
+
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -12,8 +19,9 @@ public class Player {
 	GameObject playerobj;
 	Vector2 gamePosition;
 	Color curColor;
+	int colorCount;
 
-	public Player(){
+	public Player(int colorCount){
 		playerobj = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		playerobj.name = "PlayerDynamic";
 		playerobj.AddComponent <PlayerController>();
@@ -21,8 +29,11 @@ public class Player {
 		playerobj.transform.rotation = Quaternion.Euler(0, 0, 0);
 		setScale (new Vector3 (0.5f, 0.5f, 0.5f));
 		playerobj.tag = "Player";
+
+		this.colorCount = colorCount;
 		curColor = Col.GRUEN;
 		setColor (curColor);
+
 		setGamePosition (new Vector2 (0, 0));
 
 		Rigidbody playerRigidBody = playerobj.AddComponent<Rigidbody>(); // Add the rigidbody
@@ -68,6 +79,11 @@ public class Player {
 	public void setColor(Color col){
 		curColor = col;
 		playerobj.GetComponent<MeshRenderer> ().material.color = col;
+	}
+
+	public void setNextColor(){
+		Color nextColor = Col.nextColor (getColor (), colorCount);
+		setColor (nextColor);
 	}
 
 	public Vector2 getGamePosition(){

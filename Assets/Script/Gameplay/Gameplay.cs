@@ -1,4 +1,11 @@
-﻿using UnityEngine;
+﻿/************************************************
+ * HAMOTO Production 2016						*
+ * Project: HexWalk								*
+ * Authors: Tolga, Mohamed, Dursun, Hassen		*
+ * Year: 2016									*
+ *************************************************/
+
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using UnityEngine.UI;
@@ -22,21 +29,22 @@ public class Gameplay : MonoBehaviour {
 	public static Camera cam;
 	public static Gamefield gamefield;
 	public static Pathfinder pathfinder;
-	public static GameObject Eventsystem;
 	public static GameObject pauseBtn;
 
-	public static int gamestate;
+	public static int gamestate; //In which state ist the Game, Important to block input until the game starts
+
+	public static int colorCount; // How many Colors should be in the game
 
 	// Use this for initialization
 	void Start () {
-		gamestate = 0;
+		gamestate = 0; //set the initial game state to 0: No Input allowed in this state
+		colorCount = 2;//set the count of colors in the game
 
 		print("FieldWidth: " + PlayerPrefs.GetInt("gameFieldWidth"));
 		print("FieldHeight: " + PlayerPrefs.GetInt("gameFieldHeight"));
-		Eventsystem = GameObject.Find("EventSystem");
 
 		//Create Player
-		player = new Player();
+		player = new Player(colorCount);
 
 		//Create Gamefield
 
@@ -44,7 +52,7 @@ public class Gameplay : MonoBehaviour {
 		//gamefield = new Gamefield (4, 5);
 
 		// Call Pathfinder constructor
-		pathfinder = new Pathfinder (2);
+		pathfinder = new Pathfinder (colorCount);
 
 		//Setup Camera
 		cam = Camera.main;
@@ -54,8 +62,6 @@ public class Gameplay : MonoBehaviour {
 
 		//Setup Button
 		pauseBtn = GameObject.Find("PauseButton");
-
-		Time.timeScale = 1;
 
 	}
 

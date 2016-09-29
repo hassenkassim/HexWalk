@@ -1,4 +1,11 @@
-﻿using UnityEngine;
+﻿/************************************************
+ * HAMOTO Production 2016						*
+ * Project: HexWalk								*
+ * Authors: Tolga, Mohamed, Dursun, Hassen		*
+ * Year: 2016									*
+ *************************************************/
+
+using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
@@ -41,7 +48,7 @@ public class PlayerController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if(Gameplay.gamestate == 0) return;
+		if(Gameplay.gamestate == 0) return; //Check if Game started
 
 
 		float x = 0;
@@ -52,37 +59,35 @@ public class PlayerController : MonoBehaviour {
 		//
 		//TODO: Export this section to Input Manager!
 		//
+
 		#if UNITY_EDITOR
-			x = Input.GetAxisRaw ("Horizontal");
-			if (x == 0) {
-				y = Input.GetAxisRaw ("Vertical");
-			}
+		x = Input.GetAxisRaw ("Horizontal");
+		if (x == 0) {
+			y = Input.GetAxisRaw ("Vertical");
+		}
+		if(Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonUp(0)){
+			Gameplay.player.setNextColor();
+		}
+
 		#endif
 
 		#if UNITY_ANDROID || UNITY_IPHONE
 
 		if (SwipeManager.IsSwipingLeft()) {
 			x = -1;
-		} else
-			if(SwipeManager.IsSwipingRight()) {
-				x = 1;
-			} else
-				if(SwipeManager.IsSwipingDown()) {
-					y = -1;
-				} else
-					if(SwipeManager.IsSwipingUp()) {
-						y = 1;
-					}else
-						if(Input.touchCount > 0){
-							
-							if (Input.touches[0].phase == TouchPhase.Ended) {
-								Gameplay.player.setColor (Col.nextColor (Gameplay.player.getColor ()));
-							}
+		} else if(SwipeManager.IsSwipingRight()) {
+			x = 1;
+		} else if(SwipeManager.IsSwipingDown()) {
+			y = -1;
+		} else if(SwipeManager.IsSwipingUp()) {
+			y = 1;
+		}else if(Input.touchCount > 0){
+			if (Input.touches[0].phase == TouchPhase.Ended) {
+				Gameplay.player.setNextColor();
+			}
+		}
 
-						}
 		#endif
-
-
 
 
 
@@ -143,6 +148,8 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
+
+	//TODO: Gamover Check transfer to Gameover class
 	void OnCollisionEnter(Collision coll)
 	{
 		if (coll.collider.gameObject.CompareTag("Field")) {

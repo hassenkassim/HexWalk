@@ -1,9 +1,20 @@
-﻿using UnityEngine;
+﻿/************************************************
+ * HAMOTO Production 2016						*
+ * Project: HexWalk								*
+ * Authors: Tolga, Mohamed, Dursun, Hassen		*
+ * Year: 2016									*
+ *************************************************/
+
+using UnityEngine;
 using System.Collections;
 
 
 /*
  * This class controls the Gameplay
+ * 
+ * There are several Gamplay states: SHOWREADY, SHOWREMAIN, SHOWNOTHING, SHOWNOTHING2
+ * All these values represents a certain state in the game, this is used to show different texts and to control the flow of the game
+ * VERY IMPORTANT: This is the class to manage the main timer!
  * */
 public class GameplayController : MonoBehaviour {
 

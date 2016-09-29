@@ -1,4 +1,11 @@
-﻿using UnityEngine;
+﻿/************************************************
+ * HAMOTO Production 2016						*
+ * Project: HexWalk								*
+ * Authors: Tolga, Mohamed, Dursun, Hassen		*
+ * Year: 2016									*
+ *************************************************/
+
+using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
@@ -55,5 +62,5 @@ public class GameOver : MonoBehaviour {
 		Share.IntentShareText ("This game is awesome! " + PlayerController.getScore ().ToString() + ". Get the game from play store: balblaLink!");
 		
 	}
-		
+				
 }

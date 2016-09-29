@@ -48,24 +48,22 @@
      <Compile Include="Assets\Script\Background\BackgroundColor.cs" />
      <Compile Include="Assets\Script\Background\Starfield.cs" />
      <Compile Include="Assets\Script\Camera\CameraPosition.cs" />
-     <Compile Include="Assets\Script\GameOver.cs" />
      <Compile Include="Assets\Script\Gamefield\Field.cs" />
      <Compile Include="Assets\Script\Gamefield\Gamefield.cs" />
+     <Compile Include="Assets\Script\Gameplay\GameOver.cs" />
      <Compile Include="Assets\Script\Gameplay\Gameplay.cs" />
      <Compile Include="Assets\Script\Gameplay\GameplayController.cs" />
-     <Compile Include="Assets\Script\Input\InputHandler.cs" />
      <Compile Include="Assets\Script\Input\SwipeManager.cs" />
-     <Compile Include="Assets\Script\Input\TouchInput.cs" />
-     <Compile Include="Assets\Script\Joker.cs" />
-     <Compile Include="Assets\Script\LevelManager.cs" />
-     <Compile Include="Assets\Script\MenuManager.cs" />
+     <Compile Include="Assets\Script\Manager\LevelManager.cs" />
+     <Compile Include="Assets\Script\Manager\MenuManager.cs" />
      <Compile Include="Assets\Script\Path\Pathfinder.cs" />
      <Compile Include="Assets\Script\Path\PathfinderController.cs" />
-     <Compile Include="Assets\Script\Pause.cs" />
      <Compile Include="Assets\Script\Player\Player.cs" />
      <Compile Include="Assets\Script\Player\PlayerController.cs" />
-     <Compile Include="Assets\Script\Share.cs" />
      <Compile Include="Assets\Script\Utils\Col.cs" />
+     <Compile Include="Assets\Script\Utils\Joker.cs" />
+     <Compile Include="Assets\Script\Utils\Pause.cs" />
+     <Compile Include="Assets\Script\Utils\Share.cs" />
  <Reference Include="UnityEngine.Networking">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>

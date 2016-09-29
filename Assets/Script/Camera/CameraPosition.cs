@@ -1,4 +1,11 @@
-﻿using UnityEngine;
+﻿/************************************************
+ * HAMOTO Production 2016						*
+ * Project: HexWalk								*
+ * Authors: Tolga, Mohamed, Dursun, Hassen		*
+ * Year: 2016									*
+ *************************************************/
+
+using UnityEngine;
 using System.Collections;
 
 /*
@@ -10,8 +17,9 @@ public class CameraPosition : MonoBehaviour {
 	private Vector3 rotationPlayerCam;
 	private Vector3 offsetGamefieldCam;
 	private Vector3 rotationGamefieldCam;
+	private Vector3 currentAngle;
 
-	private bool changing;
+
 	private bool follow;
 
 	/*
@@ -24,7 +32,6 @@ public class CameraPosition : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		changing = false;
 		follow = false;
 		CamID = 1;
 
@@ -75,12 +82,10 @@ public class CameraPosition : MonoBehaviour {
 
 	public void startTransition(){
 		CamID = 0;
-		changing = true;
 		StartCoroutine(TransitionGamefieldPlayer(2, Gameplay.player.getTransform ().position + offsetPlayerCam, rotationPlayerCam)); 	
 	}
 
 
-	private Vector3 currentAngle;
 
 
 	IEnumerator TransitionGamefieldPlayer(float lerpSpeed, Vector3 newPosition, Vector3 newRotation)
@@ -108,7 +113,6 @@ public class CameraPosition : MonoBehaviour {
 
 		Debug.Log ("Camera 2 reached!");
 
-		changing = false;
 		follow = true;
 
 		yield return 0;

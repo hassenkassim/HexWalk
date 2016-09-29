@@ -1,4 +1,11 @@
-﻿using UnityEngine;
+﻿/************************************************
+ * HAMOTO Production 2016						*
+ * Project: HexWalk								*
+ * Authors: Tolga, Mohamed, Dursun, Hassen		*
+ * Year: 2016									*
+ *************************************************/
+
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -7,14 +14,14 @@ public class BackgroundColor : MonoBehaviour {
 	public List<Color> colorList = new List<Color>();
 	public float transitionTime = 1f;
 	public bool randomColor = false;
-	public static Camera camera;
+	public UnityEngine.Camera camera;
 
 	private int colorIndex = 0;
 	private int nextColorIndex = 0;
 
 	//Init
 	void Awake() {
-		camera = GameObject.Find("Main Camera").GetComponent<Camera>();
+		camera = Camera.main;
 		camera.backgroundColor = colorList[colorIndex];
 
 		//Sets next color index

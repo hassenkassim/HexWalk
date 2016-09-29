@@ -1,4 +1,11 @@
-﻿using UnityEngine;
+﻿/************************************************
+ * HAMOTO Production 2016						*
+ * Project: HexWalk								*
+ * Authors: Tolga, Mohamed, Dursun, Hassen		*
+ * Year: 2016									*
+ *************************************************/
+
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -25,11 +32,13 @@ public class Pathfinder {
 			this.startColor = Color.green;
 			this.end = new Vector2(Random.Range(0, Gameplay.gamefield.width-1), Gameplay.gamefield.height-1);
 			this.endColor = Color.black; //TODO: Finish Flag
-
 			this.colorCount = colorCount;
+
 			path = new List<Vector2> ();
 			pathcolor = new List<Color>();
+
 			findRandomPath ();
+
 			Gameplay.gamefield.getField ((int)end.x, (int)end.y).setColor (Color.blue);
 			if (Gameplay.player != null) {
 				Gameplay.player.setPositionByGamePosition (start);
@@ -39,6 +48,8 @@ public class Pathfinder {
 			Debug.Log ("No Gamefield, can't find any paths without a Gamefield!");
 		}
 	}
+
+
 
 	public void findRandomPath(){
 		Vector2 tmp = start;
@@ -61,7 +72,6 @@ public class Pathfinder {
 			int j = Random.Range(0, colorCount);
 			pathcolor.Add (Col.colors [j]);
 
-			//Gameplay.gamefield.getField ((int)possibleSteps [i].x, (int)possibleSteps [i].y).setColor (Color.yellow);
 			tmp = possibleSteps [i];
 		}
 		Debug.Log ("RandomPath generated successfully!");
@@ -107,6 +117,9 @@ public class Pathfinder {
 	}
 
 
+
+	//Waits a certain time (timetowait) and paints the field i in a certain color
+	//TODO: much more improvement could be done if we put this in a IEnumerate function which yields every "timetowait" second and paints the next field, instead of many active waiting functions
 	public IEnumerator paintField(Color col, float timetowait, int i){
 		yield return new WaitForSeconds (timetowait);
 		Gameplay.gamefield.getField ((int)path [i].x, (int)path [i].y).setColor (col);

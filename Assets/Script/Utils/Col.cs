@@ -1,8 +1,20 @@
-﻿using UnityEngine;
+﻿/************************************************
+ * HAMOTO Production 2016						*
+ * Project: HexWalk								*
+ * Authors: Tolga, Mohamed, Dursun, Hassen		*
+ * Year: 2016									*
+ *************************************************/
+
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+
+/*
+ * This class manages the used colors
+ * */
 public class Col {
+
 
 	public readonly static  Color ROT = Color.red;
 	public readonly static  Color GRUEN = Color.green;
@@ -13,22 +25,20 @@ public class Col {
 	public readonly static  Color SCHWARZ = Color.black;
 	public readonly static  Color WEISS = Color.white;
 
-	public readonly static List<Color> colors = new List<Color>(new Color[]{ Color.green, Color.blue, Color.magenta, Color.yellow}); 
+	public readonly static List<Color> colors = new List<Color>(new Color[]{ Color.green, Color.blue, Color.magenta, Color.yellow}); //This List is used to index the colors and to easily get the next color
 
 
-	public static Color nextColor(Color col){
-		if (col.Equals (GRUEN))
-			return BLAU;
-		if (col.Equals (BLAU))
-			return MAGENTA;
-		if (col.Equals (MAGENTA))
-			return GELB;
-		if (col.Equals (GELB))
-			return GRUEN;
 
-		Debug.Log ("COLOR: " + col + " !!");
-		return SCHWARZ;
+	//this gives the nextColor, considering the count of active colors
+	public static Color nextColor(Color col, int colorCount){
+		int colidx = colors.FindIndex(x => x == col); //finds the index of the current color
+
+		if (colidx == colorCount - 1) { //if the color already reached the amount of used color, set index back to 0 again, otherwise just increment the index
+			colidx = 0;
+		} else {
+			colidx++;
+		}
+		return colors [colidx];
 	}
-
 
 }

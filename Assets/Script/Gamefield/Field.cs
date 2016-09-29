@@ -1,4 +1,11 @@
-﻿using UnityEngine;
+﻿/************************************************
+ * HAMOTO Production 2016						*
+ * Project: HexWalk								*
+ * Authors: Tolga, Mohamed, Dursun, Hassen		*
+ * Year: 2016									*
+ *************************************************/
+
+using UnityEngine;
 using System.Collections;
 
 
@@ -9,6 +16,7 @@ public class Field {
 	GameObject field;
 
 	public Field(string name){
+		//TODO: Instead of creating a primitive Cube, we should use a 3D model with rounded corners
 		field = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		field.name = name;
 		field.tag = "Field";

@@ -1,4 +1,11 @@
-﻿using UnityEngine;
+﻿/************************************************
+ * HAMOTO Production 2016						*
+ * Project: HexWalk								*
+ * Authors: Tolga, Mohamed, Dursun, Hassen		*
+ * Year: 2016									*
+ *************************************************/
+
+using UnityEngine;
 using System.Collections;
 
 public class PathfinderController : MonoBehaviour {
@@ -19,12 +26,14 @@ public class PathfinderController : MonoBehaviour {
 		}
 	}
 
+	//This starts the coroutines (threads) for the timly painting of the fields (COLOR: WHITE)
 	public void paintWhitePath(float timebetweenfields){
 		for (int i = 1; i < Gameplay.pathfinder.path.Count-1; i++) {
 			StartCoroutine(Gameplay.pathfinder.paintField(Color.white,i*timebetweenfields,i));
 		}
 	}
 
+	//This starts the coroutines (threads) for the timly painting of the fields (COLOR: FROM PATHFINDER CLASS)
 	public void paintColorPath(float timebetweenfields){
 		for (int i = 0; i < Gameplay.pathfinder.path.Count-1; i++) {
 			StartCoroutine(Gameplay.pathfinder.paintField(Gameplay.pathfinder.pathcolor[i],i*timebetweenfields,i));

@@ -175,8 +175,11 @@ public class PlayerController : MonoBehaviour {
 				displayScore ();
 			} else {
 				field.setColor (Color.red);
+				field.activateRigidbody ();
+
 				print ("GAMEOVER!");
-				GameOver.displayGameover ();
+
+				//GameOver.displayGameover ();
 
 			}
 

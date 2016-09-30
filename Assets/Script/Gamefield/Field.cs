@@ -13,7 +13,7 @@ using System.Collections;
  * This class is used for each field in the gamefield
  * */
 public class Field {
-	GameObject field;
+	public GameObject field;
 
 	public Field(string name){
 		//TODO: Instead of creating a primitive Cube, we should use a 3D model with rounded corners
@@ -40,12 +40,26 @@ public class Field {
 		field.transform.position = new Vector3 (x, 1, y);
 	}
 
+	public void activateRigidbody(){
+		if (field.GetComponent<Rigidbody> () == null) {
+			Rigidbody fieldRigidBody = field.AddComponent<Rigidbody> (); // Add the rigidbody
+			fieldRigidBody.mass = 0.5f;
+			fieldRigidBody.angularDrag = 0.05f;
+			fieldRigidBody.useGravity = true;
+		}
+	}
+
+
 	public Transform getTransform(){
 		return field.transform;
 	}
 
 	public Color getColor(){
 		return field.GetComponent<MeshRenderer> ().material.color;
+	}
+
+	public GameObject getGameobject(){
+		return field;
 	}
 
 

@@ -1,0 +1,23 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{77C24E9E-A085-BF2A-83CC-0A99511C70A1}") = "hexxawalk", "Assembly-CSharp.csproj", "{8458867F-DB11-A488-B9FC-810D563B88F8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8458867F-DB11-A488-B9FC-810D563B88F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8458867F-DB11-A488-B9FC-810D563B88F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8458867F-DB11-A488-B9FC-810D563B88F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8458867F-DB11-A488-B9FC-810D563B88F8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal

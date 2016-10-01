@@ -29,7 +29,14 @@ public class Gameplay : MonoBehaviour {
 	public static Camera cam;
 	public static Gamefield gamefield;
 	public static Pathfinder pathfinder;
+	public static ScoreManager scoreMgr;
+	public static SoundManager soundMgr;
+	public static LevelManager levelMgr;
 	public static GameObject pauseBtn;
+
+	static AudioClip rotationSound;
+	int score;
+	Text scoreText;
 
 	public static int gamestate; //In which state ist the Game, Important to block input until the game starts
 
@@ -47,12 +54,13 @@ public class Gameplay : MonoBehaviour {
 		player = new Player(colorCount);
 
 		//Create Gamefield
-
 		gamefield = new Gamefield (PlayerPrefs.GetInt("gameFieldWidth"), PlayerPrefs.GetInt("gameFieldHeight"));
 		//gamefield = new Gamefield (4, 5);
 
 		// Call Pathfinder constructor
 		pathfinder = new Pathfinder (colorCount);
+
+
 
 		//Setup Camera
 		cam = Camera.main;
@@ -63,8 +71,51 @@ public class Gameplay : MonoBehaviour {
 		//Setup Button
 		pauseBtn = GameObject.Find("PauseButton");
 
+
+		//Call Score Manager constructor
+		scoreMgr = new ScoreManager();
+
+		//Call Sound Manager constructor
+		soundMgr = new SoundManager();
+
+		//Call Level Manager constructor
+		levelMgr = new LevelManager();
+
+
 	}
 
+	public static void collision(){
+		//Alles was ich brauche bekomme ich durch unsere Gameplay Klasse. Egal was ich brauche, ich gehe zuerst ins Gameplay rein, dann entweder Gamefield, 
+		//oder Player oder Path, je nachdem was ich brauche und dann rufe ich den jeweiligen Getter auf!
+		Vector2 platePos = player.getGamePosition ();//dazu gehe ich in unser Gameplay->Player->getGamePosition
+		Field field = gamefield.getField((int)platePos.x, (int) platePos.y);
+		int pointer = pathfinder.pointer;
+		if(field.getColor().Equals(Color.green)) return;
+		if (field.getColor ().Equals (Color.blue)) {
+			pathfinder.pointer = - 1;
+			print ("WON!");
+			//load next Level
+			levelMgr.levelUp ();
+		}
+
+		if (pathfinder.path[pointer].Equals(platePos) && player.getColor().Equals(pathfinder.pathcolor[pointer])) {
+			pathfinder.pointer++;
+			field.setColor (player.getColor());
+			//increment Score
+			scoreMgr.incScore ();
+			//play the RotationSound
+			soundMgr.playRotationSound ();
+		} else {
+			cam.GetComponent<CameraPosition> ().setToFollowPlayerByRotation ();
+			field.setColor (Color.red);
+			field.activateRigidbody ();
+
+			print ("GAMEOVER!");
+
+			//GameOver.displayGameover ();
+		}
+	}
+		
 
 	void Update () {
 		

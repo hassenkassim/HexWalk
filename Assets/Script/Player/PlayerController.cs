@@ -28,21 +28,13 @@ public class PlayerController : MonoBehaviour {
 	Quaternion fromRotation;				// 回転前のCubeのクォータニオン
 	Quaternion toRotation;					// 回転後のCubeのクォータニオン
 
-	AudioClip rotationSound = null;
 
-	static int score;
-
-	Text scoreText;
 
 
 	// Use this for initialization
 	void Start () {
 		radius = sideLength * Mathf.Sqrt (2f) / 2f;
-		rotationSound = (AudioClip)Resources.Load("jump");
 
-		// score value
-		score = 0;
-		scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
 	
 	}
 
@@ -50,45 +42,14 @@ public class PlayerController : MonoBehaviour {
 	void Update () {
 		if(Gameplay.gamestate == 0) return; //Check if Game started
 
-
-		float x = 0;
-		float y = 0;
-
-
-
-		//
-		//TODO: Export this section to Input Manager!
-		//
-
-		#if UNITY_EDITOR
-		x = Input.GetAxisRaw ("Horizontal");
-		if (x == 0) {
-			y = Input.GetAxisRaw ("Vertical");
-		}
-		if(Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonUp(0)){
+		if (InputManager.getClickTouchInput ()) {
 			Gameplay.player.setNextColor();
+			return;
 		}
 
-		#endif
 
-		#if UNITY_ANDROID || UNITY_IPHONE
-
-		if (SwipeManager.IsSwipingLeft()) {
-			x = -1;
-		} else if(SwipeManager.IsSwipingRight()) {
-			x = 1;
-		} else if(SwipeManager.IsSwipingDown()) {
-			y = -1;
-		} else if(SwipeManager.IsSwipingUp()) {
-			y = 1;
-		}else if(Input.touchCount > 0){
-			if (Input.touches[0].phase == TouchPhase.Ended) {
-				Gameplay.player.setNextColor();
-			}
-		}
-
-		#endif
-
+		float x = InputManager.getHorizontalInput();
+		float y = InputManager.getVerticalInput();
 
 
 		//check if move is allowed
@@ -153,51 +114,12 @@ public class PlayerController : MonoBehaviour {
 	void OnCollisionEnter(Collision coll)
 	{
 		if (coll.collider.gameObject.CompareTag("Field")) {
-
-			//Alles was ich brauche bekomme ich durch unsere Gameplay Klasse. Egal was ich brauche, ich gehe zuerst ins Gameplay rein, dann entweder Gamefield, 
-			//oder Player oder Path, je nachdem was ich brauche und dann rufe ich den jeweiligen Getter auf!
-			Vector2 platePos = Gameplay.player.getGamePosition ();//dazu gehe ich in unser Gameplay->Player->getGamePosition
-			Field field = Gameplay.gamefield.getField((int)platePos.x, (int) platePos.y);
-			int pointer = Gameplay.pathfinder.pointer;
-			if(field.getColor().Equals(Color.green)) return;
-			if (field.getColor ().Equals (Color.blue)) {
-				Gameplay.pathfinder.pointer = - 1;
-				print ("WON!");
-				LevelManager.levelUp ();
-
-			}
-
-			if (Gameplay.pathfinder.path[pointer].Equals(platePos) && Gameplay.player.getColor().Equals(Gameplay.pathfinder.pathcolor[pointer])) {
-				Gameplay.pathfinder.pointer++;
-				field.setColor (Gameplay.player.getColor());
-				AudioSource.PlayClipAtPoint (rotationSound, transform.position, 10f);
-				score = score + 1;
-				displayScore ();
-			} else {
-				field.setColor (Color.red);
-				field.activateRigidbody ();
-
-				print ("GAMEOVER!");
-
-				//GameOver.displayGameover ();
-
-			}
-
-
-
-
-			//coll.gameObject.GetComponent<Renderer> ().material.color = Color.yellow;
-			//AudioSource.PlayClipAtPoint (rotationSound, transform.position, 10f);
-			//Vector2 platePos = new Vector2(Input.coll.x , Input.coll.y);
-			//if (Pathfinder.path.Contains (platePos) == true) {
-			//	AudioSource.PlayClipAtPoint (rotationSound, transform.position, 10f);
-			//}
+			Gameplay.collision ();
 		}
 	}
 
 
 	void OnCollisionExit(Collision collisionInfo) {
-		//collisionInfo.gameObject.GetComponent<Renderer> ().material.color = Color.black;
 	}
 
 
@@ -218,11 +140,5 @@ public class PlayerController : MonoBehaviour {
 		return false;
 	}
 
-	public void displayScore(){
-		scoreText.text = "Score: " + score.ToString ();
-	}
 
-	public static int getScore(){
-		return score;
-	}
 }

@@ -53,9 +53,12 @@
      <Compile Include="Assets\Script\Gameplay\GameOver.cs" />
      <Compile Include="Assets\Script\Gameplay\Gameplay.cs" />
      <Compile Include="Assets\Script\Gameplay\GameplayController.cs" />
+     <Compile Include="Assets\Script\Input\InputManager.cs" />
      <Compile Include="Assets\Script\Input\SwipeManager.cs" />
      <Compile Include="Assets\Script\Manager\LevelManager.cs" />
      <Compile Include="Assets\Script\Manager\MenuManager.cs" />
+     <Compile Include="Assets\Script\Manager\ScoreManager.cs" />
+     <Compile Include="Assets\Script\Manager\SoundManager.cs" />
      <Compile Include="Assets\Script\Path\Pathfinder.cs" />
      <Compile Include="Assets\Script\Path\PathfinderController.cs" />
      <Compile Include="Assets\Script\Player\Player.cs" />

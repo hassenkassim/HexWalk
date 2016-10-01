@@ -34,9 +34,15 @@ public class GameOver : MonoBehaviour {
 
 	}
 
+	public static void gameover(){
+		
+	}
+
+
+
 	public static void displayGameover(){
 
-		gameOverCanvas.enabled = true;
+		/*gameOverCanvas.enabled = true;
 
 		Time.timeScale = 0;
 
@@ -55,11 +61,11 @@ public class GameOver : MonoBehaviour {
 		highscoreText.text = "Highscore: " + highscore.ToString ();
 
 		LevelManager.levelReset ();
-	
+	*/
 	}
 
 	public void onShare(){
-		Share.IntentShareText ("This game is awesome! " + PlayerController.getScore ().ToString() + ". Get the game from play store: balblaLink!");
+//		Share.IntentShareText ("This game is awesome! " + PlayerController.getScore ().ToString() + ". Get the game from play store: balblaLink!");
 		
 	}
 				

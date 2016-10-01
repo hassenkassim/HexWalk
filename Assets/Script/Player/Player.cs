@@ -16,7 +16,7 @@ using System.IO;
  * */
 public class Player {
 
-	GameObject playerobj;
+	public GameObject playerobj;
 	Vector2 gamePosition;
 	Color curColor;
 	int colorCount;

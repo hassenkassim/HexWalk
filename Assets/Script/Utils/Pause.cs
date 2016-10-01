@@ -90,13 +90,13 @@ public class Pause : MonoBehaviour {
 
 	public void onRestart(){
 		Time.timeScale = 1;
-		LevelManager.levelReset ();
+		Gameplay.levelMgr.levelReset ();
 		SceneManager.LoadScene ("GameScene");
 	}
 
 	public void onMainMenu(){
 		Time.timeScale = 1;
-		LevelManager.levelReset ();
+		Gameplay.levelMgr.levelReset ();
 		SceneManager.LoadScene ("MenuScene");
 	}
 

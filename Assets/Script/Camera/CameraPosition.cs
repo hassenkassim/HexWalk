@@ -13,10 +13,10 @@ using System.Collections;
  * */
 public class CameraPosition : MonoBehaviour {
 
-	private Vector3 offsetPlayerCam;
-	private Vector3 rotationPlayerCam;
+	readonly private Vector3 offsetPlayerCam = new Vector3 (0.0f, 3.0f, -4.0f);
+	readonly private Vector3 rotationPlayerCam = new Vector3 (36.5f, 0.0f, 0.0f);
 	private Vector3 offsetGamefieldCam;
-	private Vector3 rotationGamefieldCam;
+	readonly private Vector3 rotationGamefieldCam = new Vector3 (90.0f, 0.0f, 0.0f);
 	private Vector3 currentAngle;
 
 
@@ -25,18 +25,14 @@ public class CameraPosition : MonoBehaviour {
 	/*
 	 * CamID == 0: PlayerCam
 	 * CamID == 1: GamefieldCam
+	 * CamID == 2: PlayerCam - Just Rotation!
 	 * */
 	private int CamID;
-
-
 
 	// Use this for initialization
 	void Start () {
 		follow = false;
 		CamID = 1;
-
-		offsetPlayerCam = new Vector3 (0.0f, 3.0f, -4.0f);
-		rotationPlayerCam = new Vector3 (30.0f, 0.0f, 0.0f);
 
 		/* analyze best camera position and rotation for Gamefield view
 		 * Position: 	x: in the middle of Gamefield.width
@@ -44,16 +40,12 @@ public class CameraPosition : MonoBehaviour {
 		 * 				z: -3.0f
 		 * Rotation:	x: depends on Gamefield.height
 		 * */
-		offsetGamefieldCam = new Vector3 (((float)Gameplay.gamefield.width-1)/2, 2.0f + ((float)Gameplay.gamefield.getFieldHeight() * ((float)9/(float)5)), ((float)Gameplay.gamefield.height-1)/2);
-		rotationGamefieldCam = new Vector3 (90.0f, 0.0f, 0.0f);
+		offsetGamefieldCam = new Vector3 (((float)Gameplay.gamefield.width-1)/2, 2.0f + ((float)Gameplay.gamefield.getFieldHeight() * ((float)9/(float)5)), ((float)Gameplay.gamefield.height-1)/2);;
 
-
+		//initial setup of camera position and rotation
 		setPosition (offsetGamefieldCam);
 		setRotation (rotationGamefieldCam);
 
-		//initial setup of camera position and rotation
-		//transform.position = Gameplay.player.getTransform().position + offsetPlayerCam;
-		//transform.rotation = Quaternion.Euler(rotationPlayerCam.x, rotationPlayerCam.y, rotationPlayerCam.z);
 	}
 
 	// Update is called once per frame
@@ -65,6 +57,11 @@ public class CameraPosition : MonoBehaviour {
 			} else if (CamID == 1) {
 				setPosition (offsetGamefieldCam);
 				setRotation (rotationGamefieldCam);
+			} else if(CamID == 2){
+				float zaehler = (transform.position.z - Gameplay.player.playerobj.transform.position.z);
+				float nenner = (transform.position.y - Gameplay.player.playerobj.transform.position.y);
+				float rot = 90.0f - Mathf.Atan(zaehler/nenner) * Mathf.Rad2Deg * -1;
+				setRotation (new Vector3(rot,0,0));
 			}	
 		}
 
@@ -82,21 +79,28 @@ public class CameraPosition : MonoBehaviour {
 
 	public void startTransition(){
 		CamID = 0;
-		StartCoroutine(TransitionGamefieldPlayer(2, Gameplay.player.getTransform ().position + offsetPlayerCam, rotationPlayerCam)); 	
+		StartCoroutine(TransitionGamefieldPlayer(2)); 	
 	}
 
-
-
-
-	IEnumerator TransitionGamefieldPlayer(float lerpSpeed, Vector3 newPosition, Vector3 newRotation)
+	public void setToFollowPlayerByRotation(){
+		CamID = 2;
+	}
+		
+	IEnumerator TransitionGamefieldPlayer(float lerpSpeed)
 	{    
-
 		float t = 0.0f;
+		Vector3 newPosition;
+		Vector3 newRotation = rotationPlayerCam;
 		Vector3 startingPos = transform.position;
 		currentAngle = transform.eulerAngles;
 
 		while (t < 1.0f)
 		{
+
+			//get Position on the fly
+			newPosition = Gameplay.player.getTransform ().position + offsetPlayerCam;
+
+
 			t += Time.deltaTime * (Time.timeScale / lerpSpeed);
 
 			transform.position = Vector3.Lerp(startingPos, newPosition, t);
@@ -117,12 +121,4 @@ public class CameraPosition : MonoBehaviour {
 
 		yield return 0;
 	}
-
-
-	
 }
-
-
-
-
-

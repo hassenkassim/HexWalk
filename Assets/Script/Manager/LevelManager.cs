@@ -9,13 +9,13 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-public class LevelManager : MonoBehaviour {
+public class LevelManager {
 
-	public static int initialWidth;
-	public static int initialHeight;
+	public int initialWidth;
+	public int initialHeight;
 
 	// Use this for initialization
-	void Start () {
+	public LevelManager () {
 		//Create Gamefield
 		initialWidth = 4;
 		initialHeight = 5;
@@ -31,7 +31,7 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	//Setting difficulty grade up and loading a new Scene
-	public static void levelUp(){
+	public void levelUp(){
 
 		PlayerPrefs.SetInt ("gameFieldWidth", PlayerPrefs.GetInt("gameFieldWidth") + 1);
 		PlayerPrefs.SetInt ("gameFieldHeight", PlayerPrefs.GetInt("gameFieldHeight") + 1);
@@ -39,17 +39,9 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	//Setting difficulty grade down
-	public static void levelReset(){
+	public void levelReset(){
 
 		PlayerPrefs.SetInt ("gameFieldWidth", initialWidth);
 		PlayerPrefs.SetInt ("gameFieldHeight", initialHeight);
-	}
-
-
-
-	
-	// Update is called once per frame
-	void Update () {
-	
 	}
 }

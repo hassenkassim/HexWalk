@@ -38,13 +38,10 @@ public class Gameplay : MonoBehaviour {
 	int score;
 	Text scoreText;
 
-	public static int gamestate; //In which state ist the Game, Important to block input until the game starts
-
 	public static int colorCount; // How many Colors should be in the game
 
 	// Use this for initialization
 	void Start () {
-		gamestate = 0; //set the initial game state to 0: No Input allowed in this state
 		colorCount = 2;//set the count of colors in the game
 
 		print("FieldWidth: " + PlayerPrefs.GetInt("gameFieldWidth"));
@@ -112,7 +109,7 @@ public class Gameplay : MonoBehaviour {
 
 			print ("GAMEOVER!");
 
-			//GameOver.displayGameover ();
+			GameOver.displayGameover ();
 		}
 	}
 		

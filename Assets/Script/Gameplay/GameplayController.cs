@@ -65,7 +65,6 @@ public class GameplayController : MonoBehaviour {
 		case SHOWNOTHING:
 			if (Gameplay.pathfinder != null) {
 				Gameplay.pathfinder.coloringWhite = true;
-				Gameplay.gamestate = 1;
 				showID = SHOWNOTHING2;
 			}
 			txt = "";

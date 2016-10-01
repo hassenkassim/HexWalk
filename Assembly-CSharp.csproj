@@ -57,6 +57,7 @@
      <Compile Include="Assets\Script\Input\SwipeManager.cs" />
      <Compile Include="Assets\Script\Manager\LevelManager.cs" />
      <Compile Include="Assets\Script\Manager\MenuManager.cs" />
+     <Compile Include="Assets\Script\Manager\ScenesManager.cs" />
      <Compile Include="Assets\Script\Manager\ScoreManager.cs" />
      <Compile Include="Assets\Script\Manager\SoundManager.cs" />
      <Compile Include="Assets\Script\Path\Pathfinder.cs" />

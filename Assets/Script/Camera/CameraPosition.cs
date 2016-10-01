@@ -117,6 +117,10 @@ public class CameraPosition : MonoBehaviour {
 
 		Debug.Log ("Camera 2 reached!");
 
+		//enable Input
+		InputManager.active = true;
+
+
 		follow = true;
 
 		yield return 0;

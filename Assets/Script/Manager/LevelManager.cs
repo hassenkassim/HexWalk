@@ -44,4 +44,5 @@ public class LevelManager {
 		PlayerPrefs.SetInt ("gameFieldWidth", initialWidth);
 		PlayerPrefs.SetInt ("gameFieldHeight", initialHeight);
 	}
+
 }

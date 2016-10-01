@@ -40,7 +40,6 @@ public class PlayerController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if(Gameplay.gamestate == 0) return; //Check if Game started
 
 		if (InputManager.getClickTouchInput ()) {
 			Gameplay.player.setNextColor();

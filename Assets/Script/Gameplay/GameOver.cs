@@ -42,26 +42,26 @@ public class GameOver : MonoBehaviour {
 
 	public static void displayGameover(){
 
-		/*gameOverCanvas.enabled = true;
+		InputManager.active = false;
 
-		Time.timeScale = 0;
+		gameOverCanvas.enabled = true;
 
 		if (PlayerPrefs.HasKey ("highscore") == false) {
 			PlayerPrefs.SetInt ("highscore", 0);
 		}
 
-		if(PlayerController.getScore() > highscore){
-			PlayerPrefs.SetInt ("highscore", PlayerController.getScore ());
-			highscore = PlayerController.getScore();
+		if(Gameplay.scoreMgr.getScore() > highscore){
+			PlayerPrefs.SetInt ("highscore", Gameplay.scoreMgr.getScore());
+			highscore = Gameplay.scoreMgr.getScore();
 		}
 
 		highscore = PlayerPrefs.GetInt ("highscore");
 
-		scoreText.text = "Score: " + PlayerController.getScore ().ToString ();
+		scoreText.text = "Score: " + Gameplay.scoreMgr.getScore().ToString ();
 		highscoreText.text = "Highscore: " + highscore.ToString ();
 
-		LevelManager.levelReset ();
-	*/
+		Gameplay.levelMgr.levelReset ();
+	
 	}
 
 	public void onShare(){

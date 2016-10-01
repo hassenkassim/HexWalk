@@ -19,6 +19,7 @@ public class CameraPosition : MonoBehaviour {
 	readonly private Vector3 rotationGamefieldCam = new Vector3 (90.0f, 0.0f, 0.0f);
 	private Vector3 currentAngle;
 
+	private int Cam2Counter = 0;
 
 	private bool follow;
 
@@ -62,11 +63,20 @@ public class CameraPosition : MonoBehaviour {
 				float nenner = (transform.position.y - Gameplay.player.playerobj.transform.position.y);
 				float rot = 90.0f - Mathf.Atan(zaehler/nenner) * Mathf.Rad2Deg * -1;
 				setRotation (new Vector3(rot,0,0));
+				if (Cam2Counter < 50) {
+					Vector3 pos = getPosition ();
+					setPosition (new Vector3(pos.x, pos.y-0.1f, pos.z));
+					Cam2Counter++;
+				}
 			}	
 		}
 
 	}
 
+
+	public Vector3 getPosition(){
+		return transform.position;
+	}
 
 	public void setPosition(Vector3 pos){
 		transform.position = pos;

@@ -47,6 +47,7 @@
   <ItemGroup>
      <Compile Include="Assets\Script\Background\BackgroundColor.cs" />
      <Compile Include="Assets\Script\Background\Starfield.cs" />
+     <Compile Include="Assets\Script\Background\newBackground.cs" />
      <Compile Include="Assets\Script\Camera\CameraPosition.cs" />
      <Compile Include="Assets\Script\Gamefield\Field.cs" />
      <Compile Include="Assets\Script\Gamefield\Gamefield.cs" />

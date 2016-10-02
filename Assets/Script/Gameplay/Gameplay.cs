@@ -24,7 +24,7 @@ public class Gameplay : MonoBehaviour {
 		 * 3. Kamera herunterschwingen und Pfad verstecken
 		 * 4. Spieler kann Player kontrollieren
 		 * */
-
+	
 	public static Player player;
 	public static Camera cam;
 	public static Gamefield gamefield;
@@ -106,9 +106,11 @@ public class Gameplay : MonoBehaviour {
 			cam.GetComponent<CameraPosition> ().setToFollowPlayerByRotation ();
 			field.setColor (Color.red);
 			field.activateRigidbody ();
-
-			fractureCube (0.1f, field);
+			
+			fractureCube (0.3f, field);
 			Destroy (field.getGameobject ());
+
+			//setFire (player.getTransform().position.x,player.getTransform().position.y,player.getTransform().position.z);
 
 			print ("GAMEOVER!");
 
@@ -121,11 +123,18 @@ public class Gameplay : MonoBehaviour {
 		
 	}
 
+	//private static void setFire(float x, float y, float z){
+	//ParticleSystem fire;	
+	//fire = GameObject.FindGameObjectWithTag ("fire").GetComponent<ParticleSystem> ();
+	//		fire.transform.position = new Vector3 (x, y, z);
+	//	}
+
 	//fracture objects:
 	private static void fractureCube(float scaling, Field field){
+		GameObject fracture1=null;
 		for (int numFrac = 0; numFrac < field.getTransform().localScale.x/scaling; numFrac++) {
 			for (int zAxis = 0; zAxis < field.getTransform ().localScale.z / scaling; zAxis++) {
-				GameObject fracture1 = GameObject.CreatePrimitive (PrimitiveType.Cube);
+				fracture1 = GameObject.CreatePrimitive (PrimitiveType.Cube);
 				fracture1.transform.position = new Vector3(
 					field.getTransform().position.x+(float)numFrac*scaling-field.getTransform().localScale.x/2,
 					field.getTransform().position.y,
@@ -137,6 +146,7 @@ public class Gameplay : MonoBehaviour {
 				fracture1.name = "fracture"+numFrac+zAxis;
 			}
 		}  // muessen wir die fractures destroyen ??
+		Destroy(fracture1,3f);
 	}
 
 }

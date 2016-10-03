@@ -13,12 +13,17 @@ public class LevelManager {
 
 	public int initialWidth;
 	public int initialHeight;
+	public int levelCounter;
+
 
 	public static int cubeType;
 	public static int playerType;
 
 	// Use this for initialization
 	public LevelManager () {
+		//Initialize LevelCounter
+		levelCounter=0;
+
 		//Create Gamefield
 		initialWidth = 4;
 		initialHeight = 5;
@@ -38,6 +43,7 @@ public class LevelManager {
 
 	//Setting difficulty grade up and loading a new Scene
 	public void levelUp(){
+		levelCounter++;
 
 		PlayerPrefs.SetInt ("gameFieldWidth", PlayerPrefs.GetInt("gameFieldWidth") + 1);
 		PlayerPrefs.SetInt ("gameFieldHeight", PlayerPrefs.GetInt("gameFieldHeight") + 1);

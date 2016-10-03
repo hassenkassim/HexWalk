@@ -48,7 +48,6 @@ public class LevelManager : MonoBehaviour {
 
 
 	// Use this for initialization
-<<<<<<< HEAD
 	public void Awake(){ 
 
 
@@ -99,11 +98,11 @@ public class LevelManager : MonoBehaviour {
 				//worldLockedBtn[i].gameObject.SetActive (false);
 			} 
 		}
-=======
+	}
+
 	public LevelManager () {
 		//Initialize LevelCounter
 		levelCounter=0;
->>>>>>> 4816faba45b5d48fa4018b1a6c68e709fc461969
 
 		//Create Gamefield
 		initialWidth = 4;

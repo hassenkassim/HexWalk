@@ -15,6 +15,7 @@ public class MenuManager : MonoBehaviour {
 
 	public Canvas MainMenu;
 	public Canvas OptionsMenu;
+	public Canvas worldCanvas;
 
 	public GameObject SoundOnBtn;
 	public GameObject SoundOffBtn;
@@ -28,6 +29,7 @@ public class MenuManager : MonoBehaviour {
 
 		MainMenu.enabled = true;
 		OptionsMenu.enabled = false;
+		worldCanvas.enabled = false;
 
 		if (PlayerPrefs.HasKey ("soundIsOn") == false) {
 			SoundOffBtn.gameObject.SetActive (false);
@@ -50,7 +52,8 @@ public class MenuManager : MonoBehaviour {
 	//Button function
 	public void onStartGame()
 	{
-		SceneManager.LoadScene ("GameScene");
+		MainMenu.enabled = false;
+		worldCanvas.enabled = true;
 	}
 
 	public void onGameMode()
@@ -113,6 +116,17 @@ public class MenuManager : MonoBehaviour {
 
 		AudioListener.pause = false;
 	}
+
+	public void onBack(){
+		worldCanvas.enabled = false;
+		MainMenu.enabled = true;
+	}
+
+	public void onNextLevel(){
+		
+	}
+
+
 
 	// Boolean for PlayerPrefs
 	public static void SetBool(string name, bool booleanValue) 

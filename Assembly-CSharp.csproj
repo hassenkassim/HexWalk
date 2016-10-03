@@ -47,8 +47,10 @@
   <ItemGroup>
      <Compile Include="Assets\Script\Background\BackgroundColor.cs" />
      <Compile Include="Assets\Script\Background\Starfield.cs" />
+     <Compile Include="Assets\Script\Background\newBackground.cs" />
      <Compile Include="Assets\Script\Camera\CameraPosition.cs" />
      <Compile Include="Assets\Script\Gamefield\Field.cs" />
+     <Compile Include="Assets\Script\Gamefield\FieldController.cs" />
      <Compile Include="Assets\Script\Gamefield\Gamefield.cs" />
      <Compile Include="Assets\Script\Gameplay\GameOver.cs" />
      <Compile Include="Assets\Script\Gameplay\Gameplay.cs" />
@@ -59,6 +61,7 @@
      <Compile Include="Assets\Script\Manager\LevelSelectScript.cs" />
      <Compile Include="Assets\Script\Manager\LockLevel.cs" />
      <Compile Include="Assets\Script\Manager\MenuManager.cs" />
+     <Compile Include="Assets\Script\Manager\PrefabsManager.cs" />
      <Compile Include="Assets\Script\Manager\ScenesManager.cs" />
      <Compile Include="Assets\Script\Manager\ScoreManager.cs" />
      <Compile Include="Assets\Script\Manager\SoundManager.cs" />
@@ -67,10 +70,12 @@
      <Compile Include="Assets\Script\Path\PathfinderController.cs" />
      <Compile Include="Assets\Script\Player\Player.cs" />
      <Compile Include="Assets\Script\Player\PlayerController.cs" />
+     <Compile Include="Assets\Script\Player\PlayerInfo.cs" />
      <Compile Include="Assets\Script\Utils\AutoFade.cs" />
      <Compile Include="Assets\Script\Utils\Col.cs" />
      <Compile Include="Assets\Script\Utils\Joker.cs" />
      <Compile Include="Assets\Script\Utils\Pause.cs" />
+     <Compile Include="Assets\Script\Utils\SavePlayerPrefs.cs" />
      <Compile Include="Assets\Script\Utils\Share.cs" />
  <Reference Include="UnityEngine.Networking">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>

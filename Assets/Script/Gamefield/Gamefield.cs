@@ -18,13 +18,13 @@ public class Gamefield {
 	public int height;
 
 
-	public Gamefield(int w, int h){
+	public Gamefield(int w, int h, int version){
 		width = w;
 		height = h;
 		fields = new Field[width, height];
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
-				fields [i,j] = new Field ("" + i + "_" + j);
+				fields [i,j] = new Field ("" + i + "_" + j, version);
 				fields [i, j].setPosition (i, j);
 			}
 		}

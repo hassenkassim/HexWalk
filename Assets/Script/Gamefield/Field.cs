@@ -14,19 +14,56 @@ using System.Collections;
  * */
 public class Field {
 	public GameObject field;
+	public int version;
 
-	public Field(string name){
+	public Field(string name, int version){
+		this.version = version;
+
+
+		switch (version) {
+		case 0:
+			field = GameObject.CreatePrimitive (PrimitiveType.Cube);
+			setScale (new Vector3 (0.8f, 0.1f, 0.8f));
+			break;
+		case 1:
+			field = Gameplay.prefabsMgr.generateObjectFromPrefab ("plate3");
+			setScale (new Vector3 (0.4f, 0.4f, 0.1f));
+			break;
+		}
+			
 		//TODO: Instead of creating a primitive Cube, we should use a 3D model with rounded corners
-		field = GameObject.CreatePrimitive(PrimitiveType.Cube);
+
 		field.name = name;
 		field.tag = "Field";
-		setScale (new Vector3 (0.8f, 0.1f, 0.8f));
 	}
 
 	public Field(string name, System.Type[] comp, Color col){
 		field = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		field.GetComponent<MeshRenderer> ().material.color = col;
 	}
+
+
+	//fracture objects:
+	public void fractureCube(float scaling, Field field){
+		GameObject fracture1=null;
+		for (int numFrac = 0; numFrac < field.getTransform().localScale.x/scaling; numFrac++) {
+			for (int zAxis = 0; zAxis < field.getTransform ().localScale.z / scaling; zAxis++) {
+				fracture1 = GameObject.CreatePrimitive (PrimitiveType.Cube);
+				fracture1.transform.position = new Vector3(
+					field.getTransform().position.x+(float)numFrac*scaling-field.getTransform().localScale.x/2,
+					field.getTransform().position.y,
+					field.getTransform().position.z-field.getTransform().localScale.z/2+zAxis*scaling);
+				fracture1.transform.localScale= new Vector3 (scaling, 0.1f, scaling	);
+				fracture1.AddComponent<Rigidbody> ();
+				fracture1.GetComponent<Rigidbody> ().mass = 0.0f;
+				fracture1.GetComponent<Rigidbody> ().useGravity = true;
+				fracture1.name = "fracture"+numFrac+zAxis;
+			}
+		}  // muessen wir die fractures destroyen ??
+
+	}
+
+
 
 	public void setScale(Vector3 scale){
 		field.transform.localScale = scale;

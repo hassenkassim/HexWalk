@@ -72,9 +72,15 @@ public class Gameplay : MonoBehaviour {
 
 		//Create Player
 		player = new Player(colorCount, version);
+<<<<<<< HEAD
 		//Create Player Info
 		playerInfo = new PlayerInfo();
 
+=======
+
+		//Create Player Info
+		playerInfo = new PlayerInfo();
+>>>>>>> 9d0f09a421c904d9491951e167f3f1361c3465f4
 
 		//Create Gamefield
 		gamefield = new Gamefield (PlayerPrefs.GetInt("gameFieldWidth"), PlayerPrefs.GetInt("gameFieldHeight"), version);

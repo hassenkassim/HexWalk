@@ -1,5 +1,6 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+<<<<<<< HEAD
   <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
@@ -28,6 +29,12 @@
         </State>
       </Pad>
     </Pads>
+=======
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Gameplay/Gameplay.cs">
+    <Files>
+      <File FileName="Assets/Script/Gameplay/Gameplay.cs" Line="74" Column="1" />
+    </Files>
+>>>>>>> 9d0f09a421c904d9491951e167f3f1361c3465f4
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />

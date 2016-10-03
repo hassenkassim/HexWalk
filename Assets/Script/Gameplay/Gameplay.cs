@@ -32,7 +32,10 @@ public class Gameplay : MonoBehaviour {
 	public static ScoreManager scoreMgr;
 	public static SoundManager soundMgr;
 	public static LevelManager levelMgr;
+	public static PrefabsManager prefabsMgr;
 	public static GameObject pauseBtn;
+
+	int version;
 
 	static AudioClip rotationSound;
 	int score;
@@ -42,16 +45,32 @@ public class Gameplay : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		version = 0;
+		//Call Score Manager constructor
+		scoreMgr = new ScoreManager();
+
+		//Call Sound Manager constructor
+		soundMgr = new SoundManager();
+
+		//Call Level Manager constructor
+		levelMgr = new LevelManager();
+
+		//Call Prefab Manager constructor
+		prefabsMgr = (PrefabsManager)GameObject.Find("System").GetComponent <PrefabsManager>();
+
+
+
 		colorCount = 2;//set the count of colors in the game
 
 		print("FieldWidth: " + PlayerPrefs.GetInt("gameFieldWidth"));
 		print("FieldHeight: " + PlayerPrefs.GetInt("gameFieldHeight"));
 
 		//Create Player
-		player = new Player(colorCount);
+		player = new Player(colorCount, version);
 
 		//Create Gamefield
-		gamefield = new Gamefield (PlayerPrefs.GetInt("gameFieldWidth"), PlayerPrefs.GetInt("gameFieldHeight"));
+		gamefield = new Gamefield (PlayerPrefs.GetInt("gameFieldWidth"), PlayerPrefs.GetInt("gameFieldHeight"), version);
 		//gamefield = new Gamefield (4, 5);
 
 		// Call Pathfinder constructor
@@ -69,14 +88,6 @@ public class Gameplay : MonoBehaviour {
 		pauseBtn = GameObject.Find("PauseButton");
 
 
-		//Call Score Manager constructor
-		scoreMgr = new ScoreManager();
-
-		//Call Sound Manager constructor
-		soundMgr = new SoundManager();
-
-		//Call Level Manager constructor
-		levelMgr = new LevelManager();
 
 
 	}

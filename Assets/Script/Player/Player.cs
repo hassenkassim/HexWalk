@@ -35,11 +35,7 @@ public class Player {
 			setScale (new Vector3 (0.3f, 0.3f, 0.3f));
 			break;
 		}
-<<<<<<< HEAD
 
-=======
-			
->>>>>>> 9d0f09a421c904d9491951e167f3f1361c3465f4
 		playerobj.name = "PlayerDynamic";
 		playerobj.AddComponent <PlayerController>();
 		playerobj.transform.position = new Vector3(0, 3, 0);

@@ -50,7 +50,7 @@ public class Gameplay : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		version = 0;
+		version = 1;
 		//Call Score Manager constructor
 		scoreMgr = new ScoreManager();
 
@@ -71,13 +71,10 @@ public class Gameplay : MonoBehaviour {
 		print("FieldHeight: " + PlayerPrefs.GetInt("gameFieldHeight"));
 
 		//Create Player
-<<<<<<< HEAD
-		player = new Player(colorCount);
+		player = new Player(colorCount, version);
 		//Create Player Info
 		playerInfo = new PlayerInfo();
-=======
-		player = new Player(colorCount, version);
->>>>>>> b697bd58a71e738d6a0e35241306443e3be0723c
+
 
 		//Create Gamefield
 		gamefield = new Gamefield (PlayerPrefs.GetInt("gameFieldWidth"), PlayerPrefs.GetInt("gameFieldHeight"), version);

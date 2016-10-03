@@ -36,15 +36,6 @@ public class Player {
 			break;
 		}
 
-
-
-<<<<<<< HEAD
-
-
-	public Player(int colorCount){
-		playerobj = GameObject.CreatePrimitive(PrimitiveType.Cube);
-=======
->>>>>>> b697bd58a71e738d6a0e35241306443e3be0723c
 		playerobj.name = "PlayerDynamic";
 		playerobj.AddComponent <PlayerController>();
 		playerobj.transform.position = new Vector3(0, 3, 0);

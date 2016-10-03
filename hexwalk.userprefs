@@ -1,35 +1,20 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Player/PlayerInfo.cs">
-    <Files>
-      <File FileName="Assets/Script/Gamefield/Field.cs" Line="33" Column="55" />
-      <File FileName="Assets/Script/Gameplay/Gameplay.cs" Line="102" Column="33" />
-      <File FileName="Assets/Script/Player/PlayerInfo.cs" Line="34" Column="1" />
-      <File FileName="Assets/Script/Utils/SavePlayerPrefs.cs" Line="9" Column="14" />
-      <File FileName="Assets/Script/Gameplay/GameplayController.cs" Line="19" Column="6" />
-      <File FileName="Assets/Script/Player/PlayerController.cs" Line="124" Column="23" />
-      <File FileName="Assets/Script/Camera/CameraPosition.cs" Line="14" Column="6" />
-      <File FileName="Assets/Script/Gameplay/GameOver.cs" Line="49" Column="18" />
-      <File FileName="Assets/Script/Manager/SoundManager.cs" Line="18" Column="3" />
-      <File FileName="Assets/Script/Manager/LevelManager.cs" Line="20" Column="15" />
-      <File FileName="Assets/Script/Utils/Pause.cs" Line="83" Column="13" />
-      <File FileName="Assets/Script/Input/InputManager.cs" Line="29" Column="20" />
-      <File FileName="Assets/Script/Background/BackgroundColor.cs" Line="15" Column="35" />
-      <File FileName="Assets/Script/Background/newBackground.cs" Line="15" Column="47" />
-      <File FileName="Assets/Script/Gamefield/Gamefield.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Player/Player.cs" Line="32" Column="36" />
-    </Files>
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="hexwalk" expanded="True">
             <Node name="Assembly-CSharp" expanded="True">
               <Node name="Script" expanded="True">
+                <Node name="Background" expanded="True" />
+                <Node name="Camera" expanded="True" />
                 <Node name="Gamefield" expanded="True" />
                 <Node name="Gameplay" expanded="True" />
+                <Node name="Input" expanded="True" />
                 <Node name="Manager" expanded="True" />
                 <Node name="Player" expanded="True">
-                  <Node name="PlayerInfo.cs" selected="True" />
+                  <Node name="PlayerController.cs" selected="True" />
                 </Node>
                 <Node name="Utils" expanded="True" />
               </Node>

@@ -59,8 +59,6 @@ public class GameOver : MonoBehaviour {
 
 		scoreText.text = "Score: " + Gameplay.scoreMgr.getScore().ToString ();
 		highscoreText.text = "Highscore: " + highscore.ToString ();
-
-		Gameplay.levelMgr.levelReset ();
 	
 	}
 

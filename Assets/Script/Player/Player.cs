@@ -21,6 +21,8 @@ public class Player {
 	Color curColor;
 	int colorCount;
 
+
+
 	public Player(int colorCount){
 		playerobj = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		playerobj.name = "PlayerDynamic";
@@ -43,6 +45,7 @@ public class Player {
 
 
 	}
+		
 
 	public void changeColorRandom(){
 		int i = Random.Range(0, 3);

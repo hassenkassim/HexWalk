@@ -26,6 +26,10 @@ public class Gameplay : MonoBehaviour {
 		 * */
 	
 	public static Player player;
+
+	public static PlayerInfo playerInfo;
+	public static SavePlayerPrefs savePlayerPrefs;
+
 	public static Camera cam;
 	public static Gamefield gamefield;
 	public static Pathfinder pathfinder;
@@ -49,6 +53,8 @@ public class Gameplay : MonoBehaviour {
 
 		//Create Player
 		player = new Player(colorCount);
+		//Create Player Info
+		playerInfo = new PlayerInfo();
 
 		//Create Gamefield
 		gamefield = new Gamefield (PlayerPrefs.GetInt("gameFieldWidth"), PlayerPrefs.GetInt("gameFieldHeight"));
@@ -91,6 +97,10 @@ public class Gameplay : MonoBehaviour {
 		if (field.getColor ().Equals (Color.blue)) {
 			pathfinder.pointer = - 1;
 			print ("WON!");
+
+			//count stars and assign it
+			playerInfo.countStarsPerLevel(levelMgr.levelCounter); //TODO: level number
+
 			//load next Level
 			levelMgr.levelUp ();
 		}
@@ -107,10 +117,10 @@ public class Gameplay : MonoBehaviour {
 			field.setColor (Color.red);
 			field.activateRigidbody ();
 			
-			fractureCube (0.3f, field);
-			Destroy (field.getGameobject ());
+			
+			field.fractureCube (0.5f, field);
 
-			//setFire (player.getTransform().position.x,player.getTransform().position.y,player.getTransform().position.z);
+			Destroy (field.getGameobject ());
 
 			print ("GAMEOVER!");
 
@@ -122,31 +132,7 @@ public class Gameplay : MonoBehaviour {
 	void Update () {
 		
 	}
+		
 
-	//private static void setFire(float x, float y, float z){
-	//ParticleSystem fire;	
-	//fire = GameObject.FindGameObjectWithTag ("fire").GetComponent<ParticleSystem> ();
-	//		fire.transform.position = new Vector3 (x, y, z);
-	//	}
-
-	//fracture objects:
-	private static void fractureCube(float scaling, Field field){
-		GameObject fracture1=null;
-		for (int numFrac = 0; numFrac < field.getTransform().localScale.x/scaling; numFrac++) {
-			for (int zAxis = 0; zAxis < field.getTransform ().localScale.z / scaling; zAxis++) {
-				fracture1 = GameObject.CreatePrimitive (PrimitiveType.Cube);
-				fracture1.transform.position = new Vector3(
-					field.getTransform().position.x+(float)numFrac*scaling-field.getTransform().localScale.x/2,
-					field.getTransform().position.y,
-					field.getTransform().position.z-field.getTransform().localScale.z/2+zAxis*scaling);
-				fracture1.transform.localScale= new Vector3 (scaling, 0.1f, scaling	);
-				fracture1.AddComponent<Rigidbody> ();
-				fracture1.GetComponent<Rigidbody> ().mass = 0.0f;
-				fracture1.GetComponent<Rigidbody> ().useGravity = true;
-				fracture1.name = "fracture"+numFrac+zAxis;
-			}
-		}  // muessen wir die fractures destroyen ??
-		Destroy(fracture1,3f);
-	}
 
 }

@@ -27,7 +27,8 @@ public class PlayerInfo  {
 			// und felder einblenden kurz 
 		}
 		//volle sterne bekommen
-		Gameplay.savePlayerPrefs.saveStarsPerLevel(level,starsPerLevel);
+		//Debug.Log(starsPerLevel);
+		//Gameplay.savePlayerPrefs.saveStarsPerLevel(level,starsPerLevel);
 	}
 
 }

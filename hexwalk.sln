@@ -1,6 +1,8 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2008
 
+Project("{36FD8688-82E9-B9B6-4EFB-EDD6CAC310CB}") = "HexWalk", "Assembly-CSharp-firstpass.csproj", "{26211840-B868-A2D7-89BE-ABBFA571DEDC}"
+EndProject
 Project("{36FD8688-82E9-B9B6-4EFB-EDD6CAC310CB}") = "HexWalk", "Assembly-CSharp.csproj", "{51EEC25B-A588-24CD-3D43-73EA865B37D4}"
 EndProject
 Project("{36FD8688-82E9-B9B6-4EFB-EDD6CAC310CB}") = "HexWalk", "Assembly-CSharp-Editor.csproj", "{7F1C374E-2D7F-9B85-F3FE-3D485FE29C29}"
@@ -11,6 +13,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{26211840-B868-A2D7-89BE-ABBFA571DEDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26211840-B868-A2D7-89BE-ABBFA571DEDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26211840-B868-A2D7-89BE-ABBFA571DEDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26211840-B868-A2D7-89BE-ABBFA571DEDC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{51EEC25B-A588-24CD-3D43-73EA865B37D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{51EEC25B-A588-24CD-3D43-73EA865B37D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51EEC25B-A588-24CD-3D43-73EA865B37D4}.Release|Any CPU.ActiveCfg = Release|Any CPU

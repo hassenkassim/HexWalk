@@ -46,7 +46,7 @@ public class Gameplay : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		version = 0;
+		version = 1;
 		//Call Score Manager constructor
 		scoreMgr = new ScoreManager();
 

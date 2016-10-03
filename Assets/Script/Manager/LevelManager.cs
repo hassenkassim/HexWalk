@@ -16,6 +16,9 @@ public class LevelManager {
 	public int levelCounter;
 
 
+	public static int cubeType;
+	public static int playerType;
+
 	// Use this for initialization
 	public LevelManager () {
 		//Initialize LevelCounter
@@ -24,6 +27,9 @@ public class LevelManager {
 		//Create Gamefield
 		initialWidth = 4;
 		initialHeight = 5;
+
+		cubeType = 0;
+		playerType = 0;
 
 
 		if (PlayerPrefs.HasKey ("gameFieldWidth") == false) {

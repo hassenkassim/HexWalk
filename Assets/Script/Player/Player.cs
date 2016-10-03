@@ -20,16 +20,35 @@ public class Player {
 	Vector2 gamePosition;
 	Color curColor;
 	int colorCount;
+	int version;
 
+	public Player(int colorCount, int version){
+		this.version = version;
+
+		switch (version) {
+		case 0:
+			playerobj = GameObject.CreatePrimitive (PrimitiveType.Cube);
+			setScale (new Vector3 (0.5f, 0.5f, 0.5f));
+			break;
+		case 1:
+			playerobj = Gameplay.prefabsMgr.generateObjectFromPrefab ("cubeEckig");
+			setScale (new Vector3 (0.3f, 0.3f, 0.3f));
+			break;
+		}
+
+
+
+<<<<<<< HEAD
 
 
 	public Player(int colorCount){
 		playerobj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+=======
+>>>>>>> b697bd58a71e738d6a0e35241306443e3be0723c
 		playerobj.name = "PlayerDynamic";
 		playerobj.AddComponent <PlayerController>();
 		playerobj.transform.position = new Vector3(0, 3, 0);
 		playerobj.transform.rotation = Quaternion.Euler(0, 0, 0);
-		setScale (new Vector3 (0.5f, 0.5f, 0.5f));
 		playerobj.tag = "Player";
 
 		this.colorCount = colorCount;

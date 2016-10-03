@@ -14,13 +14,27 @@ using System.Collections;
  * */
 public class Field {
 	public GameObject field;
+	public int version;
 
-	public Field(string name){
+	public Field(string name, int version){
+		this.version = version;
+
+
+		switch (version) {
+		case 0:
+			field = GameObject.CreatePrimitive (PrimitiveType.Cube);
+			setScale (new Vector3 (0.8f, 0.1f, 0.8f));
+			break;
+		case 1:
+			field = Gameplay.prefabsMgr.generateObjectFromPrefab ("plate3");
+			setScale (new Vector3 (0.4f, 0.4f, 0.1f));
+			break;
+		}
+			
 		//TODO: Instead of creating a primitive Cube, we should use a 3D model with rounded corners
-		field = GameObject.CreatePrimitive(PrimitiveType.Cube);
+
 		field.name = name;
 		field.tag = "Field";
-		setScale (new Vector3 (0.8f, 0.1f, 0.8f));
 	}
 
 	public Field(string name, System.Type[] comp, Color col){

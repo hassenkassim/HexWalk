@@ -50,6 +50,7 @@
      <Compile Include="Assets\Script\Background\newBackground.cs" />
      <Compile Include="Assets\Script\Camera\CameraPosition.cs" />
      <Compile Include="Assets\Script\Gamefield\Field.cs" />
+     <Compile Include="Assets\Script\Gamefield\FieldController.cs" />
      <Compile Include="Assets\Script\Gamefield\Gamefield.cs" />
      <Compile Include="Assets\Script\Gameplay\GameOver.cs" />
      <Compile Include="Assets\Script\Gameplay\Gameplay.cs" />
@@ -58,6 +59,7 @@
      <Compile Include="Assets\Script\Input\SwipeManager.cs" />
      <Compile Include="Assets\Script\Manager\LevelManager.cs" />
      <Compile Include="Assets\Script\Manager\MenuManager.cs" />
+     <Compile Include="Assets\Script\Manager\PrefabsManager.cs" />
      <Compile Include="Assets\Script\Manager\ScenesManager.cs" />
      <Compile Include="Assets\Script\Manager\ScoreManager.cs" />
      <Compile Include="Assets\Script\Manager\SoundManager.cs" />

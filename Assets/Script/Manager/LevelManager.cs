@@ -24,11 +24,11 @@ public class LevelManager : MonoBehaviour {
 	public Button [,] levelLockedBtn;
 	public Button [] worldBtn; 
 	public Button [] worldLockedBtn; 
-	public int worldMax;
-	public int levelMax;
+	public static int worldMax; //number of worlds
+	public static int levelMax; //number of levels
 	public bool changeWorld;
-	public int level;
-	public int world;
+	public static int level;
+	public static int world;
 
 	public Button level1;
 	public Button level2;
@@ -52,8 +52,8 @@ public class LevelManager : MonoBehaviour {
 
 
 		changeWorld = false;
-		levelMax = 3;
-		worldMax = 3;
+		levelMax = 24;
+		worldMax = 10;
 		levelBtn = new Button[worldMax, levelMax];
 		levelLockedBtn = new Button[worldMax, levelMax];
 		worldBtn = new Button[worldMax];

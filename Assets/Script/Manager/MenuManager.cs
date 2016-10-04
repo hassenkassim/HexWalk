@@ -55,12 +55,18 @@ public class MenuManager : MonoBehaviour {
 	}
 
 	//Button function
-	public void onStartGame()
+	public void onPlay()
 	{
 		MainMenu.enabled = false;
 		worldCanvas.enabled = true;
 
 	}
+
+	public void onStartGame(){
+		Application.LoadLevel ("GameScene");
+	}
+
+
 
 	public void onGameMode()
 	{

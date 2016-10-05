@@ -1,40 +1,17 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-<<<<<<< HEAD
-  <MonoDevelop.Ide.Workbench>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State name="__root__">
-          <Node name="hexwalk" expanded="True">
-            <Node name="Assembly-CSharp" expanded="True">
-              <Node name="Script" expanded="True">
-                <Node name="Background" expanded="True" />
-                <Node name="Camera" expanded="True" />
-                <Node name="Gamefield" expanded="True" />
-                <Node name="Gameplay" expanded="True" />
-                <Node name="Input" expanded="True" />
-                <Node name="Manager" expanded="True" />
-                <Node name="Player" expanded="True">
-                  <Node name="PlayerController.cs" selected="True" />
-                </Node>
-                <Node name="Utils" expanded="True" />
-              </Node>
-            </Node>
-          </Node>
-        </State>
-      </Pad>
-      <Pad Id="MonoDevelop.NUnit.TestPad">
-        <State name="__root__">
-          <Node name="hexwalk" expanded="True" selected="True" />
-        </State>
-      </Pad>
-    </Pads>
-=======
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Gameplay/Gameplay.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Manager/UnlockLevel.cs">
     <Files>
-      <File FileName="Assets/Script/Gameplay/Gameplay.cs" Line="74" Column="1" />
+      <File FileName="Assets/Script/Manager/LevelManager.cs" Line="102" Column="1" />
+      <File FileName="Assets/Script/Gamefield/Field.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Gamefield/Gamefield.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Gameplay/GameOver.cs" Line="26" Column="34" />
+      <File FileName="Assets/Script/Gameplay/Gameplay.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Manager/LevelSelectScript.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Manager/SoundManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Manager/UnLockWorld.cs" Line="10" Column="32" />
+      <File FileName="Assets/Script/Manager/UnlockLevel.cs" Line="36" Column="54" />
     </Files>
->>>>>>> 9d0f09a421c904d9491951e167f3f1361c3465f4
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />

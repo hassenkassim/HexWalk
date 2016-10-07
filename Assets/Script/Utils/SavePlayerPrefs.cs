@@ -7,8 +7,8 @@ public class SavePlayerPrefs {
 	}
 
 	public void saveStarsPerLevel(int lvl, int stars){
-		//PlayerPrefs.SetInt ("level"+lvl, stars );
-		//PlayerPrefs.Save ();
+		PlayerPrefs.SetInt ("level"+lvl, stars );
+		PlayerPrefs.Save ();
 	}
 
 

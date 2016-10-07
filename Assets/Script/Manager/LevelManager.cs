@@ -150,7 +150,6 @@ public class LevelManager : MonoBehaviour {
 		//PlayerPrefs.SetInt ("gameFieldWidth", initialWidth);
 		//PlayerPrefs.SetInt ("gameFieldHeight", initialHeight);
 	}
-
-
+		
 
 }

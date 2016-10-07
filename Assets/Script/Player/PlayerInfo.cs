@@ -3,32 +3,33 @@ using System.Collections;
 
 public class PlayerInfo  {
 
-	float timeLeft;
-	float timePerLevel;
+	public int numStars=0;
+
+	public int worldIndex;
+	public int levelIndex;
 
 	public PlayerInfo(){
-		
+
 	
 	}
-
 
 	// algorithm to calculate the stars (depending on fields and level)
 	public void countStarsPerLevel(int level){
 		// how long did it take to solve the level and count the stars
 		int starsPerLevel = 0;
-		int numStars = 3;
+		numStars = 3;
 
-		timePerLevel=Time.timeSinceLevelLoad;
-		timeLeft-=Time.deltaTime;
+		int numFields = Gameplay.pathfinder.path.Count;
+		float timeInThisLevel = 0.0f;
 
-		if (timeLeft < 0) {
-			//sterne zaehlsystem 
-			starsPerLevel = (numStars-1);
-			// und felder einblenden kurz 
-		}
+		int benchmark = numFields;
+
+//		Debug.Log ("Number of fields for this path: " + numFields);
+
+
+
 		//volle sterne bekommen
-		//Debug.Log(starsPerLevel);
-		//Gameplay.savePlayerPrefs.saveStarsPerLevel(level,starsPerLevel);
+		Gameplay.savePlayerPrefs.saveStarsPerLevel(level,starsPerLevel);
 	}
 
 }

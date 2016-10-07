@@ -39,6 +39,10 @@ public class Gameplay : MonoBehaviour {
 	public static PrefabsManager prefabsMgr;
 	public static GameObject pauseBtn;
 
+	public static float totalTime = 0f;
+
+
+
 	int version;
 
 	static AudioClip rotationSound;
@@ -75,7 +79,8 @@ public class Gameplay : MonoBehaviour {
 
 		//Create Player Info
 		playerInfo = new PlayerInfo();
-
+		//Create SavePlayerPrefs
+		savePlayerPrefs= new SavePlayerPrefs();
 
 		//Create Gamefield
 		gamefield = new Gamefield (PlayerPrefs.GetInt("gameFieldWidth"), PlayerPrefs.GetInt("gameFieldHeight"), version);
@@ -111,8 +116,23 @@ public class Gameplay : MonoBehaviour {
 			pathfinder.pointer = - 1;
 			print ("WON!");
 
-			//count stars and assign it
+			//count stars and save it in the prefs
 			playerInfo.countStarsPerLevel(levelMgr.levelCounter); //TODO: level number
+			savePlayerPrefs.saveStarsPerLevel(levelMgr.levelCounter,playerInfo.numStars);
+
+
+			float benchmark= (float)((pathfinder.path.Count*2)/10);
+
+			Debug.Log ("_________totalTime"+totalTime);
+			Debug.Log ("_________benchmark"+benchmark);
+
+			if (totalTime < 5.0f+benchmark)
+				Debug.Log ("3 Stars for this level !!!!");
+			else if (totalTime < 10.0f+benchmark)
+				Debug.Log ("2 Stars for this level !!!!");
+			else
+				Debug.Log ("1 Star for this level !!!!");
+			
 
 			//load next Level
 			levelMgr.levelUp ();

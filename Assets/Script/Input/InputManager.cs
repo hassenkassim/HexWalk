@@ -58,11 +58,17 @@ public class InputManager : MonoBehaviour {
 				if(Input.touchCount > 0){
 					if (Input.touches[0].phase == TouchPhase.Ended) {
 						return true;
-					}
+				}else{
+					return false;
 				}
+				
+			    }else{
+		     	return false;
+			}
 			#endif
 		} else {
 			return false;
 		}
+
 	}
 }

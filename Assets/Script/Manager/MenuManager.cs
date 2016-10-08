@@ -62,8 +62,12 @@ public class MenuManager : MonoBehaviour {
 
 	}
 
+	public void onResetPlayerPrefs(){
+		PlayerPrefs.DeleteAll ();
+	}
+
 	public void onStartGame(){
-		Application.LoadLevel ("GameScene");
+		SceneManager.LoadScene ("GameScene");
 	}
 
 

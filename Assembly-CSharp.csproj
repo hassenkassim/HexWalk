@@ -52,7 +52,7 @@
      <Compile Include="Assets\Script\Gamefield\Field.cs" />
      <Compile Include="Assets\Script\Gamefield\FieldController.cs" />
      <Compile Include="Assets\Script\Gamefield\Gamefield.cs" />
-     <Compile Include="Assets\Script\Gameplay\GameOver.cs" />
+     <Compile Include="Assets\Script\Gameplay\GameSceneButtonManager.cs" />
      <Compile Include="Assets\Script\Gameplay\Gameplay.cs" />
      <Compile Include="Assets\Script\Gameplay\GameplayController.cs" />
      <Compile Include="Assets\Script\Input\InputManager.cs" />
@@ -65,7 +65,6 @@
      <Compile Include="Assets\Script\Manager\SoundManager.cs" />
      <Compile Include="Assets\Script\Manager\UnlockLevel.cs" />
      <Compile Include="Assets\Script\Manager\UnlockWorld.cs" />
-     <Compile Include="Assets\Script\Manager\WorldManager.cs" />
      <Compile Include="Assets\Script\Path\Pathfinder.cs" />
      <Compile Include="Assets\Script\Path\PathfinderController.cs" />
      <Compile Include="Assets\Script\Player\Player.cs" />

@@ -19,13 +19,14 @@ public class UnlockLevel : MonoBehaviour {
 	public Sprite levelCurrentImage;
 
 
+
 	// Use this for initialization
 	void Awake () {
 		UnlockLevels ();
+
 	}
 	
 	public void UnlockLevels(){
-		PlayerPrefs.SetInt ("level", 3);
 		if (PlayerPrefs.HasKey ("level") == false) {
 			PlayerPrefs.SetInt ("level", 1);
 
@@ -49,7 +50,11 @@ public class UnlockLevel : MonoBehaviour {
 			levelBtnObj = GameObject.Find ("Level"+PlayerPrefs.GetInt("world")+"_"+LevelManager.levelMax);
 			levelBtn = levelBtnObj.GetComponent<Button>();
 			levelBtn.image.overrideSprite = levelFinishedImage;
+
+			PlayerPrefs.SetInt("level", 1);
 		}
+
+		PlayerPrefs.Save();
 
 	}
 }

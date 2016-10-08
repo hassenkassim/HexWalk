@@ -78,8 +78,8 @@ public class Gameplay : MonoBehaviour {
 
 
 		//Create Gamefield
-		gamefield = new Gamefield (PlayerPrefs.GetInt("gameFieldWidth"), PlayerPrefs.GetInt("gameFieldHeight"), version);
-		//gamefield = new Gamefield (4, 5);
+		//gamefield = new Gamefield (PlayerPrefs.GetInt("gameFieldWidth"), PlayerPrefs.GetInt("gameFieldHeight"), version);
+		gamefield = new Gamefield (3, 3, 1);
 
 		// Call Pathfinder constructor
 		pathfinder = new Pathfinder (colorCount);
@@ -111,11 +111,14 @@ public class Gameplay : MonoBehaviour {
 			pathfinder.pointer = - 1;
 			print ("WON!");
 
+			GameSceneButtonManager.displayWon();
+			LevelManager.levelUp ();
 			//count stars and assign it
-			playerInfo.countStarsPerLevel(levelMgr.levelCounter); //TODO: level number
+			//playerInfo.countStarsPerLevel(levelMgr.levelCounter); //TODO: level number
 
 			//load next Level
-			levelMgr.levelUp ();
+
+
 		}
 
 		if (pathfinder.path[pointer].Equals(platePos) && player.getColor().Equals(pathfinder.pathcolor[pointer])) {
@@ -137,7 +140,7 @@ public class Gameplay : MonoBehaviour {
 
 			print ("GAMEOVER!");
 
-			GameOver.displayGameover ();
+			GameSceneButtonManager.displayGameover ();
 		}
 	}
 		

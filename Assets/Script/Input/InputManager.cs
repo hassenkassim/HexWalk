@@ -17,11 +17,6 @@ public class InputManager : MonoBehaviour {
 				} else if(SwipeManager.IsSwipingRight()) {
 					return 1;
 				}
-<<<<<<< HEAD
-				return 0;
-=======
-			return 0;
->>>>>>> 8708d49e6fb20b4b96d61cb52cd59776b737e561
 			#endif
 		}else {
 			return 0;
@@ -40,11 +35,6 @@ public class InputManager : MonoBehaviour {
 				} else if(SwipeManager.IsSwipingUp()) {
 				return 1;
 				}
-<<<<<<< HEAD
-				return 0;
-=======
-			return 0;
->>>>>>> 8708d49e6fb20b4b96d61cb52cd59776b737e561
 			#endif
 		} else {
 			return 0;

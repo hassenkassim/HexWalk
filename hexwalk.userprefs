@@ -1,5 +1,14 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+<<<<<<< HEAD
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Gameplay/Gameplay.cs">
+    <Files>
+      <File FileName="Assets/Script/Utils/SavePlayerPrefs.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Input/InputManager.cs" Line="15" Column="14" />
+      <File FileName="Assets/Script/Gameplay/GameplayController.cs" Line="74" Column="12" />
+      <File FileName="Assets/Script/Player/PlayerInfo.cs" Line="25" Column="21" />
+      <File FileName="Assets/Script/Gameplay/Gameplay.cs" Line="122" Column="4" />
+=======
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Manager/UnlockLevel.cs">
     <Files>
       <File FileName="Assets/Script/Manager/LevelManager.cs" Line="102" Column="1" />
@@ -11,6 +20,7 @@
       <File FileName="Assets/Script/Manager/SoundManager.cs" Line="1" Column="1" />
       <File FileName="Assets/Script/Manager/UnLockWorld.cs" Line="10" Column="32" />
       <File FileName="Assets/Script/Manager/UnlockLevel.cs" Line="36" Column="54" />
+>>>>>>> 8708d49e6fb20b4b96d61cb52cd59776b737e561
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

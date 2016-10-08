@@ -93,11 +93,6 @@ public class LevelManager : MonoBehaviour {
 	public static void levelReset(){
 		
 	}
-
-		//PlayerPrefs.SetInt ("gameFieldWidth", initialWidth);
-		//PlayerPrefs.SetInt ("gameFieldHeight", initialHeight);
-
-
-
+		
 
 }

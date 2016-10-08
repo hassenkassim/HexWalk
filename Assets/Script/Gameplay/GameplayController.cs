@@ -29,6 +29,7 @@ public class GameplayController : MonoBehaviour {
 	public GUIStyle myStyle;
 	public string txt;
 
+
 	// Use this for initialization
 	void Start () {
 		myFont = (Font)Resources.Load("fontTimer", typeof(Font));
@@ -68,6 +69,10 @@ public class GameplayController : MonoBehaviour {
 				showID = SHOWNOTHING2;
 			}
 			txt = "";
+
+			//begin counting time per level
+			Gameplay.totalTime +=Time.deltaTime;
+
 			break;
 		case SHOWNOTHING2:
 			break;

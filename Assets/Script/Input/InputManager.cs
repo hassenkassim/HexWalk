@@ -17,6 +17,13 @@ public class InputManager : MonoBehaviour {
 				} else if(SwipeManager.IsSwipingRight()) {
 					return 1;
 				}
+<<<<<<< HEAD
+=======
+
+				return 0;
+
+			return 0;
+>>>>>>> 4b2118a6f949fc7e3840bd7c4f44fe3ed2f1f24b
 			#endif
 		}else {
 			return 0;
@@ -35,6 +42,14 @@ public class InputManager : MonoBehaviour {
 				} else if(SwipeManager.IsSwipingUp()) {
 				return 1;
 				}
+<<<<<<< HEAD
+=======
+
+				return 0;
+
+			return 0;
+
+>>>>>>> 4b2118a6f949fc7e3840bd7c4f44fe3ed2f1f24b
 			#endif
 		} else {
 			return 0;
@@ -56,11 +71,17 @@ public class InputManager : MonoBehaviour {
 				if(Input.touchCount > 0){
 					if (Input.touches[0].phase == TouchPhase.Ended) {
 						return true;
-					}
+				}else{
+					return false;
 				}
+				
+			    }else{
+		     	return false;
+			}
 			#endif
 		} else {
 			return false;
 		}
+
 	}
 }

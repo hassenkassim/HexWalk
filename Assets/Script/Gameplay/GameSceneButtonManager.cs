@@ -79,6 +79,7 @@ public class GameSceneButtonManager : MonoBehaviour {
 		nextLevelBtn.gameObject.SetActive (false);	
 
 		wonText.gameObject.SetActive (false);
+		gameoverText.SetActive (true);
 
 		if (PlayerPrefs.HasKey ("highscore") == false) {
 			PlayerPrefs.SetInt ("highscore", 0);
@@ -106,6 +107,7 @@ public class GameSceneButtonManager : MonoBehaviour {
 		restartBtn.gameObject.SetActive (false);
 
 		gameoverText.gameObject.SetActive (false);
+		wonText.gameObject.SetActive (true);
 
 		if (PlayerPrefs.HasKey ("highscore") == false) {
 			PlayerPrefs.SetInt ("highscore", 0);

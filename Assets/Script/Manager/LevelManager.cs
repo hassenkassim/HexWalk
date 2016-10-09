@@ -84,10 +84,7 @@ public class LevelManager : MonoBehaviour {
 		//SceneManager.LoadScene ("GameScene");
 			
 	}
-
-	public static void displayLevelUp(){
-	
-	}
+		
 
 	//Decrease field to initial value
 	public static void levelReset(){

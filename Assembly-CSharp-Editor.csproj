@@ -46,10 +46,6 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Editor\CrossPlatformInput\CrossPlatformInputInitialize.cs" />
-     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
-     <None Include="Assets\Standard Assets\Environment\Water\Water\Shaders\FXWaterPro.shader" />
-     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\WaterInclude.cginc" />
-     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Advanced.shader" />
  <Reference Include="UnityEngine.Networking">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>

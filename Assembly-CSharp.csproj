@@ -75,10 +75,6 @@
      <Compile Include="Assets\Script\Utils\Pause.cs" />
      <Compile Include="Assets\Script\Utils\SavePlayerPrefs.cs" />
      <Compile Include="Assets\Script\Utils\Share.cs" />
-     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
-     <None Include="Assets\Standard Assets\Environment\Water\Water\Shaders\FXWaterPro.shader" />
-     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\WaterInclude.cginc" />
-     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Advanced.shader" />
  <Reference Include="UnityEngine.Networking">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>

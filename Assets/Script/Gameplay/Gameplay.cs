@@ -142,7 +142,8 @@ public class Gameplay : MonoBehaviour {
 			
 
 			//load next Level
-		}
+		} else {
+			
 
 		
 
@@ -168,7 +169,7 @@ public class Gameplay : MonoBehaviour {
 				GameSceneButtonManager.displayGameover ();
 			}
 		
-		
+		}
 
 	}
 		

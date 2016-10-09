@@ -26,8 +26,8 @@ public class Field {
 			setScale (new Vector3 (0.8f, 0.1f, 0.8f));
 			break;
 		case 1:
-			field = Gameplay.prefabsMgr.generateObjectFromPrefab ("plate3");
-			setScale (new Vector3 (0.4f, 0.4f, 0.05f));
+				field = Gameplay.prefabsMgr.generateObjectFromPrefab ("plate3");
+				setScale (new Vector3 (0.4f, 0.4f, 0.05f));
 			break;
 		}
 			

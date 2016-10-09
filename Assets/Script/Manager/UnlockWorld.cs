@@ -18,15 +18,16 @@ public class UnlockWorld : MonoBehaviour {
 	public Sprite worldLockedImage;
 	public Sprite worldCurrentImage;
 
+
 	public void  Start (){
 		
 		UnlockWorlds(); 
+			
 
 	}
 
 	//function to lock the levels
 	public void UnlockWorlds (){
-		PlayerPrefs.SetInt ("world", 1);
 		if (PlayerPrefs.HasKey ("world") == false) {
 			PlayerPrefs.SetInt ("world", 1);
 	
@@ -47,7 +48,15 @@ public class UnlockWorld : MonoBehaviour {
 	
 		}
 
+		if (LevelManager.worldUp == true) {
+			worldBtnObj = GameObject.Find ("World" +PlayerPrefs.GetInt("world"));
+			worldBtn = worldBtnObj.GetComponent<Button>();
+			worldBtn.image.overrideSprite = worldFinishedImage;
 
+			PlayerPrefs.SetInt ("world", PlayerPrefs.GetInt ("world") + 1); 
+		}
+
+		PlayerPrefs.Save();
 	}
 
 

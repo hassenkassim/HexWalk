@@ -10,7 +10,7 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameSceneButtonManager : MonoBehaviour {
+public class GamesceneManager : MonoBehaviour {
 
 	// Buttons
 	public static GameObject soundOnBtn;
@@ -102,7 +102,7 @@ public class GameSceneButtonManager : MonoBehaviour {
 		InputManager.active = false;
 
 		gameOverOrWonCanvas.enabled = true;
-			
+
 		nextLevelBtn.gameObject.SetActive (true);
 		restartBtn.gameObject.SetActive (false);
 
@@ -139,7 +139,7 @@ public class GameSceneButtonManager : MonoBehaviour {
 
 	public void onMainMenu(){
 		Time.timeScale = 1;
-		SceneManager.LoadScene ("MenuScene");
+		SceneManager.LoadScene ("LevelScene");
 	}
 
 	public void onShare(){

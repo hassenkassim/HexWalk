@@ -15,16 +15,9 @@ public class MenuManager : MonoBehaviour {
 
 	public Canvas MainMenu;
 	public Canvas OptionsMenu;
-	public Canvas [] levelCanvas;
-	public Canvas worldCanvas;
-	public int activeCanvasControll;
 
 	public GameObject SoundOnBtn;
 	public GameObject SoundOffBtn;
-
-	public GameObject worldBtn;
-	public GameObject[] worldCurrentBtn;
-	public GameObject[] worldLockedBtn;
 
 	public bool soundIsOn = true;
 
@@ -33,11 +26,8 @@ public class MenuManager : MonoBehaviour {
 	//Initial function
 	void Awake(){
 
-		disableAllLevelCanvas ();
 		MainMenu.enabled = true;
 		OptionsMenu.enabled = false;
-		worldCanvas.enabled = false;
-		activeCanvasControll = 99;
 
 		if (PlayerPrefs.HasKey ("soundIsOn") == false) {
 			SoundOffBtn.gameObject.SetActive (false);
@@ -57,20 +47,12 @@ public class MenuManager : MonoBehaviour {
 	//Button function
 	public void onPlay()
 	{
-		MainMenu.enabled = false;
-		worldCanvas.enabled = true;
-
+		SceneManager.LoadScene ("LevelScene");
 	}
 
 	public void onResetPlayerPrefs(){
 		PlayerPrefs.DeleteAll ();
 	}
-
-	public void onStartGame(){
-		SceneManager.LoadScene ("GameScene");
-	}
-
-
 
 	public void onGameMode()
 	{
@@ -132,97 +114,6 @@ public class MenuManager : MonoBehaviour {
 
 		AudioListener.pause = false;
 	}
-
-	public void onNextLevel(){
-		
-	}
-
-	public void onWorld1(){
-		worldCanvas.enabled = false;
-		levelCanvas[0].gameObject.SetActive(true);
-		activeCanvasControll = 0;
-	}
-
-	public void onWorld2(){
-		worldCanvas.enabled = false;
-		levelCanvas[1].gameObject.SetActive(true);
-		activeCanvasControll = 1;
-	}
-
-	public void onWorld3(){
-		worldCanvas.enabled = false;
-		levelCanvas[2].gameObject.SetActive(true);
-		activeCanvasControll = 2;
-	}
-
-	public void onWorld4(){
-		worldCanvas.enabled = false;
-		levelCanvas[3].gameObject.SetActive(true);
-		activeCanvasControll = 3;
-	}
-
-	public void onWorld5(){
-		worldCanvas.enabled = false;
-		levelCanvas[4].gameObject.SetActive(true);
-		activeCanvasControll = 4;
-	}
-
-	public void onWorld6(){
-		worldCanvas.enabled = false;
-		levelCanvas[5].gameObject.SetActive(true);
-		activeCanvasControll = 5;
-	}
-
-	public void onWorld7(){
-		worldCanvas.enabled = false;
-		levelCanvas[6].enabled = true;
-		activeCanvasControll = 6;
-	}
-
-	public void onWorld8(){
-		worldCanvas.enabled = false;
-		levelCanvas[7].gameObject.SetActive(true);
-		activeCanvasControll = 7;
-	}
-
-	public void onWorld9(){
-		worldCanvas.enabled = false;
-		levelCanvas[8].gameObject.SetActive(true);
-		activeCanvasControll = 8;
-	}
-
-	public void onWorld10(){
-		worldCanvas.enabled = false;
-		levelCanvas[9].gameObject.SetActive(true);
-		activeCanvasControll = 9;
-	}
-		
-	public void onBackWorldCanvas(){
-		worldCanvas.enabled = false;
-		MainMenu.enabled = true;
-	}
-
-	public void onBackLevelCanvas (){
-		disableActiveLevelCanvas ();
-		worldCanvas.enabled = true;
-	}
-
-	//canvasControll und initialize
-	public void disableAllLevelCanvas(){
-		for (int i = 0; i < 10; i++) {
-			 {
-				levelCanvas [i] = GameObject.Find ("levelCanvas" + (i + 1)).GetComponent<Canvas> ();
-				levelCanvas [i].gameObject.SetActive (false);
-
-			}
-		}
-	}
-
-	public void disableActiveLevelCanvas(){
-			levelCanvas [activeCanvasControll].gameObject.SetActive (false);
-	}
-		
-
 
 	// Boolean for PlayerPrefs
 	public static void SetBool(string name, bool booleanValue) 

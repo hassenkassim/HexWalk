@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+
 		if (InputManager.getClickTouchInput ()) {
 			Gameplay.player.setNextColor();
 			return;
@@ -48,7 +49,8 @@ public class PlayerController : MonoBehaviour {
 
 
 		float x = InputManager.getHorizontalInput();
-		float y = InputManager.getVerticalInput();
+		float y = 0;
+		if(x==0) y = InputManager.getVerticalInput();
 
 
 		//check if move is allowed

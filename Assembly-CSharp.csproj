@@ -51,13 +51,15 @@
      <Compile Include="Assets\Script\Gamefield\Field.cs" />
      <Compile Include="Assets\Script\Gamefield\FieldController.cs" />
      <Compile Include="Assets\Script\Gamefield\Gamefield.cs" />
-     <Compile Include="Assets\Script\Gameplay\GameSceneButtonManager.cs" />
      <Compile Include="Assets\Script\Gameplay\Gameplay.cs" />
      <Compile Include="Assets\Script\Gameplay\GameplayController.cs" />
+     <Compile Include="Assets\Script\Gameplay\GamesceneManager.cs" />
      <Compile Include="Assets\Script\Input\InputManager.cs" />
      <Compile Include="Assets\Script\Input\SwipeManager.cs" />
      <Compile Include="Assets\Script\Level\CameraPositionLevelPlay.cs" />
      <Compile Include="Assets\Script\Level\LevelPlay.cs" />
+     <Compile Include="Assets\Script\Level\LevelPlayerController.cs" />
+     <Compile Include="Assets\Script\Level\PlayerPrefsX.cs" />
      <Compile Include="Assets\Script\Level\PrefabsManagerLevelPlay.cs" />
      <Compile Include="Assets\Script\Manager\LevelManager.cs" />
      <Compile Include="Assets\Script\Manager\MenuManager.cs" />
@@ -65,8 +67,6 @@
      <Compile Include="Assets\Script\Manager\ScenesManager.cs" />
      <Compile Include="Assets\Script\Manager\ScoreManager.cs" />
      <Compile Include="Assets\Script\Manager\SoundManager.cs" />
-     <Compile Include="Assets\Script\Manager\UnlockLevel.cs" />
-     <Compile Include="Assets\Script\Manager\UnlockWorld.cs" />
      <Compile Include="Assets\Script\Path\Pathfinder.cs" />
      <Compile Include="Assets\Script\Path\PathfinderController.cs" />
      <Compile Include="Assets\Script\Player\Player.cs" />

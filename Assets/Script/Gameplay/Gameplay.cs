@@ -27,6 +27,8 @@ public class Gameplay : MonoBehaviour {
 	
 	public static Player player;
 
+	public static int star;
+
 	public static PlayerInfo playerInfo;
 	public static SavePlayerPrefs savePlayerPrefs;
 
@@ -119,7 +121,7 @@ public class Gameplay : MonoBehaviour {
 
 
 			GamesceneManager.displayWon ();
-			LevelManager.levelUp ();
+			;
 			//count stars and assign it
 			//playerInfo.countStarsPerLevel(levelMgr.levelCounter); //TODO: level number
 
@@ -133,13 +135,19 @@ public class Gameplay : MonoBehaviour {
 			Debug.Log ("_________totalTime" + totalTime);
 			Debug.Log ("_________benchmark" + benchmark);
 
-			if (totalTime < 5.0f + benchmark)
+			if (totalTime < 5.0f + benchmark) {
 				Debug.Log ("3 Stars for this level !!!!");
-			else if (totalTime < 10.0f + benchmark)
+				star = 3;
+			} else if (totalTime < 10.0f + benchmark) {
 				Debug.Log ("2 Stars for this level !!!!");
-			else
+				star = 2;
+			} else {
 				Debug.Log ("1 Star for this level !!!!");
-			
+				star = 1;
+			}
+				
+			//setup and save level, coloring, stars
+			LevelManager.levelUp ();
 
 			//load next Level
 		} else {

@@ -5,8 +5,10 @@ public class PlayerInfo  {
 
 	public int numStars=0;
 
-	public int worldIndex;
-	public int levelIndex;
+	public static int threeStars = 3;
+	public static int twoStars = 2;
+	public static int oneStar = 1;
+
 
 	public PlayerInfo(){
 

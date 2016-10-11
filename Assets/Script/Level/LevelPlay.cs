@@ -18,6 +18,14 @@ public class LevelPlay : MonoBehaviour {
 	public static GameObject worldTextObj;
 	public static GameObject statusTextObj;
 
+	public static SpriteRenderer threeStarSpr;
+	public static SpriteRenderer twoStarSpr;
+	public static SpriteRenderer oneStarSpr;
+
+	public static GameObject threeStarObj;
+	public static GameObject twoStarObj;
+	public static GameObject oneStarObj;
+
 	public static Camera cam;
 	public static Gamefield gamefield;
 	public static GameObject playerobj;
@@ -28,13 +36,19 @@ public class LevelPlay : MonoBehaviour {
 	public static int world;
 	public static int height;
 
-	public static Color [,] fieldColor;
 	public static Color currentColor;
 	public static Color finishedColor;
 	public static Color blockedColor;
-	public static Color[] saveColor1D;
+	public static Color blackColor;
+	public static Color unlockColor;
 
-	public static int [,] starField;
+	public static int blaCol;
+	public static int curCol;
+	public static int finCol;
+	public static int bloCol;
+	public static int unlockCol;
+
+	public static bool playFromCurLevel;
 
 	//Playercontroller
 	public float rotationPeriod = 0.25f;		
@@ -58,10 +72,15 @@ public class LevelPlay : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		if (PlayerPrefs.HasKey ("firstStart") == false) {
-			PlayerPrefs.SetInt ("firstStart", 1);
-		}
+		playFromCurLevel = false;
 
+		blaCol = 0;
+		curCol = 1;
+		finCol = 2;
+		bloCol = 3;
+		unlockCol = 4;
+
+		//initialize text
 		levelTextObj = GameObject.Find("LevelText");
 		levelText = levelTextObj.GetComponent<Text>();
 
@@ -70,6 +89,22 @@ public class LevelPlay : MonoBehaviour {
 
 		statusTextObj = GameObject.Find("StatusText");
 		statusText = statusTextObj.GetComponent<Text>();
+
+		//initialize sprite
+		threeStarObj = GameObject.Find("ThreeStarSprite");
+		threeStarSpr = threeStarObj.GetComponent<SpriteRenderer>();
+
+		twoStarObj = GameObject.Find("TwoStarSprite");
+		twoStarSpr = twoStarObj.GetComponent<SpriteRenderer>();
+
+		oneStarObj = GameObject.Find("OneStarSprite");
+		oneStarSpr = oneStarObj.GetComponent<SpriteRenderer>();
+
+		/*
+		threeStarSpr.GetComponent<SpriteRenderer> ().enabled = false;
+		twoStarSpr.GetComponent<SpriteRenderer> ().enabled = false;
+		oneStarSpr.GetComponent<SpriteRenderer> ().enabled = false;
+		*/
 
 		InputManager.active = true;
 
@@ -98,106 +133,123 @@ public class LevelPlay : MonoBehaviour {
 		level = LevelManager.getLevelMax ();
 		world = LevelManager.getWorldMax ();
 
+		//field color definition
 		finishedColor = Color.green;
 		currentColor = Color.cyan;
 		blockedColor = Color.grey;
+		blackColor = Color.black;
+		unlockColor = Color.white;
 
-		height = world * 2 - 1; //für blockierende Steine zwischen den Welten
-
-		fieldColor = new Color[level, height];
+		//für blockierende Steine zwischen den Welten
+		height = world * 2 - 1; 
 
 		fields = new GameObject[level, height];
-
-
 
 		for (int j = 0; j < height; j++) { 
 			for (int i = 0; i < level; i++) {
 
 				//every second row is a blocking row
 				if (j % 2 == 1) {
-					fields[i,j] = LevelPlay.prefabsMgr.generateObjectFromPrefab ("plate3");
-					fields[i,j].transform.localScale = new Vector3 (0.4f, 0.4f, 0.2f);
-					fields[i,j].transform.position = new Vector3 (i, 1, j);
-					fields[i,j].name = i + "_" + j;
+					fields [i, j] = LevelPlay.prefabsMgr.generateObjectFromPrefab ("plate3");
+					fields [i, j].transform.localScale = new Vector3 (0.4f, 0.4f, 0.05f);
+					fields [i, j].transform.position = new Vector3 (i, 1, j);
+					fields [i, j].name = i + "_" + j;
+					fields [i, j].tag = "LevelField";
 
-					fieldColor[i,j] = fields [i, j].GetComponent<MeshRenderer> ().material.color = Color.black;
-					fields[i,j].tag = "LevelField";
+
+					if (PlayerPrefs.HasKey ("Color X:"+i+" Y:"+j) == false) {
+						
+						PlayerPrefs.SetInt ("Color X:"+i+" Y:"+j, blaCol);
+						//PlayerPrefs.SetInt ("firstStartBlack", 0);
+					}
 
 					if (i > 0) {
 						fields [i, j].SetActive (false);
 					}
-				}else{
 
-					if (PlayerPrefs.GetInt ("firstStart") == 1) {
+					colorFields (i, j);
+				} else {
+
+					//visible part
+					fields [i, j] = LevelPlay.prefabsMgr.generateObjectFromPrefab ("plate3");
+					fields [i, j].transform.localScale = new Vector3 (0.4f, 0.4f, 0.05f);
+					fields [i, j].transform.position = new Vector3 (i, 1, j);
+					fields [i, j].tag = "LevelField";
+					fields [i, j].name = i + "_" + j;
+
+					if (PlayerPrefs.HasKey ("Color X:" + i + " Y:" + j) == false) {
+						PlayerPrefs.SetInt ("Color X:" + i + " Y:" + j, bloCol);
+						if (i == 0 && j == 0) {
+							PlayerPrefs.SetInt ("Color X:" + i + " Y:" + j, curCol);
+						}
 					}
 
-					fields[i,j] = LevelPlay.prefabsMgr.generateObjectFromPrefab ("plate3");
-					fields[i,j].transform.localScale = new Vector3 (0.4f, 0.4f, 0.05f);
-					fields[i,j].transform.position = new Vector3 (i, 1, j);
-					fields[i,j].tag = "LevelField";
-					fields[i,j].name = i + "_" + j;
-
+					/*
 					//coloring for first game start
 					if (PlayerPrefs.GetInt ("firstStart") == 1) {
-						fieldColor [i, j] = fields [i, j].GetComponent<MeshRenderer> ().material.color = blockedColor;
-						if (i == 0 && j == 0) {
-							fieldColor [i, j] = fields [i, j].GetComponent<MeshRenderer> ().material.color = currentColor;
-						}
-					} else {
-						fields [i, j].GetComponent<MeshRenderer> ().material.color = fieldColor [i, j];
-					}
 						
-				}
+						PlayerPrefs.SetInt ("Color X:" + i + " Y:" + j, bloCol);
 
+						if (i == 0 && j == 0) {
+							PlayerPrefs.SetInt ("Color X:" + i + " Y:" + j, curCol);
+						}
+						PlayerPrefs.SetInt ("firstStart", 0);
+					}*/
+					colorFields (i, j);	
 				}
-
-		}
-			
-		/*
-		//convert 2D array to 1d array for PlayerPrefsX function (only fpr 1d arrays)
-		saveColor1D = new Color[level * height];
-		for(int i = 0; i < height; i++){
-			for(int j = 0; j < level; j++){
-				Color color;
-				color = fieldColor[j,i];
-				saveColor1D[i*height+j] = color;
 
 			}
+
 		}
-
-		PlayerPrefsX.SetColorArray("levelFieldColor", saveColor1D);
-		*/
-
 			
 		//Setup Camera
 		cam = Camera.main;
 		cam.gameObject.AddComponent <CameraPositionLevelPlay>();
 
 	}
+		
 
+	public static void colorFields(int level, int height){
+		if (PlayerPrefs.GetInt ("Color X:" + level + " Y:" + height) == blaCol) {
+			fields [level, height].GetComponent<MeshRenderer> ().material.color = blackColor;
+		} else if (PlayerPrefs.GetInt ("Color X:" + level + " Y:" + height) == curCol) {
+			fields [level, height].GetComponent<MeshRenderer> ().material.color = currentColor;
+		} else if (PlayerPrefs.GetInt ("Color X:" + level + " Y:" + height) == finCol) {
+			fields [level, height].GetComponent<MeshRenderer> ().material.color = finishedColor;
+		} else if (PlayerPrefs.GetInt ("Color X:" + level + " Y:" + height) == bloCol) {
+			fields [level, height].GetComponent<MeshRenderer> ().material.color = blockedColor;
+		} else if (PlayerPrefs.GetInt ("Color X:" + level + " Y:" + height) == unlockCol) {
+			fields [level, height].GetComponent<MeshRenderer> ().material.color = unlockColor;
+		}
+	}
 
 
 	void Update () {
+			
 		if (InputManager.getClickTouchInput ()) {
 			if(fields [(int)gamePosition.x, (int)gamePosition.y].GetComponent<MeshRenderer> ().material.color == finishedColor || fields [(int)gamePosition.x, (int)gamePosition.y].GetComponent<MeshRenderer> ().material.color == currentColor){
 
 				//TODO: implement difficult algorithm
 
-				PlayerPrefs.SetInt("gameFieldWidth", 4);
-				PlayerPrefs.SetInt("gameFieldHeight", 3);
+				PlayerPrefs.SetInt("gameFieldWidth", 3);
+				PlayerPrefs.SetInt("gameFieldHeight", 2);
 				PlayerPrefs.SetInt("numberOfColor", 1);
+
+				if (fields [(int)gamePosition.x, (int)gamePosition.y].GetComponent<MeshRenderer> ().material.color == currentColor) {
+					playFromCurLevel = true;
+				}
 
 				SceneManager.LoadScene ("GameScene");
 				return;
 			}
 
 		}
+
 			
 		float x = InputManager.getHorizontalInput();
 		float y = 0;
-		if(x==0) y = InputManager.getVerticalInput();
 
-		//print (x + "");
+		if(x==0) y = InputManager.getVerticalInput();
 
 
 		//check if move is allowed
@@ -263,13 +315,13 @@ public class LevelPlay : MonoBehaviour {
 		} else if (y == -1) {
 			if (gamePosition.y == 0)
 				return true;
-			//if(fields [(int)gamePosition.x, (int)gamePosition.y - 1].GetComponent<MeshRenderer> ().material.color == Color.black)
-				//return true;
+			if(fields [(int)gamePosition.x, (int)gamePosition.y - 1].GetComponent<MeshRenderer> ().material.color == Color.black)
+				return true;
 		} else if (y == 1) {
 			if (gamePosition.y == height - 1)
 				return true;
-			//if(fields [(int)gamePosition.x, (int)gamePosition.y + 1].GetComponent<MeshRenderer> ().material.color == Color.black)
-				//return true;
+			if(fields [(int)gamePosition.x, (int)gamePosition.y + 1].GetComponent<MeshRenderer> ().material.color == Color.black)
+				return true;
 
 		}
 		return false;
@@ -277,8 +329,7 @@ public class LevelPlay : MonoBehaviour {
 
 
 	public static void collision(){
-		//Field field = gamefield.getField ((int)platePos.x, (int)platePos.y);
-		//fields[(int)gamePosition.x,(int)gamePosition.y].GetComponent<MeshRenderer> ().material.color = Color.yellow;
+		
 		if (gamePosition.y % 2 != 1) {
 			levelText.text = "Level: " + (gamePosition.x + 1);
 			worldText.text = "World: " + ((int)(gamePosition.y/2 + 1));
@@ -294,8 +345,20 @@ public class LevelPlay : MonoBehaviour {
 			levelText.GetComponent<Text> ().enabled = true;
 			worldText.GetComponent<Text> ().enabled = true;
 			statusText.GetComponent<Text> ().enabled = true;
+
+
+			if (PlayerPrefs.GetInt ("Star X:" + gamePosition.x + " Y:" + gamePosition.y) == 3) {
+				//threeStarSpr.GetComponent<SpriteRenderer> ().enabled = true;
+				threeStarSpr.enabled = true;
+			} else if (PlayerPrefs.GetInt ("Star X:" + gamePosition.x + " Y:" + gamePosition.y) == 2) {
+				//twoStarSpr.GetComponent<SpriteRenderer> ().enabled = true;
+				twoStarSpr.enabled = true;
+			} else if (PlayerPrefs.GetInt ("Star X:" + gamePosition.x + " Y:" + gamePosition.y) == 1) {
+				//oneStarSpr.GetComponent<SpriteRenderer> ().enabled = true;
+				oneStarSpr.enabled = true;
+			}
 		
-			//print ("World:" + LevelPlay.fields[(int)LevelPlay.gamePosition.y].name + ", Level:" + (LevelPlay.gamePosition.x + 1));
+			print ("Stars:" + PlayerPrefs.GetInt("Star X:" + gamePosition.x + " Y:" + gamePosition.y));
 
 		} else {
 			levelText.GetComponent<Text> ().enabled = false;
@@ -304,16 +367,7 @@ public class LevelPlay : MonoBehaviour {
 		}
 	}
 
-	public void arrayTo1dArray(){
-		for(int i = 0; i < height; i++){
-			for(int j = 0; j < level; j++){
-				Color color;
-				color = fieldColor[j,i];
-				saveColor1D[i*height+j] = color;
 
-			}
-		}
-	}
 
 
 }

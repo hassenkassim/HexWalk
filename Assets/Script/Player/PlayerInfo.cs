@@ -5,9 +5,6 @@ public class PlayerInfo  {
 
 	public int numStars=0;
 
-	public int worldIndex;
-	public int levelIndex;
-
 	public PlayerInfo(){
 
 	

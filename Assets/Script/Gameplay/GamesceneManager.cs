@@ -52,6 +52,7 @@ public class GamesceneManager : MonoBehaviour {
 				Debug.Log("Could not locate Canvas component on " + tempObject.name);
 			}
 		}
+
 		gameOverOrWonCanvas.enabled = false;
 
 
@@ -100,7 +101,6 @@ public class GamesceneManager : MonoBehaviour {
 	public static void displayWon(){
 
 		InputManager.active = false;
-
 		gameOverOrWonCanvas.enabled = true;
 
 		nextLevelBtn.gameObject.SetActive (true);

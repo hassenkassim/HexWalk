@@ -41,17 +41,8 @@ public class LevelManager : MonoBehaviour {
 		initialHeight = 5;
 		numberOfColor = 2;
 
-		worldUp = false;
-		levelMax = 10;
+		levelMax = 7;
 		worldMax = 10;
-
-		//savedColor [levelMax * LevelPlay.height] = PlayerPrefsX.GetColorArray ("levelFieldColor");
-
-		for (int i = 0; i < levelMax; i++) {
-			for (int j = 0; j < LevelPlay.height; j++) {
-				fieldColor [i, j] = savedColor [j * levelMax + i];
-			}
-		}
 
 		cubeType = 0;
 		playerType = 0;
@@ -79,59 +70,61 @@ public class LevelManager : MonoBehaviour {
 
 		PlayerPrefs.Save ();
 	}
-
-
 		
 
 	//Setting difficulty grade up and loading a new Scene
 
 	public static void levelUp(){
 
-		//color finished field
-		LevelPlay.fieldColor [(PlayerPrefs.GetInt ("level") - 1), (int)((PlayerPrefs.GetInt("world") - 1) * 2)] = LevelPlay.fields [(PlayerPrefs.GetInt ("level") - 1), (int)((PlayerPrefs.GetInt("world") - 1) * 2)].GetComponent<MeshRenderer> ().material.color = LevelPlay.finishedColor;
-
-		//increase level
-		PlayerPrefs.SetInt("level", PlayerPrefs.GetInt("level") + 1);
-		//color current field
-		LevelPlay.fieldColor [(PlayerPrefs.GetInt ("level") - 1), (int)((PlayerPrefs.GetInt("world") - 1) * 2)] = LevelPlay.fields [(PlayerPrefs.GetInt ("level") - 1), (int)((PlayerPrefs.GetInt("world") - 1) * 2)].GetComponent<MeshRenderer> ().material.color = LevelPlay.currentColor;
-
-
-		//increase world
-		if (PlayerPrefs.GetInt("level") == levelMax + 1 || PlayerPrefs.GetInt("world") <= worldMax) {
-			worldUp = true;
+		if (LevelPlay.playFromCurLevel == true) {
+			
 			//increase world
-			PlayerPrefs.SetInt ("world", PlayerPrefs.GetInt ("world") + 1);
-			//increase level
-			PlayerPrefs.SetInt ("level", 1);
+			if (PlayerPrefs.GetInt ("level") == levelMax && PlayerPrefs.GetInt ("world") <= worldMax) {
+		
+				//set color current
+				PlayerPrefs.SetInt ("Color X:" + (PlayerPrefs.GetInt ("level") - 1) + " Y:" + ((PlayerPrefs.GetInt ("world") * 2 - 2)), LevelPlay.finCol); 
 
-			LevelPlay.fieldColor [(PlayerPrefs.GetInt ("level") - 1), (int)((PlayerPrefs.GetInt("world") - 1) * 2)] = LevelPlay.fields [(PlayerPrefs.GetInt ("level") - 1), (int)((PlayerPrefs.GetInt("world") - 1) * 2)].GetComponent<MeshRenderer> ().material.color = LevelPlay.currentColor;
+				//save Stars
+				PlayerPrefs.SetInt ("Star X:" + (PlayerPrefs.GetInt ("level") - 1) + " Y:" + ((PlayerPrefs.GetInt ("world") * 2 - 2)), Gameplay.star);
 
-		}
-		/*
-		savedColor [levelMax * LevelPlay.height] = PlayerPrefsX.GetColorArray ("levelFieldColor");
+				//increase world
+				PlayerPrefs.SetInt ("world", PlayerPrefs.GetInt ("world") + 1);
 
-		for (int i = 0; i < levelMax; i++) {
-			for (int j = 0; j < LevelPlay.height; j++) {
-				fieldColor [i, j] = savedColor [j * levelMax + i];
+				//increase level
+				PlayerPrefs.SetInt ("level", 1);
+
+				//unblock black field
+				PlayerPrefs.SetInt ("Color X:" + (PlayerPrefs.GetInt ("level") - 1) + " Y:" + ((PlayerPrefs.GetInt ("world") * 2 - 3)), LevelPlay.unlockCol);
+
+				//set color current
+				PlayerPrefs.SetInt ("Color X:" + (PlayerPrefs.GetInt ("level") - 1) + " Y:" + ((PlayerPrefs.GetInt ("world") * 2 - 2)), LevelPlay.curCol);
+
+				print ("world:" + PlayerPrefs.GetInt ("world") + " Level:" + PlayerPrefs.GetInt ("level"));
+		
+				//increase only level
+			} else {
+			
+				//set color finished
+				PlayerPrefs.SetInt ("Color X:" + (PlayerPrefs.GetInt ("level") - 1) + " Y:" + ((PlayerPrefs.GetInt ("world") * 2 - 2)), LevelPlay.finCol); 
+
+				//save Stars
+				PlayerPrefs.SetInt ("Star X:" + (PlayerPrefs.GetInt ("level") - 1) + " Y:" + ((PlayerPrefs.GetInt ("world") * 2 - 2)), Gameplay.star);
+
+				//increase level
+				PlayerPrefs.SetInt ("level", PlayerPrefs.GetInt ("level") + 1);
+
+				//set color current
+				PlayerPrefs.SetInt ("Color X:" + (PlayerPrefs.GetInt ("level") - 1) + " Y:" + ((PlayerPrefs.GetInt ("world") * 2 - 2)), LevelPlay.curCol); 
+
+				print ("world:" + PlayerPrefs.GetInt ("world") + " Level:" + PlayerPrefs.GetInt ("level"));
 			}
+		} else {
+			//save Stars
+			PlayerPrefs.SetInt("Star X:" + LevelPlay.gamePosition.x + " Y:" + LevelPlay.gamePosition, Gameplay.star);
 		}
-
-		for(int i = 0; i < LevelPlay.height; i++){
-			for(int j = 0; j < levelMax; j++){
-				Color color;
-				color = fieldColor[j,i];
-				savedColor[i*LevelPlay.height+j] = color;
-
-			}
-		}
-
-		PlayerPrefsX.SetColorArray("levelFieldColor", savedColor);
-		*/
 
 
 	}
-
-
 		
 
 	//Decrease field to initial value

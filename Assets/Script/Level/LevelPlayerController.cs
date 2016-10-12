@@ -24,7 +24,7 @@ public class LevelPlayerController : MonoBehaviour {
 
 
 	void OnCollisionExit(Collision collisionInfo) {
-		//LevelPlay.fields [(int)LevelPlay.gamePosition.x, (int)LevelPlay.gamePosition.y].GetComponent<MeshRenderer> ().material.color = LevelPlay.fieldColor [(int)LevelPlay.gamePosition.x, (int)LevelPlay.gamePosition.y];
+		
 	}
 
 

@@ -1,8 +1,20 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+<<<<<<< HEAD
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Level/PrefabsManagerLevelPlay.cs">
     <Files>
       <File FileName="Assets/Script/Level/PrefabsManagerLevelPlay.cs" Line="1" Column="1" />
+=======
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Manager/LevelManager.cs">
+    <Files>
+      <File FileName="Assets/Script/Level/LevelPlay.cs" Line="239" Column="6" />
+      <File FileName="Assets/Script/Manager/LevelManager.cs" Line="117" Column="4" />
+      <File FileName="Assets/Script/Gameplay/Gameplay.cs" Line="150" Column="28" />
+      <File FileName="Assets/Script/Level/LevelPlayerController.cs" Line="27" Column="3" />
+      <File FileName="Assets/Script/Level/CameraPositionLevelPlay.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Level/PrefabsManagerLevelPlay.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Gameplay/GamesceneManager.cs" Line="39" Column="11" />
+>>>>>>> 9c362a1db2c753e1ba5b9fc9ea85a5b9c82edf79
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

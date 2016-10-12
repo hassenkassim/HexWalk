@@ -13,10 +13,12 @@ public class LevelPlay : MonoBehaviour {
 	public static Text levelText;
 	public static Text worldText;
 	public static Text statusText;
+	public static Text starNumberText;
 
 	public static GameObject levelTextObj;
 	public static GameObject worldTextObj;
 	public static GameObject statusTextObj;
+	public static GameObject starNumberTextObj;
 
 	public static Button FirstStar;
 	public static Button SecondStar;
@@ -38,6 +40,7 @@ public class LevelPlay : MonoBehaviour {
 	public static int level;
 	public static int world;
 	public static int height;
+	public static int numberOfStars;
 
 	public static Color currentColor;
 	public static Color finishedColor;
@@ -52,6 +55,9 @@ public class LevelPlay : MonoBehaviour {
 	public static int unlockCol;
 
 	public static bool playFromCurLevel;
+
+	public static int playerPositionX;
+	public static int playerPositionZ;
 
 	//Playercontroller
 	public float rotationPeriod = 0.25f;		
@@ -75,6 +81,10 @@ public class LevelPlay : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+		playerPositionX = 0;
+		playerPositionZ = (PlayerPrefs.GetInt ("world") * 2 - 2);
+		//playerPositionZ = 0;
+
 		playFromCurLevel = false;
 
 		blaCol = 0;
@@ -93,7 +103,11 @@ public class LevelPlay : MonoBehaviour {
 		statusTextObj = GameObject.Find("StatusText");
 		statusText = statusTextObj.GetComponent<Text>();
 
-		//initialize sprite
+		//initialize star anzeige text
+		starNumberTextObj = GameObject.Find("StarNumberText");
+		starNumberText = starNumberTextObj.GetComponent<Text>();
+
+		//initialize star sprite
 		FirstStarObj = GameObject.Find("FirstStar");
 		FirstStar = FirstStarObj.GetComponent<Button>();
 
@@ -106,9 +120,7 @@ public class LevelPlay : MonoBehaviour {
 		starGold = Resources.Load<Sprite> ("stern_gold2");
 		starGrey = Resources.Load<Sprite> ("stern_leer2");
 
-		FirstStar.gameObject.SetActive (false);
-		SecondStar.gameObject.SetActive (false);
-		ThirdStar.gameObject.SetActive (false);
+		disableStars ();
 
 		InputManager.active = true;
 
@@ -122,11 +134,11 @@ public class LevelPlay : MonoBehaviour {
 		playerobj.transform.localScale = new Vector3 (0.3f, 0.3f, 0.3f);
 		playerobj.name = "PlayerDynamic";
 		playerobj.AddComponent <LevelPlayerController>();
-		playerobj.transform.position = new Vector3(0, 3, 0);
+		playerobj.transform.position = new Vector3(playerPositionX, 3, playerPositionZ);
 		//playerobj.transform.position = new Vector3(PlayerPrefs.GetInt("level") - 1, 3, PlayerPrefs.GetInt("world") - 1);
 		playerobj.transform.rotation = Quaternion.Euler(0, 0, 0);
 		playerobj.tag = "Player";
-		gamePosition = new Vector2 (0, 0);
+		gamePosition = new Vector2 (playerPositionX, playerPositionZ);
 		Rigidbody playerRigidBody = playerobj.AddComponent<Rigidbody>(); // Add the rigidbody
 		playerRigidBody.mass = 0.5f;
 		playerRigidBody.angularDrag = 0.05f;
@@ -148,6 +160,8 @@ public class LevelPlay : MonoBehaviour {
 		height = world * 2 - 1; 
 
 		fields = new GameObject[level, height];
+
+		numberOfStars = 0;
 
 		for (int j = 0; j < height; j++) { 
 			for (int i = 0; i < level; i++) {
@@ -172,6 +186,7 @@ public class LevelPlay : MonoBehaviour {
 					}
 
 					colorFields (i, j);
+
 				} else {
 
 					//visible part
@@ -187,20 +202,10 @@ public class LevelPlay : MonoBehaviour {
 							PlayerPrefs.SetInt ("Color X:" + i + " Y:" + j, curCol);
 						}
 					}
-
-					/*
-					//coloring for first game start
-					if (PlayerPrefs.GetInt ("firstStart") == 1) {
 						
-						PlayerPrefs.SetInt ("Color X:" + i + " Y:" + j, bloCol);
-
-						if (i == 0 && j == 0) {
-							PlayerPrefs.SetInt ("Color X:" + i + " Y:" + j, curCol);
-						}
-						PlayerPrefs.SetInt ("firstStart", 0);
-					}*/
 					colorFields (i, j);	
 				}
+				numberOfStars = numberOfStars + PlayerPrefs.GetInt ("Star X:" + i + " Y:" + j);
 
 			}
 
@@ -209,6 +214,9 @@ public class LevelPlay : MonoBehaviour {
 		//Setup Camera
 		cam = Camera.main;
 		cam.gameObject.AddComponent <CameraPositionLevelPlay>();
+			
+		print (numberOfStars);
+		starNumberText.text = numberOfStars.ToString();
 
 	}
 		
@@ -362,8 +370,6 @@ public class LevelPlay : MonoBehaviour {
 			worldText.GetComponent<Text> ().enabled = true;
 			statusText.GetComponent<Text> ().enabled = true;
 
-			//PlayerPrefs.SetInt ("Star X:" + 0 + " Y:" + 0, 1);
-
 			if (PlayerPrefs.GetInt ("Star X:" + gamePosition.x + " Y:" + gamePosition.y) == 3) {
 				FirstStar.image.sprite = starGold;
 				SecondStar.image.sprite = starGold;
@@ -399,7 +405,6 @@ public class LevelPlay : MonoBehaviour {
 			disableStars ();
 		}
 	}
-
 
 
 

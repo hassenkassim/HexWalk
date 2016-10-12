@@ -76,15 +76,16 @@ public class LevelManager : MonoBehaviour {
 
 	public static void levelUp(){
 
-		//save Stars
-		PlayerPrefs.SetInt("Star X:" + (PlayerPrefs.GetInt ("level") - 1) + " Y:" + ((PlayerPrefs.GetInt ("world") * 2 - 2)), Gameplay.star);
-
 		if (LevelPlay.playFromCurLevel == true) {
+			
 			//increase world
 			if (PlayerPrefs.GetInt ("level") == levelMax && PlayerPrefs.GetInt ("world") <= worldMax) {
 		
 				//set color current
 				PlayerPrefs.SetInt ("Color X:" + (PlayerPrefs.GetInt ("level") - 1) + " Y:" + ((PlayerPrefs.GetInt ("world") * 2 - 2)), LevelPlay.finCol); 
+
+				//save Stars
+				PlayerPrefs.SetInt ("Star X:" + (PlayerPrefs.GetInt ("level") - 1) + " Y:" + ((PlayerPrefs.GetInt ("world") * 2 - 2)), Gameplay.star);
 
 				//increase world
 				PlayerPrefs.SetInt ("world", PlayerPrefs.GetInt ("world") + 1);
@@ -106,6 +107,9 @@ public class LevelManager : MonoBehaviour {
 				//set color finished
 				PlayerPrefs.SetInt ("Color X:" + (PlayerPrefs.GetInt ("level") - 1) + " Y:" + ((PlayerPrefs.GetInt ("world") * 2 - 2)), LevelPlay.finCol); 
 
+				//save Stars
+				PlayerPrefs.SetInt ("Star X:" + (PlayerPrefs.GetInt ("level") - 1) + " Y:" + ((PlayerPrefs.GetInt ("world") * 2 - 2)), Gameplay.star);
+
 				//increase level
 				PlayerPrefs.SetInt ("level", PlayerPrefs.GetInt ("level") + 1);
 
@@ -114,6 +118,9 @@ public class LevelManager : MonoBehaviour {
 
 				print ("world:" + PlayerPrefs.GetInt ("world") + " Level:" + PlayerPrefs.GetInt ("level"));
 			}
+		} else {
+			//save Stars
+			PlayerPrefs.SetInt("Star X:" + LevelPlay.gamePosition.x + " Y:" + LevelPlay.gamePosition, Gameplay.star);
 		}
 
 

@@ -56,6 +56,8 @@ public class Gameplay : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+		Screen.orientation = ScreenOrientation.Portrait;
+
 		version = 1;
 		//Call Score Manager constructor
 		scoreMgr = new ScoreManager();

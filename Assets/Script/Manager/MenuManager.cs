@@ -26,6 +26,8 @@ public class MenuManager : MonoBehaviour {
 	//Initial function
 	void Awake(){
 
+		Screen.orientation = ScreenOrientation.Portrait;
+
 		MainMenu.enabled = true;
 		OptionsMenu.enabled = false;
 

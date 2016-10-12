@@ -82,7 +82,9 @@ public class LevelPlay : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		playerPositionX = 0;
+		Screen.orientation = ScreenOrientation.Portrait;
+
+		playerPositionX = (PlayerPrefs.GetInt("level") - 1);
 		playerPositionZ = (PlayerPrefs.GetInt ("world") * 2 - 2);
 		//playerPositionZ = 0;
 
@@ -356,7 +358,7 @@ public class LevelPlay : MonoBehaviour {
 
 	public static void collision(){
 
-		if (firstTouchWithPlate = true) {
+		if (firstTouchWithPlate == true) {
 			InputManager.active = true;
 			firstTouchWithPlate = false;
 		}

@@ -55,6 +55,7 @@ public class LevelPlay : MonoBehaviour {
 	public static int unlockCol;
 
 	public static bool playFromCurLevel;
+	public static bool firstTouchWithPlate;
 
 	public static int playerPositionX;
 	public static int playerPositionZ;
@@ -86,6 +87,7 @@ public class LevelPlay : MonoBehaviour {
 		//playerPositionZ = 0;
 
 		playFromCurLevel = false;
+		firstTouchWithPlate = true;
 
 		blaCol = 0;
 		curCol = 1;
@@ -122,7 +124,7 @@ public class LevelPlay : MonoBehaviour {
 
 		disableStars ();
 
-		InputManager.active = true;
+		//InputManager.active = true;
 
 		radius = sideLength * Mathf.Sqrt (2f) / 2f;
 
@@ -241,7 +243,7 @@ public class LevelPlay : MonoBehaviour {
 		if (InputManager.getClickTouchInput ()) {
 			if(fields [(int)gamePosition.x, (int)gamePosition.y].GetComponent<MeshRenderer> ().material.color == finishedColor || fields [(int)gamePosition.x, (int)gamePosition.y].GetComponent<MeshRenderer> ().material.color == currentColor){
 
-				//TODO: implement difficult algorithm
+				//TODO: implement difficult grade algorithm
 
 				PlayerPrefs.SetInt("gameFieldWidth", 3);
 				PlayerPrefs.SetInt("gameFieldHeight", 2);
@@ -353,6 +355,11 @@ public class LevelPlay : MonoBehaviour {
 
 
 	public static void collision(){
+
+		if (firstTouchWithPlate = true) {
+			InputManager.active = true;
+			firstTouchWithPlate = false;
+		}
 		
 		if (gamePosition.y % 2 != 1) {
 			levelText.text = "Level: " + (gamePosition.x + 1);

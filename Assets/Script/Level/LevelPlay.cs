@@ -18,13 +18,16 @@ public class LevelPlay : MonoBehaviour {
 	public static GameObject worldTextObj;
 	public static GameObject statusTextObj;
 
-	public static SpriteRenderer threeStarSpr;
-	public static SpriteRenderer twoStarSpr;
-	public static SpriteRenderer oneStarSpr;
+	public static Button FirstStar;
+	public static Button SecondStar;
+	public static Button ThirdStar;
 
-	public static GameObject threeStarObj;
-	public static GameObject twoStarObj;
-	public static GameObject oneStarObj;
+	public static GameObject FirstStarObj;
+	public static GameObject SecondStarObj;
+	public static GameObject ThirdStarObj;
+
+	public static Sprite starGold;
+	public static Sprite starGrey;
 
 	public static Camera cam;
 	public static Gamefield gamefield;
@@ -91,20 +94,21 @@ public class LevelPlay : MonoBehaviour {
 		statusText = statusTextObj.GetComponent<Text>();
 
 		//initialize sprite
-		threeStarObj = GameObject.Find("ThreeStarSprite");
-		threeStarSpr = threeStarObj.GetComponent<SpriteRenderer>();
+		FirstStarObj = GameObject.Find("FirstStar");
+		FirstStar = FirstStarObj.GetComponent<Button>();
 
-		twoStarObj = GameObject.Find("TwoStarSprite");
-		twoStarSpr = twoStarObj.GetComponent<SpriteRenderer>();
+		SecondStarObj = GameObject.Find("SecondStar");
+		SecondStar = SecondStarObj.GetComponent<Button>();
 
-		oneStarObj = GameObject.Find("OneStarSprite");
-		oneStarSpr = oneStarObj.GetComponent<SpriteRenderer>();
+		ThirdStarObj = GameObject.Find("ThirdStar");
+		ThirdStar = ThirdStarObj.GetComponent<Button>();
 
-		/*
-		threeStarSpr.GetComponent<SpriteRenderer> ().enabled = false;
-		twoStarSpr.GetComponent<SpriteRenderer> ().enabled = false;
-		oneStarSpr.GetComponent<SpriteRenderer> ().enabled = false;
-		*/
+		starGold = Resources.Load<Sprite> ("stern_gold2");
+		starGrey = Resources.Load<Sprite> ("stern_leer2");
+
+		FirstStar.gameObject.SetActive (false);
+		SecondStar.gameObject.SetActive (false);
+		ThirdStar.gameObject.SetActive (false);
 
 		InputManager.active = true;
 
@@ -327,6 +331,18 @@ public class LevelPlay : MonoBehaviour {
 		return false;
 	}
 
+	public static void enableStars(){
+		FirstStar.gameObject.SetActive (true);
+		SecondStar.gameObject.SetActive (true);
+		ThirdStar.gameObject.SetActive (true);
+	}
+
+	public static void disableStars(){
+		FirstStar.gameObject.SetActive (false);
+		SecondStar.gameObject.SetActive (false);
+		ThirdStar.gameObject.SetActive (false);
+	}
+
 
 	public static void collision(){
 		
@@ -341,21 +357,36 @@ public class LevelPlay : MonoBehaviour {
 			} else {
 				statusText.text = "Level blocked";
 			}
-				
+		
 			levelText.GetComponent<Text> ().enabled = true;
 			worldText.GetComponent<Text> ().enabled = true;
 			statusText.GetComponent<Text> ().enabled = true;
 
+			//PlayerPrefs.SetInt ("Star X:" + 0 + " Y:" + 0, 1);
 
 			if (PlayerPrefs.GetInt ("Star X:" + gamePosition.x + " Y:" + gamePosition.y) == 3) {
-				//threeStarSpr.GetComponent<SpriteRenderer> ().enabled = true;
-				threeStarSpr.enabled = true;
+				FirstStar.image.sprite = starGold;
+				SecondStar.image.sprite = starGold;
+				ThirdStar.image.sprite = starGold;
+
+				enableStars ();
+				
 			} else if (PlayerPrefs.GetInt ("Star X:" + gamePosition.x + " Y:" + gamePosition.y) == 2) {
-				//twoStarSpr.GetComponent<SpriteRenderer> ().enabled = true;
-				twoStarSpr.enabled = true;
+				FirstStar.image.sprite = starGold;
+				SecondStar.image.sprite = starGold;
+				ThirdStar.image.sprite = starGrey;
+
+				enableStars ();
+
 			} else if (PlayerPrefs.GetInt ("Star X:" + gamePosition.x + " Y:" + gamePosition.y) == 1) {
-				//oneStarSpr.GetComponent<SpriteRenderer> ().enabled = true;
-				oneStarSpr.enabled = true;
+				FirstStar.image.sprite = starGold;
+				SecondStar.image.sprite = starGrey;
+				ThirdStar.image.sprite = starGrey;
+
+				enableStars ();
+
+			} else if (PlayerPrefs.GetInt ("Star X:" + gamePosition.x + " Y:" + gamePosition.y) == 0) {
+				disableStars ();
 			}
 		
 			print ("Stars:" + PlayerPrefs.GetInt("Star X:" + gamePosition.x + " Y:" + gamePosition.y));
@@ -364,6 +395,8 @@ public class LevelPlay : MonoBehaviour {
 			levelText.GetComponent<Text> ().enabled = false;
 			worldText.GetComponent<Text> ().enabled = false;
 			statusText.GetComponent<Text> ().enabled = false;
+
+			disableStars ();
 		}
 	}
 

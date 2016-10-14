@@ -21,6 +21,7 @@ public class InputManager : MonoBehaviour {
 		}else {
 			return 0;
 		}
+		return 0;
 	}
 
 	public static float getVerticalInput(){
@@ -39,6 +40,7 @@ public class InputManager : MonoBehaviour {
 		} else {
 			return 0;
 		}
+		return 0;
 	}
 
 

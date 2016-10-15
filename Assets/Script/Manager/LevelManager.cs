@@ -41,7 +41,7 @@ public class LevelManager : MonoBehaviour {
 		initialHeight = 5;
 		numberOfColor = 2;
 
-		levelMax = 7;
+		levelMax = 2;
 		worldMax = 10;
 
 		cubeType = 0;
@@ -82,7 +82,7 @@ public class LevelManager : MonoBehaviour {
 			if (PlayerPrefs.GetInt ("level") == levelMax && PlayerPrefs.GetInt ("world") <= worldMax) {
 		
 				//set color current
-				PlayerPrefs.SetInt ("Color X:" + (PlayerPrefs.GetInt ("level") - 1) + " Y:" + ((PlayerPrefs.GetInt ("world") * 2 - 2)), LevelPlay.finCol); 
+				PlayerPrefs.SetInt ("Color X:" + (PlayerPrefs.GetInt ("level") - 1) + " Y:" + ((PlayerPrefs.GetInt ("world") * 2 - 2)), LevelPlay.FIELD_COMPLETED); 
 
 				//save Stars
 				PlayerPrefs.SetInt ("Star X:" + (PlayerPrefs.GetInt ("level") - 1) + " Y:" + ((PlayerPrefs.GetInt ("world") * 2 - 2)), Gameplay.star);
@@ -94,10 +94,10 @@ public class LevelManager : MonoBehaviour {
 				PlayerPrefs.SetInt ("level", 1);
 
 				//unblock black field
-				PlayerPrefs.SetInt ("Color X:" + (PlayerPrefs.GetInt ("level") - 1) + " Y:" + ((PlayerPrefs.GetInt ("world") * 2 - 3)), LevelPlay.unlockCol);
+				PlayerPrefs.SetInt ("Color X:" + (PlayerPrefs.GetInt ("level") - 1) + " Y:" + ((PlayerPrefs.GetInt ("world") * 2 - 3)), LevelPlay.FIELD_WORLDUNBLOCKED);
 
 				//set color current
-				PlayerPrefs.SetInt ("Color X:" + (PlayerPrefs.GetInt ("level") - 1) + " Y:" + ((PlayerPrefs.GetInt ("world") * 2 - 2)), LevelPlay.curCol);
+				PlayerPrefs.SetInt ("Color X:" + (PlayerPrefs.GetInt ("level") - 1) + " Y:" + ((PlayerPrefs.GetInt ("world") * 2 - 2)), LevelPlay.FIELD_SELECTED);
 
 				print ("world:" + PlayerPrefs.GetInt ("world") + " Level:" + PlayerPrefs.GetInt ("level"));
 		
@@ -105,7 +105,7 @@ public class LevelManager : MonoBehaviour {
 			} else {
 			
 				//set color finished
-				PlayerPrefs.SetInt ("Color X:" + (PlayerPrefs.GetInt ("level") - 1) + " Y:" + ((PlayerPrefs.GetInt ("world") * 2 - 2)), LevelPlay.finCol); 
+				PlayerPrefs.SetInt ("Color X:" + (PlayerPrefs.GetInt ("level") - 1) + " Y:" + ((PlayerPrefs.GetInt ("world") * 2 - 2)), LevelPlay.FIELD_COMPLETED); 
 
 				//save Stars
 				PlayerPrefs.SetInt ("Star X:" + (PlayerPrefs.GetInt ("level") - 1) + " Y:" + ((PlayerPrefs.GetInt ("world") * 2 - 2)), Gameplay.star);
@@ -114,7 +114,7 @@ public class LevelManager : MonoBehaviour {
 				PlayerPrefs.SetInt ("level", PlayerPrefs.GetInt ("level") + 1);
 
 				//set color current
-				PlayerPrefs.SetInt ("Color X:" + (PlayerPrefs.GetInt ("level") - 1) + " Y:" + ((PlayerPrefs.GetInt ("world") * 2 - 2)), LevelPlay.curCol); 
+				PlayerPrefs.SetInt ("Color X:" + (PlayerPrefs.GetInt ("level") - 1) + " Y:" + ((PlayerPrefs.GetInt ("world") * 2 - 2)), LevelPlay.FIELD_SELECTED); 
 
 				print ("world:" + PlayerPrefs.GetInt ("world") + " Level:" + PlayerPrefs.GetInt ("level"));
 			}

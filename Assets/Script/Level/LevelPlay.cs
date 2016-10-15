@@ -5,57 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class LevelPlay : MonoBehaviour {
 
-	public static Player player;
+	public const int FIELD_WORLDBLOCKED = 0;
+	public const int FIELD_SELECTED = 1;
+	public const int FIELD_COMPLETED = 2;
+	public const int FIELD_BLOCKED = 3;
+	public const int FIELD_WORLDUNBLOCKED = 4;
 
-	public static PlayerInfo playerInfo;
-	public static SavePlayerPrefs savePlayerPrefs;
-
-	public static Text levelText;
-	public static Text worldText;
-	public static Text statusText;
-	public static Text starNumberText;
-
-	public static GameObject levelTextObj;
-	public static GameObject worldTextObj;
-	public static GameObject statusTextObj;
-	public static GameObject starNumberTextObj;
-
-	public static Button FirstStar;
-	public static Button SecondStar;
-	public static Button ThirdStar;
-
-	public static GameObject FirstStarObj;
-	public static GameObject SecondStarObj;
-	public static GameObject ThirdStarObj;
-
-	public static Sprite starGold;
-	public static Sprite starGrey;
-
-	public static Camera cam;
-	public static Gamefield gamefield;
-	public static GameObject playerobj;
-	public static Vector2 gamePosition;
-	public static GameObject[,] fields;
+	public static bool playFromCurLevel;
+	public static bool firstTouchWithPlate;
 
 	public static int level;
 	public static int world;
 	public static int height;
 	public static int numberOfStars;
-
-	public static Color currentColor;
-	public static Color finishedColor;
-	public static Color blockedColor;
-	public static Color blackColor;
-	public static Color unlockColor;
-
-	public static int blaCol;
-	public static int curCol;
-	public static int finCol;
-	public static int bloCol;
-	public static int unlockCol;
-
-	public static bool playFromCurLevel;
-	public static bool firstTouchWithPlate;
 
 	public static int playerPositionX;
 	public static int playerPositionZ;
@@ -66,11 +28,43 @@ public class LevelPlay : MonoBehaviour {
 
 	bool isRotate = false;					
 	float directionX = 0;					
-	float directionZ = 0;					
+	float directionZ = 0;	
+	float rotationTime = 0;					
+	float radius;	
+
+	public static Player player;
+
+	public static PlayerInfo playerInfo;
+	public static SavePlayerPrefs savePlayerPrefs;
+
+	public static Text levelText;
+	public static Text worldText;
+	public static Text statusText;
+	public static Text starNumberText;
+
+	public static GameObject FirstStarObj;
+	public static GameObject SecondStarObj;
+	public static GameObject ThirdStarObj;
+
+	public static GameObject playerobj;
+
+	public static GameObject[,] fields;
+
+	public static Gamefield gamefield;
+
+	public static Button FirstStar;
+	public static Button SecondStar;
+	public static Button ThirdStar;
+
+	public static Sprite starGold;
+	public static Sprite starGrey;
+
+	public static Camera cam;
+
+	public static Vector2 gamePosition;
 
 	Vector3 startPos;						
-	float rotationTime = 0;					
-	float radius;							
+						
 	Quaternion fromRotation;				
 	Quaternion toRotation;
 
@@ -82,168 +76,45 @@ public class LevelPlay : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		Screen.orientation = ScreenOrientation.Portrait;
+		//Call Prefab Manager constructor
+		prefabsMgr = (PrefabsManagerLevelPlay)GameObject.Find("System").GetComponent <PrefabsManagerLevelPlay>();
 
-		playerPositionX = (PlayerPrefs.GetInt("level") - 1);
-		playerPositionZ = (PlayerPrefs.GetInt ("world") * 2 - 2);
-		//playerPositionZ = 0;
+		//load GameField
+		loadFields ();
+
+		//Load the Player
+		loadPlayer();
 
 		playFromCurLevel = false;
 		firstTouchWithPlate = true;
 
-		blaCol = 0;
-		curCol = 1;
-		finCol = 2;
-		bloCol = 3;
-		unlockCol = 4;
+		//Load Text Objects
+		loadTextObjects ();
 
-		//initialize text
-		levelTextObj = GameObject.Find("LevelText");
-		levelText = levelTextObj.GetComponent<Text>();
-
-		worldTextObj = GameObject.Find("WorldText");
-		worldText = worldTextObj.GetComponent<Text>();
-
-		statusTextObj = GameObject.Find("StatusText");
-		statusText = statusTextObj.GetComponent<Text>();
-
-		//initialize star anzeige text
-		starNumberTextObj = GameObject.Find("StarNumberText");
-		starNumberText = starNumberTextObj.GetComponent<Text>();
-
-		//initialize star sprite
-		FirstStarObj = GameObject.Find("FirstStar");
-		FirstStar = FirstStarObj.GetComponent<Button>();
-
-		SecondStarObj = GameObject.Find("SecondStar");
-		SecondStar = SecondStarObj.GetComponent<Button>();
-
-		ThirdStarObj = GameObject.Find("ThirdStar");
-		ThirdStar = ThirdStarObj.GetComponent<Button>();
-
-		starGold = Resources.Load<Sprite> ("stern_gold2");
-		starGrey = Resources.Load<Sprite> ("stern_leer2");
-
-		disableStars ();
-
-		//InputManager.active = true;
+		//load StarObjects
+		loadStarObjects();
 
 		radius = sideLength * Mathf.Sqrt (2f) / 2f;
 
-		//Call Prefab Manager constructor
-		prefabsMgr = (PrefabsManagerLevelPlay)GameObject.Find("System").GetComponent <PrefabsManagerLevelPlay>();
+		print (numberOfStars);
+		starNumberText.text = numberOfStars.ToString();
 
-		//Create Player
-		playerobj = LevelPlay.prefabsMgr.generateObjectFromPrefab ("cubeEckig");
-		playerobj.transform.localScale = new Vector3 (0.3f, 0.3f, 0.3f);
-		playerobj.name = "PlayerDynamic";
-		playerobj.AddComponent <LevelPlayerController>();
-		playerobj.transform.position = new Vector3(playerPositionX, 3, playerPositionZ);
-		//playerobj.transform.position = new Vector3(PlayerPrefs.GetInt("level") - 1, 3, PlayerPrefs.GetInt("world") - 1);
-		playerobj.transform.rotation = Quaternion.Euler(0, 0, 0);
-		playerobj.tag = "Player";
-		gamePosition = new Vector2 (playerPositionX, playerPositionZ);
-		Rigidbody playerRigidBody = playerobj.AddComponent<Rigidbody>(); // Add the rigidbody
-		playerRigidBody.mass = 0.5f;
-		playerRigidBody.angularDrag = 0.05f;
-		playerRigidBody.useGravity = true;
-
-		//Create Gamefield
-		//gamefield = new Gamefield (PlayerPrefs.GetInt("gameFieldWidth"), PlayerPrefs.GetInt("gameFieldHeight"), version);
-		level = LevelManager.getLevelMax ();
-		world = LevelManager.getWorldMax ();
-
-		//field color definition
-		finishedColor = Color.green;
-		currentColor = Color.cyan;
-		blockedColor = Color.grey;
-		blackColor = Color.black;
-		unlockColor = Color.white;
-
-		//für blockierende Steine zwischen den Welten
-		height = world * 2 - 1; 
-
-		fields = new GameObject[level, height];
-
-		numberOfStars = 0;
-
-		for (int j = 0; j < height; j++) { 
-			for (int i = 0; i < level; i++) {
-
-				//every second row is a blocking row
-				if (j % 2 == 1) {
-					fields [i, j] = LevelPlay.prefabsMgr.generateObjectFromPrefab ("plate3");
-					fields [i, j].transform.localScale = new Vector3 (0.4f, 0.4f, 0.05f);
-					fields [i, j].transform.position = new Vector3 (i, 1, j);
-					fields [i, j].name = i + "_" + j;
-					fields [i, j].tag = "LevelField";
-
-
-					if (PlayerPrefs.HasKey ("Color X:"+i+" Y:"+j) == false) {
-						
-						PlayerPrefs.SetInt ("Color X:"+i+" Y:"+j, blaCol);
-						//PlayerPrefs.SetInt ("firstStartBlack", 0);
-					}
-
-					if (i > 0) {
-						fields [i, j].SetActive (false);
-					}
-
-					colorFields (i, j);
-
-				} else {
-
-					//visible part
-					fields [i, j] = LevelPlay.prefabsMgr.generateObjectFromPrefab ("plate3");
-					fields [i, j].transform.localScale = new Vector3 (0.4f, 0.4f, 0.05f);
-					fields [i, j].transform.position = new Vector3 (i, 1, j);
-					fields [i, j].tag = "LevelField";
-					fields [i, j].name = i + "_" + j;
-
-					if (PlayerPrefs.HasKey ("Color X:" + i + " Y:" + j) == false) {
-						PlayerPrefs.SetInt ("Color X:" + i + " Y:" + j, bloCol);
-						if (i == 0 && j == 0) {
-							PlayerPrefs.SetInt ("Color X:" + i + " Y:" + j, curCol);
-						}
-					}
-						
-					colorFields (i, j);	
-				}
-				numberOfStars = numberOfStars + PlayerPrefs.GetInt ("Star X:" + i + " Y:" + j);
-
-			}
-
-		}
-			
 		//Setup Camera
 		cam = Camera.main;
 		cam.gameObject.AddComponent <CameraPositionLevelPlay>();
-			
-		print (numberOfStars);
-		starNumberText.text = numberOfStars.ToString();
 
 	}
 		
 
-	public static void colorFields(int level, int height){
-		if (PlayerPrefs.GetInt ("Color X:" + level + " Y:" + height) == blaCol) {
-			fields [level, height].GetComponent<MeshRenderer> ().material.color = blackColor;
-		} else if (PlayerPrefs.GetInt ("Color X:" + level + " Y:" + height) == curCol) {
-			fields [level, height].GetComponent<MeshRenderer> ().material.color = currentColor;
-		} else if (PlayerPrefs.GetInt ("Color X:" + level + " Y:" + height) == finCol) {
-			fields [level, height].GetComponent<MeshRenderer> ().material.color = finishedColor;
-		} else if (PlayerPrefs.GetInt ("Color X:" + level + " Y:" + height) == bloCol) {
-			fields [level, height].GetComponent<MeshRenderer> ().material.color = blockedColor;
-		} else if (PlayerPrefs.GetInt ("Color X:" + level + " Y:" + height) == unlockCol) {
-			fields [level, height].GetComponent<MeshRenderer> ().material.color = unlockColor;
-		}
-	}
+
+
+
 
 
 	void Update () {
 			
 		if (InputManager.getClickTouchInput ()) {
-			if(fields [(int)gamePosition.x, (int)gamePosition.y].GetComponent<MeshRenderer> ().material.color == finishedColor || fields [(int)gamePosition.x, (int)gamePosition.y].GetComponent<MeshRenderer> ().material.color == currentColor){
+			if(fields [(int)gamePosition.x, (int)gamePosition.y].GetComponent<MeshRenderer> ().material.color == Col.COMPLETEDCOLOR || fields [(int)gamePosition.x, (int)gamePosition.y].GetComponent<MeshRenderer> ().material.color == Col.SELECTEDCOLOR){
 
 				//TODO: implement difficult grade algorithm
 
@@ -251,7 +122,7 @@ public class LevelPlay : MonoBehaviour {
 				PlayerPrefs.SetInt("gameFieldHeight", 2);
 				PlayerPrefs.SetInt("numberOfColor", 1);
 
-				if (fields [(int)gamePosition.x, (int)gamePosition.y].GetComponent<MeshRenderer> ().material.color == currentColor) {
+			if (fields [(int)gamePosition.x, (int)gamePosition.y].GetComponent<MeshRenderer> ().material.color == Col.SELECTEDCOLOR) {
 					playFromCurLevel = true;
 				}
 
@@ -321,6 +192,137 @@ public class LevelPlay : MonoBehaviour {
 	}
 
 
+
+	//Load the Gamefield
+	void loadFields(){
+	//Create Gamefield
+	level = LevelManager.getLevelMax ();
+	world = LevelManager.getWorldMax ();
+
+
+	//für blockierende Steine zwischen den Welten
+	height = world * 2 - 1; 
+
+	fields = new GameObject[level, height];
+
+	numberOfStars = 0;
+
+		for (int j = 0; j < height; j++) { 
+			//add WorldBlock Field
+			if (j % 2 == 1) {
+				addField (0, j, "plate3");
+				loadFieldColor (0, j, FIELD_WORLDBLOCKED);
+				continue;
+			}
+
+			for (int i = 0; i < level; i++) {
+				addField (i, j, "plate3");
+				loadFieldColor (i, j, FIELD_BLOCKED);
+
+				//TODO: nicht jedesmal zaehlen!!! Ein wert speichern der geladen wird, beim erreichen einer besseren Sternenzahl in einem Level, die achieved Sterne speichern
+				numberOfStars = numberOfStars + PlayerPrefs.GetInt ("Star X:" + i + " Y:" + j, 0);
+			}
+		}
+	}
+
+	void addField(int x, int y, string type){
+		fields [x, y] = LevelPlay.prefabsMgr.generateObjectFromPrefab (type);
+		fields [x, y].transform.localScale = new Vector3 (0.4f, 0.4f, 0.05f);
+		fields [x, y].transform.position = new Vector3 (x, 1, y);
+		fields [x, y].name = x + "_" + y;
+		fields [x, y].tag = "LevelField";
+	}
+		
+	public static void loadFieldColor(int x, int y, int defaultColID){
+		int fieldColorID = PlayerPrefs.GetInt ("Color X:" + x + " Y:" + y, -1);
+
+		if(fieldColorID == -1){
+			if (x == 0 && y == 0) {
+				fieldColorID = FIELD_SELECTED;
+				PlayerPrefs.SetInt ("Color X:" + x + " Y:" + y, FIELD_SELECTED);
+			} else {
+				fieldColorID = defaultColID;
+				PlayerPrefs.SetInt ("Color X:" + x + " Y:" + y, defaultColID);
+			}
+		}
+
+		GameObject field = fields [x, y];
+
+		switch (fieldColorID) {
+		case FIELD_WORLDBLOCKED:
+			setColor (field, Col.WORLDBLOCKCOLOR);
+			break;
+		case FIELD_SELECTED:
+			setColor (field, Col.SELECTEDCOLOR);
+			break;
+		case FIELD_COMPLETED:
+			setColor (field, Col.COMPLETEDCOLOR);
+			break;
+		case FIELD_BLOCKED:
+			setColor (field, Col.BLOCKEDCOLOR);
+			break;
+		case FIELD_WORLDUNBLOCKED:
+			setColor (field, Col.WORLDUNLOCKEDCOLOR);
+			break;
+		}
+	}
+
+	private static void setColor(GameObject g, Color col){
+		g.GetComponent<MeshRenderer> ().material.color = col;
+	}
+
+	void loadPlayer(){
+		//Create Player
+		playerobj = LevelPlay.prefabsMgr.generateObjectFromPrefab ("cubeEckig");
+		playerobj.transform.localScale = new Vector3 (0.3f, 0.3f, 0.3f);
+		playerobj.name = "PlayerDynamic";
+		playerobj.AddComponent <LevelPlayerController>();
+		playerobj.transform.position = new Vector3(playerPositionX, 3, playerPositionZ);
+		//playerobj.transform.position = new Vector3(PlayerPrefs.GetInt("level") - 1, 3, PlayerPrefs.GetInt("world") - 1);
+		playerobj.transform.rotation = Quaternion.Euler(0, 0, 0);
+		playerobj.tag = "Player";
+		gamePosition = new Vector2 (playerPositionX, playerPositionZ);
+		Rigidbody playerRigidBody = playerobj.AddComponent<Rigidbody>(); // Add the rigidbody
+		playerRigidBody.mass = 0.5f;
+		playerRigidBody.angularDrag = 0.05f;
+		playerRigidBody.useGravity = true;
+
+		//Load previous Player Location
+		playerPositionX = (PlayerPrefs.GetInt("level") - 1);
+		playerPositionZ = (PlayerPrefs.GetInt ("world") * 2 - 2);
+	}
+
+	void loadTextObjects(){
+		//initialize text
+		levelText = GameObject.Find("LevelText").GetComponent<Text>();
+		worldText = GameObject.Find("WorldText").GetComponent<Text>();
+		statusText = GameObject.Find("StatusText").GetComponent<Text>();
+		starNumberText = GameObject.Find("StarNumberText").GetComponent<Text>();
+		FirstStar = GameObject.Find("FirstStar").GetComponent<Button>();
+		SecondStar = GameObject.Find("SecondStar").GetComponent<Button>();
+		ThirdStar = GameObject.Find("ThirdStar").GetComponent<Button>();
+	}
+
+	void loadStarObjects(){
+		starGold = Resources.Load<Sprite> ("stern_gold2");
+		starGrey = Resources.Load<Sprite> ("stern_leer2");
+		disableStars ();
+	}
+
+	public static void enableStars(){
+		FirstStar.gameObject.SetActive (true);
+		SecondStar.gameObject.SetActive (true);
+		ThirdStar.gameObject.SetActive (true);
+	}
+
+	public static void disableStars(){
+		FirstStar.gameObject.SetActive (false);
+		SecondStar.gameObject.SetActive (false);
+		ThirdStar.gameObject.SetActive (false);
+	}
+
+
+
 	bool checkOutside(float x, float y){
 		if (x == -1) {
 			if (gamePosition.x == 0)
@@ -343,19 +345,6 @@ public class LevelPlay : MonoBehaviour {
 		return false;
 	}
 
-	public static void enableStars(){
-		FirstStar.gameObject.SetActive (true);
-		SecondStar.gameObject.SetActive (true);
-		ThirdStar.gameObject.SetActive (true);
-	}
-
-	public static void disableStars(){
-		FirstStar.gameObject.SetActive (false);
-		SecondStar.gameObject.SetActive (false);
-		ThirdStar.gameObject.SetActive (false);
-	}
-
-
 	public static void collision(){
 
 		if (firstTouchWithPlate == true) {
@@ -367,9 +356,9 @@ public class LevelPlay : MonoBehaviour {
 			levelText.text = "Level: " + (gamePosition.x + 1);
 			worldText.text = "World: " + ((int)(gamePosition.y/2 + 1));
 
-			if (fields [(int)gamePosition.x, (int)gamePosition.y].GetComponent<MeshRenderer> ().material.color == finishedColor) {
+			if (fields [(int)gamePosition.x, (int)gamePosition.y].GetComponent<MeshRenderer> ().material.color == Col.COMPLETEDCOLOR) {
 				statusText.text = "Level finished";
-			} else if (fields [(int)gamePosition.x, (int)gamePosition.y].GetComponent<MeshRenderer> ().material.color == currentColor) {
+			} else if (fields [(int)gamePosition.x, (int)gamePosition.y].GetComponent<MeshRenderer> ().material.color == Col.SELECTEDCOLOR) {
 				statusText.text = "Level current";
 			} else {
 				statusText.text = "Level blocked";

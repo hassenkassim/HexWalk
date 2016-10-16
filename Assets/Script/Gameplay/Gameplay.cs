@@ -47,10 +47,6 @@ public class Gameplay : MonoBehaviour {
 
 	int version;
 
-	static AudioClip rotationSound;
-	int score;
-	Text scoreText;
-
 	public static int colorCount; // How many Colors should be in the game
 
 	// Use this for initialization
@@ -160,10 +156,9 @@ public class Gameplay : MonoBehaviour {
 			if (pathfinder.path [pointer].Equals (platePos) && player.getColor ().Equals (pathfinder.pathcolor [pointer])) {
 				pathfinder.pointer++;
 				field.setColor (player.getColor ());
-				//increment Score
-				scoreMgr.incScore ();
+
 				//play the RotationSound
-				soundMgr.playRotationSound ();
+				soundMgr.playRotationSound ("GameScene");
 			} else {
 				cam.GetComponent<CameraPosition> ().setToFollowPlayerByRotation ();
 				field.setColor (Color.red);

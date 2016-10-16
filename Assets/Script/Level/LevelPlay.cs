@@ -51,9 +51,9 @@ public class LevelPlay : MonoBehaviour {
 
 	public static Gamefield gamefield;
 
-	public static Button FirstStar;
-	public static Button SecondStar;
-	public static Button ThirdStar;
+	public static Button firstStar;
+	public static Button secondStar;
+	public static Button thirdStar;
 
 	public static Button settingsButton;
 	public static Button shoppingButton;
@@ -72,10 +72,12 @@ public class LevelPlay : MonoBehaviour {
 	public static Canvas settingsCanvas;
 	public static Canvas shoppingCanvas;
 
-	Vector3 startPos;						
+	public static SoundManager soundMgr;
+
+	public Vector3 startPos;						
 						
-	Quaternion fromRotation;				
-	Quaternion toRotation;
+	public Quaternion fromRotation;				
+	public Quaternion toRotation;
 
 	public static PrefabsManagerLevelPlay prefabsMgr;
 
@@ -84,6 +86,9 @@ public class LevelPlay : MonoBehaviour {
 
 	// Use this for initialization
 	public void Start () {
+
+		//Call Sound Manager constructor
+		soundMgr = new SoundManager();
 
 		//Call Prefab Manager constructor
 		prefabsMgr = (PrefabsManagerLevelPlay)GameObject.Find("System").GetComponent <PrefabsManagerLevelPlay>();
@@ -313,9 +318,9 @@ public class LevelPlay : MonoBehaviour {
 		worldText = GameObject.Find("WorldText").GetComponent<Text>();
 		statusText = GameObject.Find("StatusText").GetComponent<Text>();
 		starNumberText = GameObject.Find("StarNumberText").GetComponent<Text>();
-		FirstStar = GameObject.Find("FirstStar").GetComponent<Button>();
-		SecondStar = GameObject.Find("SecondStar").GetComponent<Button>();
-		ThirdStar = GameObject.Find("ThirdStar").GetComponent<Button>();
+		firstStar = GameObject.Find("FirstStar").GetComponent<Button>();
+		secondStar = GameObject.Find("SecondStar").GetComponent<Button>();
+		thirdStar = GameObject.Find("ThirdStar").GetComponent<Button>();
 		//initialize canvas
 		settingsCanvas = GameObject.Find ("SettingsCanvas").GetComponent<Canvas> ();
 		shoppingCanvas = GameObject.Find ("ShoppingCanvas").GetComponent<Canvas> ();
@@ -335,15 +340,15 @@ public class LevelPlay : MonoBehaviour {
 	}
 
 	public static void enableStars(){
-		FirstStar.gameObject.SetActive (true);
-		SecondStar.gameObject.SetActive (true);
-		ThirdStar.gameObject.SetActive (true);
+		firstStar.gameObject.SetActive (true);
+		secondStar.gameObject.SetActive (true);
+		thirdStar.gameObject.SetActive (true);
 	}
 
 	public static void disableStars(){
-		FirstStar.gameObject.SetActive (false);
-		SecondStar.gameObject.SetActive (false);
-		ThirdStar.gameObject.SetActive (false);
+		firstStar.gameObject.SetActive (false);
+		secondStar.gameObject.SetActive (false);
+		thirdStar.gameObject.SetActive (false);
 	}
 
 	public static void enableText(){
@@ -388,6 +393,9 @@ public class LevelPlay : MonoBehaviour {
 			InputManager.active = true;
 			firstTouchWithPlate = false;
 		}
+
+		//play the RotationSound
+		soundMgr.playRotationSound ("LevelScene");
 		
 		if (gamePosition.y % 2 != 1) {
 			levelText.text = "Level: " + (gamePosition.x + 1);
@@ -407,23 +415,23 @@ public class LevelPlay : MonoBehaviour {
 			enableText ();
 
 			if (PlayerPrefs.GetInt ("Star X:" + gamePosition.x + " Y:" + gamePosition.y) == 3) {
-				FirstStar.image.sprite = starGold;
-				SecondStar.image.sprite = starGold;
-				ThirdStar.image.sprite = starGold;
+				firstStar.image.sprite = starGold;
+				secondStar.image.sprite = starGold;
+				thirdStar.image.sprite = starGold;
 
 				enableStars ();
 				
 			} else if (PlayerPrefs.GetInt ("Star X:" + gamePosition.x + " Y:" + gamePosition.y) == 2) {
-				FirstStar.image.sprite = starGold;
-				SecondStar.image.sprite = starGold;
-				ThirdStar.image.sprite = starGrey;
+				firstStar.image.sprite = starGold;
+				secondStar.image.sprite = starGold;
+				thirdStar.image.sprite = starGrey;
 
 				enableStars ();
 
 			} else if (PlayerPrefs.GetInt ("Star X:" + gamePosition.x + " Y:" + gamePosition.y) == 1) {
-				FirstStar.image.sprite = starGold;
-				SecondStar.image.sprite = starGrey;
-				ThirdStar.image.sprite = starGrey;
+				firstStar.image.sprite = starGold;
+				secondStar.image.sprite = starGrey;
+				thirdStar.image.sprite = starGrey;
 
 				enableStars ();
 
@@ -479,13 +487,13 @@ public class LevelPlay : MonoBehaviour {
 
 	public void onSettings(){
 		if (settingsCanvasActive == false) {
-			Time.timeScale = 0;
+			InputManager.active = false;
 			settingsCanvas.gameObject.SetActive (true);
 			settingsCanvasActive = true;
 			disableText ();
 			disableStars ();
 		} else {
-			Time.timeScale = 1;
+			InputManager.active = true;
 			settingsCanvas.gameObject.SetActive (false);
 			settingsCanvasActive = false;
 			if (fields [(int)gamePosition.x, (int)gamePosition.y].GetComponent<MeshRenderer> ().material.color != Col.WORLDUNLOCKEDCOLOR) {
@@ -499,13 +507,13 @@ public class LevelPlay : MonoBehaviour {
 
 	public void onShopping(){
 		if (shoppingCanvasActive == false) {
-			Time.timeScale = 0;
+			InputManager.active = false;
 			shoppingCanvas.gameObject.SetActive (true);
 			shoppingCanvasActive = true;
 			disableText ();
 			disableStars ();
 		} else {
-			Time.timeScale = 1;
+			InputManager.active = true;
 			shoppingCanvas.gameObject.SetActive (false);
 			shoppingCanvasActive = false;
 			if (fields [(int)gamePosition.x, (int)gamePosition.y].GetComponent<MeshRenderer> ().material.color != Col.WORLDUNLOCKEDCOLOR) {
@@ -550,7 +558,8 @@ public class LevelPlay : MonoBehaviour {
 
 	public void onBack(){
 		settingsCanvas.enabled = false;
-		Time.timeScale = 1;
+		InputManager.active = true;
+		settingsCanvasActive = false;
 	}
 
 	public static bool checkOtherCanvasActive(){

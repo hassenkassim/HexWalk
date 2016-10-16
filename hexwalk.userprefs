@@ -1,16 +1,19 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Level/LevelPlay.cs">
     <Files>
-      <File FileName="Assets/Script/Level/LevelPlay.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Manager/LevelManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Gameplay/Gameplay.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Level/LevelPlay.cs" Line="123" Column="3" />
+      <File FileName="Assets/Script/Manager/LevelManager.cs" Line="44" Column="15" />
+      <File FileName="Assets/Script/Gameplay/Gameplay.cs" Line="2" Column="9" />
       <File FileName="Assets/Script/Level/LevelPlayerController.cs" Line="1" Column="1" />
       <File FileName="Assets/Script/Level/CameraPositionLevelPlay.cs" Line="1" Column="1" />
       <File FileName="Assets/Script/Gameplay/GamesceneManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Manager/MenuManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Manager/MenuManager.cs" Line="103" Column="22" />
       <File FileName="Assets/Script/Input/InputManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Input/SwipeManager.cs" Line="140" Column="33" />
+      <File FileName="Assets/Script/Input/SwipeManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Utils/Col.cs" Line="29" Column="51" />
+      <File FileName="Assets/Script/Gamefield/Field.cs" Line="73" Column="1" />
+      <File FileName="Assets/Script/Utils/Pause.cs" Line="80" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

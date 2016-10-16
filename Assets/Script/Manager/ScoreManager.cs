@@ -27,7 +27,7 @@ public class ScoreManager {
 		
 	public void displayScore(){
 		//Debug.Log (score.ToString ());
-		scoreText.text = "Score: " + score.ToString ();
+		//scoreText.text = "Score: " + score.ToString ();
 	}
 
 }

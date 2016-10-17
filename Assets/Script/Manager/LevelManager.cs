@@ -41,7 +41,7 @@ public class LevelManager : MonoBehaviour {
 		initialHeight = 5;
 		numberOfColor = 2;
 
-		levelMax = 7;
+		levelMax = 2;
 		worldMax = 10;
 
 		cubeType = 0;

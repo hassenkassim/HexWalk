@@ -47,16 +47,10 @@ public class Gameplay : MonoBehaviour {
 
 	int version;
 
-	static AudioClip rotationSound;
-	int score;
-	Text scoreText;
-
 	public static int colorCount; // How many Colors should be in the game
 
 	// Use this for initialization
 	void Start () {
-
-		Screen.orientation = ScreenOrientation.Portrait;
 
 		version = 1;
 		//Call Score Manager constructor
@@ -83,6 +77,7 @@ public class Gameplay : MonoBehaviour {
 
 		//Create Player Info
 		playerInfo = new PlayerInfo();
+
 		//Create SavePlayerPrefs
 		savePlayerPrefs= new SavePlayerPrefs();
 
@@ -103,10 +98,7 @@ public class Gameplay : MonoBehaviour {
 
 		//Setup Button
 		pauseBtn = GameObject.Find("PauseButton");
-
-
-
-
+	
 	}
 
 	public static void collision(){
@@ -160,10 +152,9 @@ public class Gameplay : MonoBehaviour {
 			if (pathfinder.path [pointer].Equals (platePos) && player.getColor ().Equals (pathfinder.pathcolor [pointer])) {
 				pathfinder.pointer++;
 				field.setColor (player.getColor ());
-				//increment Score
-				scoreMgr.incScore ();
+
 				//play the RotationSound
-				soundMgr.playRotationSound ();
+				soundMgr.playRotationSound ("GameScene");
 			} else {
 				cam.GetComponent<CameraPosition> ().setToFollowPlayerByRotation ();
 				field.setColor (Color.red);

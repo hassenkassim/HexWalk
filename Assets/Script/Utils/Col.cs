@@ -26,8 +26,8 @@ public class Col {
 	public readonly static  Color WEISS = Color.white;
 	public readonly static Color CYAN = Color.cyan;
 
-	public readonly static Color SELECTEDCOLOR = GRUEN;
-	public readonly static Color COMPLETEDCOLOR = CYAN;
+	public readonly static Color SELECTEDCOLOR = CYAN;
+	public readonly static Color COMPLETEDCOLOR = GRUEN;
 	public readonly static Color BLOCKEDCOLOR = GRAU;
 	public readonly static Color WORLDBLOCKCOLOR = SCHWARZ;
 	public readonly static Color WORLDUNLOCKEDCOLOR = WEISS;

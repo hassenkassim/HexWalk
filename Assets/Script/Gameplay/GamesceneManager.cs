@@ -12,56 +12,35 @@ using UnityEngine.UI;
 
 public class GamesceneManager : MonoBehaviour {
 
-	// Buttons
-	public static GameObject soundOnBtn;
-	public static GameObject soundOffBtn;
-	public static GameObject restartBtn;
-	public static GameObject mainMenuBtn;
-	public static GameObject shareBtn;
-	public static GameObject nextLevelBtn;
-
-	public static Text highscoreText;
-	public static Text scoreText;
-	public static GameObject wonText;
-	public static GameObject gameoverText;
+	public static Sprite starGold;
+	public static Sprite starGrey;
+	public static Button soundOnBtn;
+	public static Button soundOffBtn;
+	public static Button restartBtn;
+	public static Button mainMenuBtn;
+	public static Button shareBtn;
+	public static Button nextLevelBtn;
+	public static Button jokerBtn;
+	public static Button pauseBtn;
+	public static Button firstStar;
+	public static Button secondStar;
+	public static Button thirdStar;
+	public static Text wonText;
+	public static Text gameoverText;
 	public static Canvas gameOverOrWonCanvas;
-	public static int highscore;
-
 
 
 	// Use this for initialization
-	void Awake () {
-		//Initialize Button
-		soundOnBtn = GameObject.Find("SoundOnButton");
-		soundOffBtn = GameObject.Find("SoundOffButton");
-		shareBtn = GameObject.Find ("ShareButton");
-		restartBtn = GameObject.Find("RestartButton");
-		mainMenuBtn = GameObject.Find("MainMenuButton");	
-		nextLevelBtn = GameObject.Find ("NextLevelButton");
-
-		wonText = GameObject.Find ("WonText");
-		gameoverText = GameObject.Find ("GameoverText");
-
-		scoreText = GameObject.Find("Score1Text").GetComponent<Text>();
-		highscoreText = GameObject.Find ("HighscoreText").GetComponent<Text> ();
-		GameObject tempObject = GameObject.Find("GameOverOrWonCanvas");
-		if(tempObject != null){
-			//If we found the object , get the Canvas component from it.
-			gameOverOrWonCanvas = tempObject.GetComponent<Canvas>();
-			if(gameOverOrWonCanvas == null){
-				Debug.Log("Could not locate Canvas component on " + tempObject.name);
-			}
-		}
-
-		gameOverOrWonCanvas.enabled = false;
-
+	void Start () {
 
 		//Setup Music
-		if (GetBool ("soundIsOn") == false) {
+		if (PlayerPrefs.GetInt ("soundIsOn") == 0) {
 			AudioListener.pause = true;
 		} else {
 			AudioListener.pause = false;
 		}
+
+		loadGameObjects ();
 
 	}
 
@@ -70,75 +49,85 @@ public class GamesceneManager : MonoBehaviour {
 
 	}
 
+	public void loadGameObjects(){
+
+		starGold = Resources.Load<Sprite> ("stern_gold2");
+		starGrey = Resources.Load<Sprite> ("stern_leer2");
+
+		//Initialize Button
+		//soundOnBtn = GameObject.Find("SoundOnButton").GetComponent<Button>();
+		//soundOffBtn = GameObject.Find("SoundOffButton").GetComponent<Button>();
+		shareBtn = GameObject.Find ("ShareButton").GetComponent<Button>();
+		restartBtn = GameObject.Find("RestartButton").GetComponent<Button>();
+		mainMenuBtn = GameObject.Find("MainMenuButton").GetComponent<Button>();	
+		nextLevelBtn = GameObject.Find ("NextLevelButton").GetComponent<Button>();
+		jokerBtn = GameObject.Find ("JokerButton").GetComponent<Button> ();
+		pauseBtn = GameObject.Find ("PauseButton").GetComponent<Button> ();
+		firstStar = GameObject.Find("FirstStar").GetComponent<Button>();
+		secondStar = GameObject.Find("SecondStar").GetComponent<Button>();
+		thirdStar = GameObject.Find("ThirdStar").GetComponent<Button>();
+
+		wonText = GameObject.Find ("WonText").GetComponent<Text>();
+		gameoverText = GameObject.Find ("GameoverText").GetComponent<Text>();
+
+		gameOverOrWonCanvas = GameObject.Find("GameOverOrWonCanvas").GetComponent<Canvas>();
+
+		disableStars ();
+
+		gameOverOrWonCanvas.gameObject.SetActive (false);
+
+
+	}
+
 	public static void displayGameover(){
 
 		InputManager.active = false;
 
-		gameOverOrWonCanvas.enabled = true;
+		gameOverOrWonCanvas.gameObject.SetActive (true);
 
 		restartBtn.gameObject.SetActive (true);
 		nextLevelBtn.gameObject.SetActive (false);	
+		jokerBtn.gameObject.SetActive (false);
+		pauseBtn.gameObject.SetActive (false);
 
 		wonText.gameObject.SetActive (false);
-		gameoverText.SetActive (true);
+		gameoverText.gameObject.SetActive (true);
 
-		if (PlayerPrefs.HasKey ("highscore") == false) {
-			PlayerPrefs.SetInt ("highscore", 0);
-		}
-
-		if(Gameplay.scoreMgr.getScore() > highscore){
-			PlayerPrefs.SetInt ("highscore", Gameplay.scoreMgr.getScore());
-			highscore = Gameplay.scoreMgr.getScore();
-		}
-
-		highscore = PlayerPrefs.GetInt ("highscore");
-
-		scoreText.text = "Score: " + Gameplay.scoreMgr.getScore().ToString ();
-		highscoreText.text = "Highscore: " + highscore.ToString ();
 
 	}
 
 	public static void displayWon(){
 
 		InputManager.active = false;
-		gameOverOrWonCanvas.enabled = true;
+
+		gameOverOrWonCanvas.gameObject.SetActive (true);
 
 		nextLevelBtn.gameObject.SetActive (true);
 		restartBtn.gameObject.SetActive (false);
+		jokerBtn.gameObject.SetActive (false);
 
 		gameoverText.gameObject.SetActive (false);
 		wonText.gameObject.SetActive (true);
 
-		if (PlayerPrefs.HasKey ("highscore") == false) {
-			PlayerPrefs.SetInt ("highscore", 0);
-		}
+		enableStars ();
 
-		if(Gameplay.scoreMgr.getScore() > highscore){
-			PlayerPrefs.SetInt ("highscore", Gameplay.scoreMgr.getScore());
-			highscore = Gameplay.scoreMgr.getScore();
-		}
-
-		highscore = PlayerPrefs.GetInt ("highscore");
-
-		scoreText.text = "Score: " + Gameplay.scoreMgr.getScore().ToString ();
-		highscoreText.text = "Highscore: " + highscore.ToString ();
 	}
 
 
 	// Button setup
 	public void onNextLevel(){
-		Time.timeScale = 1;
+		//Time.timeScale = 1;
 		SceneManager.LoadScene ("GameScene");
 	}
 
 
 	public void onRestart(){
-		Time.timeScale = 1;
+		//Time.timeScale = 1;
 		SceneManager.LoadScene ("GameScene");
 	}
 
 	public void onMainMenu(){
-		Time.timeScale = 1;
+		//Time.timeScale = 1;
 		SceneManager.LoadScene ("LevelScene");
 	}
 
@@ -146,6 +135,11 @@ public class GamesceneManager : MonoBehaviour {
 		Share.IntentShareText ("This game is awesome! Get the game from play store: balblaLink!");
 	}
 
+	public static void onJoker(){
+		
+	}
+		
+	/*
 	public void onSoundOn(){
 
 		soundOnBtn.gameObject.SetActive (false);
@@ -182,5 +176,47 @@ public class GamesceneManager : MonoBehaviour {
 		}
 
 		return defaultValue;
+	}
+	*/
+
+	public static void disableStars(){
+		firstStar.gameObject.SetActive (false);
+		secondStar.gameObject.SetActive (false);
+		thirdStar.gameObject.SetActive (false);
+	}
+
+	public static void enableStars(){
+		setStars ();
+		firstStar.gameObject.SetActive (true);
+		secondStar.gameObject.SetActive (true);
+		thirdStar.gameObject.SetActive (true);
+	}
+
+	public static void setStars(){
+
+		if (Gameplay.star == 3) {
+			firstStar.image.sprite = starGold;
+			secondStar.image.sprite = starGold;
+			thirdStar.image.sprite = starGold;
+
+			enableStars ();
+
+		} else if (Gameplay.star == 2) {
+			firstStar.image.sprite = starGold;
+			secondStar.image.sprite = starGold;
+			thirdStar.image.sprite = starGrey;
+
+			enableStars ();
+
+		} else if (Gameplay.star == 1) {
+			firstStar.image.sprite = starGold;
+			secondStar.image.sprite = starGrey;
+			thirdStar.image.sprite = starGrey;
+
+			enableStars ();
+
+		} else if (Gameplay.star == 0) {
+			disableStars ();
+		}
 	}
 }

@@ -42,7 +42,7 @@ public class Pause : MonoBehaviour {
 				Debug.Log("Could not locate Canvas component on " + tempObject.name);
 			}
 		}
-		pauseCanvas.enabled = false;
+		//pauseCanvas.enabled = false;
 
 		//Setup Music
 		if (GetBool ("soundIsOn") == false) {

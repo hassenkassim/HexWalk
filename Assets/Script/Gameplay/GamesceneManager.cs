@@ -20,6 +20,8 @@ public class GamesceneManager : MonoBehaviour {
 	public static Button mainMenuBtn;
 	public static Button shareBtn;
 	public static Button nextLevelBtn;
+	public static Button jokerBtn;
+	public static Button pauseBtn;
 	public static Button firstStar;
 	public static Button secondStar;
 	public static Button thirdStar;
@@ -59,6 +61,8 @@ public class GamesceneManager : MonoBehaviour {
 		restartBtn = GameObject.Find("RestartButton").GetComponent<Button>();
 		mainMenuBtn = GameObject.Find("MainMenuButton").GetComponent<Button>();	
 		nextLevelBtn = GameObject.Find ("NextLevelButton").GetComponent<Button>();
+		jokerBtn = GameObject.Find ("JokerButton").GetComponent<Button> ();
+		pauseBtn = GameObject.Find ("PauseButton").GetComponent<Button> ();
 		firstStar = GameObject.Find("FirstStar").GetComponent<Button>();
 		secondStar = GameObject.Find("SecondStar").GetComponent<Button>();
 		thirdStar = GameObject.Find("ThirdStar").GetComponent<Button>();
@@ -73,7 +77,6 @@ public class GamesceneManager : MonoBehaviour {
 		gameOverOrWonCanvas.gameObject.SetActive (false);
 
 
-
 	}
 
 	public static void displayGameover(){
@@ -84,9 +87,12 @@ public class GamesceneManager : MonoBehaviour {
 
 		restartBtn.gameObject.SetActive (true);
 		nextLevelBtn.gameObject.SetActive (false);	
+		jokerBtn.gameObject.SetActive (false);
+		pauseBtn.gameObject.SetActive (false);
 
 		wonText.gameObject.SetActive (false);
 		gameoverText.gameObject.SetActive (true);
+
 
 	}
 
@@ -98,6 +104,7 @@ public class GamesceneManager : MonoBehaviour {
 
 		nextLevelBtn.gameObject.SetActive (true);
 		restartBtn.gameObject.SetActive (false);
+		jokerBtn.gameObject.SetActive (false);
 
 		gameoverText.gameObject.SetActive (false);
 		wonText.gameObject.SetActive (true);
@@ -128,6 +135,11 @@ public class GamesceneManager : MonoBehaviour {
 		Share.IntentShareText ("This game is awesome! Get the game from play store: balblaLink!");
 	}
 
+	public static void onJoker(){
+		
+	}
+		
+	/*
 	public void onSoundOn(){
 
 		soundOnBtn.gameObject.SetActive (false);
@@ -165,7 +177,7 @@ public class GamesceneManager : MonoBehaviour {
 
 		return defaultValue;
 	}
-		
+	*/
 
 	public static void disableStars(){
 		firstStar.gameObject.SetActive (false);

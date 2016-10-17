@@ -212,7 +212,6 @@ public class LevelPlay : MonoBehaviour {
 	}
 
 
-
 	//Load the Gamefield
 	public void loadFields(){
 	//Create Gamefield
@@ -557,9 +556,15 @@ public class LevelPlay : MonoBehaviour {
 	}
 
 	public void onBack(){
-		settingsCanvas.enabled = false;
+		settingsCanvas.gameObject.SetActive (false);
 		InputManager.active = true;
 		settingsCanvasActive = false;
+		if (fields [(int)gamePosition.x, (int)gamePosition.y].GetComponent<MeshRenderer> ().material.color != Col.WORLDUNLOCKEDCOLOR) {
+			enableText ();
+		}
+		if (fields [(int)gamePosition.x, (int)gamePosition.y].GetComponent<MeshRenderer> ().material.color == Col.COMPLETEDCOLOR) {
+			enableStars ();
+		}
 	}
 
 	public static bool checkOtherCanvasActive(){

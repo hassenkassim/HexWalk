@@ -52,8 +52,6 @@ public class Gameplay : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		Screen.orientation = ScreenOrientation.Portrait;
-
 		version = 1;
 		//Call Score Manager constructor
 		scoreMgr = new ScoreManager();
@@ -79,6 +77,7 @@ public class Gameplay : MonoBehaviour {
 
 		//Create Player Info
 		playerInfo = new PlayerInfo();
+
 		//Create SavePlayerPrefs
 		savePlayerPrefs= new SavePlayerPrefs();
 
@@ -99,10 +98,7 @@ public class Gameplay : MonoBehaviour {
 
 		//Setup Button
 		pauseBtn = GameObject.Find("PauseButton");
-
-
-
-
+	
 	}
 
 	public static void collision(){

@@ -8,8 +8,8 @@ public class ScoreManager {
 	Text scoreText;
 
 	public ScoreManager(){
-		score = 0;
-		scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
+		//score = 0;
+		//scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
 	}
 
 	public int getScore(){

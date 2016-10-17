@@ -22,6 +22,7 @@ public class InputManager : MonoBehaviour {
 	return 0;
 	}
 
+
 	public static float getVerticalInput(){
 		if (active) {
 			#if UNITY_EDITOR
@@ -36,6 +37,7 @@ public class InputManager : MonoBehaviour {
 				}
 			#endif
 		}
+
 		return 0;
 	}
 

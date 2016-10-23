@@ -1,26 +1,16 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-<<<<<<< HEAD
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Level/LevelPlay.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Gameplay/GameplayController.cs">
     <Files>
-      <File FileName="Assets/Script/Level/LevelPlay.cs" Line="337" Column="17" />
-      <File FileName="Assets/Script/Input/InputManager.cs" Line="35" Column="15" />
-      <File FileName="Assets/Script/Player/Player.cs" Line="77" Column="39" />
-      <File FileName="Assets/Script/Gameplay/Gameplay.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Gamefield/Field.cs" Line="29" Column="66" />
+      <File FileName="Assets/Script/Level/LevelPlay.cs" Line="397" Column="27" />
+      <File FileName="Assets/Script/Input/InputManager.cs" Line="25" Column="2" />
+      <File FileName="Assets/Script/Player/Player.cs" Line="31" Column="19" />
+      <File FileName="Assets/Script/Gameplay/Gameplay.cs" Line="161" Column="16" />
       <File FileName="Assets/Script/Gameplay/GamesceneManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Utils/Col.cs" Line="33" Column="58" />
-      <File FileName="Assets/Script/Manager/LevelManager.cs" Line="117" Column="149" />
-=======
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Gameplay/GamesceneManager.cs">
-    <Files>
-      <File FileName="Assets/Script/Level/LevelPlay.cs" Line="491" Column="47" />
-      <File FileName="Assets/Script/Gameplay/Gameplay.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Gameplay/GamesceneManager.cs" Line="112" Column="3" />
+      <File FileName="Assets/Script/Utils/Col.cs" Line="1" Column="1" />
       <File FileName="Assets/Script/Manager/LevelManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Level/LevelPlayerController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Gamefield/Field.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Manager/SoundManager.cs" Line="1" Column="1" />
->>>>>>> 06343e595aa718f5ce536b4aa2a0777afcd7858b
+      <File FileName="Assets/Script/Gameplay/GameplayController.cs" Line="67" Column="38" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

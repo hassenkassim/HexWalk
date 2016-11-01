@@ -11,7 +11,32 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
+using System.IO;
+using System;
+
+/*
+ * This class defines all Levels
+ * */
+
 public class LevelManager : MonoBehaviour {
+
+	public const string WORLDPREF = "WORLD";
+	public const string LEVELPREF = "LEVEL";
+	public const string COMPLETEDPREF = "COMPLETED";
+	public const string STARSPREF = "STARS";
+	public const string ALLSTARS = "ALLSTARS";
+	public const string CURWORLD = "CURWORLD";
+	public const string CURLEVEL = "CURLEVEL";
+	public const string WORLDCOMPLETED = "WORLDCOMPLETED";
+
+	public static Level[,] levels;
+
+	public static int stars;
+
+	public static int curWorld;
+	public static int curLevel;
+
+	public static int worldCompleted;
 
 	public int initialWidth;
 	public int initialHeight;
@@ -36,43 +61,31 @@ public class LevelManager : MonoBehaviour {
 	// Use this for initialization
 	public void Awake(){ 
 
-		//Create Gamefield
-		initialWidth = 4;
-		initialHeight = 5;
-		numberOfColor = 2;
 
-		levelMax = 2;
-		worldMax = 10;
+
+		//Load levels
+		levels = FileUtils.loadLevelsFromFile("levelListe.csv", 12, 12);
+
+		//load stars
+		stars = PlayerPrefs.GetInt(ALLSTARS, 0);
+
+		//load current World
+		curWorld = PlayerPrefs.GetInt (CURWORLD, 0);
+
+		//load current Level
+		curLevel = PlayerPrefs.GetInt(CURLEVEL, 0);
+
+		//load world Completed
+		worldCompleted = PlayerPrefs.GetInt(WORLDCOMPLETED, 0);
+
+		//LevelPlay Gamefield
+		worldMax = levels.GetLength(0);
+		levelMax = levels.GetLength(1);
 
 		cubeType = 0;
 		playerType = 0;
-
-
-		if (PlayerPrefs.HasKey ("world") == false) {
-			PlayerPrefs.SetInt ("world", 1);
-		}
-
-		if (PlayerPrefs.HasKey ("level") == false) {
-			PlayerPrefs.SetInt ("level", 1);
-		}
-
-		if (PlayerPrefs.HasKey ("gameFieldWidth") == false) {
-			PlayerPrefs.SetInt ("gameFieldWidth", initialWidth);
-		}
-
-		if (PlayerPrefs.HasKey ("gameFieldHeight") == false) {
-			PlayerPrefs.SetInt ("gameFieldHeight", initialHeight);
-		}
-
-		if (PlayerPrefs.HasKey ("numberOfColor") == false) {
-			PlayerPrefs.SetInt ("numberOfColor", 1);
-		}
-
-		PlayerPrefs.Save ();
 	}
 		
-
-	//Setting difficulty grade up and loading a new Scene
 
 	public static void levelUp(){
 

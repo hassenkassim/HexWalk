@@ -19,7 +19,6 @@ public class LevelPlay : MonoBehaviour {
 	public static int level;
 	public static int world;
 	public static int height;
-	public static int numberOfStars;
 	public static int soundIsOn;
 
 	public static int playerPositionX;
@@ -115,24 +114,27 @@ public class LevelPlay : MonoBehaviour {
 
 		radius = sideLength * Mathf.Sqrt (2f) / 2f;
 
-		print (numberOfStars);
-		starNumberText.text = numberOfStars.ToString();
+
+
+		//Set Stars count
+		starNumberText.text = LevelManager.stars.ToString();
 
 		//Setup Camera
 		cam = Camera.main;
 		cam.gameObject.AddComponent <CameraPositionLevelPlay>();
-
-		settingsCanvas.gameObject.SetActive (false);
-		shoppingCanvas.gameObject.SetActive (false);
-		playButton.gameObject.SetActive (false);
 
 	}
 
 
 	public void Update () {
 			
-		/*
+
 		if (InputManager.getClickTouchInput ()) {
+			//start Level
+
+
+
+
 			if(fields [(int)gamePosition.x, (int)gamePosition.y].GetComponent<MeshRenderer> ().material.color == Col.COMPLETEDCOLOR || fields [(int)gamePosition.x, (int)gamePosition.y].GetComponent<MeshRenderer> ().material.color == Col.SELECTEDCOLOR){
 				if (shoppingCanvasActive != true || settingsCanvas != true) {
 					//TODO: implement difficult grade algorithm
@@ -151,7 +153,7 @@ public class LevelPlay : MonoBehaviour {
 			}
 
 		}
-		*/
+
 			
 		float x = InputManager.getHorizontalInput();
 		float y = 0;
@@ -214,6 +216,7 @@ public class LevelPlay : MonoBehaviour {
 
 	//Load the Gamefield
 	public void loadFields(){
+		
 	//Create Gamefield
 	level = LevelManager.getLevelMax ();
 	world = LevelManager.getWorldMax ();
@@ -224,22 +227,18 @@ public class LevelPlay : MonoBehaviour {
 
 	fields = new GameObject[level, height];
 
-	numberOfStars = 0;
 
 		for (int j = 0; j < height; j++) { 
 			//add WorldBlock Field
 			if (j % 2 == 1) {
 				addField (0, j, "plate3");
-				loadFieldColor (0, j, FIELD_WORLDBLOCKED);
+				loadFieldColor (0, j);
 				continue;
 			}
 
 			for (int i = 0; i < level; i++) {
 				addField (i, j, "plate3");
-				loadFieldColor (i, j, FIELD_BLOCKED);
-
-				//TODO: nicht jedesmal zaehlen!!! Ein wert speichern der geladen wird, beim erreichen einer besseren Sternenzahl in einem Level, die achieved Sterne speichern
-				numberOfStars = numberOfStars + PlayerPrefs.GetInt ("Star X:" + i + " Y:" + j, 0);
+				loadFieldColor (i, j);
 			}
 		}
 	}
@@ -252,37 +251,29 @@ public class LevelPlay : MonoBehaviour {
 		fields [x, y].tag = "LevelField";
 	}
 		
-	public static void loadFieldColor(int x, int y, int defaultColID){
-		int fieldColorID = PlayerPrefs.GetInt ("Color X:" + x + " Y:" + y, -1);
-
-		if(fieldColorID == -1){
-			if (x == 0 && y == 0) {
-				fieldColorID = FIELD_SELECTED;
-				PlayerPrefs.SetInt ("Color X:" + x + " Y:" + y, FIELD_SELECTED);
-			} else {
-				fieldColorID = defaultColID;
-				PlayerPrefs.SetInt ("Color X:" + x + " Y:" + y, defaultColID);
-			}
-		}
-
+	public static void loadFieldColor(int x, int y){
 		GameObject field = fields [x, y];
 
-		switch (fieldColorID) {
-		case FIELD_WORLDBLOCKED:
-			setColor (field, Col.WORLDBLOCKCOLOR);
-			break;
-		case FIELD_SELECTED:
-			setColor (field, Col.SELECTEDCOLOR);
-			break;
-		case FIELD_COMPLETED:
-			setColor (field, Col.COMPLETEDCOLOR);
-			break;
-		case FIELD_BLOCKED:
-			setColor (field, Col.BLOCKEDCOLOR);
-			break;
-		case FIELD_WORLDUNBLOCKED:
-			setColor (field, Col.WORLDUNLOCKEDCOLOR);
-			break;
+		if (y % 2 == 1) {
+			if(LevelManager.worldCompleted >= (y/2 + 1)) {
+				// World Enabled
+				setColor (field, Col.WORLDUNLOCKEDCOLOR);
+			} else {
+				// World Disable
+				setColor (field, Col.WORLDBLOCKCOLOR);
+			}
+		} else {
+			if(LevelManager.worldCompleted >= y/2) {
+				// Field Enabled
+				if (LevelManager.levels [y / 2, x].getCompleted () == 0) {
+					setColor (field, Col.ENABLEDCOLOR);
+				} else {
+					setColor (field, Col.COMPLETEDCOLOR);
+				}
+			} else {
+				// Field Disable
+				setColor (field, Col.BLOCKEDCOLOR);
+			}
 		}
 	}
 
@@ -320,16 +311,6 @@ public class LevelPlay : MonoBehaviour {
 		firstStar = GameObject.Find("FirstStar").GetComponent<Button>();
 		secondStar = GameObject.Find("SecondStar").GetComponent<Button>();
 		thirdStar = GameObject.Find("ThirdStar").GetComponent<Button>();
-		//initialize canvas
-		settingsCanvas = GameObject.Find ("SettingsCanvas").GetComponent<Canvas> ();
-		shoppingCanvas = GameObject.Find ("ShoppingCanvas").GetComponent<Canvas> ();
-		//initialize Buttons
-		settingsButton = GameObject.Find ("SettingsButton").GetComponent<Button> ();
-		shoppingButton = GameObject.Find ("ShoppingButton").GetComponent<Button> ();
-		soundOnButton = GameObject.Find ("SoundOnButton").GetComponent<Button> ();
-		soundOffButton = GameObject.Find ("SoundOffButton").GetComponent<Button> ();
-		infoButton = GameObject.Find ("InfoButton").GetComponent<Button> ();
-		playButton = GameObject.Find ("PlayButton").GetComponent<Button> ();
 	}
 
 	public static void loadStarObjects(){
@@ -403,13 +384,10 @@ public class LevelPlay : MonoBehaviour {
 
 			if (fields [(int)gamePosition.x, (int)gamePosition.y].GetComponent<MeshRenderer> ().material.color == Col.COMPLETEDCOLOR) {
 				statusText.text = "Level finished";
-				playButton.gameObject.SetActive (true);
 			} else if (fields [(int)gamePosition.x, (int)gamePosition.y].GetComponent<MeshRenderer> ().material.color == Col.SELECTEDCOLOR) {
 				statusText.text = "Level current";
-				playButton.gameObject.SetActive (true);
 			} else {
 				statusText.text = "Level blocked";
-				playButton.gameObject.SetActive (false);
 			}
 		
 			enableText ();
@@ -450,16 +428,13 @@ public class LevelPlay : MonoBehaviour {
 
 	public static void setAudio(){
 		if (PlayerPrefs.HasKey ("soundIsOn") == false) {
-			soundOffButton.gameObject.SetActive (false);
 			PlayerPrefs.SetInt ("soundIsOn", 1);
 			AudioListener.pause = false;
 
 		} else {
 			if (PlayerPrefs.GetInt ("soundIsOn") == 1) {
-				soundOffButton.gameObject.SetActive (false);
 				AudioListener.pause = false;
 			} else {
-				soundOnButton.gameObject.SetActive (false);
 			}
 		}
 	}

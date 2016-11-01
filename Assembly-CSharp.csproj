@@ -57,6 +57,7 @@
      <Compile Include="Assets\Script\Input\InputManager.cs" />
      <Compile Include="Assets\Script\Input\SwipeManager.cs" />
      <Compile Include="Assets\Script\Level\CameraPositionLevelPlay.cs" />
+     <Compile Include="Assets\Script\Level\Level.cs" />
      <Compile Include="Assets\Script\Level\LevelPlay.cs" />
      <Compile Include="Assets\Script\Level\LevelPlayerController.cs" />
      <Compile Include="Assets\Script\Level\PlayerPrefsX.cs" />
@@ -74,6 +75,7 @@
      <Compile Include="Assets\Script\Player\PlayerInfo.cs" />
      <Compile Include="Assets\Script\Utils\AutoFade.cs" />
      <Compile Include="Assets\Script\Utils\Col.cs" />
+     <Compile Include="Assets\Script\Utils\FileUtils.cs" />
      <Compile Include="Assets\Script\Utils\Joker.cs" />
      <Compile Include="Assets\Script\Utils\Pause.cs" />
      <Compile Include="Assets\Script\Utils\SavePlayerPrefs.cs" />

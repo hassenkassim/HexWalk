@@ -225,8 +225,8 @@ public class LevelPlay : MonoBehaviour {
 
 		int gameposy = (int)gamePosition.y;
 		int gameposx = (int)gamePosition.x;
-		print ("x: " + gameposx + "; y: " + gameposy);
-		print ("Name: " + fields [gameposx, gameposy].getName ());
+//		print ("x: " + gameposx + "; y: " + gameposy);
+//		print ("Name: " + fields [gameposx, gameposy].getName ());
 
 		curWorld = (int)gamePosition.y / 2;
 		curLevel = (int)gamePosition.x;
@@ -277,8 +277,8 @@ public class LevelPlay : MonoBehaviour {
 		//setting currentLevel
 		LevelManager.setCurrentLevel (curWorld, curLevel);
 
-		print ("Class: LevelPlay; Function: startLevel");
-		print("World: " + curWorld + " Level: " + curLevel);
+//		print ("Class: LevelPlay; Function: startLevel");
+//		print("World: " + curWorld + " Level: " + curLevel);
 
 		SceneManager.LoadScene ("GameScene");
 		return;
@@ -288,8 +288,8 @@ public class LevelPlay : MonoBehaviour {
 		int nextWorld = PlayerPrefs.GetInt (LevelManager.NEXTWORLD, 0);
 		int nextLevel = PlayerPrefs.GetInt (LevelManager.NEXTLEVEL, 0);
 		LevelManager.setCurrentLevel (nextWorld, nextLevel);
-		print ("Class: LevelPlay; Function: startNextLevel");
-		print("World: " + nextWorld + " Level: " + nextLevel);
+//		print ("Class: LevelPlay; Function: startNextLevel");
+//		print("World: " + nextWorld + " Level: " + nextLevel);
 
 		SceneManager.LoadScene ("GameScene");
 		return;
@@ -375,7 +375,7 @@ public class LevelPlay : MonoBehaviour {
 
 		fields = new Field[level, height];
 
-		print ("Leere Field generiert" + level + " - " + height);
+//		print ("Leere Field generiert" + level + " - " + height);
 
 
 		for (int j = 0; j < height; j++) { 

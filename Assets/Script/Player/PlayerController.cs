@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour {
 
 		//check if move is allowed
 		if (checkOutside (x,y)) {
-			Debug.Log ("Player out of Gamefield, No Rotation possible!");
+//			Debug.Log ("Player out of Gamefield, No Rotation possible!");
 			return;
 		}
 
@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour {
 			} else if (y != 0) {
 				Gameplay.player.setGamePosition (new Vector2 (Gameplay.player.getGamePosition ().x, Gameplay.player.getGamePosition ().y + y));
 			}
-			Debug.Log ("Player Position: " + Gameplay.player.getGamePosition());
+//			Debug.Log ("Player Position: " + Gameplay.player.getGamePosition());
 
 			directionX = -x;															
 			directionZ = y;																

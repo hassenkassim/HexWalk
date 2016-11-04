@@ -91,7 +91,7 @@ public class Gameplay : MonoBehaviour {
 
 		//Create Gamefield
 		//gamefield = new Gamefield (PlayerPrefs.GetInt("gameFieldWidth"), PlayerPrefs.GetInt("gameFieldHeight"), version);
-		print("Class: GamePlay; Function: Start: CurrentLevel: Width: " + currentLevel.getWidth() + "; Height: " + currentLevel.getHeight());
+//		print("Class: GamePlay; Function: Start: CurrentLevel: Width: " + currentLevel.getWidth() + "; Height: " + currentLevel.getHeight());
 		gamefield = new Gamefield (currentLevel.getWidth(), currentLevel.getHeight(), currentLevel.getColorCount());
 
 		// Call Pathfinder constructor
@@ -183,9 +183,9 @@ public class Gameplay : MonoBehaviour {
 
 	private static void setLevelToCompleted(){
 		LevelManager.getCurrentLevel().setCompleted();
-		print("Class: Gameplay.cd Function: setLevelToCompleted");
+//		print("Class: Gameplay.cd Function: setLevelToCompleted");
 		Level curlevel = LevelManager.getCurrentLevel ();
-		print("World: " + curlevel.getWorld() + "; Level: " + curlevel.getLevel()  + "; COMPLETED: " + curlevel.getCompleted());
+//		print("World: " + curlevel.getWorld() + "; Level: " + curlevel.getLevel()  + "; COMPLETED: " + curlevel.getCompleted());
 	}
 
 		

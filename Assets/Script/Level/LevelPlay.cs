@@ -287,7 +287,7 @@ public class LevelPlay : MonoBehaviour {
 		playerobj.transform.localScale = new Vector3 (0.3f, 0.3f, 0.3f);
 		playerobj.name = "PlayerDynamic";
 		playerobj.AddComponent <LevelPlayerController>();
-		playerobj.transform.position = new Vector3(playerPositionX, 3, playerPositionZ);
+		playerobj.transform.position = new Vector3(playerPositionX, 1.350457f, playerPositionZ);
 		//playerobj.transform.position = new Vector3(PlayerPrefs.GetInt("level") - 1, 3, PlayerPrefs.GetInt("world") - 1);
 		playerobj.transform.rotation = Quaternion.Euler(0, 0, 0);
 		playerobj.tag = "Player";
@@ -368,12 +368,6 @@ public class LevelPlay : MonoBehaviour {
 	}
 
 	public static void collision(){
-
-		if (firstTouchWithPlate == true) {
-			InputManager.active = true;
-			print ("Touch set to active");
-			firstTouchWithPlate = false;
-		}
 
 		//play the RotationSound
 		soundMgr.playRotationSound ("LevelScene");

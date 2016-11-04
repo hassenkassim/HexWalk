@@ -118,6 +118,7 @@ public class PlayerController : MonoBehaviour {
 
 
 	void OnCollisionExit(Collision collisionInfo) {
+		
 	}
 
 

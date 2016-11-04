@@ -31,6 +31,7 @@ public class Col {
 	public readonly static Color BLOCKEDCOLOR = GRAU;
 	public readonly static Color WORLDBLOCKCOLOR = SCHWARZ;
 	public readonly static Color WORLDUNLOCKEDCOLOR = WEISS;
+	public readonly static Color ENABLEDCOLOR = WEISS;
 
 	public readonly static List<Color> colors = new List<Color>(new Color[]{ Color.green, Color.blue, Color.magenta, Color.yellow}); //This List is used to index the colors and to easily get the next color
 

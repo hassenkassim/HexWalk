@@ -19,6 +19,8 @@ public class Field {
 	public Field(string name, int version){
 		this.version = version;
 
+		//TODO: VERSION MODULO RAUS
+		version = version % 2;
 
 		switch (version) {
 		case 0:
@@ -26,11 +28,34 @@ public class Field {
 			setScale (new Vector3 (0.8f, 0.1f, 0.8f));
 			break;
 		case 1:
-				field = Gameplay.prefabsMgr.generateObjectFromPrefab ("plate3");
-				setScale (new Vector3 (0.4f, 0.4f, 0.05f));
+			field = Gameplay.prefabsMgr.generateObjectFromPrefab ("plate3");
+			setScale (new Vector3 (0.4f, 0.4f, 0.05f));
 			break;
 		}
-			
+
+		//TODO: Instead of creating a primitive Cube, we should use a 3D model with rounded corners
+
+		field.name = name;
+		field.tag = "Field";
+	}
+
+	public Field(string name, int version, bool lvlplay){
+		this.version = version;
+
+		//TODO: VERSION MODULO RAUS
+		version = version % 2;
+
+		switch (version) {
+		case 0:
+			field = GameObject.CreatePrimitive (PrimitiveType.Cube);
+			setScale (new Vector3 (0.8f, 0.1f, 0.8f));
+			break;
+		case 1:
+			field = LevelPlay.prefabsMgr.generateObjectFromPrefab ("plate3");
+			setScale (new Vector3 (0.4f, 0.4f, 0.05f));
+			break;
+		}
+
 		//TODO: Instead of creating a primitive Cube, we should use a 3D model with rounded corners
 
 		field.name = name;
@@ -101,6 +126,23 @@ public class Field {
 
 	public GameObject getGameobject(){
 		return field;
+	}
+
+	public bool blocked(){
+		Color col = field.GetComponent<MeshRenderer> ().material.color;
+		if(col.Equals(Col.BLOCKEDCOLOR) || col.Equals(Col.WORLDBLOCKCOLOR)){
+			return true;
+		} else{
+			return false;
+		}
+	}
+
+	public void setTag(string tag){
+		field.tag = tag;
+	}
+
+	public string getName(){
+		return field.name;
 	}
 
 

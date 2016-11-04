@@ -5,9 +5,9 @@ public class AutoFadeController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		if (LevelPlay.fading!=null ){

@@ -46,18 +46,22 @@ public class Field {
 	//fracture objects:
 	public void fractureCube(float scaling, Field field){
 		GameObject fracture1=null;
-		for (int numFrac = 0; numFrac < field.getTransform().localScale.x/scaling; numFrac++) {
-			for (int zAxis = 0; zAxis < field.getTransform ().localScale.z / scaling; zAxis++) {
+
+		Gameplay.explode=true;
+
+		for (int numFrac = 0; numFrac < field.getTransform().localScale.x/scaling+1; numFrac++) {
+			for (int yAxis = 0; yAxis < field.getTransform ().localScale.y / scaling+1; yAxis++) {
 				fracture1 = GameObject.CreatePrimitive (PrimitiveType.Cube);
 				fracture1.transform.position = new Vector3(
 					field.getTransform().position.x+(float)numFrac*scaling-field.getTransform().localScale.x/2,
 					field.getTransform().position.y,
-					field.getTransform().position.z-field.getTransform().localScale.z/2+zAxis*scaling);
-				fracture1.transform.localScale= new Vector3 (scaling, 0.1f, scaling	);
+					field.getTransform().position.z-field.getTransform().localScale.z/2+yAxis*scaling);
+				fracture1.transform.localScale= new Vector3 (scaling+Random.Range(-0.02f,0.2f), 0.1f, scaling+Random.Range(-0.02f,0.2f));
 				fracture1.AddComponent<Rigidbody> ();
-				fracture1.GetComponent<Rigidbody> ().mass = 0.0f;
+				fracture1.GetComponent<Rigidbody> ().mass = 0.0001f;
 				fracture1.GetComponent<Rigidbody> ().useGravity = true;
-				fracture1.name = "fracture"+numFrac+zAxis;
+				fracture1.name = "fracture"+numFrac+yAxis;
+
 			}
 		}  // muessen wir die fractures destroyen ??
 

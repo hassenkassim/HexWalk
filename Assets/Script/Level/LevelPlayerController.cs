@@ -7,10 +7,10 @@ public class LevelPlayerController : MonoBehaviour {
 	void Start () {
 		
 	}
-	
+		
 	// Update is called once per frame
 	void Update () {
-	
+
 	}
 
 	//TODO: Gamover Check transfer to Gameover class

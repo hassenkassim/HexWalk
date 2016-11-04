@@ -81,11 +81,28 @@ public class LevelPlay : MonoBehaviour {
 
 	public static PrefabsManagerLevelPlay prefabsMgr;
 
+	//dursun
+	public static AutoFade fading;
+	public GameObject tmpOverlay;
+	public static bool changeWorld;
+	public static bool worldFaded;
+
+	private static float starDistanceSqr;
+	private static float starClipDistanceSqr;
+	private static Transform tx;
+	private static ParticleSystem.Particle[] points;
+	public static int starsMax = 1000;
+	public static float starSize = 0.2f;
+	public static float starDistance = 10;
+	public static float starClipDistance = 1;
 
 	static AudioClip rotationSound;
 
 	// Use this for initialization
 	public void Start () {
+
+		//dursun
+		fading = new AutoFade (tmpOverlay);
 
 		//Call Sound Manager constructor
 		soundMgr = new SoundManager();
@@ -122,15 +139,38 @@ public class LevelPlay : MonoBehaviour {
 		cam = Camera.main;
 		cam.gameObject.AddComponent <CameraPositionLevelPlay>();
 
+
+
+		//dursun
+		cam.gameObject.AddComponent <ParticleSystem>();
+		ParticleSystem ps = cam.gameObject.GetComponent<ParticleSystem> ();
+		ps.maxParticles = 1000;
+		ps.startSize = 0.05f;
+
+		var sh = ps.shape;
+		sh.enabled = true;
+		sh.shapeType = ParticleSystemShapeType.Cone;
+		sh.angle = 15;
+
+		//dursun
+		cam.gameObject.AddComponent<Skybox> ();
+		changeWorldBackground (0);
+		changeWorld = false;
+		worldFaded = true;
+
+
 		settingsCanvas.gameObject.SetActive (false);
 		shoppingCanvas.gameObject.SetActive (false);
 		playButton.gameObject.SetActive (false);
-
 	}
 
-
+	//dursun
+	public static void changeWorldBackground (int worldNumber){
+		Debug.Log ("world: "+worldNumber);
+		cam.GetComponent<Skybox>().material=Resources.Load<Material>("skybox/skybox" + worldNumber);
+	}
+		
 	public void Update () {
-			
 		/*
 		if (InputManager.getClickTouchInput ()) {
 			if(fields [(int)gamePosition.x, (int)gamePosition.y].GetComponent<MeshRenderer> ().material.color == Col.COMPLETEDCOLOR || fields [(int)gamePosition.x, (int)gamePosition.y].GetComponent<MeshRenderer> ().material.color == Col.SELECTEDCOLOR){
@@ -396,10 +436,19 @@ public class LevelPlay : MonoBehaviour {
 
 		//play the RotationSound
 		soundMgr.playRotationSound ("LevelScene");
-		
+
 		if (gamePosition.y % 2 != 1) {
 			levelText.text = "Level: " + (gamePosition.x + 1);
 			worldText.text = "World: " + ((int)(gamePosition.y/2 + 1));
+
+			// dursun 
+			// change world to world number
+			if(!worldFaded){ // not for the first collision  //gamePosition.y/2+1!=1 && 
+				fading.fadeIn=true;
+				worldFaded = true;
+			}
+		
+
 
 			if (fields [(int)gamePosition.x, (int)gamePosition.y].GetComponent<MeshRenderer> ().material.color == Col.COMPLETEDCOLOR) {
 				statusText.text = "Level finished";
@@ -445,8 +494,13 @@ public class LevelPlay : MonoBehaviour {
 			disableText ();
 			playButton.gameObject.SetActive (false);
 			disableStars ();
+
+			// dursun
+			worldFaded = false;
+
 		}
 	}
+		
 
 	public static void setAudio(){
 		if (PlayerPrefs.HasKey ("soundIsOn") == false) {

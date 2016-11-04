@@ -44,6 +44,22 @@ public class Gameplay : MonoBehaviour {
 	public static float totalTime = 0f;
 
 
+	//dursun
+	public GameObject tmpOverlay;
+	public static bool changeWorld;
+	public static bool explode;
+	private float radius= 5.0f;
+	private float force= 0.01f;
+
+	private static float starDistanceSqr;
+	private static float starClipDistanceSqr;
+	private static Transform tx;
+	private static ParticleSystem.Particle[] points;
+	public static int starsMax = 1000;
+	public static float starSize = 0.2f;
+	public static float starDistance = 10;
+	public static float starClipDistance = 1;
+
 
 	int version;
 
@@ -51,7 +67,7 @@ public class Gameplay : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+		
 		version = 1;
 		//Call Score Manager constructor
 		scoreMgr = new ScoreManager();
@@ -94,11 +110,39 @@ public class Gameplay : MonoBehaviour {
 		cam = Camera.main;
 		cam.gameObject.AddComponent <CameraPosition>();
 
+		//dursun
+		cam.gameObject.AddComponent<Skybox> ();
+		cam.GetComponent<Skybox>().material=Resources.Load<Material>("skybox/skybox" + (((int)((LevelPlay.gamePosition.y) / 2 + 1))-1));
 
+		explode = false;
 
 		//Setup Button
 		pauseBtn = GameObject.Find("PauseButton");
 	
+	}
+	public static void setParticleSystem(){
+		cam.gameObject.AddComponent <ParticleSystem>();
+		ParticleSystem ps = cam.gameObject.GetComponent<ParticleSystem> ();
+		ps.maxParticles = 1000;
+		ps.startSize = 0.05f;
+		var sh = ps.shape;
+		sh.enabled = true;
+		sh.shapeType = ParticleSystemShapeType.Cone;
+		sh.angle = 15;
+	}
+
+	void Update(){
+		if (explode==true) {
+			Vector3 tmp = new Vector3 (player.getPosition ().x,player.getPosition ().y,player.getPosition ().z);
+			foreach (Collider col in Physics.OverlapSphere(transform.position,radius)) {
+				Rigidbody rb = col.GetComponent<Rigidbody>();
+				tmp.y = tmp.y - 0.03f;
+				if (rb != null) {
+					rb.AddExplosionForce (force, tmp, radius);
+				}
+			}
+			explode = false;
+		}
 	}
 
 	public static void collision(){
@@ -160,8 +204,8 @@ public class Gameplay : MonoBehaviour {
 				field.setColor (Color.red);
 				field.activateRigidbody ();
 			
-			
-				field.fractureCube (0.5f, field);
+				explode = true;
+				field.fractureCube (0.125f, field);
 
 				Destroy (field.getGameobject ());
 

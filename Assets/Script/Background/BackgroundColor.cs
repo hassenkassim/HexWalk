@@ -23,6 +23,7 @@ public class BackgroundColor : MonoBehaviour {
 	void Awake() {
 		camera = Camera.main;
 		camera.backgroundColor = colorList[colorIndex];
+		
 
 		//Sets next color index
 		if(randomColor)

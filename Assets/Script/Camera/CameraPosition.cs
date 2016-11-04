@@ -127,6 +127,11 @@ public class CameraPosition : MonoBehaviour {
 
 		Debug.Log ("Camera 2 reached!");
 
+
+		//dursun
+		Gameplay.setParticleSystem();
+
+
 		//enable Input
 		InputManager.active = true;
 

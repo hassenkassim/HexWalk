@@ -30,6 +30,8 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 	public float walkPosY;
 	public float posZ;
 
+	public static bool splashShown;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -37,6 +39,7 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 		walkPosY = 1.299f;
 		cubePosY = 1.36f;
 		posZ = -0.303f;
+		splashShown = false;
 
 
 
@@ -109,13 +112,12 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 
 			yield return 0;
 		}
-			
-
-		//enable Input
-		InputManager.active = true;
 
 
 		follow = true;
+
+		//enable Input
+		InputManager.active = true;
 
 		yield return 0;
 

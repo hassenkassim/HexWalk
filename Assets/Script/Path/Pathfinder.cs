@@ -67,7 +67,7 @@ public class Pathfinder {
 			//choose one possible step by random
 			int i = Random.Range(0, possibleSteps.Count);
 			path.Add (possibleSteps [i]);
-			Debug.Log ("x: " + (int)possibleSteps [i].x + "  y: " + (int)possibleSteps [i].y);
+//			Debug.Log ("x: " + (int)possibleSteps [i].x + "  y: " + (int)possibleSteps [i].y);
 
 			int j = Random.Range(0, colorCount);
 			pathcolor.Add (Col.colors [j]);

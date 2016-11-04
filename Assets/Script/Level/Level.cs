@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
-
+using System.Collections;
+using UnityEngine.SceneManagement;
 
 /*
  * Verwaltet die Eigenschaften von einem Level
@@ -14,7 +15,6 @@ public class Level {
 	int colorCount;
 
 	int completed;
-	int stars;
 
 	public Level(int height, int width, int colorCount, int world, int level){
 		this.height = height;
@@ -25,7 +25,6 @@ public class Level {
 	
 		//load completed Value from Pref with the help of world and level
 		completed = PlayerPrefs.GetInt(LevelManager.COMPLETEDPREF + LevelManager.WORLDPREF + world + LevelManager.LEVELPREF + level, 0); 
-		stars = PlayerPrefs.GetInt(LevelManager.STARSPREF + LevelManager.WORLDPREF + world + LevelManager.LEVELPREF + level, 0); 
 	}
 
 	public int getHeight(){
@@ -43,4 +42,19 @@ public class Level {
 	public int getCompleted(){
 		return completed;
 	}
+
+	public void setCompleted(){
+		completed = 1;
+		PlayerPrefs.SetInt (LevelManager.COMPLETEDPREF + LevelManager.WORLDPREF + world + LevelManager.LEVELPREF + level, 1);
+	}
+
+	public int getWorld(){
+		return world;
+	}
+
+	public int getLevel(){
+		return level;
+	}
+
+
 }

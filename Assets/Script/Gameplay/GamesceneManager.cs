@@ -12,19 +12,13 @@ using UnityEngine.UI;
 
 public class GamesceneManager : MonoBehaviour {
 
-	public static Sprite starGold;
-	public static Sprite starGrey;
 	public static Button soundOnBtn;
 	public static Button soundOffBtn;
 	public static Button restartBtn;
 	public static Button mainMenuBtn;
 	public static Button shareBtn;
 	public static Button nextLevelBtn;
-	public static Button jokerBtn;
 	public static Button pauseBtn;
-	public static Button firstStar;
-	public static Button secondStar;
-	public static Button thirdStar;
 	public static Text wonText;
 	public static Text gameoverText;
 	public static Canvas gameOverOrWonCanvas;
@@ -51,9 +45,6 @@ public class GamesceneManager : MonoBehaviour {
 
 	public void loadGameObjects(){
 
-		starGold = Resources.Load<Sprite> ("stern_gold2");
-		starGrey = Resources.Load<Sprite> ("stern_leer2");
-
 		//Initialize Button
 		//soundOnBtn = GameObject.Find("SoundOnButton").GetComponent<Button>();
 		//soundOffBtn = GameObject.Find("SoundOffButton").GetComponent<Button>();
@@ -61,18 +52,11 @@ public class GamesceneManager : MonoBehaviour {
 		restartBtn = GameObject.Find("RestartButton").GetComponent<Button>();
 		mainMenuBtn = GameObject.Find("MainMenuButton").GetComponent<Button>();	
 		nextLevelBtn = GameObject.Find ("NextLevelButton").GetComponent<Button>();
-		jokerBtn = GameObject.Find ("JokerButton").GetComponent<Button> ();
-		pauseBtn = GameObject.Find ("PauseButton").GetComponent<Button> ();
-		firstStar = GameObject.Find("FirstStar").GetComponent<Button>();
-		secondStar = GameObject.Find("SecondStar").GetComponent<Button>();
-		thirdStar = GameObject.Find("ThirdStar").GetComponent<Button>();
 
 		wonText = GameObject.Find ("WonText").GetComponent<Text>();
 		gameoverText = GameObject.Find ("GameoverText").GetComponent<Text>();
 
 		gameOverOrWonCanvas = GameObject.Find("GameOverOrWonCanvas").GetComponent<Canvas>();
-
-		disableStars ();
 
 		gameOverOrWonCanvas.gameObject.SetActive (false);
 
@@ -87,8 +71,6 @@ public class GamesceneManager : MonoBehaviour {
 
 		restartBtn.gameObject.SetActive (true);
 		nextLevelBtn.gameObject.SetActive (false);	
-		jokerBtn.gameObject.SetActive (false);
-		pauseBtn.gameObject.SetActive (false);
 
 		wonText.gameObject.SetActive (false);
 		gameoverText.gameObject.SetActive (true);
@@ -104,39 +86,30 @@ public class GamesceneManager : MonoBehaviour {
 
 		nextLevelBtn.gameObject.SetActive (true);
 		restartBtn.gameObject.SetActive (false);
-		jokerBtn.gameObject.SetActive (false);
 
 		gameoverText.gameObject.SetActive (false);
 		wonText.gameObject.SetActive (true);
-
-		enableStars ();
-
 	}
 
 
 	// Button setup
 	public void onNextLevel(){
-		//Time.timeScale = 1;
-		SceneManager.LoadScene ("GameScene");
+		LevelPlay.startNextLevel ();
+
+		//SceneManager.LoadScene ("GameScene");
 	}
 
 
 	public void onRestart(){
-		//Time.timeScale = 1;
 		SceneManager.LoadScene ("GameScene");
 	}
 
 	public void onMainMenu(){
-		//Time.timeScale = 1;
 		SceneManager.LoadScene ("LevelScene");
 	}
 
 	public void onShare(){
 		Share.IntentShareText ("This game is awesome! Get the game from play store: balblaLink!");
-	}
-
-	public static void onJoker(){
-		
 	}
 		
 	/*
@@ -178,45 +151,4 @@ public class GamesceneManager : MonoBehaviour {
 		return defaultValue;
 	}
 	*/
-
-	public static void disableStars(){
-		firstStar.gameObject.SetActive (false);
-		secondStar.gameObject.SetActive (false);
-		thirdStar.gameObject.SetActive (false);
-	}
-
-	public static void enableStars(){
-		setStars ();
-		firstStar.gameObject.SetActive (true);
-		secondStar.gameObject.SetActive (true);
-		thirdStar.gameObject.SetActive (true);
-	}
-
-	public static void setStars(){
-
-		if (Gameplay.star == 3) {
-			firstStar.image.sprite = starGold;
-			secondStar.image.sprite = starGold;
-			thirdStar.image.sprite = starGold;
-
-			enableStars ();
-
-		} else if (Gameplay.star == 2) {
-			firstStar.image.sprite = starGold;
-			secondStar.image.sprite = starGold;
-			thirdStar.image.sprite = starGrey;
-
-			enableStars ();
-
-		} else if (Gameplay.star == 1) {
-			firstStar.image.sprite = starGold;
-			secondStar.image.sprite = starGrey;
-			thirdStar.image.sprite = starGrey;
-
-			enableStars ();
-
-		} else if (Gameplay.star == 0) {
-			disableStars ();
-		}
-	}
 }

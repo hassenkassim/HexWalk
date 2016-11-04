@@ -27,8 +27,6 @@ public class Gameplay : MonoBehaviour {
 	
 	public static Player player;
 
-	public static int star;
-
 	public static PlayerInfo playerInfo;
 	public static SavePlayerPrefs savePlayerPrefs;
 
@@ -37,12 +35,29 @@ public class Gameplay : MonoBehaviour {
 	public static Pathfinder pathfinder;
 	public static ScoreManager scoreMgr;
 	public static SoundManager soundMgr;
-	public static LevelManager levelMgr;
 	public static PrefabsManager prefabsMgr;
 	public static GameObject pauseBtn;
 
+	public static Level currentLevel;
+
 	public static float totalTime = 0f;
 
+
+	//dursun
+	public GameObject tmpOverlay;
+	public static bool changeWorld;
+	public static bool explode;
+	private float radius= 5.0f;
+	private float force= 0.01f;
+
+	private static float starDistanceSqr;
+	private static float starClipDistanceSqr;
+	private static Transform tx;
+	private static ParticleSystem.Particle[] points;
+	public static int starsMax = 1000;
+	public static float starSize = 0.2f;
+	public static float starDistance = 10;
+	public static float starClipDistance = 1;
 
 
 	int version;
@@ -51,7 +66,7 @@ public class Gameplay : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+		
 		version = 1;
 		//Call Score Manager constructor
 		scoreMgr = new ScoreManager();
@@ -59,21 +74,14 @@ public class Gameplay : MonoBehaviour {
 		//Call Sound Manager constructor
 		soundMgr = new SoundManager();
 
-		//Call Level Manager constructor
-		levelMgr = new LevelManager();
-
 		//Call Prefab Manager constructor
 		prefabsMgr = (PrefabsManager)GameObject.Find("System").GetComponent <PrefabsManager>();
 
-
-
-		colorCount = 2;//set the count of colors in the game
-
-		print("FieldWidth: " + PlayerPrefs.GetInt("gameFieldWidth"));
-		print("FieldHeight: " + PlayerPrefs.GetInt("gameFieldHeight"));
+		//Get Level Properties
+		currentLevel = LevelManager.getCurrentLevel ();
 
 		//Create Player
-		player = new Player(colorCount, version);
+		player = new Player(currentLevel.getColorCount(), version);
 
 		//Create Player Info
 		playerInfo = new PlayerInfo();
@@ -83,22 +91,49 @@ public class Gameplay : MonoBehaviour {
 
 		//Create Gamefield
 		//gamefield = new Gamefield (PlayerPrefs.GetInt("gameFieldWidth"), PlayerPrefs.GetInt("gameFieldHeight"), version);
-		gamefield = new Gamefield (PlayerPrefs.GetInt("gameFieldWidth"), PlayerPrefs.GetInt("gameFieldHeight"), 1); //TODO: farbparameter einbauen
+//		print("Class: GamePlay; Function: Start: CurrentLevel: Width: " + currentLevel.getWidth() + "; Height: " + currentLevel.getHeight());
+		gamefield = new Gamefield (currentLevel.getWidth(), currentLevel.getHeight(), currentLevel.getColorCount());
 
 		// Call Pathfinder constructor
-		pathfinder = new Pathfinder (colorCount);
-
-
+		pathfinder = new Pathfinder (currentLevel.getColorCount());
 
 		//Setup Camera
 		cam = Camera.main;
 		cam.gameObject.AddComponent <CameraPosition>();
 
+		//dursun
+		cam.gameObject.AddComponent<Skybox> ();
+		cam.GetComponent<Skybox>().material=Resources.Load<Material>("skybox/skybox" + (((int)((LevelPlay.gamePosition.y) / 2 + 1))-1));
 
+		explode = false;
 
 		//Setup Button
 		pauseBtn = GameObject.Find("PauseButton");
 	
+	}
+	public static void setParticleSystem(){
+		cam.gameObject.AddComponent <ParticleSystem>();
+		ParticleSystem ps = cam.gameObject.GetComponent<ParticleSystem> ();
+		ps.maxParticles = 1000;
+		ps.startSize = 0.05f;
+		var sh = ps.shape;
+		sh.enabled = true;
+		sh.shapeType = ParticleSystemShapeType.Cone;
+		sh.angle = 15;
+	}
+
+	void Update(){
+		if (explode==true) {
+			Vector3 tmp = new Vector3 (player.getPosition ().x,player.getPosition ().y,player.getPosition ().z);
+			foreach (Collider col in Physics.OverlapSphere(transform.position,radius)) {
+				Rigidbody rb = col.GetComponent<Rigidbody>();
+				tmp.y = tmp.y - 0.03f;
+				if (rb != null) {
+					rb.AddExplosionForce (force, tmp, radius);
+				}
+			}
+			explode = false;
+		}
 	}
 
 	public static void collision(){
@@ -109,46 +144,19 @@ public class Gameplay : MonoBehaviour {
 		int pointer = pathfinder.pointer;
 		if (field.getColor ().Equals (Color.green))
 			return;
-		if (field.getColor ().Equals (Color.blue)) {
+		if (platePos.x == pathfinder.end.x && platePos.y == pathfinder.end.y) {
 			pathfinder.pointer = -1;
-			print ("WON!");
-
-
+			print ("Level Completed!");
 			GamesceneManager.displayWon ();
-			;
-			//count stars and assign it
-			//playerInfo.countStarsPerLevel(levelMgr.levelCounter); //TODO: level number
-
-			//count stars and save it in the prefs
-			playerInfo.countStarsPerLevel (levelMgr.levelCounter); //TODO: level number
-			savePlayerPrefs.saveStarsPerLevel (levelMgr.levelCounter, playerInfo.numStars);
-
-
-			float benchmark = (float)((pathfinder.path.Count * 2) / 10);
-
-			Debug.Log ("_________totalTime" + totalTime);
-			Debug.Log ("_________benchmark" + benchmark);
-
-			if (totalTime < 5.0f + benchmark) {
-				Debug.Log ("3 Stars for this level !!!!");
-				star = 3;
-			} else if (totalTime < 10.0f + benchmark) {
-				Debug.Log ("2 Stars for this level !!!!");
-				star = 2;
-			} else {
-				Debug.Log ("1 Star for this level !!!!");
-				star = 1;
-			}
 				
 			//setup and save level, coloring, stars
 			LevelManager.levelUp ();
 
-			//load next Level
+			//save Level completed
+			setLevelToCompleted();
+
 		} else {
 			
-
-		
-
 			if (pathfinder.path [pointer].Equals (platePos) && player.getColor ().Equals (pathfinder.pathcolor [pointer])) {
 				pathfinder.pointer++;
 				field.setColor (player.getColor ());
@@ -160,19 +168,26 @@ public class Gameplay : MonoBehaviour {
 				field.setColor (Color.red);
 				field.activateRigidbody ();
 			
-			
-				field.fractureCube (0.5f, field);
+				explode = true;
+				field.fractureCube (0.125f, field);
 
-				Destroy (field.getGameobject ());
+				//Destroy (field.getGameobject ());
 
 				print ("GAMEOVER!");
 
 				GamesceneManager.displayGameover ();
 			}
-		
 		}
 
 	}
+
+	private static void setLevelToCompleted(){
+		LevelManager.getCurrentLevel().setCompleted();
+//		print("Class: Gameplay.cd Function: setLevelToCompleted");
+		Level curlevel = LevelManager.getCurrentLevel ();
+//		print("World: " + curlevel.getWorld() + "; Level: " + curlevel.getLevel()  + "; COMPLETED: " + curlevel.getCompleted());
+	}
+
 		
 
 

@@ -13,29 +13,36 @@ public class LevelPlayerController : MonoBehaviour {
 		showID = SHOWSPLASH;
 		timer1 = 6;
 	}
-	
+		
 	// Update is called once per frame
 	void Update () {
-		switch(showID){
-		case SHOWSPLASH:
-			if (timer1 < 0) {
-				showID = SHOWLEVELWORLD;
-			}
-			break;
-		case SHOWLEVELWORLD:
+		if (CameraPositionLevelPlay.splashShown == false) {
+			switch (showID) {
+			case SHOWSPLASH:
+				if (timer1 < 0) {
+					showID = SHOWLEVELWORLD;
+				}
+				break;
+			case SHOWLEVELWORLD:
 				LevelPlay.cam.GetComponent<CameraPositionLevelPlay> ().startTransition ();
-			break;
+				break;
+
+			}
+
+			if (timer1 > 0) {
+				timer1 -= Time.deltaTime;
+			}
+
+			LevelPlay.enableText ();
+
+			//CameraPositionLevelPlay.disableSplash ();
 		}
 
-		if (timer1 > 0) {
-			timer1 -= Time.deltaTime;
-		}
 	}
 
 	//TODO: Gamover Check transfer to Gameover class
 	void OnCollisionEnter(Collision coll)
 	{
-		print ("Collision");
 		if (coll.collider.gameObject.CompareTag("LevelField")) {
 			LevelPlay.collision ();
 		}
@@ -43,6 +50,8 @@ public class LevelPlayerController : MonoBehaviour {
 
 
 	void OnCollisionExit(Collision collisionInfo) {
+
+		LevelPlay.collisionExit ();
 
 	}
 

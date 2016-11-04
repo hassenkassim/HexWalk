@@ -24,7 +24,7 @@ public class Gamefield {
 		fields = new Field[width, height];
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
-				fields [i,j] = new Field (i + "_" + j, version );
+				fields [i,j] = new Field (i + "_" + j, version);
 				fields [i, j].setPosition (i, j);
 			}
 		}

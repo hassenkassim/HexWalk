@@ -16,7 +16,6 @@ public class LevelPlayerController : MonoBehaviour {
 	//TODO: Gamover Check transfer to Gameover class
 	void OnCollisionEnter(Collision coll)
 	{
-		print ("Collision");
 		if (coll.collider.gameObject.CompareTag("LevelField")) {
 			LevelPlay.collision ();
 		}
@@ -24,7 +23,7 @@ public class LevelPlayerController : MonoBehaviour {
 
 
 	void OnCollisionExit(Collision collisionInfo) {
-		
+		LevelPlay.collisionExit ();
 	}
 
 

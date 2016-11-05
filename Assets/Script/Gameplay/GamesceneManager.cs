@@ -29,7 +29,7 @@ public class GamesceneManager : MonoBehaviour {
 
 		//Setup Music
 		if (PlayerPrefs.GetInt ("soundIsOn") == 0) {
-			AudioListener.pause = true;
+			AudioListener.pause = false;
 		} else {
 			AudioListener.pause = false;
 		}

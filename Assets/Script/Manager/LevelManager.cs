@@ -138,10 +138,6 @@ public class LevelManager {
 		curLevel = levels [world, level];
 		PlayerPrefs.SetInt (CURLEVEL, curLevel.getLevel());
 		PlayerPrefs.SetInt (CURWORLD, curLevel.getWorld());
-
-//		print ("Class: LevelManager; Function: setCurrentLevel");
-//		print ("world: " + world + "; Level: " + level);
-
 	}
 
 	public Level getCurrentLevel(){

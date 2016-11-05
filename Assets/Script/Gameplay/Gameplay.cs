@@ -58,7 +58,6 @@ public class Gameplay : MonoBehaviour {
 	public static float starDistance = 10;
 	public static float starClipDistance = 1;
 
-
 	int version;
 
 	public static int colorCount; // How many Colors should be in the game
@@ -67,11 +66,9 @@ public class Gameplay : MonoBehaviour {
 	void Start () {
 		
 		version = 1;
+
 		//Call Score Manager constructor
 		scoreMgr = new ScoreManager();
-
-		//Call Sound Manager constructor
-		soundMgr = new SoundManager();
 
 		//Call Prefab Manager constructor
 		prefabsMgr = (PrefabsManager)GameObject.Find("System").GetComponent <PrefabsManager>();
@@ -101,6 +98,9 @@ public class Gameplay : MonoBehaviour {
 		cam.gameObject.AddComponent<Skybox> ();
 		cam.GetComponent<Skybox>().material=Resources.Load<Material>("skybox/skybox" + (((int)((LevelPlay.gamePosition.y) / 2 + 1))-1));
 
+		//tolga
+		//Load Musics
+		SoundManager.playLevelMusic(1);
 		explode = false;
 
 		//Setup Button
@@ -158,12 +158,14 @@ public class Gameplay : MonoBehaviour {
 				field.setColor (player.getColor ());
 
 				//play the RotationSound
-				soundMgr.playRotationSound ("GameScene");
+				SoundManager.playRotationSound ("GameScene");
 			} else {
 				cam.GetComponent<CameraPosition> ().setToFollowPlayerByRotation ();
 				field.setColor (Color.red);
 				field.activateRigidbody ();
-			
+
+				SoundManager.playGameoverMusic ();
+
 				explode = true;
 				field.fractureCube (0.125f, field);
 
@@ -172,6 +174,8 @@ public class Gameplay : MonoBehaviour {
 				print ("GAMEOVER!");
 
 				GamesceneManager.displayGameover ();
+
+
 			}
 		}
 

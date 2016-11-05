@@ -3,13 +3,45 @@ using System.Collections;
 
 public class LevelPlayerController : MonoBehaviour {
 
+	const int SHOWSPLASH = 0;
+	const int SHOWLEVELWORLD = 1;
+	public static int showID;
+	public float timer1;
+
+	public static SoundManager soundMgr;
+
 	// Use this for initialization
 	void Start () {
-		
+		showID = SHOWSPLASH;
+		timer1 = 6;
+
+		soundMgr = new SoundManager ();
 	}
 		
 	// Update is called once per frame
 	void Update () {
+		if (CameraPositionLevelPlay.splashShown == false) {
+			switch (showID) {
+			case SHOWSPLASH:
+				if (timer1 < 0) {
+					showID = SHOWLEVELWORLD;
+				}
+				break;
+			case SHOWLEVELWORLD:
+				LevelPlay.cam.GetComponent<CameraPositionLevelPlay> ().startTransition ();
+				break;
+
+			}
+
+			if (timer1 > 0) {
+				timer1 -= Time.deltaTime;
+			}
+
+			LevelPlay.enableText ();
+
+			//CameraPositionLevelPlay.disableSplash ();
+		}
+		LevelPlay.splashEnd = true;
 
 	}
 
@@ -23,8 +55,12 @@ public class LevelPlayerController : MonoBehaviour {
 
 
 	void OnCollisionExit(Collision collisionInfo) {
+
 		LevelPlay.collisionExit ();
+
 	}
+
+
 
 
 

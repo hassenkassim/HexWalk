@@ -1,34 +1,18 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-<<<<<<< HEAD
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Level/CameraPositionLevelPlay.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Manager/SoundManager.cs">
     <Files>
-      <File FileName="Assets/Script/Level/CameraPositionLevelPlay.cs" Line="45" Column="63" />
-      <File FileName="Assets/Script/Camera/CameraPosition.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Level/LevelPlayerController.cs" Line="15" Column="3" />
-=======
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Level/LevelPlay.cs">
-    <Files>
-      <File FileName="Assets/Script/Manager/LevelManager.cs" Line="72" Column="3" />
-      <File FileName="Assets/Script/Level/LevelPlay.cs" Line="452" Column="34" />
-      <File FileName="Assets/Script/Level/Level.cs" Line="12" Column="11" />
-      <File FileName="Assets/Script/Level/LevelPlayerController.cs" Line="19" Column="1" />
-      <File FileName="Assets/Script/Gameplay/GameplayController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Gameplay/Gameplay.cs" Line="134" Column="25" />
-      <File FileName="Assets/Script/Gamefield/Field.cs" Line="98" Column="1" />
-      <File FileName="Assets/Script/Level/CameraPositionLevelPlay.cs" Line="28" Column="1" />
-      <File FileName="Assets/Script/Path/Pathfinder.cs" Line="70" Column="3" />
-      <File FileName="Assets/Script/Gamefield/Gamefield.cs" Line="26" Column="38" />
-      <File FileName="Assets/Resources/levelListe.csv" Line="28" Column="10" />
-      <File FileName="Assets/Script/Gameplay/GamesceneManager.cs" Line="119" Column="1" />
-      <File FileName="Assets/Script/Level/PrefabsManagerLevelPlay.cs" Line="16" Column="4" />
-      <File FileName="Assets/Script/Manager/PrefabsManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Camera/CameraPosition.cs" Line="56" Column="1" />
->>>>>>> de8b71f90826d4bbc73488429a347ef9f79f2e85
+      <File FileName="Assets/Script/Level/LevelPlay.cs" Line="60" Column="2" />
+      <File FileName="Assets/Script/Manager/SoundManager.cs" Line="43" Column="10" />
+      <File FileName="Assets/Script/Gameplay/Gameplay.cs" Line="186" Column="3" />
+      <File FileName="Assets/Script/Level/LevelPlayerController.cs" Line="17" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/tolgaguzay/hexwalk/Assets/Script/Manager/SoundManager.cs" line="62" column="50" />
+      <Breakpoint file="/Users/tolgaguzay/hexwalk/Assets/Script/Manager/SoundManager.cs" line="63" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

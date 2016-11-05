@@ -8,10 +8,14 @@ public class LevelPlayerController : MonoBehaviour {
 	public static int showID;
 	public float timer1;
 
+	public static SoundManager soundMgr;
+
 	// Use this for initialization
 	void Start () {
 		showID = SHOWSPLASH;
 		timer1 = 6;
+
+		soundMgr = new SoundManager ();
 	}
 		
 	// Update is called once per frame
@@ -37,6 +41,7 @@ public class LevelPlayerController : MonoBehaviour {
 
 			//CameraPositionLevelPlay.disableSplash ();
 		}
+		LevelPlay.splashEnd = true;
 
 	}
 

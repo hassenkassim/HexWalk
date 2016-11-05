@@ -41,7 +41,7 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 		posZ = -0.303f;
 		splashShown = false;
 
-
+		SoundManager.playSplashMusic ();
 
 		walkLogo = GameObject.Find ("walkText");
 		cubeLogo = GameObject.Find ("cubeText");

@@ -13,6 +13,7 @@ public class LevelPlay : MonoBehaviour {
 
 	public static bool playFromCurLevel;
 	public static bool firstTouchWithPlate;
+	public static bool splashEnd = false;
 
 	public static int level;
 	public static int world;
@@ -57,7 +58,7 @@ public class LevelPlay : MonoBehaviour {
 	public static Vector2 oldPosition;
 
 
-	public static SoundManager soundMgr;
+	//public static SoundManager soundMgr;
 
 	public Vector3 startPos;						
 						
@@ -81,16 +82,16 @@ public class LevelPlay : MonoBehaviour {
 	public static float starDistance = 10;
 	public static float starClipDistance = 1;
 
-	static AudioClip rotationSound;
-
 	// Use this for initialization
 	public void Start () {
 	
 		//dursun
 		//fading = new AutoFade (tmpOverlay);
 
-		//Call Sound Manager constructor
-		//soundMgr = new SoundManager();
+		//Call music
+		if (splashEnd == true) {
+			SoundManager.playMenuMusic ();
+		}
 
 		//Call Prefab Manager constructor
 		prefabsMgr = (PrefabsManagerLevelPlay)GameObject.Find("System").GetComponent <PrefabsManagerLevelPlay>();
@@ -180,7 +181,7 @@ public class LevelPlay : MonoBehaviour {
 			isRotate = true;
 
 			//play the RotationSound
-			//soundMgr.playRotationSound ("LevelScene");
+			SoundManager.playRotationSound ("LevelScene");
 		}
 		
 	}
@@ -206,11 +207,9 @@ public class LevelPlay : MonoBehaviour {
 				directionZ = 0;
 				rotationTime = 0;
 			}
-
 		}
 	}
-
-
+		
 
 	public static void collision(){
 

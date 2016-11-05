@@ -7,17 +7,18 @@ public class InputManager : MonoBehaviour {
 
 	public static float getHorizontalInput(){
 		if (active) {
-			#if UNITY_EDITOR
-			return Input.GetAxisRaw ("Horizontal");
-			#endif
+			
+			//#if UNITY_ANDROID || UNITY_IPHONE
+			if (SwipeManager.IsSwipingLeft ()) {
+				return -1;
+			} else if (SwipeManager.IsSwipingRight ()) {
+				return 1;
+			} else {
+				DebugConsole.Log ("IS NOT SWIPING" + Random.Range(0,10));
+			}
+			//#endif
 
-			#if UNITY_ANDROID || UNITY_IPHONE
-				if (SwipeManager.IsSwipingLeft()) {
-					return -1;
-				} else if(SwipeManager.IsSwipingRight()) {
-					return 1;
-				}
-			#endif
+			return Input.GetAxisRaw ("Horizontal");
 		}
 	return 0;
 	}
@@ -25,34 +26,25 @@ public class InputManager : MonoBehaviour {
 
 	public static float getVerticalInput(){
 		if (active) {
-			#if UNITY_EDITOR
-			return Input.GetAxisRaw ("Vertical");
-			#endif
-
-			#if UNITY_ANDROID || UNITY_IPHONE
+			//#if UNITY_ANDROID || UNITY_IPHONE
 				if (SwipeManager.IsSwipingDown()) {
 				return -1;
 				} else if(SwipeManager.IsSwipingUp()) {
 				return 1;
+				}else {
+				DebugConsole.Log ("IS NOT SWIPING" + Random.Range(0,10));
 				}
-			#endif
-		}
+			//#endif
 
+			return Input.GetAxisRaw ("Vertical");
+		}
 		return 0;
 	}
 
 
 	public static bool getClickTouchInput(){
 		if (active) {
-			#if UNITY_EDITOR
-			if (Input.GetKeyUp (KeyCode.Space) || Input.GetMouseButtonUp (0)) {
-				return true;
-			} else {
-				return false;
-			}
-			#endif
-
-			#if UNITY_ANDROID || UNITY_IPHONE
+			//#if UNITY_ANDROID || UNITY_IPHONE
 				if(Input.touchCount > 0){
 					if (Input.touches[0].phase == TouchPhase.Ended) {
 						return true;
@@ -63,10 +55,15 @@ public class InputManager : MonoBehaviour {
 			    }else{
 		     	return false;
 			}
-			#endif
+			//#endif
+
+			if (Input.GetKeyUp (KeyCode.Space) || Input.GetMouseButtonUp (0)) {
+				return true;
+			} else {
+				return false;
+			}
 		} else {
 			return false;
 		}
-
 	}
 }

@@ -71,7 +71,6 @@ public class GamesceneManager : MonoBehaviour {
 
 		restartBtn.gameObject.SetActive (true);
 		nextLevelBtn.gameObject.SetActive (false);	
-		pauseBtn.gameObject.SetActive (false);
 
 		wonText.gameObject.SetActive (false);
 		gameoverText.gameObject.SetActive (true);

@@ -27,7 +27,6 @@ public class Gameplay : MonoBehaviour {
 	
 	public static Player player;
 
-	public static PlayerInfo playerInfo;
 	public static SavePlayerPrefs savePlayerPrefs;
 
 	public static Camera cam;
@@ -78,13 +77,10 @@ public class Gameplay : MonoBehaviour {
 		prefabsMgr = (PrefabsManager)GameObject.Find("System").GetComponent <PrefabsManager>();
 
 		//Get Level Properties
-		currentLevel = LevelManager.getCurrentLevel ();
+		currentLevel = LevelPlay.levelmgr.getCurrentLevel ();
 
 		//Create Player
 		player = new Player(currentLevel.getColorCount(), version);
-
-		//Create Player Info
-		playerInfo = new PlayerInfo();
 
 		//Create SavePlayerPrefs
 		savePlayerPrefs= new SavePlayerPrefs();
@@ -150,7 +146,7 @@ public class Gameplay : MonoBehaviour {
 			GamesceneManager.displayWon ();
 				
 			//setup and save level, coloring, stars
-			LevelManager.levelUp ();
+			LevelPlay.levelmgr.levelUp ();
 
 			//save Level completed
 			setLevelToCompleted();
@@ -182,10 +178,7 @@ public class Gameplay : MonoBehaviour {
 	}
 
 	private static void setLevelToCompleted(){
-		LevelManager.getCurrentLevel().setCompleted();
-//		print("Class: Gameplay.cd Function: setLevelToCompleted");
-		Level curlevel = LevelManager.getCurrentLevel ();
-//		print("World: " + curlevel.getWorld() + "; Level: " + curlevel.getLevel()  + "; COMPLETED: " + curlevel.getCompleted());
+		LevelPlay.levelmgr.getCurrentLevel().setCompleted();
 	}
 
 		

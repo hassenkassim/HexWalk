@@ -5,6 +5,7 @@
  * Year: 2016									*
  *************************************************/
 
+
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,12 +35,6 @@ public enum Swipe
 	DownRight
 };
 
-
-/*
- * This class makes it easy to detect horizontal als vertical swipes
- * Used to move the player
- * Got this from the Internet
- * */
 public class SwipeManager : MonoBehaviour
 {
 	#region Inspector Variables

@@ -17,7 +17,7 @@ using System;
  * This class defines all Levels
  * */
 
-public class LevelManager : MonoBehaviour {
+public class LevelManager {
 
 	public const string WORLDPREF = "WORLD";
 	public const string LEVELPREF = "LEVEL";
@@ -28,10 +28,10 @@ public class LevelManager : MonoBehaviour {
 	public const string NEXTLEVEL = "NEXTLEVEL";
 	public const string WORLDCOMPLETED = "WORLDCOMPLETED";
 
-	public static Level[,] levels;
-	public static Level curLevel;
+	public Level[,] levels;
+	public Level curLevel;
 
-	public static int worldCompleted;
+	public int worldCompleted;
 
 	public int initialWidth;
 	public int initialHeight;
@@ -54,7 +54,7 @@ public class LevelManager : MonoBehaviour {
 	public int color;
 
 	// Use this for initialization
-	public void Awake(){ 
+	public LevelManager(){
 
 		//Load levels
 		levels = FileUtils.loadLevelsFromFile("levelListe.csv", 12, 12);
@@ -71,7 +71,7 @@ public class LevelManager : MonoBehaviour {
 	}
 		
 	//setCurrentLevel to NextLevel and enable next World if max Level is finished
-	public static void levelUp(){
+	public void levelUp(){
 		int nextWorld = 0;
 		int nextLevel = 0;
 
@@ -114,48 +114,6 @@ public class LevelManager : MonoBehaviour {
 
 
 		return;
-
-		/*
-
-		if (LevelPlay.playFromCurLevel == true) {
-			
-			//increase world
-			if (PlayerPrefs.GetInt ("level") == levelMax && PlayerPrefs.GetInt ("world") <= worldMax) {
-		
-				//set color current
-				PlayerPrefs.SetInt ("Color X:" + (PlayerPrefs.GetInt ("level") - 1) + " Y:" + ((PlayerPrefs.GetInt ("world") * 2 - 2)), LevelPlay.FIELD_COMPLETED); 
-
-				//increase world
-				PlayerPrefs.SetInt ("world", PlayerPrefs.GetInt ("world") + 1);
-
-				//increase level
-				PlayerPrefs.SetInt ("level", 1);
-
-				//unblock black field
-				PlayerPrefs.SetInt ("Color X:" + (PlayerPrefs.GetInt ("level") - 1) + " Y:" + ((PlayerPrefs.GetInt ("world") * 2 - 3)), LevelPlay.FIELD_WORLDUNBLOCKED);
-
-				//set color current
-				PlayerPrefs.SetInt ("Color X:" + (PlayerPrefs.GetInt ("level") - 1) + " Y:" + ((PlayerPrefs.GetInt ("world") * 2 - 2)), LevelPlay.FIELD_SELECTED);
-
-				print ("world:" + PlayerPrefs.GetInt ("world") + " Level:" + PlayerPrefs.GetInt ("level"));
-		
-				//increase only level
-			} else {
-			
-				//set color finished
-				PlayerPrefs.SetInt ("Color X:" + (PlayerPrefs.GetInt ("level") - 1) + " Y:" + ((PlayerPrefs.GetInt ("world") * 2 - 2)), LevelPlay.FIELD_COMPLETED); 
-
-				//increase level
-				PlayerPrefs.SetInt ("level", PlayerPrefs.GetInt ("level") + 1);
-
-				//set color current
-				PlayerPrefs.SetInt ("Color X:" + (PlayerPrefs.GetInt ("level") - 1) + " Y:" + ((PlayerPrefs.GetInt ("world") * 2 - 2)), LevelPlay.FIELD_SELECTED); 
-
-				print ("world:" + PlayerPrefs.GetInt ("world") + " Level:" + PlayerPrefs.GetInt ("level"));
-			}
-		} else {
-
-		}*/
 	}
 		
 
@@ -172,11 +130,11 @@ public class LevelManager : MonoBehaviour {
 		return worldMax;
 	}
 
-	public static Level getLevel(int world, int level){
+	public Level getLevel(int world, int level){
 		return levels [world, level];
 	}
 
-	public static void setCurrentLevel(int world, int level){
+	public void setCurrentLevel(int world, int level){
 		curLevel = levels [world, level];
 		PlayerPrefs.SetInt (CURLEVEL, curLevel.getLevel());
 		PlayerPrefs.SetInt (CURWORLD, curLevel.getWorld());
@@ -186,9 +144,7 @@ public class LevelManager : MonoBehaviour {
 
 	}
 
-	public static Level getCurrentLevel(){
+	public Level getCurrentLevel(){
 		return curLevel;
 	}
-		
-
 }

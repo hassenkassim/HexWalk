@@ -43,12 +43,12 @@ public class Field {
 		this.version = version;
 
 		//TODO: VERSION MODULO RAUS
-		version = version % 2;
+		version = 1;
 
 		switch (version) {
 		case 0:
 			field = GameObject.CreatePrimitive (PrimitiveType.Cube);
-			setScale (new Vector3 (0.8f, 0.1f, 0.8f));
+			setScale (new Vector3 (0.8f, 0.8f , 0.1f));
 			break;
 		case 1:
 			field = LevelPlay.prefabsMgr.generateObjectFromPrefab ("plate3");

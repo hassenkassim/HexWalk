@@ -1,12 +1,4 @@
-﻿/************************************************
- * HAMOTO Production 2016						*
- * Project: HexWalk								*
- * Authors: Tolga, Mohamed, Dursun, Hassen		*
- * Year: 2016									*
- *************************************************/
-
-
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -114,7 +106,7 @@ public class SwipeManager : MonoBehaviour
 			// Make sure it was a legit swipe, not a tap
 			if (swipeCm < instance.minSwipeLength) {
 				if (Application.isEditor) {
-					Debug.Log("[SwipeManager] Swipe was not long enough.");
+					DebugConsole.Log("[SwipeManager] Swipe was not long enough.");
 				}
 
 				swipeDirection = Swipe.None;

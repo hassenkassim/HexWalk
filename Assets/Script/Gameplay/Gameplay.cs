@@ -41,7 +41,6 @@ public class Gameplay : MonoBehaviour {
 
 	public static float totalTime = 0f;
 
-
 	//dursun
 	public GameObject tmpOverlay;
 	public static bool changeWorld;
@@ -64,7 +63,9 @@ public class Gameplay : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+
+		InputManager.active = false;
+
 		version = 1;
 
 		//Call Score Manager constructor
@@ -76,6 +77,9 @@ public class Gameplay : MonoBehaviour {
 		//Get Level Properties
 		currentLevel = LevelPlay.levelmgr.getCurrentLevel ();
 
+		GameObject.Find("WorldText").GetComponent<Text>().text = "World: " + (currentLevel.getWorld() + 1 );
+		GameObject.Find("LevelText").GetComponent<Text>().text = "Level: " + (currentLevel.getLevel() + 1);
+
 		//Create Player
 		player = new Player(currentLevel.getColorCount(), version);
 
@@ -83,8 +87,6 @@ public class Gameplay : MonoBehaviour {
 		savePlayerPrefs= new SavePlayerPrefs();
 
 		//Create Gamefield
-		//gamefield = new Gamefield (PlayerPrefs.GetInt("gameFieldWidth"), PlayerPrefs.GetInt("gameFieldHeight"), version);
-//		print("Class: GamePlay; Function: Start: CurrentLevel: Width: " + currentLevel.getWidth() + "; Height: " + currentLevel.getHeight());
 		gamefield = new Gamefield (currentLevel.getWidth(), currentLevel.getHeight(), currentLevel.getColorCount());
 
 		// Call Pathfinder constructor
@@ -168,9 +170,6 @@ public class Gameplay : MonoBehaviour {
 
 				explode = true;
 				field.fractureCube (0.125f, field);
-
-				//Destroy (field.getGameobject ());
-
 				print ("GAMEOVER!");
 
 				GamesceneManager.displayGameover ();
@@ -178,7 +177,6 @@ public class Gameplay : MonoBehaviour {
 
 			}
 		}
-
 	}
 
 	private static void setLevelToCompleted(){

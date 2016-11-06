@@ -29,6 +29,7 @@ public class LevelPlayerController : MonoBehaviour {
 				break;
 			case SHOWLEVELWORLD:
 				LevelPlay.cam.GetComponent<CameraPositionLevelPlay> ().startTransition ();
+				showID = 2;
 				break;
 
 			}
@@ -42,7 +43,6 @@ public class LevelPlayerController : MonoBehaviour {
 			//CameraPositionLevelPlay.disableSplash ();
 		}
 		LevelPlay.splashEnd = true;
-
 	}
 
 	//TODO: Gamover Check transfer to Gameover class

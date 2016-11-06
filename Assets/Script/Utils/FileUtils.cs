@@ -16,7 +16,7 @@ public class FileUtils {
 			string[] line = lines [i].Split (';');
 			int world = Convert.ToInt16(line[0]) - 1;
 			int level = Convert.ToInt16(line[1]) - 1;
-			Level l = new Level(Convert.ToInt16(line[2]), Convert.ToInt16(line[3]), Convert.ToInt16(line[4]), world, level);
+			Level l = new Level(Convert.ToInt16(line[3]), Convert.ToInt16(line[2]), Convert.ToInt16(line[4]), world, level);
 			levels[world, level] = l;
 		}
 		return levels;

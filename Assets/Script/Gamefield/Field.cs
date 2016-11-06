@@ -33,8 +33,7 @@ public class Field {
 			break;
 		}
 
-		//TODO: Instead of creating a primitive Cube, we should use a 3D model with rounded corners
-
+		setColor (Col.STANDARDFIELDCOLOR);
 		field.name = name;
 		field.tag = "Field";
 	}

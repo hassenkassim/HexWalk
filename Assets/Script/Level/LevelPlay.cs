@@ -14,7 +14,6 @@ public class LevelPlay : MonoBehaviour {
 	public static LevelManager levelmgr;
 
 	public static bool playFromCurLevel;
-	public static bool firstTouchWithPlate;
 	public static bool splashEnd = false;
 
 	public static int level;
@@ -53,8 +52,6 @@ public class LevelPlay : MonoBehaviour {
 	public static Vector2 gamePosition;
 	public static Vector2 oldPosition;
 
-	//public static SoundManager soundMgr;
-
 	public Vector3 startPos;						
 						
 	public Quaternion fromRotation;				
@@ -77,17 +74,15 @@ public class LevelPlay : MonoBehaviour {
 	public static float starDistance = 10;
 	public static float starClipDistance = 1;
 
-
 	// Use this for initialization
 	public void Start () {
-		PlayerPrefs.DeleteAll ();
+		//PlayerPrefs.DeleteAll ();
 
-		InputManager.active = true;
+		//Disable Input
+		InputManager.active = false;
+
+		//Call Level Manager constructor
 		levelmgr = new LevelManager ();
-		curWorld = 0;
-		curLevel = 0;
-		radius = sideLength * Mathf.Sqrt (2f) / 2f;
-		firstTouchWithPlate = true;
 
 		//dursun
 		//fading = new AutoFade (tmpOverlay);
@@ -104,11 +99,18 @@ public class LevelPlay : MonoBehaviour {
 		//Load Text Objects
 		loadGameObjects ();
 
-
 		//Setup Camera
 		cam = Camera.main;
 		cam.gameObject.AddComponent <CameraPositionLevelPlay>();
 
+		//Initiate all variables
+		init ();
+	}
+
+	private void init(){
+		curWorld = 0;
+		curLevel = 0;
+		radius = sideLength * Mathf.Sqrt (2f) / 2f;
 
 		//dursun
 		cam.gameObject.AddComponent <ParticleSystem>();
@@ -131,49 +133,50 @@ public class LevelPlay : MonoBehaviour {
 		disableText();
 	}
 
-	//dursun
-	public static void changeWorldBackground (int worldNumber){
-		//Debug.Log ("world: "+worldNumber);
-		cam.GetComponent<Skybox>().material=Resources.Load<Material>("skybox/skybox" + worldNumber);
+	public void Update () {
+		Vector2 input = InputManager.getInput ();
+
+		if (input.x == 0 && input.y == 0) {
+			if (InputManager.getClickTouchInput ()) {
+				startLevel ();
+			}
+		}
+
+		if ((input.x != 0 || input.y != 0) && !isRotate) {
+			rotatePlayer (input.x, input.y);
+		}
 	}
 
-	public void Update () {
-		if (InputManager.getClickTouchInput ()) {
-			startLevel ();
+	public void FixedUpdate() {
+		rotation ();
+	}
+
+	private void rotatePlayer(float x, float y){
+		if (moveAllowed ((int)x, (int)y) == false) {
+			return;
 		}
-			
-		float x = InputManager.getHorizontalInput();
-		float y = 0;
-
-		if(x==0) y = InputManager.getVerticalInput();
-
-		if ((x != 0 || y != 0) && !isRotate) {
-			if (moveAllowed ((int)x, (int)y) == false) {
-				return;
-			}
-			oldPosition = new Vector2 (gamePosition.x, gamePosition.y);
-			if (x != 0) {
-				gamePosition = new Vector2 (gamePosition.x + x, gamePosition.y);
-			} else if (y != 0) {
-				gamePosition = new Vector2(gamePosition.x, gamePosition.y+y);
-			}
-
-			directionX = -x;															
-			directionZ = y;																
-			startPos = playerobj.transform.position;												
-			fromRotation = playerobj.transform.rotation;											
-			playerobj.transform.Rotate (directionZ * 90, 0, directionX * 90, Space.World);		
-			toRotation = playerobj.transform.rotation;											
-			playerobj.transform.rotation = fromRotation;											
-			rotationTime = 0;															
-			isRotate = true;
+		oldPosition = new Vector2 (gamePosition.x, gamePosition.y);
+		if (x != 0) {
+			gamePosition = new Vector2 (gamePosition.x + x, gamePosition.y);
+		} else if (y != 0) {
+			gamePosition = new Vector2(gamePosition.x, gamePosition.y + y);
 		}
+
+		directionX = -x;															
+		directionZ = y;																
+		startPos = playerobj.transform.position;												
+		fromRotation = playerobj.transform.rotation;											
+		playerobj.transform.Rotate (directionZ * 90, 0, directionX * 90, Space.World);		
+		toRotation = playerobj.transform.rotation;											
+		playerobj.transform.rotation = fromRotation;											
+		rotationTime = 0;															
+		isRotate = true;
+
 		//play the RotationSound
 		SoundManager.playRotationSound ("LevelScene");
 	}
 
-	public void FixedUpdate() {
-
+	private void rotation(){
 		if (isRotate) {
 
 			rotationTime += Time.fixedDeltaTime;									
@@ -196,6 +199,25 @@ public class LevelPlay : MonoBehaviour {
 		}
 	}
 
+	private bool moveAllowed(int x, int y){
+		Field field = null;
+		try {
+			field= fields [(int)gamePosition.x + x, (int)gamePosition.y + y];
+			if (field.blocked () == true) {
+				return false;
+			} else {
+				return true;
+			}
+		} catch(System.Exception e){
+			if (e is System.NullReferenceException) {
+				print ("Field not available");
+			} else if (e is System.IndexOutOfRangeException) {
+				print ("Field Index out of Range");
+			}
+			return false;
+		}
+	}
+
 	public static void collision(){
 		// dursun 
 		// change world to world number
@@ -203,26 +225,22 @@ public class LevelPlay : MonoBehaviour {
 			//fading.fadeIn=true;
 			worldFaded = true;
 		}
-
-
+			
 		curWorld = (int)gamePosition.y / 2;
 		curLevel = (int)gamePosition.x;
+
 		setCurrentFieldColor (Col.SELECTEDCOLOR);
 
 		if (gamePosition.y % 2 != 1) {
 			levelText.text = "Level: " + (gamePosition.x + 1);
 			worldText.text = "World: " + ((int)(gamePosition.y/2 + 1));
 
-			if (fields [(int)gamePosition.x, (int)gamePosition.y].getColor() == Col.COMPLETEDCOLOR) {
+			if (levelmgr.levels [(int)gamePosition.y / 2, (int)gamePosition.x].getCompleted() == 1) {
 				statusText.text = "Level finished";
-			} else if (fields [(int)gamePosition.x, (int)gamePosition.y].getColor() == Col.SELECTEDCOLOR) {
-				statusText.text = "Level current";
-			} else {
-				statusText.text = "Level blocked";
+			} else if (levelmgr.levels [(int)gamePosition.y / 2, (int)gamePosition.x].getCompleted() == 0) {
+				statusText.text = "Level not finished";
 			}
-		
 			enableText ();
-		
 		} else {
 			disableText ();
 			worldFaded = false;
@@ -245,28 +263,8 @@ public class LevelPlay : MonoBehaviour {
 			setOldFieldColor (Col.WORLDUNLOCKEDCOLOR);
 		}
 	}
-
-
-	/*
-	public void loadPlayer(){
-		//Create Player
-		playerobj = LevelPlay.prefabsMgr.generateObjectFromPrefab ("cubeEckig");
-		playerobj.transform.localScale = new Vector3 (0.3f, 0.3f, 0.3f);
-		playerobj.name = "PlayerDynamic";
-		playerobj.AddComponent <LevelPlayerController>();
-		playerobj.transform.position = new Vector3(playerPositionX, 1.350457f, playerPositionZ);
-		//playerobj.transform.position = new Vector3(PlayerPrefs.GetInt("level") - 1, 3, PlayerPrefs.GetInt("world") - 1);
-		playerobj.transform.rotation = Quaternion.Euler(0, 0, 0);
-		playerobj.tag = "Player";
-		gamePosition = new Vector2 (playerPositionX, playerPositionZ);
-		Rigidbody playerRigidBody = playerobj.AddComponent<Rigidbody>(); // Add the rigidbody
-		playerRigidBody.mass = 0.5f;
-		playerRigidBody.angularDrag = 0.05f;
-		playerRigidBody.useGravity = true;
-	}
-	*/
 		
-	public static void startLevel(){
+	public void startLevel(){
 		if (gamePosition.y % 2 != 0)
 			return;
 		//setting currentLevel
@@ -275,7 +273,7 @@ public class LevelPlay : MonoBehaviour {
 		return;
 	}
 
-	public static void startNextLevel(){
+	public void startNextLevel(){
 		int nextWorld = PlayerPrefs.GetInt (LevelManager.NEXTWORLD, 0);
 		int nextLevel = PlayerPrefs.GetInt (LevelManager.NEXTLEVEL, 0);
 		levelmgr.setCurrentLevel (nextWorld, nextLevel);
@@ -283,10 +281,10 @@ public class LevelPlay : MonoBehaviour {
 		return;
 	}
 
-	public static void setCurrentFieldColor(Color col){
+	public void setCurrentFieldColor(Color col){
 		fields [(int)gamePosition.x, (int)gamePosition.y].setColor(col);
 	}
-	public static void setOldFieldColor(Color col){
+	public void setOldFieldColor(Color col){
 		fields [(int)oldPosition.x, (int)oldPosition.y].setColor(col);
 	}
 		
@@ -304,25 +302,6 @@ public class LevelPlay : MonoBehaviour {
 		}
 	}
 
-	private static bool moveAllowed(int x, int y){
-		Field field = null;
-		try {
-			field= fields [(int)gamePosition.x + x, (int)gamePosition.y + y];
-			if (field.blocked () == true) {
-				return false;
-			} else {
-				return true;
-			}
-		} catch(System.Exception e){
-			if (e is System.NullReferenceException) {
-				print ("Field not available");
-			} else if (e is System.IndexOutOfRangeException) {
-				print ("Field Index out of Range");
-			}
-			return false;
-		}
-	}
-		
 	//Load the Gamefield
 	public void loadFields(){
 		worldFaded = false;
@@ -335,7 +314,6 @@ public class LevelPlay : MonoBehaviour {
 		height = world * 2 - 1; 
 
 		fields = new Field[level, height];
-
 		for (int j = 0; j < height; j++) { 
 			//add WorldBlock Field
 			if (j % 2 == 1) {
@@ -343,7 +321,6 @@ public class LevelPlay : MonoBehaviour {
 				loadFieldColor (0, j);
 				continue;
 			}
-				
 			for (int i = 0; i < level; i++) {
 				addField (i, j, 1);
 				loadFieldColor (i, j);
@@ -395,10 +372,9 @@ public class LevelPlay : MonoBehaviour {
 		playerobj.name = "PlayerDynamic";
 		playerobj.AddComponent <LevelPlayerController>();
 
-		//Load previous Player Location
+		//TODO: Load previous Player Location
 
 		playerobj.transform.position = new Vector3(0, 1.350457f, 0);
-		//playerobj.transform.position = new Vector3(PlayerPrefs.GetInt("level") - 1, 3, PlayerPrefs.GetInt("world") - 1);
 		playerobj.transform.rotation = Quaternion.Euler(0, 0, 0);
 		playerobj.tag = "Player";
 		gamePosition = new Vector2 (0, 0);
@@ -427,5 +403,9 @@ public class LevelPlay : MonoBehaviour {
 		worldText.GetComponent<Text> ().enabled = false;
 		statusText.GetComponent<Text> ().enabled = false;
 	}
-		
+
+	//dursun
+	public static void changeWorldBackground (int worldNumber){
+		cam.GetComponent<Skybox>().material=Resources.Load<Material>("skybox/skybox" + worldNumber);
+	}
 }

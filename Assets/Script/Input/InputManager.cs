@@ -1,41 +1,38 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class InputManager : MonoBehaviour {
+public class InputManager {
 
 	public static bool active = false;
 
 	public static float getHorizontalInput(){
 		if (active) {
-			
-			//#if UNITY_ANDROID || UNITY_IPHONE
+			#if UNITY_ANDROID || UNITY_IPHONE
 			if (SwipeManager.IsSwipingLeft ()) {
+				DebugConsole.Log("IsSwipingLeft");
 				return -1;
 			} else if (SwipeManager.IsSwipingRight ()) {
+				DebugConsole.Log("IsSwipingRight");
 				return 1;
-			} else {
-				DebugConsole.Log ("IS NOT SWIPING" + Random.Range(0,10));
 			}
-			//#endif
-
+			#endif
+			
 			return Input.GetAxisRaw ("Horizontal");
 		}
 	return 0;
 	}
-
-
+		
 	public static float getVerticalInput(){
 		if (active) {
-			//#if UNITY_ANDROID || UNITY_IPHONE
+			#if UNITY_ANDROID || UNITY_IPHONE
 				if (SwipeManager.IsSwipingDown()) {
-				return -1;
+					DebugConsole.Log("IsSwipingDown");
+					return -1;
 				} else if(SwipeManager.IsSwipingUp()) {
-				return 1;
-				}else {
-				DebugConsole.Log ("IS NOT SWIPING" + Random.Range(0,10));
+					DebugConsole.Log("IsSwipingUp");
+					return 1;
 				}
-			//#endif
-
+			#endif
 			return Input.GetAxisRaw ("Vertical");
 		}
 		return 0;
@@ -44,18 +41,16 @@ public class InputManager : MonoBehaviour {
 
 	public static bool getClickTouchInput(){
 		if (active) {
-			//#if UNITY_ANDROID || UNITY_IPHONE
+			#if UNITY_ANDROID || UNITY_IPHONE
 				if(Input.touchCount > 0){
 					if (Input.touches[0].phase == TouchPhase.Ended) {
+						DebugConsole.Log("Touched");
 						return true;
 					}else{
 						return false;
-				}
-				
-			    }else{
-		     	return false;
-			}
-			//#endif
+					}
+			    }
+			#endif
 
 			if (Input.GetKeyUp (KeyCode.Space) || Input.GetMouseButtonUp (0)) {
 				return true;
@@ -65,5 +60,14 @@ public class InputManager : MonoBehaviour {
 		} else {
 			return false;
 		}
+	}
+
+	public static Vector2 getInput(){
+		float x = 0;
+		float y = 0;
+		x = InputManager.getHorizontalInput ();
+		if (x == 0) y = InputManager.getVerticalInput ();
+
+		return new Vector2 ((int)x, (int)y);
 	}
 }

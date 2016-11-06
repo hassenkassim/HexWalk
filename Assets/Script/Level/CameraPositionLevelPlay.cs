@@ -13,6 +13,9 @@ using System.Collections;
  * */
 public class CameraPositionLevelPlay : MonoBehaviour {
 
+	object transitionLock = new object();
+
+
 	public bool follow;
 	public Vector3 offsetPlayerCam = new Vector3 (0.0f, 3.0f, -4.0f);
 	public Vector3 rotationPlayerCam = new Vector3 (36.5f, 0.0f, 0.0f);
@@ -81,49 +84,52 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 	}
 
 	public void startTransition(){
-		StartCoroutine(TransitionGamefieldPlayer(2)); 	
+		StartCoroutine(TransitionGamefieldPlayer(2));
+		lastTask ();
 	}
 
 
 	IEnumerator TransitionGamefieldPlayer(float lerpSpeed)
 	{    
-		float t = 0.0f;
-		Vector3 newPosition;
-		Vector3 newRotation = rotationPlayerCam;
-		Vector3 startingPos = startCamPos + walkLogo.transform.position;
-		currentAngle = transform.eulerAngles;
+		lock (transitionLock) {
+			float t = 0.0f;
+			Vector3 newPosition;
+			Vector3 newRotation = rotationPlayerCam;
+			Vector3 startingPos = startCamPos + walkLogo.transform.position;
+			currentAngle = transform.eulerAngles;
 
-		while (t < 2.0f)
-		{
+			while (t < 2.0f) {
 
-			//get Position on the fly
-			newPosition = getTransform ().position + offsetPlayerCam;
+				//get Position on the fly
+				newPosition = getTransform ().position + offsetPlayerCam;
 
-			t += Time.deltaTime * (Time.timeScale / lerpSpeed);
+				t += Time.deltaTime * (Time.timeScale / lerpSpeed);
 
-			transform.position = Vector3.Lerp(startingPos, newPosition, t);
+				transform.position = Vector3.Lerp (startingPos, newPosition, t);
 
-			currentAngle = new Vector3(
-				Mathf.LerpAngle(startCamRotation.x, newRotation.x, t),
-				Mathf.LerpAngle(startCamRotation.y, newRotation.y, t),
-				Mathf.LerpAngle(startCamRotation.z, newRotation.z, t));
+				currentAngle = new Vector3 (
+					Mathf.LerpAngle (startCamRotation.x, newRotation.x, t),
+					Mathf.LerpAngle (startCamRotation.y, newRotation.y, t),
+					Mathf.LerpAngle (startCamRotation.z, newRotation.z, t));
 
-			transform.eulerAngles = currentAngle;
+				transform.eulerAngles = currentAngle;
 
-			yield return 0;
+				yield return 0;
+			}
 		}
+	}
 
+	void lastTask()
+	{
+		lock(transitionLock)
+		{
+			follow = true;
 
-		follow = true;
+			//enable Input
+			InputManager.active = true;
 
-		//enable Input
-		InputManager.active = true;
-
-		SoundManager.playMenuMusic ();
-
-		yield return 0;
-
-
+			SoundManager.playMenuMusic ();
+		}
 	}
 
 	public Transform getTransform(){

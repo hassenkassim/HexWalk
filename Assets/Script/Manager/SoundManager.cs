@@ -12,11 +12,12 @@ public class SoundManager : MonoBehaviour{
 	public static AudioClip splashMusik;
 
 	public void Start () {
-		levelMusik = new AudioClip [10];
 		loadMusic ();
 	}
 
 	public void loadMusic(){
+		levelMusik = new AudioClip [10];
+
 		menuMusik = (AudioClip)Resources.Load ("MenuMusik");
 		gameoverMusik = (AudioClip)Resources.Load ("GameoverMusik");
 		rotationMusik = (AudioClip)Resources.Load ("RotationsMusik");

@@ -40,18 +40,16 @@ public class PlayerController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
-
-		if (InputManager.getClickTouchInput ()) {
-			Gameplay.player.setNextColor();
-			return;
-		}
-
-
-		float x = InputManager.getHorizontalInput();
+		float x = 0;
 		float y = 0;
-		if(x==0) y = InputManager.getVerticalInput();
-
+		x = InputManager.getHorizontalInput ();
+		if (x == 0) y = InputManager.getVerticalInput ();
+		if (x == 0 && y == 0) {
+			if (InputManager.getClickTouchInput ()) {
+				Gameplay.player.setNextColor();
+				return;
+			}
+		}
 
 		//check if move is allowed
 		if (checkOutside (x,y)) {

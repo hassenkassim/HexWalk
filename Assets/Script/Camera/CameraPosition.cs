@@ -135,7 +135,6 @@ public class CameraPosition : MonoBehaviour {
 		//enable Input
 		InputManager.active = true;
 
-
 		follow = true;
 
 		yield return 0;

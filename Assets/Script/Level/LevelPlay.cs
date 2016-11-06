@@ -273,7 +273,7 @@ public class LevelPlay : MonoBehaviour {
 		return;
 	}
 
-	public void startNextLevel(){
+	public static void startNextLevel(){
 		int nextWorld = PlayerPrefs.GetInt (LevelManager.NEXTWORLD, 0);
 		int nextLevel = PlayerPrefs.GetInt (LevelManager.NEXTLEVEL, 0);
 		levelmgr.setCurrentLevel (nextWorld, nextLevel);
@@ -281,10 +281,10 @@ public class LevelPlay : MonoBehaviour {
 		return;
 	}
 
-	public void setCurrentFieldColor(Color col){
+	public static void setCurrentFieldColor(Color col){
 		fields [(int)gamePosition.x, (int)gamePosition.y].setColor(col);
 	}
-	public void setOldFieldColor(Color col){
+	public static void setOldFieldColor(Color col){
 		fields [(int)oldPosition.x, (int)oldPosition.y].setColor(col);
 	}
 		

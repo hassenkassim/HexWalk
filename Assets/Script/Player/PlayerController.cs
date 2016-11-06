@@ -40,11 +40,9 @@ public class PlayerController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		float x = 0;
-		float y = 0;
-		x = InputManager.getHorizontalInput ();
-		if (x == 0) y = InputManager.getVerticalInput ();
-		if (x == 0 && y == 0) {
+		Vector2 input = InputManager.getInput ();
+
+		if (input.x == 0 && input.y == 0) {
 			if (InputManager.getClickTouchInput ()) {
 				Gameplay.player.setNextColor();
 				return;
@@ -52,36 +50,39 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		//check if move is allowed
-		if (checkOutside (x,y)) {
-//			Debug.Log ("Player out of Gamefield, No Rotation possible!");
+		if (checkOutside (input.x, input.y)) {
 			return;
 		}
 
 
-		if ((x != 0 || y != 0) && !isRotate) {
-
-			if (x != 0) {
-				Gameplay.player.setGamePosition (new Vector2 (Gameplay.player.getGamePosition ().x + x, Gameplay.player.getGamePosition ().y));
-			} else if (y != 0) {
-				Gameplay.player.setGamePosition (new Vector2 (Gameplay.player.getGamePosition ().x, Gameplay.player.getGamePosition ().y + y));
-			}
-//			Debug.Log ("Player Position: " + Gameplay.player.getGamePosition());
-
-			directionX = -x;															
-			directionZ = y;																
-			startPos = transform.position;												
-			fromRotation = transform.rotation;											
-			transform.Rotate (directionZ * 90, 0, directionX * 90, Space.World);		
-			toRotation = transform.rotation;											
-			transform.rotation = fromRotation;											
-			rotationTime = 0;															
-			isRotate = true;															
+		if ((input.x != 0 || input.y != 0) && !isRotate) {
+			rotatePlayer (input.x, input.y);										
 		}
-
 	}
 		
 	void FixedUpdate() {
+		rotation ();
+	}
 
+	private void rotatePlayer(float x, float y){
+		if (x != 0) {
+			Gameplay.player.setGamePosition (new Vector2 (Gameplay.player.getGamePosition ().x + x, Gameplay.player.getGamePosition ().y));
+		} else if (y != 0) {
+			Gameplay.player.setGamePosition (new Vector2 (Gameplay.player.getGamePosition ().x, Gameplay.player.getGamePosition ().y + y));
+		}
+
+		directionX = -x;															
+		directionZ = y;																
+		startPos = transform.position;												
+		fromRotation = transform.rotation;											
+		transform.Rotate (directionZ * 90, 0, directionX * 90, Space.World);		
+		toRotation = transform.rotation;											
+		transform.rotation = fromRotation;											
+		rotationTime = 0;															
+		isRotate = true;
+	}
+
+	private void rotation(){
 		if (isRotate) {
 
 			rotationTime += Time.fixedDeltaTime;									
@@ -101,7 +102,6 @@ public class PlayerController : MonoBehaviour {
 				directionZ = 0;
 				rotationTime = 0;
 			}
-				
 		}
 	}
 

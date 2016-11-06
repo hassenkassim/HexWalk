@@ -95,8 +95,6 @@ public class GamesceneManager : MonoBehaviour {
 	// Button setup
 	public void onNextLevel(){
 		LevelPlay.startNextLevel ();
-
-		//SceneManager.LoadScene ("GameScene");
 	}
 
 

@@ -23,9 +23,6 @@ public class Player {
 	int version;
 
 	public Player(int colorCount, int version){
-
-
-
 		this.version = version;
 
 		switch (version) {

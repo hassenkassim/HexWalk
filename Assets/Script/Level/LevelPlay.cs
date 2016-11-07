@@ -59,6 +59,8 @@ public class LevelPlay : MonoBehaviour {
 
 	public static PrefabsManagerLevelPlay prefabsMgr;
 
+	public GameObject splash;
+
 	//dursun
 	public static AutoFade fading;
 	public GameObject tmpOverlay;
@@ -77,6 +79,9 @@ public class LevelPlay : MonoBehaviour {
 	// Use this for initialization
 	public void Start () {
 		//PlayerPrefs.DeleteAll ();
+
+		splash = GameObject.Find ("Splash");
+		DontDestroyOnLoad(splash);
 
 		//Disable Input
 		InputManager.active = false;

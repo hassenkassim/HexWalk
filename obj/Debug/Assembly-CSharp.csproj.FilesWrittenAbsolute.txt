@@ -107,7 +107,6 @@
 /Users/dur_sun/Documents/Proj/_unity/hex walk -/Temp/bin/Debug/Mono.Cecil.Mdb.dll
 /Users/dur_sun/Documents/Proj/_unity/hex walk -/Temp/bin/Debug/Assembly-CSharp.dll.mdb
 /Users/dur_sun/Documents/Proj/_unity/hex walk -/Temp/bin/Debug/Assembly-CSharp.dll
-<<<<<<< HEAD
 /Users/tolgaguzay/cubewalk/obj/Debug/Assembly-CSharp.dll
 /Users/tolgaguzay/cubewalk/obj/Debug/Assembly-CSharp.dll.mdb
 /Users/tolgaguzay/cubewalk/Temp/bin/Debug/UnityEngine.dll
@@ -125,7 +124,6 @@
 /Users/tolgaguzay/cubewalk/Temp/bin/Debug/Mono.Cecil.Mdb.dll
 /Users/tolgaguzay/cubewalk/Temp/bin/Debug/Assembly-CSharp.dll.mdb
 /Users/tolgaguzay/cubewalk/Temp/bin/Debug/Assembly-CSharp.dll
-=======
 /Users/dur_sun/Documents/Proj/_unity/hexwalk__/Temp/bin/Debug/Assembly-CSharp.dll.mdb
 /Users/dur_sun/Documents/Proj/_unity/hexwalk__/Temp/bin/Debug/Assembly-CSharp.dll
 /Users/dur_sun/Documents/Proj/_unity/hexwalk__/obj/Debug/Assembly-CSharp.dll

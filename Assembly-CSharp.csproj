@@ -61,6 +61,7 @@
      <Compile Include="Assets\Script\Level\LevelPlayerController.cs" />
      <Compile Include="Assets\Script\Level\PlayerPrefsX.cs" />
      <Compile Include="Assets\Script\Level\PrefabsManagerLevelPlay.cs" />
+     <Compile Include="Assets\Script\Level\Splash.cs" />
      <Compile Include="Assets\Script\Manager\LevelManager.cs" />
      <Compile Include="Assets\Script\Manager\MenuManager.cs" />
      <Compile Include="Assets\Script\Manager\PrefabsManager.cs" />

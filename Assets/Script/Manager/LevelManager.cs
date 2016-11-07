@@ -86,14 +86,28 @@ public class LevelManager {
 		}
 
 		if (worldcompleted == true) {
+			//give next available Level
+			int worldschlepp = curLevel.getWorld();
+			while (worldschlepp < worldMax) {
+				nextWorld = worldschlepp + 1;
+				for (int i = 0; i < levelMax; i++) {
+					if (levels [nextWorld, i].getCompleted () == 0) {
+						nextLevel = i;
+						PlayerPrefs.SetInt (NEXTWORLD, nextWorld);
+						PlayerPrefs.SetInt (WORLDCOMPLETED, nextWorld);
+						PlayerPrefs.SetInt (NEXTLEVEL, nextLevel);
+						return;
+					}
+				}
+			}
 			//NextWorld
-			if (nextWorld != worldMax) {
+			/*if (nextWorld != worldMax) {
 				nextWorld = curLevel.getWorld () + 1;
 				nextLevel = 0;
 				PlayerPrefs.SetInt (WORLDCOMPLETED, nextWorld);
 				worldCompleted = nextWorld;
 				//LevelPlay.enableWorld (nextWorld);
-			}
+			}*/
 		} else {
 			nextWorld = curLevel.getWorld ();
 			//give the next Level OR the next not completed Level
@@ -111,9 +125,6 @@ public class LevelManager {
 
 		PlayerPrefs.SetInt (NEXTWORLD, nextWorld);
 		PlayerPrefs.SetInt (NEXTLEVEL, nextLevel);
-
-
-		return;
 	}
 		
 

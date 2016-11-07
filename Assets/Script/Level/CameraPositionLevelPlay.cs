@@ -66,7 +66,7 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 				setRotation (rotationPlayerCam);
 			}
 		}
-		//FadeOut
+
 
 	}
 

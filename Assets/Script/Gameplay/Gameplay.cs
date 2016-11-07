@@ -42,6 +42,7 @@ public class Gameplay : MonoBehaviour {
 	public static float totalTime = 0f;
 
 	//dursun
+	public static AutoFade fading;
 	public GameObject tmpOverlay;
 	public static bool changeWorld;
 	public static bool explode;
@@ -96,9 +97,10 @@ public class Gameplay : MonoBehaviour {
 		cam = Camera.main;
 		cam.gameObject.AddComponent <CameraPosition>();
 
+		fading = new AutoFade (tmpOverlay);
+
 		//dursun
-		cam.gameObject.AddComponent<Skybox> ();
-		cam.GetComponent<Skybox>().material=Resources.Load<Material>("skybox/skybox" + (((int)((LevelPlay.gamePosition.y) / 2 + 1))-1));
+		BackgroundManager.loadSkybox(cam);
 
 		//tolga
 		//Load Musics
@@ -108,16 +110,6 @@ public class Gameplay : MonoBehaviour {
 		//Setup Button
 		pauseBtn = GameObject.Find("PauseButton");
 	
-	}
-	public static void setParticleSystem(){
-		cam.gameObject.AddComponent <ParticleSystem>();
-		ParticleSystem ps = cam.gameObject.GetComponent<ParticleSystem> ();
-		ps.maxParticles = 1000;
-		ps.startSize = 0.05f;
-		var sh = ps.shape;
-		sh.enabled = true;
-		sh.shapeType = ParticleSystemShapeType.Cone;
-		sh.angle = 15;
 	}
 
 	void Update(){

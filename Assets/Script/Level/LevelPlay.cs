@@ -86,6 +86,7 @@ public class LevelPlay : MonoBehaviour {
 
 		//dursun
 		fading = new AutoFade (tmpOverlay);
+		fading.fadeIn = true;
 
 		//Call Prefab Manager constructor
 		prefabsMgr = (PrefabsManagerLevelPlay)GameObject.Find("System").GetComponent <PrefabsManagerLevelPlay>();
@@ -113,20 +114,8 @@ public class LevelPlay : MonoBehaviour {
 		radius = sideLength * Mathf.Sqrt (2f) / 2f;
 
 		//dursun
-		cam.gameObject.AddComponent <ParticleSystem>();
-		ParticleSystem ps = cam.gameObject.GetComponent<ParticleSystem> ();
-		ps.maxParticles = 1000;
-		ps.startSize = 0.05f;
-
-		var sh = ps.shape;
-		sh.enabled = true;
-		sh.shapeType = ParticleSystemShapeType.Cone;
-		sh.angle = 15;
-
-		//dursun
-		cam.gameObject.AddComponent<Skybox> ();
+		BackgroundManager.loadSkybox(cam);
 		worldFaded = true;
-		changeWorldBackground (0);
 		changeWorld = false;
 
 		//tolga
@@ -221,8 +210,8 @@ public class LevelPlay : MonoBehaviour {
 	public static void collision(){
 		// dursun 
 		// change world to world number
-		if(!worldFaded){ // not for the first collision  //gamePosition.y/2+1!=1 && 
-			fading.fadeIn=true;
+		if(!worldFaded){ // not for the first collision 
+			fading.fadeInOut=true;
 			worldFaded = true;
 		}
 			
@@ -407,10 +396,5 @@ public class LevelPlay : MonoBehaviour {
 		levelText.GetComponent<Text> ().enabled = false;
 		worldText.GetComponent<Text> ().enabled = false;
 		statusText.GetComponent<Text> ().enabled = false;
-	}
-
-	//dursun
-	public static void changeWorldBackground (int worldNumber){
-		cam.GetComponent<Skybox>().material=Resources.Load<Material>("skybox/skybox" + worldNumber);
 	}
 }

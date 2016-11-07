@@ -317,13 +317,15 @@ public class LevelPlay : MonoBehaviour {
 		for (int j = 0; j < height; j++) { 
 			//add WorldBlock Field
 			if (j % 2 == 1) {
-				addField (0, j, 1);
+				addField (0, j, 9);
 				loadFieldColor (0, j);
+
 				continue;
 			}
 			for (int i = 0; i < level; i++) {
-				addField (i, j, 1);
+				addField (i, j, 8);
 				loadFieldColor (i, j);
+
 			}
 		}
 	}
@@ -334,6 +336,7 @@ public class LevelPlay : MonoBehaviour {
 		fields [x, y].setScale (new Vector3 (0.4f, 0.4f, 0.05f));
 		fields [x, y].setPosition(x, y);
 		fields [x, y].setTag("LevelField");
+	
 	}
 		
 	public void loadFieldColor(int x, int y){
@@ -367,21 +370,23 @@ public class LevelPlay : MonoBehaviour {
 
 	public void loadPlayer(){
 		//Create Player
-		playerobj = LevelPlay.prefabsMgr.generateObjectFromPrefab ("cubeEckig");
+		playerobj = LevelPlay.prefabsMgr.generateObjectFromPrefab ("cube5");
 		playerobj.transform.localScale = new Vector3 (0.3f, 0.3f, 0.3f);
 		playerobj.name = "PlayerDynamic";
 		playerobj.AddComponent <LevelPlayerController>();
 
 		//TODO: Load previous Player Location
 
-		playerobj.transform.position = new Vector3(0, 1.350457f, 0);
+		playerobj.transform.position = new Vector3(0, 1.39f, 0);
 		playerobj.transform.rotation = Quaternion.Euler(0, 0, 0);
 		playerobj.tag = "Player";
 		gamePosition = new Vector2 (0, 0);
+		/*
 		Rigidbody playerRigidBody = playerobj.AddComponent<Rigidbody>(); // Add the rigidbody
 		playerRigidBody.mass = 0.5f;
 		playerRigidBody.angularDrag = 0.05f;
 		playerRigidBody.useGravity = true;
+		*/
 	}
 
 	public void loadGameObjects(){

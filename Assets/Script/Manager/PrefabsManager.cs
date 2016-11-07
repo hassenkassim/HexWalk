@@ -14,4 +14,5 @@ public class PrefabsManager : MonoBehaviour {
 	public GameObject generateObjectFromPrefab(string prefabName){
 		return (GameObject)Instantiate(Resources.Load(prefabName));
 	}
+
 }

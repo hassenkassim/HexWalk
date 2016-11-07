@@ -30,11 +30,55 @@ public class Player {
 
 		switch (version) {
 		case 0:
-			playerobj = GameObject.CreatePrimitive (PrimitiveType.Cube);
-			setScale (new Vector3 (0.5f, 0.5f, 0.5f));
+			playerobj = Gameplay.prefabsMgr.generateObjectFromPrefab ("cube0");
+			setScale (new Vector3 (0.3f, 0.3f, 0.3f));
 			break;
 		case 1:
-			playerobj = Gameplay.prefabsMgr.generateObjectFromPrefab ("cubeEckig");
+			playerobj = Gameplay.prefabsMgr.generateObjectFromPrefab ("cube3");
+			setScale (new Vector3 (0.3f, 0.3f, 0.3f));
+			break;
+		case 2:
+			playerobj = Gameplay.prefabsMgr.generateObjectFromPrefab ("cube5");
+			setScale (new Vector3 (0.3f, 0.3f, 0.3f));
+			break;
+		case 3:
+			playerobj = Gameplay.prefabsMgr.generateObjectFromPrefab ("cube7");
+			setScale (new Vector3 (0.3f, 0.3f, 0.3f));
+			break;
+		case 4:
+			playerobj = Gameplay.prefabsMgr.generateObjectFromPrefab ("cube7");
+			setScale (new Vector3 (0.3f, 0.3f, 0.3f));
+			break;
+		case 5:
+			playerobj = Gameplay.prefabsMgr.generateObjectFromPrefab ("cube6");
+			setScale (new Vector3 (0.3f, 0.3f, 0.3f));
+			break;
+		case 6:
+			playerobj = Gameplay.prefabsMgr.generateObjectFromPrefab ("cube5");
+			setScale (new Vector3 (0.3f, 0.3f, 0.3f));
+			break;
+		case 7:
+			playerobj = Gameplay.prefabsMgr.generateObjectFromPrefab ("cube2");
+			setScale (new Vector3 (0.3f, 0.3f, 0.3f));
+			break;
+		case 8:
+			playerobj = Gameplay.prefabsMgr.generateObjectFromPrefab ("cube8");
+			setScale (new Vector3 (0.3f, 0.3f, 0.3f));
+			break;
+		case 9:
+			playerobj = Gameplay.prefabsMgr.generateObjectFromPrefab ("cube6");
+			setScale (new Vector3 (0.3f, 0.3f, 0.3f));
+			break;
+		case 10:
+			playerobj = Gameplay.prefabsMgr.generateObjectFromPrefab ("cube1");
+			setScale (new Vector3 (0.3f, 0.3f, 0.3f));
+			break;
+		case 11:
+			playerobj = Gameplay.prefabsMgr.generateObjectFromPrefab ("cube6");
+			setScale (new Vector3 (0.3f, 0.3f, 0.3f));
+			break;
+		case 12:
+			playerobj = Gameplay.prefabsMgr.generateObjectFromPrefab ("cube3");
 			setScale (new Vector3 (0.3f, 0.3f, 0.3f));
 			break;
 		}
@@ -50,11 +94,6 @@ public class Player {
 		setColor (curColor);
 
 		setGamePosition (new Vector2 (0, 0));
-
-		Rigidbody playerRigidBody = playerobj.AddComponent<Rigidbody>(); // Add the rigidbody
-		playerRigidBody.mass = 0.5f;
-		playerRigidBody.angularDrag = 0.05f;
-		playerRigidBody.useGravity = true;
 
 
 	}

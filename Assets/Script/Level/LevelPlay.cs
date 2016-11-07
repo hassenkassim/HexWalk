@@ -85,7 +85,7 @@ public class LevelPlay : MonoBehaviour {
 		levelmgr = new LevelManager ();
 
 		//dursun
-		//fading = new AutoFade (tmpOverlay);
+		fading = new AutoFade (tmpOverlay);
 
 		//Call Prefab Manager constructor
 		prefabsMgr = (PrefabsManagerLevelPlay)GameObject.Find("System").GetComponent <PrefabsManagerLevelPlay>();
@@ -222,7 +222,7 @@ public class LevelPlay : MonoBehaviour {
 		// dursun 
 		// change world to world number
 		if(!worldFaded){ // not for the first collision  //gamePosition.y/2+1!=1 && 
-			//fading.fadeIn=true;
+			fading.fadeIn=true;
 			worldFaded = true;
 		}
 			

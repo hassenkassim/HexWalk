@@ -40,11 +40,10 @@ public class LevelPlayerController : MonoBehaviour {
 		}
 
 		LevelPlay.enableText ();
+
+		//dursun
+		BackgroundManager.setParticleSystem(LevelPlay.cam);
 	}
-
-
-
-
 
 
 	void OnCollisionEnter(Collision coll)

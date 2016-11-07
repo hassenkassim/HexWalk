@@ -75,7 +75,6 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 			setPosition (LevelPlay.playerobj.transform.position + offsetPlayerCam);
 			setRotation (rotationPlayerCam);
 		}
-		//FadeOut
 	}
 
 	public static void disableSplash(){

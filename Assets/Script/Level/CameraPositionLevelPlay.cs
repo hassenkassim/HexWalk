@@ -44,8 +44,6 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 			cubePosY = 1.36f;
 			posZ = -0.303f;
 
-			SoundManager.playSplashMusic ();
-
 			walkLogo = GameObject.Find ("walkText");
 			cubeLogo = GameObject.Find ("cubeText");
 
@@ -54,6 +52,9 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 			setPosition (walkLogo.transform.position + startCamPos);
 			setRotation (startCamRotation);
 		} else {
+			walkLogo = GameObject.Find ("walkText");
+			cubeLogo = GameObject.Find ("cubeText");
+			disableSplash ();
 			InputManager.active = true;
 			setPosition (LevelPlay.playerobj.transform.position + offsetPlayerCam);
 			setRotation (rotationPlayerCam);
@@ -78,8 +79,8 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 	}
 
 	public static void disableSplash(){
-		walkLogo.SetActive (false);
-		cubeLogo.SetActive (false);
+		walkLogo.gameObject.SetActive (false);
+		cubeLogo.gameObject.SetActive (false);
 	}
 
 	public void setPosition(Vector3 pos){

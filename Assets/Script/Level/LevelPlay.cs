@@ -14,7 +14,6 @@ public class LevelPlay : MonoBehaviour {
 	public static LevelManager levelmgr;
 
 	public static bool playFromCurLevel;
-	public static bool splashEnd = false;
 
 	public static int level;
 	public static int world;
@@ -60,6 +59,18 @@ public class LevelPlay : MonoBehaviour {
 	public static PrefabsManagerLevelPlay prefabsMgr;
 
 	public GameObject splash;
+
+	public static Button listButton;
+	public static Button soundOnButton;
+	public static Button soundOffButton;
+	public static Button shareButton;
+	public static Button infoButton;
+	public static Vector3 startButtonPos;
+	public static Vector3 soundOnEndPosition;
+	public static Vector3 soundOffEndPosition;
+	public static Vector3 shareEndPosition;
+	public static Vector3 infoEndPosition;
+	public bool listButtonClicked;
 
 	//dursun
 	public static AutoFade fading;
@@ -111,6 +122,16 @@ public class LevelPlay : MonoBehaviour {
 
 		//Initiate all variables
 		init ();
+
+		//start music
+		if (splash.GetComponent<Splash> ().getSplashShown () != 0) {
+			SoundManager.playMenuMusic ();
+		}
+
+		//load buttons
+		//listButtonClicked = false;
+		loadButtons ();
+		onListButton ();
 	}
 
 	private void init(){
@@ -385,9 +406,9 @@ public class LevelPlay : MonoBehaviour {
 
 	public void loadGameObjects(){
 		//initialize text
-		levelText = GameObject.Find("LevelText").GetComponent<Text>();
-		worldText = GameObject.Find("WorldText").GetComponent<Text>();
-		statusText = GameObject.Find("StatusText").GetComponent<Text>();
+		levelText = GameObject.Find("LevelText").GetComponent<Text> ();
+		worldText = GameObject.Find("WorldText").GetComponent<Text> ();
+		statusText = GameObject.Find("StatusText").GetComponent<Text> ();
 	}
 
 
@@ -402,4 +423,95 @@ public class LevelPlay : MonoBehaviour {
 		worldText.GetComponent<Text> ().enabled = false;
 		statusText.GetComponent<Text> ().enabled = false;
 	}
+
+	public static void loadButtons(){
+		listButton = GameObject.Find ("ListButton").GetComponent<Button> ();
+		soundOnButton = GameObject.Find ("SoundOnButton").GetComponent<Button> ();
+		soundOffButton = GameObject.Find ("SoundOffButton").GetComponent<Button> ();
+		shareButton = GameObject.Find ("ShareButton").GetComponent<Button> ();
+		infoButton = GameObject.Find ("InfoButton").GetComponent<Button> ();
+
+		startButtonPos = new Vector3 (infoButton.transform.position.x, infoButton.transform.position.y, infoButton.transform.position.z);
+		soundOnEndPosition = new Vector3 (infoButton.transform.position.x, infoButton.transform.position.y - 70, infoButton.transform.position.z);
+		soundOffEndPosition = new Vector3 (infoButton.transform.position.x, infoButton.transform.position.y - 70, infoButton.transform.position.z);
+		shareEndPosition = new Vector3 (infoButton.transform.position.x, infoButton.transform.position.y - 140, infoButton.transform.position.z);
+		infoEndPosition = new Vector3 (infoButton.transform.position.x, infoButton.transform.position.y - 210, infoButton.transform.position.z);
+
+	}
+
+	public void onListButton(){
+		StartCoroutine(TransitionButtons(0.5f));
+		print ("Button");
+	}
+
+
+	IEnumerator TransitionButtons(float lerpSpeed)
+	{    
+		
+		float t = 0.0f;
+
+		if (listButtonClicked == false) {
+			while (t < 2.0f) {
+
+				t += Time.deltaTime * (Time.timeScale / lerpSpeed);
+
+				soundOnButton.transform.position = new Vector3 (
+					Mathf.SmoothStep (startButtonPos.x, soundOnEndPosition.x, t),
+					Mathf.SmoothStep (startButtonPos.y, soundOnEndPosition.y, t),
+					Mathf.SmoothStep (startButtonPos.z, soundOnEndPosition.z, t));
+				/*
+				soundOffButton.transform.position = new Vector3(
+					Mathf.SmoothStep(startButtonPos.x, soundOffEndPosition.x, t),
+					Mathf.SmoothStep(startButtonPos.y, soundOffEndPosition.y - 70, t),
+					Mathf.SmoothStep(startButtonPos.z, soundOffEndPosition.z, t));
+			*/
+
+				shareButton.transform.position = new Vector3 (
+					Mathf.SmoothStep (startButtonPos.x, shareEndPosition.x, t),
+					Mathf.SmoothStep (startButtonPos.y, shareEndPosition.y, t),
+					Mathf.SmoothStep (startButtonPos.z, shareEndPosition.z, t));
+
+				infoButton.transform.position = new Vector3 (
+					Mathf.SmoothStep (startButtonPos.x, infoEndPosition.x, t),
+					Mathf.SmoothStep (startButtonPos.y, infoEndPosition.y, t),
+					Mathf.SmoothStep (startButtonPos.z, infoEndPosition.z, t));
+			
+			}
+			listButtonClicked = true;
+
+		}else{
+			
+			while (t < 2.0f) {
+
+				t += Time.deltaTime * (Time.timeScale / lerpSpeed);
+
+
+				soundOnButton.transform.position = new Vector3 (
+					Mathf.SmoothStep (soundOnEndPosition.x, startButtonPos.x, t),
+					Mathf.SmoothStep (soundOnEndPosition.y, startButtonPos.y, t),
+					Mathf.SmoothStep (soundOnEndPosition.z, startButtonPos.z, t));
+				/*
+				soundOffButton.transform.position = new Vector3(
+					Mathf.SmoothStep(soundOffEndPosition.x, startButtonPos.x, t),
+					Mathf.SmoothStep(soundOffEndPosition.y, startButtonPos.y - 70, t),
+					Mathf.SmoothStep(soundOffEndPosition.z, startButtonPos.z, t));
+				*/
+
+				shareButton.transform.position = new Vector3 (
+					Mathf.SmoothStep (shareEndPosition.x, startButtonPos.x, t),
+					Mathf.SmoothStep (shareEndPosition.y, startButtonPos.y, t),
+					Mathf.SmoothStep (shareEndPosition.z, startButtonPos.z, t));
+
+				infoButton.transform.position = new Vector3 (
+					Mathf.SmoothStep (infoEndPosition.x, startButtonPos.x, t),
+					Mathf.SmoothStep (infoEndPosition.y, startButtonPos.y, t),
+					Mathf.SmoothStep (infoEndPosition.z, startButtonPos.z, t));
+				
+
+			}
+			yield return 0;
+		}
+			
+	}
+
 }

@@ -53,6 +53,7 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 		cubeLogo.transform.position = new Vector3 (posX, cubePosY, posZ);
 		setPosition (walkLogo.transform.position + startCamPos);
 		setRotation (startCamRotation);
+
 	}
 
 	void Update () {
@@ -60,11 +61,16 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 		if (LevelPlayerController.showID == 0) {
 			setPosition (walkLogo.transform.position + startCamPos);
 			setRotation (startCamRotation);
+
+
+
 		} else {
 			if (follow == true) {
 				setPosition (LevelPlay.playerobj.transform.position + offsetPlayerCam);
 				setRotation (rotationPlayerCam);
 			}
+			//dursun
+			BackgroundManager.setParticleSystem (LevelPlay.cam);
 		}
 
 
@@ -116,6 +122,7 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 
 				yield return 0;
 			}
+
 		}
 	}
 

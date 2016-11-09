@@ -43,9 +43,6 @@ public class LevelPlayerController : MonoBehaviour {
 			//CameraPositionLevelPlay.disableSplash ();
 		}
 		LevelPlay.splashEnd = true;
-
-		//dursun
-		BackgroundManager.setParticleSystem(LevelPlay.cam);
 	}
 
 	//TODO: Gamover Check transfer to Gameover class

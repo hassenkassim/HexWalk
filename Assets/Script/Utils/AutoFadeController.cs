@@ -3,7 +3,7 @@ using System.Collections;
 
 public class AutoFadeController : MonoBehaviour {
 
-
+	/*
 	// Use this for initialization
 	void Start () {
 
@@ -15,33 +15,34 @@ public class AutoFadeController : MonoBehaviour {
 			LevelPlay.changeWorld = false;
 		}
 
+		if (!Camera.main.GetComponent<Skybox> ().material.name.Equals ("skybox" + (((int)((LevelPlay.gamePosition.y) / 2 + 1)) - 1))) {
+			FadeInOut ();
+		}
+
 		if (LevelPlay.fading != null) {
 			if (LevelPlay.fading.fadeIn == true) {
 				LevelPlay.fading.fadeIn = false;
+				InputManager.active=false;
 				FadeIn ();
-			} else if (LevelPlay.fading.fadeOut == true) {
-				LevelPlay.fading.fadeOut = false;
-				FadeOut ();
+				InputManager.active=true;
 			} 
-			if (LevelPlay.fading.fadeInOut == true) {
-				LevelPlay.fading.fadeInOut = false;
-				FadeInOut ();
-			}
+			if (LevelPlay.fading.fadeOut == true) {
+				LevelPlay.fading.fadeOut = false;
+				InputManager.active=false;
+				FadeOut ();
+				InputManager.active=true;
+			} 
 		}
 		else if (Gameplay.fading != null) {
 			if (Gameplay.fading.fadeIn == true) {
 				Gameplay.fading.fadeIn = false;
 				FadeIn ();
-			} else if (Gameplay.fading.fadeOut == true) {
+			} 
+			if (Gameplay.fading.fadeOut == true) {
 				Gameplay.fading.fadeOut = false;
 				FadeOut ();
-			} else if (Gameplay.fading.fadeInOut == true) {
-				Gameplay.fading.fadeInOut = false;
-				FadeInOut ();
 			}
 		}
-
-
 	}
 
 	public void FadeIn(){
@@ -62,9 +63,11 @@ public class AutoFadeController : MonoBehaviour {
 		LevelPlay.fading.overlay.gameObject.SetActive (true);
 		LevelPlay.fading.overlay.pixelInset = new Rect (0, 0, Screen.width, Screen.height);
 
+		InputManager.active=false;
+
 		StartCoroutine(LevelPlay.fading.FadeInOut());
 	
-		LevelPlay.fading.fadeInOut = false;
 		InputManager.active=true;
 	}
+	*/
 }

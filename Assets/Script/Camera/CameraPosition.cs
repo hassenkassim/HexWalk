@@ -98,6 +98,7 @@ public class CameraPosition : MonoBehaviour {
 		
 	IEnumerator TransitionGamefieldPlayer(float lerpSpeed)
 	{    
+		
 		float t = 0.0f;
 		Vector3 newPosition;
 		Vector3 newRotation = rotationPlayerCam;

@@ -4,24 +4,23 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class AutoFade{
-	
+	/*
 	//public static GameObject tmp;
-	public static float fadeTime=1.0f; 
+	public static float fadeTime=2.0f; 
 	public static PrefabsManagerLevelPlay prefabsMgr;
 	public  GUITexture overlay;
 	public bool fadeIn;
 	public bool fadeOut;
-	public bool fadeInOut;
-
-	public bool fadeReady=false;
+	public static bool fadeStarted;
+	public static bool fadeDone;
 
 
 	public AutoFade(GameObject overlay1)
 	{
-
 		this.fadeIn = false;
 		this.fadeOut = false;
-		this.fadeInOut = false;
+		fadeDone = false;
+		fadeStarted = false;
 		this.overlay=overlay1.GetComponent<GUITexture> ();
 	}
 
@@ -31,60 +30,50 @@ public class AutoFade{
 		float progress = 0.0f;
 		this.overlay.color = Color.black;
 
-		InputManager.active=false;
-
 		while (progress<1.0f) {
 			this.overlay.color = Color.Lerp (Color.black, Color.clear, progress);
 			progress += rate * Time.deltaTime;
 			yield return null;
 		}
+
 		this.overlay.color = Color.clear;
 		this.overlay.gameObject.SetActive (false);
-		InputManager.active=true;
-		fadeReady = true;
+		fadeDone = true;
+		yield return null;
 	}
 
 	//fade to black:
 	public IEnumerator FadeOut(){
+		fadeStarted = true;
 		float rate = 1.5f/fadeTime;
 		float progress = 0.0f;
 
-		overlay.color = Color.clear;
-		overlay.gameObject.SetActive (true);
-		InputManager.active=false;
+		this.overlay.color = Color.clear;
 
 		while (progress<1.0f) {
-			overlay.color = Color.Lerp (Color.clear, Color.black, progress);
+			this.overlay.color = Color.Lerp (Color.clear, Color.black, progress);
 			progress += rate * Time.deltaTime;
 			yield return null;
 		}
-		overlay.color = Color.black;
-		LevelPlay.fading.fadeOut = false;
-		InputManager.active=true;
-		fadeReady = true;
-		overlay.gameObject.SetActive (false);
-
+		this.overlay.color = Color.black;
+		this.overlay.gameObject.SetActive (false);
+		Debug.Log ("SETZE AUF TRUE");
+		fadeDone = true;
+		yield return null;
 	}
 
 	public IEnumerator FadeInOut(){
-
 		float rate = 1.5f/fadeTime;
 		float progress = 0.0f;
 
-		overlay.color = Color.clear;
-		overlay.gameObject.SetActive (true);
-		InputManager.active=false;
+		this.overlay.color = Color.clear;
 
 		while (progress<1.0f) {
-			overlay.color = Color.Lerp (Color.clear, Color.black, progress);
+			this.overlay.color = Color.Lerp (Color.clear, Color.black, progress);
 			progress += rate * Time.deltaTime;
 			yield return null;
 		}
-		overlay.color = Color.black;
-		LevelPlay.fading.fadeOut = false;
-		InputManager.active=true;
-		fadeReady = true;
-
+		this.overlay.color = Color.black;
 
 		LevelPlay.changeWorld = true;
 
@@ -92,7 +81,6 @@ public class AutoFade{
 		progress = 0.0f;
 		this.overlay.color = Color.black;
 
-		InputManager.active=false;
 
 		while (progress<1.0f) {
 			this.overlay.color = Color.Lerp (Color.black, Color.clear, progress);
@@ -101,10 +89,8 @@ public class AutoFade{
 		}
 		this.overlay.color = Color.clear;
 		this.overlay.gameObject.SetActive (false);
-		InputManager.active=true;
-		fadeReady = true;
+
+		yield return null;
 	}
-
-
+	*/
 }   
-

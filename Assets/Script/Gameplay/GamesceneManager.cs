@@ -33,7 +33,7 @@ public class GamesceneManager : MonoBehaviour {
 		} else {
 			AudioListener.pause = false;
 		}
-
+			
 		loadGameObjects ();
 
 	}
@@ -119,6 +119,8 @@ public class GamesceneManager : MonoBehaviour {
 		SetBool("soundIsOn", false);
 		PlayerPrefs.Save();
 	}
+
+
 
 	public void onSoundOff(){
 		soundOnBtn.gameObject.SetActive (true);

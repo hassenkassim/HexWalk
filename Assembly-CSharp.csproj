@@ -75,6 +75,7 @@
      <Compile Include="Assets\Script\Utils\AutoFadeController.cs" />
      <Compile Include="Assets\Script\Utils\Col.cs" />
      <Compile Include="Assets\Script\Utils\DebugConsole.cs" />
+     <Compile Include="Assets\Script\Utils\Fade.cs" />
      <Compile Include="Assets\Script\Utils\FileUtils.cs" />
      <Compile Include="Assets\Script\Utils\Joker.cs" />
      <Compile Include="Assets\Script\Utils\Pause.cs" />

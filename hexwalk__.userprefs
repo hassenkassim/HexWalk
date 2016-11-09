@@ -1,0 +1,21 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Gameplay/Gameplay.cs">
+    <Files>
+      <File FileName="Assets/Script/Utils/AutoFade.cs" Line="90" Column="3" />
+      <File FileName="Assets/Script/Utils/AutoFadeController.cs" Line="17" Column="3" />
+      <File FileName="Assets/Script/Level/LevelPlay.cs" Line="129" Column="19" />
+      <File FileName="Assets/Script/Gameplay/Gameplay.cs" Line="163" Column="13" />
+      <File FileName="Assets/Script/Gameplay/GamesceneManager.cs" Line="36" Column="4" />
+      <File FileName="Assets/Script/Gamefield/Field.cs" Line="71" Column="26" />
+      <File FileName="Assets/Script/Background/BackgroundManager.cs" Line="19" Column="38" />
+      <File FileName="Assets/Script/Level/CameraPositionLevelPlay.cs" Line="134" Column="1" />
+      <File FileName="Assets/Script/Camera/CameraPosition.cs" Line="132" Column="21" />
+      <File FileName="Assets/Script/Level/LevelPlayerController.cs" Line="52" Column="27" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

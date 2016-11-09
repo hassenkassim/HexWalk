@@ -14,21 +14,65 @@ using System.Collections;
  * */
 public class Field {
 	public GameObject field;
-	public int version;
+	public int fieldVersion;
 
-	public Field(string name, int version){
-		this.version = version;
+	public Field(string name, int fieldVersion){
+		this.fieldVersion = fieldVersion;
 
 		//TODO: VERSION MODULO RAUS
-		version = version % 2;
+		fieldVersion = fieldVersion % 2;
 
-		switch (version) {
+		switch (fieldVersion) {
 		case 0:
-			field = GameObject.CreatePrimitive (PrimitiveType.Cube);
-			setScale (new Vector3 (0.8f, 0.1f, 0.8f));
+			field = Gameplay.prefabsMgr.generateObjectFromPrefab ("platte0");
+			setScale (new Vector3 (0.4f, 0.4f, 0.05f));
 			break;
 		case 1:
-			field = Gameplay.prefabsMgr.generateObjectFromPrefab ("plate3");
+			field = Gameplay.prefabsMgr.generateObjectFromPrefab ("platte1");
+			setScale (new Vector3 (0.4f, 0.4f, 0.05f));
+			break;
+		case 2:
+			field = Gameplay.prefabsMgr.generateObjectFromPrefab ("platte2");
+			setScale (new Vector3 (0.4f, 0.4f, 0.05f));
+			break;
+		case 3:
+			field = Gameplay.prefabsMgr.generateObjectFromPrefab ("platte3");
+			setScale (new Vector3 (0.4f, 0.4f, 0.05f));
+			break;
+		case 4:
+			field = Gameplay.prefabsMgr.generateObjectFromPrefab ("platte4");
+			setScale (new Vector3 (0.4f, 0.4f, 0.05f));
+			break;
+		case 5:
+			field = Gameplay.prefabsMgr.generateObjectFromPrefab ("platte5");
+			setScale (new Vector3 (0.4f, 0.4f, 0.05f));
+			break;
+		case 6:
+			field = Gameplay.prefabsMgr.generateObjectFromPrefab ("platte6");
+			setScale (new Vector3 (0.4f, 0.4f, 0.05f));
+			break;
+		case 7:
+			field = Gameplay.prefabsMgr.generateObjectFromPrefab ("platte7");
+			setScale (new Vector3 (0.4f, 0.4f, 0.05f));
+			break;
+		case 8:
+			field = Gameplay.prefabsMgr.generateObjectFromPrefab ("platte8");
+			setScale (new Vector3 (0.4f, 0.4f, 0.05f));
+			break;
+		case 9:
+			field = Gameplay.prefabsMgr.generateObjectFromPrefab ("platte9");
+			setScale (new Vector3 (0.4f, 0.4f, 0.05f));
+			break;
+		case 10:
+			field = Gameplay.prefabsMgr.generateObjectFromPrefab ("platte10");
+			setScale (new Vector3 (0.4f, 0.4f, 0.05f));
+			break;
+		case 11:
+			field = Gameplay.prefabsMgr.generateObjectFromPrefab ("platte11");
+			setScale (new Vector3 (0.4f, 0.4f, 0.05f));
+			break;
+		case 12:
+			field = Gameplay.prefabsMgr.generateObjectFromPrefab ("platte12");
 			setScale (new Vector3 (0.4f, 0.4f, 0.05f));
 			break;
 		}
@@ -36,29 +80,77 @@ public class Field {
 		setColor (Col.STANDARDFIELDCOLOR);
 		field.name = name;
 		field.tag = "Field";
+
 	}
 
-	public Field(string name, int version, bool lvlplay){
-		this.version = version;
+	public Field(string name, int fieldVersion, bool lvlplay){
+		this.fieldVersion = fieldVersion;
 
 		//TODO: VERSION MODULO RAUS
-		version = 1;
+		fieldVersion = 1;
 
-		switch (version) {
+		switch (fieldVersion) {
 		case 0:
-			field = GameObject.CreatePrimitive (PrimitiveType.Cube);
-			setScale (new Vector3 (0.8f, 0.8f , 0.1f));
+			field = LevelPlay.prefabsMgr.generateObjectFromPrefab ("platte0");
+			setScale (new Vector3 (0.4f, 0.4f, 0.05f));
 			break;
 		case 1:
-			field = LevelPlay.prefabsMgr.generateObjectFromPrefab ("plate3");
+			field = LevelPlay.prefabsMgr.generateObjectFromPrefab ("platte1");
+			setScale (new Vector3 (0.4f, 0.4f, 0.05f));
+			break;
+		case 2:
+			field = LevelPlay.prefabsMgr.generateObjectFromPrefab ("platte2");
+			setScale (new Vector3 (0.4f, 0.4f, 0.05f));
+			break;
+		case 3:
+			field = LevelPlay.prefabsMgr.generateObjectFromPrefab ("platte3");
+			setScale (new Vector3 (0.4f, 0.4f, 0.05f));
+			break;
+		case 4:
+			field = LevelPlay.prefabsMgr.generateObjectFromPrefab ("platte4");
+			setScale (new Vector3 (0.4f, 0.4f, 0.05f));
+			break;
+		case 5:
+			field = LevelPlay.prefabsMgr.generateObjectFromPrefab ("platte5");
+			setScale (new Vector3 (0.4f, 0.4f, 0.05f));
+			break;
+		case 6:
+			field = LevelPlay.prefabsMgr.generateObjectFromPrefab ("platte6");
+			setScale (new Vector3 (0.4f, 0.4f, 0.05f));
+			break;
+		case 7:
+			field = LevelPlay.prefabsMgr.generateObjectFromPrefab ("platte7");
+			setScale (new Vector3 (0.4f, 0.4f, 0.05f));
+			break;
+		case 8:
+			field = LevelPlay.prefabsMgr.generateObjectFromPrefab ("platte8");
+			setScale (new Vector3 (0.4f, 0.4f, 0.05f));
+			break;
+		case 9:
+			field = LevelPlay.prefabsMgr.generateObjectFromPrefab ("platte9");
+			setScale (new Vector3 (0.4f, 0.4f, 0.05f));
+			break;
+		case 10:
+			field = LevelPlay.prefabsMgr.generateObjectFromPrefab ("platte10");
+			setScale (new Vector3 (0.4f, 0.4f, 0.05f));
+			break;
+		case 11:
+			field = LevelPlay.prefabsMgr.generateObjectFromPrefab ("platte11");
+			setScale (new Vector3 (0.4f, 0.4f, 0.05f));
+			break;
+		case 12:
+			field = LevelPlay.prefabsMgr.generateObjectFromPrefab ("platte12");
 			setScale (new Vector3 (0.4f, 0.4f, 0.05f));
 			break;
 		}
 
-		//TODO: Instead of creating a primitive Cube, we should use a 3D model with rounded corners
+
+
 
 		field.name = name;
 		field.tag = "Field";
+
+
 	}
 
 	public Field(string name, System.Type[] comp, Color col){

@@ -17,6 +17,7 @@ public class CameraPosition : MonoBehaviour {
 	readonly private Vector3 rotationPlayerCam = new Vector3 (36.5f, 0.0f, 0.0f);
 	private Vector3 offsetGamefieldCam;
 	readonly private Vector3 rotationGamefieldCam = new Vector3 (90.0f, 0.0f, 0.0f);
+
 	private Vector3 currentAngle;
 
 	private int Cam2Counter = 0;
@@ -63,11 +64,6 @@ public class CameraPosition : MonoBehaviour {
 				float nenner = (transform.position.y - Gameplay.player.playerobj.transform.position.y);
 				float rot = 90.0f - Mathf.Atan(zaehler/nenner) * Mathf.Rad2Deg * -1;
 				setRotation (new Vector3(rot,0,0));
-				if (Cam2Counter < 50) {
-					Vector3 pos = getPosition ();
-					setPosition (new Vector3(pos.x, pos.y-0.1f, pos.z));
-					Cam2Counter++;
-				}
 			}	
 		}
 
@@ -101,32 +97,31 @@ public class CameraPosition : MonoBehaviour {
 		
 		float t = 0.0f;
 		Vector3 newPosition;
+		//get Position on the fly
+		newPosition = Gameplay.player.getTransform ().position + offsetPlayerCam;
 		Vector3 newRotation = rotationPlayerCam;
 		Vector3 startingPos = transform.position;
 		currentAngle = transform.eulerAngles;
 
 		while (t < 1.0f)
 		{
-
-			//get Position on the fly
-			newPosition = Gameplay.player.getTransform ().position + offsetPlayerCam;
-
-
 			t += Time.deltaTime * (Time.timeScale / lerpSpeed);
 
-			transform.position = Vector3.Lerp(startingPos, newPosition, t);
+			transform.position = new Vector3(
+				Mathf.SmoothStep(startingPos.x, newPosition.x, t),
+				Mathf.SmoothStep(startingPos.y, newPosition.y, t),
+				Mathf.SmoothStep(startingPos.z, newPosition.z, t));
+
 
 			currentAngle = new Vector3(
-				Mathf.LerpAngle(currentAngle.x, newRotation.x, t/20),
-				Mathf.LerpAngle(currentAngle.y, newRotation.y, t/20),
-				Mathf.LerpAngle(currentAngle.z, newRotation.z, t/20));
+				Mathf.SmoothStep(rotationGamefieldCam.x, newRotation.x, t),
+				Mathf.SmoothStep(rotationGamefieldCam.y, newRotation.y, t),
+				Mathf.SmoothStep(rotationGamefieldCam.z, newRotation.z, t));
 
 			transform.eulerAngles = currentAngle;
-				
+
 			yield return 0;
 		}
-
-		Debug.Log ("Camera 2 reached!");
 
 
 		//dursun

@@ -100,7 +100,8 @@ public class Gameplay : MonoBehaviour {
 
 		//tolga
 		//Load Musics
-		SoundManager.playLevelMusic(1);
+		SoundManager.playLevelMusic(currentLevel.getWorld());
+
 		explode = false;
 
 		//Setup Button
@@ -155,6 +156,8 @@ public class Gameplay : MonoBehaviour {
 				//field.setColor (Color.red);
 				field.activateRigidbody ();
 
+				//stop levelMusic and play gameoverSound
+				SoundManager.stopMusic ();
 				SoundManager.playGameoverMusic ();
 
 				//dursun

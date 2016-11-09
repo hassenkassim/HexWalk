@@ -5,63 +5,56 @@ public class LevelPlayerController : MonoBehaviour {
 
 	const int SHOWSPLASH = 0;
 	const int SHOWLEVELWORLD = 1;
-	public static int showID;
-	public float timer1;
 
-	public static SoundManager soundMgr;
+	public static int showID;
+	public float timer;
+
+	GameObject splash;
 
 	// Use this for initialization
 	void Start () {
-		showID = SHOWSPLASH;
-		timer1 = 6;
+		splash = GameObject.Find ("Splash");
+		if (splash.GetComponent<Splash> ().getSplashShown () == 0) {
+			SoundManager.playSplashMusic ();
+			showID = SHOWSPLASH;
+			timer = 6;
+		}
 
-		soundMgr = new SoundManager ();
 	}
 		
 	// Update is called once per frame
 	void Update () {
-		if (CameraPositionLevelPlay.splashShown == false) {
-			switch (showID) {
+		switch (showID) {
 			case SHOWSPLASH:
-				if (timer1 < 0) {
+				if (timer < 0) {
 					showID = SHOWLEVELWORLD;
 				}
 				break;
-			case SHOWLEVELWORLD:
-				LevelPlay.cam.GetComponent<CameraPositionLevelPlay> ().startTransition ();
-				showID = 2;
-				break;
-
-			}
-
-			if (timer1 > 0) {
-				timer1 -= Time.deltaTime;
-			}
-
-			LevelPlay.enableText ();
-
-			//CameraPositionLevelPlay.disableSplash ();
+		case SHOWLEVELWORLD:
+			LevelPlay.cam.GetComponent<CameraPositionLevelPlay> ().startTransition ();
+			showID = 2;
+			break;
 		}
-		LevelPlay.splashEnd = true;
+
+		if (timer > 0) {
+			timer -= Time.deltaTime;
+		}
+
+		LevelPlay.enableText ();
+
+		//dursun
+		BackgroundManager.setParticleSystem(LevelPlay.cam);
 	}
 
-	//TODO: Gamover Check transfer to Gameover class
+
 	void OnCollisionEnter(Collision coll)
 	{
 		if (coll.collider.gameObject.CompareTag("LevelField")) {
 			LevelPlay.collision ();
 		}
 	}
-
-
-	void OnCollisionExit(Collision collisionInfo) {
-
+		
+	void OnCollisionExit() {
 		LevelPlay.collisionExit ();
-
 	}
-
-
-
-
-
 }

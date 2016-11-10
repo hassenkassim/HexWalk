@@ -115,7 +115,7 @@ public class LevelPlay : MonoBehaviour {
 		//Initiate all variables
 		init ();
 
-		Fade.StartFadeIn (1.0f);
+		Fade.StartFadeIn (1.5f);
 
 		//start music
 		if (splash.GetComponent<Splash> ().getSplashShown () != 0) {
@@ -156,9 +156,7 @@ public class LevelPlay : MonoBehaviour {
 		}
 
 		if (!Camera.main.GetComponent<Skybox> ().material.name.Equals ("skybox" + (((int)((gamePosition.y) / 2 + 1)) - 1))) {
-			//Fade.StartFadeOut (2.0f);
-
-			//Fade.StartFadeIn (2.0f);
+			Fade.FadeAndNewWorld (1.0f);
 		}
 	}
 
@@ -277,7 +275,7 @@ public class LevelPlay : MonoBehaviour {
 		levelmgr.setCurrentLevel (curWorld, curLevel);
 
 
-		Fade.FadeAndStartLevel ("GameScene", 3.0f);
+		Fade.FadeAndStartScene ("GameScene", 3.0f);
 
 
 		return;

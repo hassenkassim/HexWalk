@@ -70,7 +70,7 @@ public class Gameplay : MonoBehaviour {
 
 		//dursun
 		BackgroundManager.loadSkybox(cam);
-		//Fade.StartFadeIn (2.0f);
+		Fade.StartFadeIn (2.0f);
 
 		version = 1;
 

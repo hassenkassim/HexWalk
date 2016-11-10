@@ -20,8 +20,10 @@ public class LevelPlay : MonoBehaviour {
 	public static int world;
 	public static int height;
 	public static int soundIsOn;
-	public static int curWorld;
-	public static int curLevel;
+	//public static int curWorld;
+	//public static int curLevel;
+
+	public static Level curLevel;
 
 	//Playercontroller
 	public float rotationPeriod = 0.25f;		
@@ -80,6 +82,7 @@ public class LevelPlay : MonoBehaviour {
 	public void Start () {
 		//PlayerPrefs.DeleteAll ();
 
+
 		splash = GameObject.Find ("Splash");
 		DontDestroyOnLoad(splash);
 
@@ -114,8 +117,8 @@ public class LevelPlay : MonoBehaviour {
 	}
 
 	private void init(){
-		curWorld = 0;
-		curLevel = 0;
+		curLevel = levelmgr.curLevel;
+
 		radius = sideLength * Mathf.Sqrt (2f) / 2f;
 
 		//dursun
@@ -220,8 +223,7 @@ public class LevelPlay : MonoBehaviour {
 			worldFaded = true;
 		}
 			
-		curWorld = (int)gamePosition.y / 2;
-		curLevel = (int)gamePosition.x;
+		levelmgr.setCurrentLevel ((int)gamePosition.y / 2, (int)gamePosition.x);
 
 		setCurrentFieldColor (Col.SELECTEDCOLOR);
 
@@ -229,9 +231,9 @@ public class LevelPlay : MonoBehaviour {
 			levelText.text = "Level: " + (gamePosition.x + 1);
 			worldText.text = "World: " + ((int)(gamePosition.y/2 + 1));
 
-			if (levelmgr.levels [(int)gamePosition.y / 2, (int)gamePosition.x].getCompleted() == 1) {
+			if (levelmgr.curLevel.getCompleted() == 1) {
 				statusText.text = "Level finished";
-			} else if (levelmgr.levels [(int)gamePosition.y / 2, (int)gamePosition.x].getCompleted() == 0) {
+			} else if (levelmgr.curLevel.getCompleted() == 0) {
 				statusText.text = "Level not finished";
 			}
 			enableText ();
@@ -262,7 +264,8 @@ public class LevelPlay : MonoBehaviour {
 		if (gamePosition.y % 2 != 0)
 			return;
 		//setting currentLevel
-		levelmgr.setCurrentLevel (curWorld, curLevel);
+		//levelmgr.setCurrentLevel (curWorld, curLevel);
+		levelmgr.setNextLevel(levelmgr.curLevel.getWorld(), levelmgr.curLevel.getLevel());
 		SceneManager.LoadScene ("GameScene");
 		return;
 	}
@@ -369,18 +372,13 @@ public class LevelPlay : MonoBehaviour {
 		playerobj.name = "PlayerDynamic";
 		playerobj.AddComponent <LevelPlayerController>();
 
-		//TODO: Load previous Player Location
+		Vector2 pos = new Vector2(PlayerPrefs.GetInt(LevelManager.NEXTLEVEL,0), PlayerPrefs.GetInt(LevelManager.NEXTWORLD,0));
 
-		playerobj.transform.position = new Vector3(0, 1.39f, 0);
+		playerobj.transform.position = new Vector3(pos.x, 1.39f, pos.y*2);
 		playerobj.transform.rotation = Quaternion.Euler(0, 0, 0);
 		playerobj.tag = "Player";
-		gamePosition = new Vector2 (0, 0);
-		/*
-		Rigidbody playerRigidBody = playerobj.AddComponent<Rigidbody>(); // Add the rigidbody
-		playerRigidBody.mass = 0.5f;
-		playerRigidBody.angularDrag = 0.05f;
-		playerRigidBody.useGravity = true;
-		*/
+		gamePosition = new Vector2 (pos.x, pos.y*2);
+
 	}
 
 	public void loadGameObjects(){

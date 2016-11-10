@@ -50,6 +50,7 @@
      <Compile Include="Assets\Script\Gamefield\Field.cs" />
      <Compile Include="Assets\Script\Gamefield\FieldController.cs" />
      <Compile Include="Assets\Script\Gamefield\Gamefield.cs" />
+     <Compile Include="Assets\Script\Gamefield\GamefieldController.cs" />
      <Compile Include="Assets\Script\Gameplay\Gameplay.cs" />
      <Compile Include="Assets\Script\Gameplay\GameplayController.cs" />
      <Compile Include="Assets\Script\Gameplay\GamesceneManager.cs" />

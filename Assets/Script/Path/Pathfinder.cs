@@ -27,11 +27,10 @@ public class Pathfinder {
 	public int pointer;
 
 	public Pathfinder(int colorCount){
-		if (Gameplay.gamefield != null) {
 			this.start = new Vector2(Random.Range(0, Gameplay.gamefield.width-1), 0);
-			this.startColor = Color.green;
+			this.startColor = Col.GRUEN;
 			this.end = new Vector2(Random.Range(0, Gameplay.gamefield.width-1), Gameplay.gamefield.height-1);
-			this.endColor = Color.black; //TODO: Finish Flag
+			this.endColor = Col.GELB; //TODO: Finish Flag
 			this.colorCount = colorCount;
 
 			path = new List<Vector2> ();
@@ -39,15 +38,34 @@ public class Pathfinder {
 
 			findRandomPath ();
 
-			Gameplay.gamefield.getField ((int)end.x, (int)end.y).setColor (Color.blue);
+			Gameplay.gamefield.getField ((int)end.x, (int)end.y).setColor (endColor);
+
 			if (Gameplay.player != null) {
 				Gameplay.player.setPositionByGamePosition (start);
 			}
 			pointer = 0;
-		} else {
-			Debug.Log ("No Gamefield, can't find any paths without a Gamefield!");
-		}
 	}
+
+	public Pathfinder(int colorCount, int xOffset){
+			this.start = new Vector2(xOffset, 0);
+			this.startColor = Col.GRUEN;
+			this.end = new Vector2(Random.Range(0, Gameplay.gamefield.width-1), Gameplay.gamefield.height-1);
+			this.endColor = Col.GELB; //TODO: Finish Flag
+			this.colorCount = colorCount;
+
+			path = new List<Vector2> ();
+			pathcolor = new List<Color>();
+
+			findRandomPath ();
+
+			Gameplay.gamefield.getField ((int)end.x, (int)end.y).setColor (endColor);
+
+			/*if (Gameplay.player != null) {
+				Gameplay.player.setPositionByGamePosition (start);
+			}*/
+			pointer = 0;
+	}
+
 
 
 
@@ -67,14 +85,12 @@ public class Pathfinder {
 			//choose one possible step by random
 			int i = Random.Range(0, possibleSteps.Count);
 			path.Add (possibleSteps [i]);
-//			Debug.Log ("x: " + (int)possibleSteps [i].x + "  y: " + (int)possibleSteps [i].y);
 
 			int j = Random.Range(0, colorCount);
 			pathcolor.Add (Col.colors [j]);
 
 			tmp = possibleSteps [i];
 		}
-		Debug.Log ("RandomPath generated successfully!");
 	}
 		
 
@@ -115,19 +131,5 @@ public class Pathfinder {
 			
 		return nextSteps;
 	}
-
-
-
-	//Waits a certain time (timetowait) and paints the field i in a certain color
-	//TODO: much more improvement could be done if we put this in a IEnumerate function which yields every "timetowait" second and paints the next field, instead of many active waiting functions
-	public IEnumerator paintField(Color col, float timetowait, int i){
-		yield return new WaitForSeconds (timetowait);
-		Gameplay.gamefield.getField ((int)path [i].x, (int)path [i].y).setColor (col);
-		yield break;
-	}
-
-
-
-
 
 }

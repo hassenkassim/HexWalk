@@ -109,6 +109,10 @@ public class Player {
 		playerobj.transform.position = pos;
 	}
 
+	public void setColorCount(int count){
+		colorCount = count;
+	}
+
 	//sets actual transform position by coordinates
 	public void setPositionByGamePosition(Vector2 pos){
 		playerobj.transform.position = new Vector3(pos.x, 3, pos.y);

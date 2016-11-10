@@ -20,8 +20,6 @@ public class CameraPosition : MonoBehaviour {
 
 	private Vector3 currentAngle;
 
-	private int Cam2Counter = 0;
-
 	private bool follow;
 
 	/*

@@ -197,6 +197,10 @@ public class Field {
 		field.transform.position = new Vector3 (x, 1, y);
 	}
 
+	public void setPosition(float x, float y, float z){
+		field.transform.position = new Vector3 (x, z, y);
+	}
+
 	public void activateRigidbody(){
 		if (field.GetComponent<Rigidbody> () == null) {
 			Rigidbody fieldRigidBody = field.AddComponent<Rigidbody> (); // Add the rigidbody

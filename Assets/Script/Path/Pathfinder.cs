@@ -29,9 +29,9 @@ public class Pathfinder {
 	public Pathfinder(int colorCount){
 		if (Gameplay.gamefield != null) {
 			this.start = new Vector2(Random.Range(0, Gameplay.gamefield.width-1), 0);
-			this.startColor = Color.green;
+			this.startColor = Col.GRUEN;
 			this.end = new Vector2(Random.Range(0, Gameplay.gamefield.width-1), Gameplay.gamefield.height-1);
-			this.endColor = Color.black; //TODO: Finish Flag
+			this.endColor = Col.SCHWARZ; //TODO: Finish Flag
 			this.colorCount = colorCount;
 
 			path = new List<Vector2> ();
@@ -39,7 +39,7 @@ public class Pathfinder {
 
 			findRandomPath ();
 
-			Gameplay.gamefield.getField ((int)end.x, (int)end.y).setColor (Color.blue);
+			Gameplay.gamefield.getField ((int)end.x, (int)end.y).setColor (Col.BLAU);
 			if (Gameplay.player != null) {
 				Gameplay.player.setPositionByGamePosition (start);
 			}
@@ -54,7 +54,7 @@ public class Pathfinder {
 	public void findRandomPath(){
 		Vector2 tmp = start;
 		path.Add (start);
-		pathcolor.Add (Color.green);
+		pathcolor.Add (Col.GRUEN);
 		while(!tmp.Equals(end)){
 			//find possible next steps
 			List<Vector2> possibleSteps = getNextPossibleSteps(tmp);

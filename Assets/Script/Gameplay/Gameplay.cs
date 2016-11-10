@@ -61,6 +61,7 @@ public class Gameplay : MonoBehaviour {
 	int version;
 
 	public static int colorCount; // How many Colors should be in the game
+//	public static int materialVersion; // How many Colors should be in the game
 
 	// Use this for initialization
 	void Start () {
@@ -104,6 +105,11 @@ public class Gameplay : MonoBehaviour {
 
 		//tolga
 		//Load Musics
+		if(PlayerPrefs.GetInt("SoundOn", 1) == 1){
+			AudioListener.pause = false;
+		}else{
+			AudioListener.pause = true;
+		}
 		SoundManager.playLevelMusic(currentLevel.getWorld());
 
 		explode = false;
@@ -133,7 +139,7 @@ public class Gameplay : MonoBehaviour {
 		Vector2 platePos = player.getGamePosition ();//dazu gehe ich in unser Gameplay->Player->getGamePosition
 		Field field = gamefield.getField ((int)platePos.x, (int)platePos.y);
 		int pointer = pathfinder.pointer;
-		if (field.getColor ().Equals (Color.green))
+		if (field.getColor ().Equals (Col.GRUEN))
 			return;
 		if (platePos.x == pathfinder.end.x && platePos.y == pathfinder.end.y) {
 			pathfinder.pointer = -1;
@@ -156,7 +162,7 @@ public class Gameplay : MonoBehaviour {
 				SoundManager.playRotationSound ("GameScene");
 			} else {
 				cam.GetComponent<CameraPosition> ().setToFollowPlayerByRotation ();
-				field.setColor (Color.red);
+				field.setColor (Col.ROT);
 				field.activateRigidbody ();
 
 				//stop levelMusic and play gameoverSound

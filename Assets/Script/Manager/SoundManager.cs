@@ -20,7 +20,7 @@ public class SoundManager : MonoBehaviour{
 
 		menuMusik = (AudioClip)Resources.Load ("MenuMusik");
 		gameoverMusik = (AudioClip)Resources.Load ("GameoverMusik");
-		rotationMusik = (AudioClip)Resources.Load ("RotationsMusik");
+		rotationMusik = (AudioClip)Resources.Load ("RotationSound");
 		splashMusik = (AudioClip)Resources.Load ("SplashMusik");
 
 		levelMusik [0] = (AudioClip)Resources.Load ("LevelMusik1");

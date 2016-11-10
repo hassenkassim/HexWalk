@@ -25,6 +25,7 @@ public class GameplayController : MonoBehaviour {
 	private int showID;
 	private float timer;
 
+
 	// Use this for initialization
 	void Start () {
 		//setup all timer here

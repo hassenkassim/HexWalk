@@ -15,7 +15,6 @@ using System.Collections.Generic;
  * */
 public class Col {
 
-
 	public readonly static  Color ROT = Color.red;
 	public readonly static  Color GRUEN = Color.green;
 	public readonly static  Color BLAU = Color.blue;
@@ -36,8 +35,6 @@ public class Col {
 	public readonly static Color STANDARDFIELDCOLOR = WEISS;
 
 	public readonly static List<Color> colors = new List<Color>(new Color[]{ Color.green, Color.blue, Color.magenta, Color.yellow}); //This List is used to index the colors and to easily get the next color
-
-
 
 	//this gives the nextColor, considering the count of active colors
 	public static Color nextColor(Color col, int colorCount){

@@ -31,6 +31,7 @@ public class Pathfinder {
 			this.startColor = Col.GRUEN;
 			this.end = new Vector2(Random.Range(0, Gameplay.gamefield.width-1), Gameplay.gamefield.height-1);
 			this.endColor = Col.GELB; //TODO: Finish Flag
+
 			this.colorCount = colorCount;
 
 			path = new List<Vector2> ();
@@ -72,7 +73,7 @@ public class Pathfinder {
 	public void findRandomPath(){
 		Vector2 tmp = start;
 		path.Add (start);
-		pathcolor.Add (Color.green);
+		pathcolor.Add (Col.GRUEN);
 		while(!tmp.Equals(end)){
 			//find possible next steps
 			List<Vector2> possibleSteps = getNextPossibleSteps(tmp);

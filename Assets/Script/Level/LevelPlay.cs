@@ -14,7 +14,6 @@ public class LevelPlay : MonoBehaviour {
 	public static LevelManager levelmgr;
 
 	public static bool playFromCurLevel;
-	public static bool splashEnd = false;
 
 	public static int level;
 	public static int world;
@@ -63,11 +62,19 @@ public class LevelPlay : MonoBehaviour {
 
 	public GameObject splash;
 
-	//dursun
-	public static AutoFade fading;
-	public GameObject tmpOverlay;
-	public static bool changeWorld;
-	public static bool worldFaded;
+	//Buttons
+	public static Button listButton;
+	public static Button soundOnButton;
+	public static Button shareButton;
+	public static Button infoButton;
+	public static Vector3 startButtonPos;
+	public static Vector3 soundOnEndPosition;
+	public static Vector3 shareEndPosition;
+	public static Vector3 infoEndPosition;
+	public bool listButtonClicked;
+	public bool transitionEnd;
+	public Sprite soundOnImage;
+	public Sprite soundOffImage;
 
 	private static float starDistanceSqr;
 	private static float starClipDistanceSqr;
@@ -92,10 +99,6 @@ public class LevelPlay : MonoBehaviour {
 		//Call Level Manager constructor
 		levelmgr = new LevelManager ();
 
-		//dursun
-		fading = new AutoFade (tmpOverlay);
-		fading.fadeIn = true;
-
 		//Call Prefab Manager constructor
 		prefabsMgr = (PrefabsManagerLevelPlay)GameObject.Find("System").GetComponent <PrefabsManagerLevelPlay>();
 
@@ -112,8 +115,31 @@ public class LevelPlay : MonoBehaviour {
 		cam = Camera.main;
 		cam.gameObject.AddComponent <CameraPositionLevelPlay>();
 
+
+
 		//Initiate all variables
 		init ();
+
+		Fade.StartFadeIn (1.5f);
+
+		//start music
+		if (splash.GetComponent<Splash> ().getSplashShown () != 0) {
+			SoundManager.playMenuMusic ();
+		}
+
+		//load buttons
+		transitionEnd = true;
+		loadButtons ();
+
+		//sound
+		if (PlayerPrefs.GetInt ("SoundIsOn", 1) == 1) {
+			soundOnButton.image.sprite = soundOnImage;
+			AudioListener.pause = false;
+		} else {
+			soundOnButton.image.sprite = soundOffImage;
+			AudioListener.pause = true;
+		}
+			
 	}
 
 	private void init(){
@@ -123,24 +149,28 @@ public class LevelPlay : MonoBehaviour {
 
 		//dursun
 		BackgroundManager.loadSkybox(cam);
-		worldFaded = true;
-		changeWorld = false;
 
 		//tolga
 		disableText();
 	}
+
 
 	public void Update () {
 		Vector2 input = InputManager.getInput ();
 
 		if (input.x == 0 && input.y == 0) {
 			if (InputManager.getClickTouchInput ()) {
+				print ("STARTLEVEL");
 				startLevel ();
 			}
 		}
 
 		if ((input.x != 0 || input.y != 0) && !isRotate) {
 			rotatePlayer (input.x, input.y);
+		}
+
+		if (!Camera.main.GetComponent<Skybox> ().material.name.Equals ("skybox" + (((int)((gamePosition.y) / 2 + 1)) - 1))) {
+			Fade.FadeAndNewWorld (1.0f);
 		}
 	}
 
@@ -218,14 +248,15 @@ public class LevelPlay : MonoBehaviour {
 	public static void collision(){
 		// dursun 
 		// change world to world number
-		if(!worldFaded){ // not for the first collision 
+		/*if(!worldFaded){ // not for the first collision 
 			fading.fadeInOut=true;
 			worldFaded = true;
-		}
+		}*/
 			
 		levelmgr.setCurrentLevel ((int)gamePosition.y / 2, (int)gamePosition.x);
 
 		setCurrentFieldColor (Col.SELECTEDCOLOR);
+
 
 		if (gamePosition.y % 2 != 1) {
 			levelText.text = "Level: " + (gamePosition.x + 1);
@@ -239,9 +270,7 @@ public class LevelPlay : MonoBehaviour {
 			enableText ();
 		} else {
 			disableText ();
-			worldFaded = false;
 		}
-
 	}
 
 	public static void collisionExit(){
@@ -264,9 +293,11 @@ public class LevelPlay : MonoBehaviour {
 		if (gamePosition.y % 2 != 0)
 			return;
 		//setting currentLevel
-		//levelmgr.setCurrentLevel (curWorld, curLevel);
+
 		levelmgr.setNextLevel(levelmgr.curLevel.getWorld(), levelmgr.curLevel.getLevel());
-		SceneManager.LoadScene ("GameScene");
+
+		Fade.FadeAndStartScene ("GameScene", 3.0f);
+
 		return;
 	}
 
@@ -301,7 +332,6 @@ public class LevelPlay : MonoBehaviour {
 
 	//Load the Gamefield
 	public void loadFields(){
-		worldFaded = false;
 
 		//Create Gamefield
 		level = LevelManager.getLevelMax ();
@@ -320,7 +350,7 @@ public class LevelPlay : MonoBehaviour {
 				continue;
 			}
 			for (int i = 0; i < level; i++) {
-				addField (i, j, 8);
+				addField (i, j, 9);
 				loadFieldColor (i, j);
 
 			}
@@ -362,12 +392,14 @@ public class LevelPlay : MonoBehaviour {
 	}
 
 	private static void setColor(GameObject g, Color col){
-		g.GetComponent<MeshRenderer> ().material.color = col;
+		g.GetComponent<MeshRenderer> ().material.SetColor("_DiffuseColor",col);
 	}
 
 	public void loadPlayer(){
 		//Create Player
-		playerobj = LevelPlay.prefabsMgr.generateObjectFromPrefab ("cube5");
+		playerobj = LevelPlay.prefabsMgr.generateObjectFromPrefab ("cube0");
+		playerobj.AddComponent<MeshRenderer> ().material = Materials.glanz;
+		playerobj.GetComponent<MeshRenderer>().material.SetColor("_DiffuseColor",Col.WEISS);
 		playerobj.transform.localScale = new Vector3 (0.3f, 0.3f, 0.3f);
 		playerobj.name = "PlayerDynamic";
 		playerobj.AddComponent <LevelPlayerController>();
@@ -383,9 +415,9 @@ public class LevelPlay : MonoBehaviour {
 
 	public void loadGameObjects(){
 		//initialize text
-		levelText = GameObject.Find("LevelText").GetComponent<Text>();
-		worldText = GameObject.Find("WorldText").GetComponent<Text>();
-		statusText = GameObject.Find("StatusText").GetComponent<Text>();
+		levelText = GameObject.Find("LevelText").GetComponent<Text> ();
+		worldText = GameObject.Find("WorldText").GetComponent<Text> ();
+		statusText = GameObject.Find("StatusText").GetComponent<Text> ();
 	}
 
 
@@ -400,4 +432,112 @@ public class LevelPlay : MonoBehaviour {
 		worldText.GetComponent<Text> ().enabled = false;
 		statusText.GetComponent<Text> ().enabled = false;
 	}
+
+	public void loadButtons(){
+		listButton = GameObject.Find ("ListButton").GetComponent<Button> ();
+		soundOnButton = GameObject.Find ("SoundOnButton").GetComponent<Button> ();
+		shareButton = GameObject.Find ("ShareButton").GetComponent<Button> ();
+		infoButton = GameObject.Find ("InfoButton").GetComponent<Button> ();
+
+		startButtonPos = new Vector3 (infoButton.transform.position.x, infoButton.transform.position.y, infoButton.transform.position.z);
+		soundOnEndPosition = new Vector3 (infoButton.transform.position.x, infoButton.transform.position.y - 65, infoButton.transform.position.z);
+		shareEndPosition = new Vector3 (infoButton.transform.position.x, infoButton.transform.position.y - 130, infoButton.transform.position.z);
+		infoEndPosition = new Vector3 (infoButton.transform.position.x, infoButton.transform.position.y - 195, infoButton.transform.position.z);
+
+		soundOnImage = Resources.Load <Sprite>("soundOnButton");
+		soundOffImage = Resources.Load <Sprite>("soundOffButton");
+
+	}
+
+	public void onSoundOn(){
+		if (PlayerPrefs.GetInt("SoundOn") == 1) {
+			AudioListener.pause = true;
+			soundOnButton.image.sprite = soundOffImage;
+			PlayerPrefs.SetInt ("SoundOn", 0);
+		} else {
+			AudioListener.pause = false;
+			soundOnButton.image.sprite = soundOnImage;
+			PlayerPrefs.SetInt ("SoundOn", 1);
+		}
+	}
+		
+	public void onShare(){
+		Share.IntentShareText ("This game is awesome! Get the game from play store: balblaLink!");
+	}
+
+	public void onInfo(){
+
+	}
+
+
+	public void onListButton(){ 
+		if (transitionEnd == true) {
+			StartCoroutine (TransitionButtons (0.5f));
+			if (listButtonClicked == false) {
+				listButtonClicked = true;
+			} else {
+				listButtonClicked = false;
+			}
+		}
+	}
+
+
+	IEnumerator TransitionButtons(float lerpSpeed)
+	{    
+		
+		float t = 0.0f;
+
+		if (listButtonClicked == false) {
+			
+			while (t < 1.0f) {
+				
+				transitionEnd = false;
+				t += Time.deltaTime * (Time.timeScale / lerpSpeed);
+
+				soundOnButton.transform.position = new Vector3 (
+					startButtonPos.x, Mathf.SmoothStep (startButtonPos.y, soundOnEndPosition.y, t), startButtonPos.z);
+
+				shareButton.transform.position = new Vector3 (
+					startButtonPos.x, Mathf.SmoothStep (startButtonPos.y, shareEndPosition.y, t),startButtonPos.z);
+
+				infoButton.transform.position = new Vector3 (
+					startButtonPos.x, Mathf.SmoothStep (startButtonPos.y, infoEndPosition.y, t), startButtonPos.z);
+			
+				yield return 0;
+
+			}
+			transitionEnd = true;
+			InputManager.active = false;
+		
+		}else{
+			
+			while (t < 1.0f) {
+				
+				transitionEnd = false;
+				t += Time.deltaTime * (Time.timeScale / lerpSpeed);
+
+				soundOnButton.transform.position = new Vector3 (
+					Mathf.SmoothStep (soundOnEndPosition.x, startButtonPos.x, t),
+					Mathf.SmoothStep (soundOnEndPosition.y, startButtonPos.y, t),
+					Mathf.SmoothStep (soundOnEndPosition.z, startButtonPos.z, t));
+
+				shareButton.transform.position = new Vector3 (
+					Mathf.SmoothStep (shareEndPosition.x, startButtonPos.x, t),
+					Mathf.SmoothStep (shareEndPosition.y, startButtonPos.y, t),
+					Mathf.SmoothStep (shareEndPosition.z, startButtonPos.z, t));
+
+				infoButton.transform.position = new Vector3 (
+					Mathf.SmoothStep (infoEndPosition.x, startButtonPos.x, t),
+					Mathf.SmoothStep (infoEndPosition.y, startButtonPos.y, t),
+					Mathf.SmoothStep (infoEndPosition.z, startButtonPos.z, t));
+				
+				yield return 0;
+
+			}
+			transitionEnd = true;
+			InputManager.active = true;
+		}
+			
+	}
+
 }

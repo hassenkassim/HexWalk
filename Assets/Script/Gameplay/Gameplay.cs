@@ -42,9 +42,6 @@ public class Gameplay : MonoBehaviour {
 	public static float totalTime = 0f;
 
 	//dursun
-	public static AutoFade fading;
-	public GameObject tmpOverlay;
-	public static bool changeWorld;
 	public static bool explode;
 	private float radius= 5.0f;
 	private float force= 0.01f;
@@ -61,6 +58,7 @@ public class Gameplay : MonoBehaviour {
 	int version;
 
 	public static int colorCount; // How many Colors should be in the game
+//	public static int materialVersion; // How many Colors should be in the game
 
 	static int offsetY;
 
@@ -76,6 +74,14 @@ public class Gameplay : MonoBehaviour {
 		offsetY = 0;
 
 		InputManager.active = false;
+
+		//Setup Camera
+		cam = Camera.main;
+		cam.gameObject.AddComponent <CameraPosition>();
+
+		//dursun
+		BackgroundManager.loadSkybox(cam);
+		Fade.StartFadeIn (2.0f);
 
 		version = 1;
 
@@ -103,23 +109,22 @@ public class Gameplay : MonoBehaviour {
 		// Call Pathfinder constructor
 		pathfinder = new Pathfinder (currentLevel.getColorCount());
 
-		//Setup Camera
-		cam = Camera.main;
-		cam.gameObject.AddComponent <CameraPosition>();
-
-		fading = new AutoFade (tmpOverlay);
-
-		//dursun
-		BackgroundManager.loadSkybox(cam);
-
 		//tolga
 		//Load Musics
-		SoundManager.playLevelMusic(1);
+		if(PlayerPrefs.GetInt("SoundOn", 1) == 1){
+			AudioListener.pause = false;
+		}else{
+			AudioListener.pause = true;
+		}
+		SoundManager.playLevelMusic(currentLevel.getWorld());
+
 		explode = false;
 
 		//Setup Button
 		pauseBtn = GameObject.Find("PauseButton");
-	
+
+
+
 	}
 
 	void Update(){
@@ -142,7 +147,8 @@ public class Gameplay : MonoBehaviour {
 		Vector2 platePos = player.getGamePosition ();//dazu gehe ich in unser Gameplay->Player->getGamePosition
 		Field field = gamefield.getField ((int)platePos.x, (int)platePos.y);
 
-		if (field.getColor ().Equals (Color.green))
+		int pointer = pathfinder.pointer;
+		if (field.getColor ().Equals (Col.GRUEN))
 			return;
 		if (platePos.x == pathfinder.end.x && platePos.y == pathfinder.end.y) {
 			win ();
@@ -153,7 +159,6 @@ public class Gameplay : MonoBehaviour {
 
 	public static void win(){
 		print ("Won");
-
 		if (first == true) {
 			first = false; //Not the first start start
 		};
@@ -211,7 +216,6 @@ public class Gameplay : MonoBehaviour {
 	}
 
 
-
 	private static void loadNextLevelDynamic(){
 		InputManager.active = false;
 
@@ -235,8 +239,4 @@ public class Gameplay : MonoBehaviour {
 		player.setColor (Col.GRUEN);
 		player.setColorCount (currentLevel.getColorCount ());
 	}
-
-		
-
-
 }

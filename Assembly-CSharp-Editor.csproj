@@ -83,6 +83,7 @@
      <None Include="Assets\Images\skybox\11\license.txt" />
      <None Include="Assets\Images\skybox\20\mp_moondust.shader" />
      <None Include="Assets\Images\skybox\21\license.txt" />
+     <None Include="Assets\Resources\Material\Double Sided Glass Reflection (Advanced).shader" />
      <None Include="Assets\Images\skybox\15\Down Under.txt" />
      <None Include="Assets\Images\skybox\15\license.txt" />
      <None Include="Assets\Images\skybox\13\license.txt" />

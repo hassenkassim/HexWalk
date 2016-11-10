@@ -33,7 +33,7 @@ public class GamesceneManager : MonoBehaviour {
 		} else {
 			AudioListener.pause = false;
 		}
-
+			
 		loadGameObjects ();
 
 	}

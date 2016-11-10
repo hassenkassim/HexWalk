@@ -85,9 +85,15 @@ public class Player {
 		playerobj.transform.position = new Vector3(0, 3, 0);
 		playerobj.transform.rotation = Quaternion.Euler(0, 0, 0);
 		playerobj.tag = "Player";
+		//playerobj.AddComponent<BoxCollider> ();
+		//playerobj.GetComponent<MeshCollider> ().convex = true; //dursun
+
+		playerobj.AddComponent<MeshRenderer> ().material = Materials.glanz;
+
 
 		this.colorCount = colorCount;
 		curColor = Col.GRUEN;
+
 		setColor (curColor);
 
 		setGamePosition (new Vector2 (0, 0));
@@ -134,7 +140,7 @@ public class Player {
 
 	public void setColor(Color col){
 		curColor = col;
-		playerobj.GetComponent<MeshRenderer> ().material.color = col;
+		playerobj.GetComponent<MeshRenderer> ().material.SetColor("_DiffuseColor", col);
 	}
 
 	public void setNextColor(){

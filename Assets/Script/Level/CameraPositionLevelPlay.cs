@@ -37,14 +37,13 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
 		splash = GameObject.Find ("Splash");
 		if (splash.GetComponent<Splash> ().getSplashShown () == 0) {
 			posX = 0;
 			walkPosY = 1.299f;
 			cubePosY = 1.36f;
 			posZ = -0.303f;
-
-			SoundManager.playSplashMusic ();
 
 			walkLogo = GameObject.Find ("walkText");
 			cubeLogo = GameObject.Find ("cubeText");
@@ -54,6 +53,9 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 			setPosition (walkLogo.transform.position + startCamPos);
 			setRotation (startCamRotation);
 		} else {
+			walkLogo = GameObject.Find ("walkText");
+			cubeLogo = GameObject.Find ("cubeText");
+			disableSplash ();
 			InputManager.active = true;
 			setPosition (LevelPlay.playerobj.transform.position + offsetPlayerCam);
 			setRotation (rotationPlayerCam);
@@ -71,6 +73,9 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 		if (LevelPlayerController.showID == 0) {
 			setPosition (walkLogo.transform.position + startCamPos);
 			setRotation (startCamRotation);
+
+			//dursun
+			BackgroundManager.setParticleSystem (LevelPlay.cam);
 		} else if(LevelPlayerController.showID == 10) {
 			setPosition (LevelPlay.playerobj.transform.position + offsetPlayerCam);
 			setRotation (rotationPlayerCam);
@@ -78,8 +83,8 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 	}
 
 	public static void disableSplash(){
-		walkLogo.SetActive (false);
-		cubeLogo.SetActive (false);
+		walkLogo.gameObject.SetActive (false);
+		cubeLogo.gameObject.SetActive (false);
 	}
 
 	public void setPosition(Vector3 pos){
@@ -131,6 +136,7 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 			splash.GetComponent<Splash> ().setSplashShown (1);
 			
 			LevelPlayerController.showID = 10;
+
 			//enable Input
 			InputManager.active = true;
 

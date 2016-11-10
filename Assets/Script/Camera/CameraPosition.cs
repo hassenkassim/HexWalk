@@ -94,6 +94,7 @@ public class CameraPosition : MonoBehaviour {
 		
 	IEnumerator TransitionGamefieldPlayer(float lerpSpeed)
 	{    
+		
 		float t = 0.0f;
 		Vector3 newPosition;
 		//get Position on the fly

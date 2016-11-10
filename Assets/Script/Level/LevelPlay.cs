@@ -74,12 +74,6 @@ public class LevelPlay : MonoBehaviour {
 	public Sprite soundOnImage;
 	public Sprite soundOffImage;
 
-	//dursun
-	public static AutoFade fading;
-	public GameObject tmpOverlay;
-	public static bool changeWorld;
-	public static bool worldFaded;
-
 	private static float starDistanceSqr;
 	private static float starClipDistanceSqr;
 	private static Transform tx;
@@ -102,10 +96,6 @@ public class LevelPlay : MonoBehaviour {
 		//Call Level Manager constructor
 		levelmgr = new LevelManager ();
 
-		//dursun
-		fading = new AutoFade (tmpOverlay);
-		fading.fadeIn = true;
-
 		//Call Prefab Manager constructor
 		prefabsMgr = (PrefabsManagerLevelPlay)GameObject.Find("System").GetComponent <PrefabsManagerLevelPlay>();
 
@@ -122,8 +112,12 @@ public class LevelPlay : MonoBehaviour {
 		cam = Camera.main;
 		cam.gameObject.AddComponent <CameraPositionLevelPlay>();
 
+
+
 		//Initiate all variables
 		init ();
+
+		Fade.StartFadeIn (1.5f);
 
 		//start music
 		if (splash.GetComponent<Splash> ().getSplashShown () != 0) {
@@ -142,7 +136,7 @@ public class LevelPlay : MonoBehaviour {
 			soundOnButton.image.sprite = soundOffImage;
 			AudioListener.pause = true;
 		}
-
+			
 	}
 
 	private void init(){
@@ -152,24 +146,28 @@ public class LevelPlay : MonoBehaviour {
 
 		//dursun
 		BackgroundManager.loadSkybox(cam);
-		worldFaded = true;
-		changeWorld = false;
 
 		//tolga
 		disableText();
 	}
+
 
 	public void Update () {
 		Vector2 input = InputManager.getInput ();
 
 		if (input.x == 0 && input.y == 0) {
 			if (InputManager.getClickTouchInput ()) {
+				print ("STARTLEVEL");
 				startLevel ();
 			}
 		}
 
 		if ((input.x != 0 || input.y != 0) && !isRotate) {
 			rotatePlayer (input.x, input.y);
+		}
+
+		if (!Camera.main.GetComponent<Skybox> ().material.name.Equals ("skybox" + (((int)((gamePosition.y) / 2 + 1)) - 1))) {
+			Fade.FadeAndNewWorld (1.0f);
 		}
 	}
 
@@ -245,13 +243,6 @@ public class LevelPlay : MonoBehaviour {
 	}
 
 	public static void collision(){
-		// dursun 
-		// change world to world number
-		if(!worldFaded){ // not for the first collision 
-			fading.fadeInOut=true;
-			worldFaded = true;
-		}
-			
 		curWorld = (int)gamePosition.y / 2;
 		curLevel = (int)gamePosition.x;
 
@@ -270,9 +261,7 @@ public class LevelPlay : MonoBehaviour {
 			enableText ();
 		} else {
 			disableText ();
-			worldFaded = false;
 		}
-
 	}
 
 	public static void collisionExit(){
@@ -296,7 +285,11 @@ public class LevelPlay : MonoBehaviour {
 			return;
 		//setting currentLevel
 		levelmgr.setCurrentLevel (curWorld, curLevel);
-		SceneManager.LoadScene ("GameScene");
+
+
+		Fade.FadeAndStartScene ("GameScene", 3.0f);
+
+
 		return;
 	}
 
@@ -331,7 +324,6 @@ public class LevelPlay : MonoBehaviour {
 
 	//Load the Gamefield
 	public void loadFields(){
-		worldFaded = false;
 
 		//Create Gamefield
 		level = LevelManager.getLevelMax ();

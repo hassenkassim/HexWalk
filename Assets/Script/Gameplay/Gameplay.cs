@@ -42,9 +42,6 @@ public class Gameplay : MonoBehaviour {
 	public static float totalTime = 0f;
 
 	//dursun
-	public static AutoFade fading;
-	public GameObject tmpOverlay;
-	public static bool changeWorld;
 	public static bool explode;
 	private float radius= 5.0f;
 	private float force= 0.01f;
@@ -67,6 +64,14 @@ public class Gameplay : MonoBehaviour {
 	void Start () {
 
 		InputManager.active = false;
+
+		//Setup Camera
+		cam = Camera.main;
+		cam.gameObject.AddComponent <CameraPosition>();
+
+		//dursun
+		BackgroundManager.loadSkybox(cam);
+		Fade.StartFadeIn (2.0f);
 
 		version = 1;
 
@@ -94,15 +99,6 @@ public class Gameplay : MonoBehaviour {
 		// Call Pathfinder constructor
 		pathfinder = new Pathfinder (currentLevel.getColorCount());
 
-		//Setup Camera
-		cam = Camera.main;
-		cam.gameObject.AddComponent <CameraPosition>();
-
-		fading = new AutoFade (tmpOverlay);
-
-		//dursun
-		BackgroundManager.loadSkybox(cam);
-
 		//tolga
 		//Load Musics
 		if(PlayerPrefs.GetInt("SoundOn", 1) == 1){
@@ -116,7 +112,9 @@ public class Gameplay : MonoBehaviour {
 
 		//Setup Button
 		pauseBtn = GameObject.Find("PauseButton");
-	
+
+
+
 	}
 
 	void Update(){
@@ -153,7 +151,6 @@ public class Gameplay : MonoBehaviour {
 			setLevelToCompleted();
 
 		} else {
-			
 			if (pathfinder.path [pointer].Equals (platePos) && player.getColor ().Equals (pathfinder.pathcolor [pointer])) {
 				pathfinder.pointer++;
 				field.setColor (player.getColor ());
@@ -169,13 +166,14 @@ public class Gameplay : MonoBehaviour {
 				SoundManager.stopMusic ();
 				SoundManager.playGameoverMusic ();
 
+				//dursun
+				field.getGameobject ().SetActive (false);
+
 				explode = true;
 				field.fractureCube (0.125f, field);
 				print ("GAMEOVER!");
 
 				GamesceneManager.displayGameover ();
-
-
 			}
 		}
 	}
@@ -183,6 +181,4 @@ public class Gameplay : MonoBehaviour {
 	private static void setLevelToCompleted(){
 		LevelPlay.levelmgr.getCurrentLevel().setCompleted();
 	}
-		
-
 }

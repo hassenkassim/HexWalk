@@ -37,6 +37,7 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
 		splash = GameObject.Find ("Splash");
 		if (splash.GetComponent<Splash> ().getSplashShown () == 0) {
 			posX = 0;
@@ -72,6 +73,9 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 		if (LevelPlayerController.showID == 0) {
 			setPosition (walkLogo.transform.position + startCamPos);
 			setRotation (startCamRotation);
+
+			//dursun
+			BackgroundManager.setParticleSystem (LevelPlay.cam);
 		} else if(LevelPlayerController.showID == 10) {
 			setPosition (LevelPlay.playerobj.transform.position + offsetPlayerCam);
 			setRotation (rotationPlayerCam);
@@ -123,14 +127,14 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 				transform.eulerAngles = currentAngle;
 
 				yield return 0;
-			}
-
-			splash.GetComponent<Splash> ().setSplashShown (1);
-			LevelPlayerController.showID = 10;
+		}
+				splash.GetComponent<Splash> ().setSplashShown (1);
+				LevelPlayerController.showID = 10;
 			//enable Input
 			InputManager.active = true;
 
 			SoundManager.playMenuMusic ();
+		yield return 0;
 	}
 
 	public Transform getTransform(){

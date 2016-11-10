@@ -85,6 +85,8 @@ public class Player {
 		playerobj.transform.position = new Vector3(0, 3, 0);
 		playerobj.transform.rotation = Quaternion.Euler(0, 0, 0);
 		playerobj.tag = "Player";
+		//playerobj.AddComponent<BoxCollider> ();
+		//playerobj.GetComponent<MeshCollider> ().convex = true; //dursun
 
 		playerobj.AddComponent<MeshRenderer> ().material = Materials.glanz;
 

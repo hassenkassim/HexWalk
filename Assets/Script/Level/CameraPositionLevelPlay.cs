@@ -37,13 +37,12 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
 		splash = GameObject.Find ("Splash");
 		if (splash.GetComponent<Splash> ().getSplashShown () == 0) {
 			posX = 0;
 			walkPosY = 1.299f;
 			cubePosY = 1.36f;
-			posZ = -0.303f;
+			posZ = -2.0f;//-0.303f;
 
 			walkLogo = GameObject.Find ("walkText");
 			cubeLogo = GameObject.Find ("cubeText");
@@ -60,6 +59,7 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 			setPosition (LevelPlay.playerobj.transform.position + offsetPlayerCam);
 			setRotation (rotationPlayerCam);
 		}
+			
 	}
 
 	void Update () {
@@ -71,11 +71,15 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 
 		//initial setup of camera position and rotation
 		if (LevelPlayerController.showID == 0) {
-			setPosition (walkLogo.transform.position + startCamPos);
+			//setPosition (walkLogo.transform.position + startCamPos);
+			Vector3 tmp= new Vector3(1.1f, 0.0f, -2.5f);
+			setPosition (LevelPlay.gameName.transform.position + startCamPos + tmp); // dursun
+
 			setRotation (startCamRotation);
 
 			//dursun
 			BackgroundManager.setParticleSystem (LevelPlay.cam);
+
 		} else if(LevelPlayerController.showID == 10) {
 			setPosition (LevelPlay.playerobj.transform.position + offsetPlayerCam);
 			setRotation (rotationPlayerCam);
@@ -102,6 +106,9 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 
 	IEnumerator TransitionGamefieldPlayer(float lerpSpeed)
 	{    
+		//dursun
+		Splash.destroyGameNames();
+
 			float t = 0.0f;
 			Vector3 newPosition;
 			//get Position on the fly
@@ -133,6 +140,7 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 			//enable Input
 			InputManager.active = true;
 
+
 			SoundManager.playMenuMusic ();
 		yield return 0;
 	}
@@ -140,5 +148,4 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 	public Transform getTransform(){
 		return LevelPlay.playerobj.transform;
 	}
-		
 }

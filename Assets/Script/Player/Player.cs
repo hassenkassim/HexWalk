@@ -86,6 +86,9 @@ public class Player {
 		playerobj.transform.rotation = Quaternion.Euler(0, 0, 0);
 		playerobj.tag = "Player";
 		playerobj.GetComponent<MeshCollider> ().convex = true; //dursun
+		playerobj.AddComponent<Rigidbody>();	//dursun
+		playerobj.GetComponent<Rigidbody> ().useGravity = false;	//dursun
+		playerobj.GetComponent<Rigidbody> ().mass = 0.1f;	//dursun
 
 		this.colorCount = colorCount;
 		curColor = Col.GRUEN;

@@ -59,6 +59,8 @@ public class LevelPlay : MonoBehaviour {
 	public static PrefabsManagerLevelPlay prefabsMgr;
 
 	public GameObject splash;
+	public static GameObject gameName; //dursun
+	public static GameObject gameNameDestroyed; 
 
 	public static Button listButton;
 	public static Button soundOnButton;
@@ -83,6 +85,7 @@ public class LevelPlay : MonoBehaviour {
 
 	// Use this for initialization
 	public void Start () {
+
 		//PlayerPrefs.DeleteAll ();
 
 		splash = GameObject.Find ("Splash");
@@ -110,6 +113,16 @@ public class LevelPlay : MonoBehaviour {
 		cam = Camera.main;
 		cam.gameObject.AddComponent <CameraPositionLevelPlay>();
 
+		//dursun
+		gameName = prefabsMgr.generateObjectFromPrefab("gameName");
+		gameName.transform.position = new Vector3 (-1.1f,30.0f,0.0f);
+		gameName.AddComponent<Splash> ();
+		gameName.SetActive (true);
+
+		gameNameDestroyed = prefabsMgr.generateObjectFromPrefab("gameNameDestroyed");
+		gameNameDestroyed.AddComponent<Splash> ();
+		gameNameDestroyed.SetActive (false);
+
 
 
 		//Initiate all variables
@@ -127,7 +140,7 @@ public class LevelPlay : MonoBehaviour {
 		//loadButtons ();
 		//onListButton ();
 	}
-
+		
 	private void init(){
 		curWorld = 0;
 		curLevel = 0;
@@ -146,6 +159,7 @@ public class LevelPlay : MonoBehaviour {
 
 		if (input.x == 0 && input.y == 0) {
 			if (InputManager.getClickTouchInput ()) {
+				
 				print ("STARTLEVEL");
 				startLevel ();
 			}
@@ -153,10 +167,6 @@ public class LevelPlay : MonoBehaviour {
 
 		if ((input.x != 0 || input.y != 0) && !isRotate) {
 			rotatePlayer (input.x, input.y);
-		}
-
-		if (!Camera.main.GetComponent<Skybox> ().material.name.Equals ("skybox" + (((int)((gamePosition.y) / 2 + 1)) - 1))) {
-			Fade.FadeAndNewWorld (1.0f);
 		}
 	}
 
@@ -232,6 +242,7 @@ public class LevelPlay : MonoBehaviour {
 	}
 
 	public static void collision(){
+
 		curWorld = (int)gamePosition.y / 2;
 		curLevel = (int)gamePosition.x;
 
@@ -249,6 +260,9 @@ public class LevelPlay : MonoBehaviour {
 			enableText ();
 		} else {
 			disableText ();
+		}
+		if (!Camera.main.GetComponent<Skybox> ().material.name.Equals ("skybox" + (((int)((gamePosition.y) / 2 + 1)) - 1))) {
+			Fade.FadeAndNewWorld (1.0f);
 		}
 	}
 

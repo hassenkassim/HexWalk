@@ -117,7 +117,7 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 			Vector3 startingPos = startCamPos + walkLogo.transform.position;
 			currentAngle = transform.eulerAngles;
 
-			while (t < 2.0f) {
+			while (t < 1.0f) {
 
 				t += Time.deltaTime * (Time.timeScale / lerpSpeed);
 
@@ -133,16 +133,23 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 
 				transform.eulerAngles = currentAngle;
 
+				if (t > 0.7f) {
+					
+				}
+
 				yield return 0;
-		}
-				splash.GetComponent<Splash> ().setSplashShown (1);
-				LevelPlayerController.showID = 10;
+			}
+
+			splash.GetComponent<Splash> ().setSplashShown (1);
+			
+			LevelPlayerController.showID = 10;
+
 			//enable Input
 			InputManager.active = true;
 
 
 			SoundManager.playMenuMusic ();
-		yield return 0;
+			yield return 0;
 	}
 
 	public Transform getTransform(){

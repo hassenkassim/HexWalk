@@ -22,52 +22,82 @@ public class GameplayController : MonoBehaviour {
 	const int SHOWNOTHING = 2;
 	const int SHOWNOTHING2 = 3;
 
-	private int showID;
-	private float timer;
+	private static int showID;
+	private static float timer;
+
 
 	// Use this for initialization
 	void Start () {
 		//setup all timer here
-		timer = 2;
+		timer = 1.0f;
 		showID = SHOWREADY;
 	}
 
 	// Update is called once per frame
 	void Update () {
-		changeState ();
-		countTime ();
+		if (changeState () == true) {
+			countTime ();
+		}
 	}
 
-	private void changeState(){
+	private bool changeState(){
 		switch(showID){
 		case SHOWREADY:
 			if (timer < 0) {
 				showID = SHOWREMAIN;
-				timer = 2;
+				timer = 1.0f;
 			}
-			break;
+			return true;
 		case SHOWREMAIN:
-			if (Gameplay.pathfinder != null)
-				Gameplay.pathfinder.coloring = true;
-			if (timer < 0) {
-				showID = SHOWNOTHING;
-				Gameplay.cam.GetComponent<CameraPosition> ().startTransition ();
+			if (PathfinderController.coloringStarted == false) {
+				PathfinderController.paintColorPath (0.1f, Gameplay.pathfinder.path);
+				return false;
 			}
-			break;
+
+			if (PathfinderController.coloringEnd == true) {
+				
+				if (timer < 0) {
+					PathfinderController.coloringStarted = false;
+					showID = SHOWNOTHING;
+					if (Gameplay.first == true) {
+						Gameplay.cam.GetComponent<CameraPosition> ().startTransition ();
+					} else {
+						InputManager.active = true;
+					}
+				}
+				return true;
+			} else {
+				return false;
+			}
 		case SHOWNOTHING:
-			if (Gameplay.pathfinder != null) {
-				Gameplay.pathfinder.coloringWhite = true;
-				showID = SHOWNOTHING2;
+			if (PathfinderController.coloringStarted == false) {
+				if(Gameplay.first == true) PathfinderController.paintWhitePath (0.1f, 1, Gameplay.pathfinder.path);
+				else PathfinderController.paintWhitePath (0.1f, 0, Gameplay.pathfinder.path);
+				return false;
 			}
-			break;
-		case SHOWNOTHING2:
-			break;
+
+			if (PathfinderController.coloringEnd == true) {
+				if (timer < 0) {
+					showID = SHOWNOTHING2;
+				}
+				return true;
+			} else {
+				return false;
+			}
 		}
+		return false;
 	}
 
 	private void countTime(){
 		if (timer > 0) {
 			timer -= Time.deltaTime;
 		}
+	}
+
+	public static void resetGameplayController(){
+		timer = 1;
+		PathfinderController.coloringStarted = false;
+		PathfinderController.coloringEnd = true;
+		showID = SHOWREADY;
 	}
 }

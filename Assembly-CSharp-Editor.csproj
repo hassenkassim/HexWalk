@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{99447A7F-BDF4-F484-B93C-682A29C39CDF}</ProjectGuid>
+    <ProjectGuid>{314BFFA8-8753-44A9-8D85-650281003414}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
@@ -83,6 +83,7 @@
      <None Include="Assets\Images\skybox\11\license.txt" />
      <None Include="Assets\Images\skybox\20\mp_moondust.shader" />
      <None Include="Assets\Images\skybox\21\license.txt" />
+     <None Include="Assets\Resources\Material\Double Sided Glass Reflection (Advanced).shader" />
      <None Include="Assets\Images\skybox\15\Down Under.txt" />
      <None Include="Assets\Images\skybox\15\license.txt" />
      <None Include="Assets\Images\skybox\13\license.txt" />
@@ -121,13 +122,19 @@
  <Reference Include="UnityEditor.iOS.Extensions">
  <HintPath>/Applications/Unity/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll</HintPath>
  </Reference>
+ <Reference Include="UnityEditor.LinuxStandalone.Extensions">
+ <HintPath>/Applications/Unity/PlaybackEngines/LinuxStandaloneSupport/UnityEditor.LinuxStandalone.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.WindowsStandalone.Extensions">
+ <HintPath>/Applications/Unity/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEditor.OSXStandalone.Extensions">
  <HintPath>/Applications/Unity/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp.csproj">
-      <Project>{9BA87874-83A0-3F7E-CAB2-153B9F5F9716}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
+      <Project>{6CF1A2D0-B507-0FB8-1F88-6F5F98AC256B}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

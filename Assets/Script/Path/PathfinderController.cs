@@ -7,41 +7,51 @@
 
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PathfinderController : MonoBehaviour {
+	static public PathfinderController instance; //the instance of our class that will do the work
 
+	public static bool coloringStarted = false;
+	public static bool coloringEnd = true;
 
-	// Use this for initialization
-	void Start () {
-	}
-
-	// Update is called once per frame
-	void Update () {
-		if (Gameplay.pathfinder != null && Gameplay.pathfinder.coloring == true) {
-			Gameplay.pathfinder.coloring = false;
-			paintColorPath (0.1f);
-		} else if (Gameplay.pathfinder != null && Gameplay.pathfinder.coloringWhite == true) {
-			Gameplay.pathfinder.coloringWhite = false;
-			paintWhitePath (0.1f);
-		}
+	void Awake(){ //called when an instance awakes in the game
+		instance = this; //set our static reference to our newly initialized instance
 	}
 
 	//This starts the coroutines (threads) for the timly painting of the fields (COLOR: WHITE)
-	public void paintWhitePath(float timebetweenfields){
-		for (int i = 1; i < Gameplay.pathfinder.path.Count-1; i++) {
-			StartCoroutine(Gameplay.pathfinder.paintField(Color.white,i*timebetweenfields,i));
-		}
+	public static void paintWhitePath(float timebetweenfields, int startingIndex, List<Vector2> path){
+		coloringStarted = true;
+		coloringEnd = false;
+		instance.StartCoroutine(paintFieldWhite(timebetweenfields, startingIndex, path));
 	}
 
 	//This starts the coroutines (threads) for the timly painting of the fields (COLOR: FROM PATHFINDER CLASS)
-	public void paintColorPath(float timebetweenfields){
-		for (int i = 0; i < Gameplay.pathfinder.path.Count-1; i++) {
-			StartCoroutine(Gameplay.pathfinder.paintField(Gameplay.pathfinder.pathcolor[i],i*timebetweenfields,i));
-		}
+	public static void paintColorPath(float timebetweenfields, List<Vector2> path){
+		coloringStarted = true;
+		coloringEnd = false;
+		instance.StartCoroutine (paintFieldPathColor (timebetweenfields, path));
 	}
 
 
+	public static IEnumerator paintFieldWhite(float timetowait, int startingIndex, List<Vector2> path){
+		yield return new WaitForSeconds (timetowait);
+		for (int i = startingIndex; i < Gameplay.pathfinder.path.Count - 1; i++) {
+					Gameplay.gamefield.getField ((int)path [i].x, (int)path [i].y).setColor (Col.WEISS);
+			yield return new WaitForSeconds (timetowait);
+		}
+		coloringEnd = true;
+		yield return 0;
+	}
 
-
+	public static IEnumerator paintFieldPathColor(float timetowait, List<Vector2> path){
+		yield return new WaitForSeconds (timetowait);
+		for (int i = 0; i < Gameplay.pathfinder.path.Count - 1; i++) {
+			Gameplay.gamefield.getField ((int)path [i].x, (int)path [i].y).setColor (Gameplay.pathfinder.pathcolor[i]);
+			yield return new WaitForSeconds (timetowait);
+		}
+		coloringEnd = true;
+		yield return 0;
+	}
 
 }

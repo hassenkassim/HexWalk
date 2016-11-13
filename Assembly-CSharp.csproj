@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{9BA87874-83A0-3F7E-CAB2-153B9F5F9716}</ProjectGuid>
+    <ProjectGuid>{6CF1A2D0-B507-0FB8-1F88-6F5F98AC256B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -50,6 +50,7 @@
      <Compile Include="Assets\Script\Gamefield\Field.cs" />
      <Compile Include="Assets\Script\Gamefield\FieldController.cs" />
      <Compile Include="Assets\Script\Gamefield\Gamefield.cs" />
+     <Compile Include="Assets\Script\Gamefield\GamefieldController.cs" />
      <Compile Include="Assets\Script\Gameplay\Gameplay.cs" />
      <Compile Include="Assets\Script\Gameplay\GameplayController.cs" />
      <Compile Include="Assets\Script\Gameplay\GamesceneManager.cs" />
@@ -78,6 +79,7 @@
      <Compile Include="Assets\Script\Utils\Fade.cs" />
      <Compile Include="Assets\Script\Utils\FileUtils.cs" />
      <Compile Include="Assets\Script\Utils\Joker.cs" />
+     <Compile Include="Assets\Script\Utils\Materials.cs" />
      <Compile Include="Assets\Script\Utils\Pause.cs" />
      <Compile Include="Assets\Script\Utils\SavePlayerPrefs.cs" />
      <Compile Include="Assets\Script\Utils\Share.cs" />
@@ -118,6 +120,7 @@
      <None Include="Assets\Images\skybox\11\license.txt" />
      <None Include="Assets\Images\skybox\20\mp_moondust.shader" />
      <None Include="Assets\Images\skybox\21\license.txt" />
+     <None Include="Assets\Resources\Material\Double Sided Glass Reflection (Advanced).shader" />
      <None Include="Assets\Images\skybox\15\Down Under.txt" />
      <None Include="Assets\Images\skybox\15\license.txt" />
      <None Include="Assets\Images\skybox\13\license.txt" />

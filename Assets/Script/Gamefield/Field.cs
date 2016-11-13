@@ -20,7 +20,6 @@ public class Field {
 		this.fieldVersion = fieldVersion;
 
 		//TODO: VERSION MODULO RAUS
-		fieldVersion = fieldVersion % 2;
 
 		switch (fieldVersion) {
 		case 0:
@@ -77,6 +76,8 @@ public class Field {
 			break;
 		}
 
+		field.AddComponent<MeshRenderer> ().material = Materials.glanz;
+
 		setColor (Col.STANDARDFIELDCOLOR);
 		field.name = name;
 		field.tag = "Field";
@@ -87,7 +88,6 @@ public class Field {
 		this.fieldVersion = fieldVersion;
 
 		//TODO: VERSION MODULO RAUS
-		fieldVersion = 1;
 
 		switch (fieldVersion) {
 		case 0:
@@ -143,8 +143,8 @@ public class Field {
 			setScale (new Vector3 (0.4f, 0.4f, 0.05f));
 			break;
 		}
-
-
+			
+		field.AddComponent<MeshRenderer> ().material = Materials.glanz;
 
 
 		field.name = name;
@@ -155,7 +155,8 @@ public class Field {
 
 	public Field(string name, System.Type[] comp, Color col){
 		field = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		field.GetComponent<MeshRenderer> ().material.color = col;
+		field.AddComponent<MeshRenderer> ().material = Materials.glanz;
+		field.GetComponent<MeshRenderer> ().material.SetColor("_DiffuseColor", col);
 	}
 
 
@@ -190,11 +191,15 @@ public class Field {
 	}
 
 	public void setColor(Color col){
-		field.GetComponent<MeshRenderer> ().material.color = col;
+		field.GetComponent<MeshRenderer> ().material.SetColor("_DiffuseColor", col);
 	}
 
 	public void setPosition(float x, float y){
 		field.transform.position = new Vector3 (x, 1, y);
+	}
+
+	public void setPosition(float x, float y, float z){
+		field.transform.position = new Vector3 (x, z, y);
 	}
 
 	public void activateRigidbody(){
@@ -212,7 +217,7 @@ public class Field {
 	}
 
 	public Color getColor(){
-		return field.GetComponent<MeshRenderer> ().material.color;
+		return field.GetComponent<MeshRenderer> ().material.GetColor("_DiffuseColor");
 	}
 
 	public GameObject getGameobject(){
@@ -220,7 +225,7 @@ public class Field {
 	}
 
 	public bool blocked(){
-		Color col = field.GetComponent<MeshRenderer> ().material.color;
+		Color col = field.GetComponent<MeshRenderer> ().material.GetColor("_DiffuseColor");
 		if(col.Equals(Col.BLOCKEDCOLOR) || col.Equals(Col.WORLDBLOCKCOLOR)){
 			return true;
 		} else{

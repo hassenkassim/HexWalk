@@ -15,6 +15,7 @@ using UnityEngine.UI;
  * This class controls the player and the collisions with other gameobjects
  * */
 public class PlayerController : MonoBehaviour {
+
 	public float rotationPeriod = 0.25f;		
 	public float sideLength = 1f;			
 
@@ -50,7 +51,7 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		//check if move is allowed
-		if (checkOutside (input.x, input.y)) {
+		if (!moveAllowed ((int)input.x, (int)input.y)) {
 			return;
 		}
 
@@ -119,23 +120,23 @@ public class PlayerController : MonoBehaviour {
 		
 	}
 
-
-	bool checkOutside(float x, float y){
-		if (x == -1) {
-			if (Gameplay.player.getGamePosition ().x == 0)
+	private bool moveAllowed(int x, int y){
+		Field field = null;
+		try {
+			field= Gameplay.gamefield.fields [(int)Gameplay.player.getGamePosition().x + x, (int)Gameplay.player.getGamePosition().y + y];
+			if (field.blocked () == true) {
+				return false;
+			} else {
 				return true;
-		} else if (x == 1) {
-			if (Gameplay.player.getGamePosition ().x == Gameplay.gamefield.width - 1)
-				return true;
-		} else if (y == -1) {
-			if (Gameplay.player.getGamePosition ().y == 0)
-				return true;
-		} else if (y == 1) {
-			if (Gameplay.player.getGamePosition ().y == Gameplay.gamefield.height - 1)
-				return true;
+			}
+		} catch(System.Exception e){
+			/*if (e is System.NullReferenceException) {
+				print ("Field not available");
+			} else if (e is System.IndexOutOfRangeException) {
+				print ("Field Index out of Range");
+			}*/
+			return false;
 		}
-		return false;
 	}
-
 
 }

@@ -1,15 +1,19 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Manager/SoundManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Level/LevelPlay.cs">
     <Files>
-      <File FileName="Assets/Editor/CrossPlatformInput/CrossPlatformInputInitialize.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Level/LevelPlay.cs" Line="545" Column="2" />
+      <File FileName="Assets/Script/Manager/SoundManager.cs" Line="51" Column="24" />
       <File FileName="Assets/Script/Player/PlayerController.cs" Line="1" Column="1" />
       <File FileName="Assets/Script/Player/Player.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Level/LevelPlayerController.cs" Line="16" Column="15" />
-      <File FileName="Assets/Script/Level/LevelPlay.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Manager/PrefabsManager.cs" Line="15" Column="62" />
-      <File FileName="Assets/Script/Gamefield/Field.cs" Line="83" Column="3" />
-      <File FileName="Assets/Script/Manager/SoundManager.cs" Line="20" Column="1" />
+      <File FileName="Assets/Script/Gameplay/Gameplay.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Manager/LevelManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Level/Splash.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Gamefield/Field.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Utils/Col.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Utils/Materials.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Path/Pathfinder.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Path/PathfinderController.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

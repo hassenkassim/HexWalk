@@ -69,64 +69,60 @@ public class LevelManager {
 		cubeType = 0;
 		playerType = 0;
 	}
-		
-	//setCurrentLevel to NextLevel and enable next World if max Level is finished
-	public void levelUp(){
-		int nextWorld = 0;
-		int nextLevel = 0;
 
-		bool worldcompleted = true;
-
-		//check wether all Levels in the World are completed
-		for (int i = 0; i < levelMax; i++) {
-			if (levels [curLevel.getWorld (), i].getCompleted () == 0) {
-				worldcompleted = false;
-				break;
-			}
-		}
+	public bool unlockWorld(Level curLevel){
+		bool worldcompleted = isWorldCompleted(curLevel);
 
 		if (worldcompleted == true) {
-			//give next available Level
-			int worldschlepp = curLevel.getWorld();
-			while (worldschlepp < worldMax) {
-				nextWorld = worldschlepp + 1;
-				for (int i = 0; i < levelMax; i++) {
-					if (levels [nextWorld, i].getCompleted () == 0) {
-						nextLevel = i;
-						PlayerPrefs.SetInt (NEXTWORLD, nextWorld);
-						PlayerPrefs.SetInt (WORLDCOMPLETED, nextWorld);
-						PlayerPrefs.SetInt (NEXTLEVEL, nextLevel);
-						return;
-					}
-				}
+			//unlock next World
+			if (curLevel.getWorld() < worldMax) {
+				PlayerPrefs.SetInt (WORLDCOMPLETED, (curLevel.getWorld() + 1));
 			}
-			//NextWorld
-			/*if (nextWorld != worldMax) {
-				nextWorld = curLevel.getWorld () + 1;
-				nextLevel = 0;
-				PlayerPrefs.SetInt (WORLDCOMPLETED, nextWorld);
-				worldCompleted = nextWorld;
-				//LevelPlay.enableWorld (nextWorld);
-			}*/
+			return true;
 		} else {
-			nextWorld = curLevel.getWorld ();
-			//give the next Level OR the next not completed Level
-			if (curLevel.getLevel () != levelMax - 1) {
-				nextLevel = curLevel.getLevel () + 1;
+			return false;
+		}
+	}
+		
+	public void nextLevel(Level curLevel){
+		int nWorld = curLevel.getWorld ();
+		int nLevel = 0;
+
+		if (isWorldCompleted (curLevel) && curLevel.getLevel() == levelMax-1) {
+			if (curLevel.getWorld () < worldMax) {
+				nWorld = curLevel.getWorld () + 1;
 			} else {
+				//TODO: GAME END
+			}
+		} else {
+			if (curLevel.getLevel () < levelMax) {
+				nLevel = curLevel.getLevel () + 1;
+			} else {
+				//give me next free level
 				for (int i = 0; i < levelMax; i++) {
 					if (levels [curLevel.getWorld (), i].getCompleted () == 0) {
-						nextLevel = i;
+						nLevel = i;
 						break;
 					}
 				}
 			}
 		}
 
-		PlayerPrefs.SetInt (NEXTWORLD, nextWorld);
-		PlayerPrefs.SetInt (NEXTLEVEL, nextLevel);
+		setNextLevel (nWorld, nLevel);
 	}
-		
+
+	private bool isWorldCompleted(Level curLevel){
+		int worldnr = curLevel.getWorld ();
+
+		//check wether all Levels in the World are completed
+		for (int i = 0; i < levelMax; i++) {
+			if (levels [worldnr, i].getCompleted () == 0) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 
 	//Decrease field to initial value
 	public static void levelReset(){
@@ -153,5 +149,10 @@ public class LevelManager {
 
 	public Level getCurrentLevel(){
 		return curLevel;
+	}
+
+	public void setNextLevel(int nworld, int nlevel){
+		PlayerPrefs.SetInt (NEXTWORLD, nworld);
+		PlayerPrefs.SetInt (NEXTLEVEL, nlevel);
 	}
 }

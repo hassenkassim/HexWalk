@@ -109,46 +109,4 @@ public class GamesceneManager : MonoBehaviour {
 	public void onShare(){
 		Share.IntentShareText ("This game is awesome! Get the game from play store: balblaLink!");
 	}
-		
-	/*
-	public void onSoundOn(){
-
-		soundOnBtn.gameObject.SetActive (false);
-		soundOffBtn.gameObject.SetActive (true);
-
-		SetBool("soundIsOn", false);
-		PlayerPrefs.Save();
-	}
-
-
-
-	public void onSoundOff(){
-		soundOnBtn.gameObject.SetActive (true);
-		soundOffBtn.gameObject.SetActive (false);
-
-		SetBool ("soundIsOn", true);
-		PlayerPrefs.Save();
-	}
-
-
-	// Method for boolean PlayerPrefs
-	public static void SetBool(string name, bool booleanValue) 
-	{
-		PlayerPrefs.SetInt(name, booleanValue ? 1 : 0);
-	}
-
-	public static bool GetBool(string name)  
-	{
-		return PlayerPrefs.GetInt(name) == 1 ? true : false;
-	}
-
-	public static bool GetBool(string name, bool defaultValue)
-	{
-		if (PlayerPrefs.HasKey (name)) {
-			return GetBool (name);
-		}
-
-		return defaultValue;
-	}
-	*/
 }

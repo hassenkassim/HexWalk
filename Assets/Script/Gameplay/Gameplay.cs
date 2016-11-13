@@ -16,7 +16,6 @@ using UnityEngine.UI;
  * */
 public class Gameplay : MonoBehaviour {
 
-	
 		/*
 		 * Ablauf Spiel:
 		 * 1. Felder kurz aus Vogelperspektive anzeigen
@@ -27,17 +26,18 @@ public class Gameplay : MonoBehaviour {
 	
 	public static Player player;
 
+	public static bool first = true; //Indicates wether it is the first Level loaded from LevelScene
+
 	public static SavePlayerPrefs savePlayerPrefs;
 
 	public static Camera cam;
 	public static Gamefield gamefield;
+	public static Gamefield nextGamefield;
 	public static Pathfinder pathfinder;
 	public static ScoreManager scoreMgr;
 	public static SoundManager soundMgr;
 	public static PrefabsManager prefabsMgr;
 	public static GameObject pauseBtn;
-
-	public static Level currentLevel;
 
 	public static float totalTime = 0f;
 
@@ -58,9 +58,20 @@ public class Gameplay : MonoBehaviour {
 	int version;
 
 	public static int colorCount; // How many Colors should be in the game
+//	public static int materialVersion; // How many Colors should be in the game
+
+	static int offsetY;
+
+	void Awake() {
+		first = true;
+	}
 
 	// Use this for initialization
 	void Start () {
+		PathfinderController.coloringStarted = false;
+		PathfinderController.coloringEnd = true;
+
+		offsetY = 0;
 
 		InputManager.active = false;
 
@@ -81,7 +92,7 @@ public class Gameplay : MonoBehaviour {
 		prefabsMgr = (PrefabsManager)GameObject.Find("System").GetComponent <PrefabsManager>();
 
 		//Get Level Properties
-		currentLevel = LevelPlay.levelmgr.getCurrentLevel ();
+		Level currentLevel = LevelPlay.levelmgr.getCurrentLevel ();
 
 		GameObject.Find("WorldText").GetComponent<Text>().text = "World: " + (currentLevel.getWorld() + 1 );
 		GameObject.Find("LevelText").GetComponent<Text>().text = "Level: " + (currentLevel.getLevel() + 1);
@@ -100,6 +111,11 @@ public class Gameplay : MonoBehaviour {
 
 		//tolga
 		//Load Musics
+		if(PlayerPrefs.GetInt("SoundOn", 1) == 1){
+			AudioListener.pause = false;
+		}else{
+			AudioListener.pause = true;
+		}
 		SoundManager.playLevelMusic(currentLevel.getWorld());
 
 		explode = false;
@@ -130,49 +146,97 @@ public class Gameplay : MonoBehaviour {
 		//oder Player oder Path, je nachdem was ich brauche und dann rufe ich den jeweiligen Getter auf!
 		Vector2 platePos = player.getGamePosition ();//dazu gehe ich in unser Gameplay->Player->getGamePosition
 		Field field = gamefield.getField ((int)platePos.x, (int)platePos.y);
+
 		int pointer = pathfinder.pointer;
-		if (field.getColor ().Equals (Color.green))
+		if (field.getColor ().Equals (Col.GRUEN))
 			return;
 		if (platePos.x == pathfinder.end.x && platePos.y == pathfinder.end.y) {
-			pathfinder.pointer = -1;
-			print ("Level Completed!");
-			GamesceneManager.displayWon ();
-				
-			//setup and save level, coloring, stars
-			LevelPlay.levelmgr.levelUp ();
-
-			//save Level completed
-			setLevelToCompleted();
-
+			win ();
 		} else {
-			if (pathfinder.path [pointer].Equals (platePos) && player.getColor ().Equals (pathfinder.pathcolor [pointer])) {
-				pathfinder.pointer++;
-				field.setColor (player.getColor ());
-
-				//play the RotationSound
-				SoundManager.playRotationSound ("GameScene");
-			} else {
-				cam.GetComponent<CameraPosition> ().setToFollowPlayerByRotation ();
-				//field.setColor (Color.red);
-				field.activateRigidbody ();
-
-				//stop levelMusic and play gameoverSound
-				SoundManager.stopMusic ();
-				SoundManager.playGameoverMusic ();
-
-				//dursun
-				field.getGameobject ().SetActive (false);
-
-				explode = true;
-				field.fractureCube (0.125f, field);
-				print ("GAMEOVER!");
-
-				GamesceneManager.displayGameover ();
-			}
+			goNext ();
 		}
+	}
+
+	public static void win(){
+		print ("Won");
+		if (first == true) {
+			first = false; //Not the first start start
+		};
+
+		//save Level completed
+		setLevelToCompleted();
+
+		LevelPlay.levelmgr.unlockWorld (LevelPlay.levelmgr.curLevel);
+		LevelPlay.levelmgr.nextLevel (LevelPlay.levelmgr.curLevel);
+
+		//load in next level
+		offsetY += (int)player.getGamePosition().y + 1;
+		loadNextLevelDynamic ();
+	}
+
+	private static void goNext(){
+		Vector2 platePos = player.getGamePosition ();
+		Field field = gamefield.getField ((int)platePos.x, (int)platePos.y);
+		int pointer = pathfinder.pointer;
+
+		if (pathfinder.path [pointer].Equals (platePos) && player.getColor ().Equals (pathfinder.pathcolor [pointer])) {
+			pathfinder.pointer++;
+			field.setColor (player.getColor ());
+
+			//play the RotationSound
+			SoundManager.playRotationSound ("GameScene");
+		} else {
+			lose ();
+		}
+	}
+
+	private static void lose(){
+		if (first == true) {
+			first = false; //Not the first start start
+		};
+		print ("GAMEOVER!");
+
+		Vector2 platePos = player.getGamePosition ();
+		Field field = gamefield.getField ((int)platePos.x, (int)platePos.y);
+
+		cam.GetComponent<CameraPosition> ().setToFollowPlayerByRotation ();
+		field.setColor (Color.red);
+		field.activateRigidbody ();
+
+		SoundManager.playGameoverMusic ();
+
+		explode = true;
+		field.fractureCube (0.125f, field);
+
+		GamesceneManager.displayGameover ();
 	}
 
 	private static void setLevelToCompleted(){
 		LevelPlay.levelmgr.getCurrentLevel().setCompleted();
+	}
+
+
+	private static void loadNextLevelDynamic(){
+		InputManager.active = false;
+
+		int x = (int)player.getGamePosition ().x;
+		int nextWorld = PlayerPrefs.GetInt (LevelManager.NEXTWORLD, 0);
+		int nextLevel = PlayerPrefs.GetInt (LevelManager.NEXTLEVEL, 0);
+
+		LevelPlay.levelmgr.setCurrentLevel (nextWorld, nextLevel);
+		Level currentLevel = LevelPlay.levelmgr.getCurrentLevel ();
+
+		GameObject.Find("WorldText").GetComponent<Text>().text = "World: " + (currentLevel.getWorld() + 1);
+		GameObject.Find("LevelText").GetComponent<Text>().text = "Level: " + (currentLevel.getLevel() + 1);
+
+
+		nextGamefield = new Gamefield (currentLevel.getWidth(), currentLevel.getHeight(), currentLevel.getColorCount(), offsetY, Gamefield.SLIDEFROMBOTTOM);
+		gamefield = nextGamefield;
+
+		// Call Pathfinder constructor
+		pathfinder = new Pathfinder (currentLevel.getColorCount(), x);
+		player.setGamePosition (new Vector2(x, -1));
+		player.setColor (Col.GRUEN);
+		player.setColorCount (currentLevel.getColorCount ());
 	}
 }

@@ -6,11 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-<<<<<<< HEAD
     <ProjectGuid>{99447A7F-BDF4-F484-B93C-682A29C39CDF}</ProjectGuid>
-=======
-    <ProjectGuid>{7603681A-4241-8D2B-B25A-ED96F33A4F2D}</ProjectGuid>
->>>>>>> 83d88301a81c92709b1802f7fe220f27d3af417f
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
@@ -128,13 +124,10 @@
  <Reference Include="UnityEditor.OSXStandalone.Extensions">
  <HintPath>/Applications/Unity/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
  </Reference>
-<<<<<<< HEAD
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp.csproj">
       <Project>{9BA87874-83A0-3F7E-CAB2-153B9F5F9716}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
-=======
->>>>>>> 83d88301a81c92709b1802f7fe220f27d3af417f
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

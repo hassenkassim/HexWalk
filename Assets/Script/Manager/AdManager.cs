@@ -7,12 +7,15 @@ public class AdManager : MonoBehaviour {
 	public string adID ="videoAd";
 
 	public void showAd(){
+		/*
 		if(Advertisement.IsReady ()){
 			InputManager.active = false;
 			Advertisement.Show (adID, new ShowOptions(){resultCallback = handleAdResult});
 		}
-	}
+		*/
 
+	}
+	/*
 	private void handleAdResult(ShowResult result){
 		switch (result) {
 		case ShowResult.Finished:
@@ -29,4 +32,5 @@ public class AdManager : MonoBehaviour {
 			break;
 		}
 	}
+	*/
 }

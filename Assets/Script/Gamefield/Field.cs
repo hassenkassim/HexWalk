@@ -82,6 +82,7 @@ public class Field {
 		field.name = name;
 		field.tag = "Field";
 
+
 	}
 
 	public Field(string name, int fieldVersion, bool lvlplay){

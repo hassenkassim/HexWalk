@@ -20,8 +20,6 @@ public class LevelPlay : MonoBehaviour {
 	public static int world;
 	public static int height;
 	public static int soundIsOn;
-	//public static int curWorld;
-	//public static int curLevel;
 
 	public static Level curLevel;
 
@@ -62,6 +60,7 @@ public class LevelPlay : MonoBehaviour {
 	public static PrefabsManagerLevelPlay prefabsMgr;
 
 	public GameObject splash;
+	public static GameObject gameName; //dursun
 
 	//Buttons
 	public static Button listButton;
@@ -103,16 +102,18 @@ public class LevelPlay : MonoBehaviour {
 	public static float yvalueShare;
 	public static float yvalueSound;
 
-
 	// Use this for initialization
 	public void Start () {
+		
 		//PlayerPrefs.DeleteAll ();
 
 		buttonTrans = TransitionButtons (2.0f);
 
-
 		splash = GameObject.Find ("Splash");
-		DontDestroyOnLoad(splash);
+
+		//Setup Camera
+		cam = Camera.main;
+		cam.gameObject.AddComponent <CameraPositionLevelPlay> ();
 
 		//Disable Input
 		InputManager.active = false;
@@ -121,37 +122,39 @@ public class LevelPlay : MonoBehaviour {
 		levelmgr = new LevelManager ();
 
 		//Call Prefab Manager constructor
-		prefabsMgr = (PrefabsManagerLevelPlay)GameObject.Find("System").GetComponent <PrefabsManagerLevelPlay>();
+		prefabsMgr = (PrefabsManagerLevelPlay)GameObject.Find ("System").GetComponent <PrefabsManagerLevelPlay> ();
 
 		//load GameField
 		loadFields ();
 
 		//Load the Player
-		loadPlayer();
+		loadPlayer ();
 
 		//Load Text Objects
 		loadGameObjects ();
 
 		//Setup Camera
-		cam = Camera.main;
-		cam.gameObject.AddComponent <CameraPositionLevelPlay>();
+		//cam = Camera.main;
+		//cam.gameObject.AddComponent <CameraPositionLevelPlay>();
+
 
 		//Initiate all variables
 		init ();
 
-		Fade.StartFadeIn (1.5f);
+			
 
 		//start music
-		if (splash.GetComponent<Splash> ().getSplashShown () != 0) {
-			SoundManager.playMenuMusic ();
-		}
+//		if (splash.GetComponent<Splash> ().getSplashShown () != 0) {
+//			SoundManager.playMenuMusic ();
+//		} 
+
 
 		//load buttons
 		transitionEnd = true;
 		loadButtons ();
 
 	}
-
+		
 	private void init(){
 		curLevel = levelmgr.curLevel;
 
@@ -162,6 +165,14 @@ public class LevelPlay : MonoBehaviour {
 
 		//tolga
 		disableText();
+
+
+		//dursun
+		gameName = SplashLoad.prefabsMgr.generateObjectFromPrefab("gameName");
+		gameName.GetComponent<Rigidbody>().useGravity=false;
+		gameName.transform.position = new Vector3 (-1.1f,10.0f,playerobj.transform.position.z);
+		gameName.AddComponent<Splash> ();
+		gameName.SetActive (true);
 	}
 
 
@@ -180,10 +191,6 @@ public class LevelPlay : MonoBehaviour {
 
 		if ((input.x != 0 || input.y != 0) && !isRotate) {
 			rotatePlayer (input.x, input.y);
-		}
-
-		if (!Camera.main.GetComponent<Skybox> ().material.name.Equals ("skybox" + (((int)((gamePosition.y) / 2 + 1)) - 1))) {
-			Fade.FadeAndNewWorld (1.0f);
 		}
 	}
 
@@ -240,32 +247,34 @@ public class LevelPlay : MonoBehaviour {
 	}
 
 	private bool moveAllowed(int x, int y){
-		Field field = null;
-		try {
-			field= fields [(int)gamePosition.x + x, (int)gamePosition.y + y];
-			if (field.blocked () == true) {
-				return false;
-			} else {
-				return true;
-			}
-		} catch(System.Exception e){
-			if (e is System.NullReferenceException) {
-				print ("Field not available");
-			} else if (e is System.IndexOutOfRangeException) {
-				print ("Field Index out of Range");
-			}
-			return false;
-		}
+		return inGamefield (x, y);
 	}
 
+	private bool inGamefield(int x, int y){
+		int maxwidth = fields.GetLength (0);
+		int maxheight = fields.GetLength (1);
+
+		int X = (int)gamePosition.x + x;
+		int Y = (int)gamePosition.y + y;
+
+		if (X >= maxwidth|| X < 0 || Y >= maxheight || Y < 0) {
+			return false;
+		} 
+
+		if (X != 0 && (Y % 2 == 1))
+			return false;
+
+		Field field = fields [X, Y];
+		if (field.blocked () == true) {
+			return false;
+		}
+		return true;
+	}
+
+
+
 	public static void collision(){
-		// dursun 
-		// change world to world number
-		/*if(!worldFaded){ // not for the first collision 
-			fading.fadeInOut=true;
-			worldFaded = true;
-		}*/
-			
+
 		levelmgr.setCurrentLevel ((int)gamePosition.y / 2, (int)gamePosition.x);
 
 		setCurrentFieldColor (Col.SELECTEDCOLOR);
@@ -283,6 +292,10 @@ public class LevelPlay : MonoBehaviour {
 			enableText ();
 		} else {
 			disableText ();
+		}
+
+		if (!Camera.main.GetComponent<Skybox> ().material.name.Equals ("skybox" + levelmgr.curLevel.getWorld())){
+			Fade.FadeAndNewWorld (1.0f, cam);
 		}
 	}
 
@@ -308,7 +321,7 @@ public class LevelPlay : MonoBehaviour {
 		//setting currentLevel
 		levelmgr.setNextLevel(levelmgr.curLevel.getWorld(), levelmgr.curLevel.getLevel());
 
-		Fade.FadeAndStartScene ("GameScene", 3.0f);
+		Fade.FadeAndStartScene ("GameScene", 3.0f, cam);
 
 		return;
 	}
@@ -418,11 +431,12 @@ public class LevelPlay : MonoBehaviour {
 
 		Vector2 pos = new Vector2(PlayerPrefs.GetInt(LevelManager.NEXTLEVEL,0), PlayerPrefs.GetInt(LevelManager.NEXTWORLD,0));
 
-		playerobj.transform.position = new Vector3(pos.x, 1.36f, pos.y * 2);
+
+		playerobj.transform.position =  new Vector3(pos.x, 1.39f +splash.GetComponent<Splash>().getSplashOffset(), pos.y*2); //new Vector3 (0.0f,9.4f,0.0f);
+		splash.GetComponent<Splash>().setSplashOffset(0.0f);
 		playerobj.transform.rotation = Quaternion.Euler(0, 0, 0);
 		playerobj.tag = "Player";
 		gamePosition = new Vector2 (pos.x, pos.y*2);
-
 	}
 
 	public void loadGameObjects(){
@@ -454,6 +468,7 @@ public class LevelPlay : MonoBehaviour {
 		soundEndPosition = listButton.transform.position.y - 50;
 		shareEndPosition = soundEndPosition - 100;
 		infoEndPosition = listButton.transform.position.y - 150;
+
 
 		soundOnImage = Resources.Load <Sprite>("soundOnButton");
 		soundOffImage = Resources.Load <Sprite>("soundOffButton");

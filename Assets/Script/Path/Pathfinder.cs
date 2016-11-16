@@ -27,6 +27,8 @@ public class Pathfinder {
 	public int pointer;
 
 	public Pathfinder(int colorCount){
+			
+
 			this.start = new Vector2(Random.Range(0, Gameplay.gamefield.width-1), 0);
 			this.startColor = Col.GRUEN;
 			this.end = new Vector2(Random.Range(0, Gameplay.gamefield.width-1), Gameplay.gamefield.height-1);

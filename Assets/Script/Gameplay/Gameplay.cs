@@ -37,6 +37,7 @@ public class Gameplay : MonoBehaviour {
 	public static ScoreManager scoreMgr;
 	public static SoundManager soundMgr;
 	public static PrefabsManager prefabsMgr;
+	private BackgroundManager backgroundmgr;
 	public static GameObject pauseBtn;
 
 	public static float totalTime = 0f;
@@ -83,6 +84,8 @@ public class Gameplay : MonoBehaviour {
 		BackgroundManager.loadSkybox(cam);
 		Fade.StartFadeIn (2.0f);
 
+
+
 		//Call Score Manager constructor
 		scoreMgr = new ScoreManager();
 
@@ -90,7 +93,13 @@ public class Gameplay : MonoBehaviour {
 		prefabsMgr = (PrefabsManager)GameObject.Find("System").GetComponent <PrefabsManager>();
 
 		//Get Level Properties
-		Level currentLevel = LevelPlay.levelmgr.getCurrentLevel ();
+		//Level currentLevel = LevelPlay.levelmgr.getCurrentLevel ();
+
+		Level currentLevel = LevelPlay.levelmgr.getLevel (11, 0);
+
+		//dursun
+		BackgroundManager.loadSkybox(cam);
+		Fade.StartFadeIn (2.0f);
 
 		GameObject.Find("WorldText").GetComponent<Text>().text = "World: " + (currentLevel.getWorld() + 1);
 		GameObject.Find("LevelText").GetComponent<Text>().text = "Level: " + (currentLevel.getLevel() + 1);
@@ -121,6 +130,7 @@ public class Gameplay : MonoBehaviour {
 	}
 
 	void Update(){
+
 		if (explode==true) {
 			Vector3 tmp = new Vector3 (player.getPosition ().x,player.getPosition ().y,player.getPosition ().z);
 			foreach (Collider col in Physics.OverlapSphere(transform.position,radius)) {
@@ -139,6 +149,10 @@ public class Gameplay : MonoBehaviour {
 		//oder Player oder Path, je nachdem was ich brauche und dann rufe ich den jeweiligen Getter auf!
 		Vector2 platePos = player.getGamePosition ();//dazu gehe ich in unser Gameplay->Player->getGamePosition
 		Field field = gamefield.getField ((int)platePos.x, (int)platePos.y);
+
+		if (!Camera.main.GetComponent<Skybox> ().material.name.Equals ("skybox" +LevelPlay.levelmgr.curLevel.getWorld())){
+			Fade.FadeAndNewWorld (1.0f, cam);
+		}
 
 		int pointer = pathfinder.pointer;
 		if (field.getColor ().Equals (Col.GRUEN))
@@ -195,8 +209,8 @@ public class Gameplay : MonoBehaviour {
 		Field field = gamefield.getField ((int)platePos.x, (int)platePos.y);
 
 		cam.GetComponent<CameraPosition> ().setToFollowPlayerByRotation ();
-		field.setColor (Color.red);
-		field.activateRigidbody ();
+
+		field.getGameobject().SetActive(false);
 
 		if (PlayerPrefs.GetInt ("SoundOn", 1) == 1) {
 			SoundManager.stopMusic ();

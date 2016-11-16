@@ -142,3 +142,20 @@
 /Users/dur_sun/Documents/Proj/_unity/hexwalk__/Temp/bin/Debug/Mono.Cecil.Pdb.dll
 /Users/dur_sun/Documents/Proj/_unity/hexwalk__/Temp/bin/Debug/Mono.Cecil.Mdb.dll
 >>>>>>> f143a0b99b0d7db6ad1007922eb666fbbb921cb4
+/Users/tolgaguzay/Desktop/cubewalk/obj/Debug/Assembly-CSharp.dll
+/Users/tolgaguzay/Desktop/cubewalk/obj/Debug/Assembly-CSharp.dll.mdb
+/Users/tolgaguzay/Desktop/cubewalk/Temp/bin/Debug/UnityEngine.dll
+/Users/tolgaguzay/Desktop/cubewalk/Temp/bin/Debug/UnityEditor.dll
+/Users/tolgaguzay/Desktop/cubewalk/Temp/bin/Debug/UnityEngine.UI.dll
+/Users/tolgaguzay/Desktop/cubewalk/Temp/bin/Debug/UnityEngine.Networking.dll
+/Users/tolgaguzay/Desktop/cubewalk/Temp/bin/Debug/Mono.Cecil.dll
+/Users/tolgaguzay/Desktop/cubewalk/Temp/bin/Debug/Unity.SerializationLogic.dll
+/Users/tolgaguzay/Desktop/cubewalk/Temp/bin/Debug/Unity.DataContract.dll
+/Users/tolgaguzay/Desktop/cubewalk/Temp/bin/Debug/ICSharpCode.NRefactory.dll
+/Users/tolgaguzay/Desktop/cubewalk/Temp/bin/Debug/Unity.UNetWeaver.dll
+/Users/tolgaguzay/Desktop/cubewalk/Temp/bin/Debug/Unity.UNetWeaver.dll.mdb
+/Users/tolgaguzay/Desktop/cubewalk/Temp/bin/Debug/Unity.CecilTools.dll
+/Users/tolgaguzay/Desktop/cubewalk/Temp/bin/Debug/Mono.Cecil.Pdb.dll
+/Users/tolgaguzay/Desktop/cubewalk/Temp/bin/Debug/Mono.Cecil.Mdb.dll
+/Users/tolgaguzay/Desktop/cubewalk/Temp/bin/Debug/Assembly-CSharp.dll.mdb
+/Users/tolgaguzay/Desktop/cubewalk/Temp/bin/Debug/Assembly-CSharp.dll

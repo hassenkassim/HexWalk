@@ -255,8 +255,6 @@ public class LevelPlay : MonoBehaviour {
 
 	public static void collision(){
 
-//		curWorld = (int)gamePosition.y / 2;
-//		curLevel = (int)gamePosition.x;
 
 		levelmgr.setCurrentLevel ((int)gamePosition.y / 2, (int)gamePosition.x);
 

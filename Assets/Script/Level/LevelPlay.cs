@@ -62,7 +62,6 @@ public class LevelPlay : MonoBehaviour {
 
 	public GameObject splash;
 	public static GameObject gameName; //dursun
-	public static GameObject gameNameDestroyed; 
 
 	//Buttons
 	public static Button listButton;
@@ -87,14 +86,17 @@ public class LevelPlay : MonoBehaviour {
 	public static float starDistance = 10;
 	public static float starClipDistance = 1;
 
+
 	// Use this for initialization
 	public void Start () {
-
+		
 		//PlayerPrefs.DeleteAll ();
 
-
 		splash = GameObject.Find ("Splash");
-		DontDestroyOnLoad(splash);
+
+		//Setup Camera
+		cam = Camera.main;
+		cam.gameObject.AddComponent <CameraPositionLevelPlay> ();
 
 		//Disable Input
 		InputManager.active = false;
@@ -103,42 +105,28 @@ public class LevelPlay : MonoBehaviour {
 		levelmgr = new LevelManager ();
 
 		//Call Prefab Manager constructor
-		prefabsMgr = (PrefabsManagerLevelPlay)GameObject.Find("System").GetComponent <PrefabsManagerLevelPlay>();
+		prefabsMgr = (PrefabsManagerLevelPlay)GameObject.Find ("System").GetComponent <PrefabsManagerLevelPlay> ();
 
 		//load GameField
 		loadFields ();
 
 		//Load the Player
-		loadPlayer();
+		loadPlayer ();
 
 		//Load Text Objects
 		loadGameObjects ();
-
-		//Setup Camera
-		cam = Camera.main;
-		cam.gameObject.AddComponent <CameraPositionLevelPlay>();
-
-		//dursun
-		gameName = prefabsMgr.generateObjectFromPrefab("gameName");
-		gameName.transform.position = new Vector3 (-1.1f,30.0f,0.0f);
-		gameName.AddComponent<Splash> ();
-		gameName.SetActive (true);
-
-		gameNameDestroyed = prefabsMgr.generateObjectFromPrefab("gameNameDestroyed");
-		gameNameDestroyed.AddComponent<Splash> ();
-		gameNameDestroyed.SetActive (false);
-
 
 
 		//Initiate all variables
 		init ();
 
-		Fade.StartFadeIn (1.5f);
+			
 
 		//start music
-		if (splash.GetComponent<Splash> ().getSplashShown () != 0) {
-			SoundManager.playMenuMusic ();
-		}
+//		if (splash.GetComponent<Splash> ().getSplashShown () != 0) {
+//			SoundManager.playMenuMusic ();
+//		} 
+
 
 		//load buttons
 		transitionEnd = true;
@@ -146,10 +134,10 @@ public class LevelPlay : MonoBehaviour {
 
 		//sound
 		if (PlayerPrefs.GetInt ("SoundIsOn", 1) == 1) {
-			soundOnButton.image.sprite = soundOnImage;
+//			soundOnButton.image.sprite = soundOnImage; 
 			AudioListener.pause = false;
 		} else {
-			soundOnButton.image.sprite = soundOffImage;
+//			soundOnButton.image.sprite = soundOffImage;
 			AudioListener.pause = true;
 		}
 			
@@ -165,10 +153,20 @@ public class LevelPlay : MonoBehaviour {
 
 		//tolga
 		disableText();
+
+
+		//dursun
+		gameName = SplashLoad.prefabsMgr.generateObjectFromPrefab("gameName");
+		gameName.GetComponent<Rigidbody>().useGravity=false;
+		gameName.transform.position = new Vector3 (-1.1f,10.0f,playerobj.transform.position.z);
+		gameName.AddComponent<Splash> ();
+		gameName.SetActive (true);
 	}
 
 
 	public void Update () {
+		
+
 		Vector2 input = InputManager.getInput ();
 
 		if (input.x == 0 && input.y == 0) {
@@ -256,20 +254,11 @@ public class LevelPlay : MonoBehaviour {
 	}
 
 	public static void collision(){
-<<<<<<< HEAD
 
-		curWorld = (int)gamePosition.y / 2;
-		curLevel = (int)gamePosition.x;
-=======
-		// dursun 
-		// change world to world number
-		/*if(!worldFaded){ // not for the first collision 
-			fading.fadeInOut=true;
-			worldFaded = true;
-		}*/
-			
+//		curWorld = (int)gamePosition.y / 2;
+//		curLevel = (int)gamePosition.x;
+
 		levelmgr.setCurrentLevel ((int)gamePosition.y / 2, (int)gamePosition.x);
->>>>>>> 8a26bf810e1e6cd21c731dff3256658821f24bce
 
 		setCurrentFieldColor (Col.SELECTEDCOLOR);
 
@@ -287,8 +276,8 @@ public class LevelPlay : MonoBehaviour {
 		} else {
 			disableText ();
 		}
-		if (!Camera.main.GetComponent<Skybox> ().material.name.Equals ("skybox" + (((int)((gamePosition.y) / 2 + 1)) - 1))) {
-			Fade.FadeAndNewWorld (1.0f);
+		if (!Camera.main.GetComponent<Skybox> ().material.name.Equals ("skybox" + levelmgr.curLevel.getWorld())){//(((int)((gamePosition.y) / 2 + 1)) - 1))) {
+			Fade.FadeAndNewWorld (1.0f, cam);
 		}
 	}
 
@@ -315,7 +304,7 @@ public class LevelPlay : MonoBehaviour {
 
 		levelmgr.setNextLevel(levelmgr.curLevel.getWorld(), levelmgr.curLevel.getLevel());
 
-		Fade.FadeAndStartScene ("GameScene", 3.0f);
+		Fade.FadeAndStartScene ("GameScene", 3.0f, cam);
 
 		return;
 	}
@@ -425,11 +414,11 @@ public class LevelPlay : MonoBehaviour {
 
 		Vector2 pos = new Vector2(PlayerPrefs.GetInt(LevelManager.NEXTLEVEL,0), PlayerPrefs.GetInt(LevelManager.NEXTWORLD,0));
 
-		playerobj.transform.position = new Vector3(pos.x, 1.39f, pos.y*2);
+		playerobj.transform.position =  new Vector3(pos.x, 1.39f +splash.GetComponent<Splash>().getSplashOffset(), pos.y*2); //new Vector3 (0.0f,9.4f,0.0f);
+		splash.GetComponent<Splash>().setSplashOffset(0.0f);
 		playerobj.transform.rotation = Quaternion.Euler(0, 0, 0);
 		playerobj.tag = "Player";
 		gamePosition = new Vector2 (pos.x, pos.y*2);
-
 	}
 
 	public void loadGameObjects(){
@@ -453,15 +442,15 @@ public class LevelPlay : MonoBehaviour {
 	}
 
 	public void loadButtons(){
-		listButton = GameObject.Find ("ListButton").GetComponent<Button> ();
-		soundOnButton = GameObject.Find ("SoundOnButton").GetComponent<Button> ();
-		shareButton = GameObject.Find ("ShareButton").GetComponent<Button> ();
-		infoButton = GameObject.Find ("InfoButton").GetComponent<Button> ();
+		listButton = Resources.Load<Button> ("listButton");//GameObject.Find ("ListButton").GetComponent<Button> ();
+		soundOnButton = Resources.Load<Button> ("soundOnButton");//GameObject.Find ("soundOnButton").GetComponent<Button> ();
+		shareButton = Resources.Load<Button> ("shareButton"); //GameObject.Find ("shareButton").GetComponent<Button> ();
+		infoButton = Resources.Load<Button> ("infoButton"); //GameObject.Find ("infoButton").GetComponent<Button> ();
 
-		startButtonPos = new Vector3 (infoButton.transform.position.x, infoButton.transform.position.y, infoButton.transform.position.z);
-		soundOnEndPosition = new Vector3 (infoButton.transform.position.x, infoButton.transform.position.y - 65, infoButton.transform.position.z);
-		shareEndPosition = new Vector3 (infoButton.transform.position.x, infoButton.transform.position.y - 130, infoButton.transform.position.z);
-		infoEndPosition = new Vector3 (infoButton.transform.position.x, infoButton.transform.position.y - 195, infoButton.transform.position.z);
+//		startButtonPos = new Vector3 (infoButton.transform.position.x, infoButton.transform.position.y, infoButton.transform.position.z);
+//		soundOnEndPosition = new Vector3 (infoButton.transform.position.x, infoButton.transform.position.y - 65, infoButton.transform.position.z);
+//		shareEndPosition = new Vector3 (infoButton.transform.position.x, infoButton.transform.position.y - 130, infoButton.transform.position.z);
+//		infoEndPosition = new Vector3 (infoButton.transform.position.x, infoButton.transform.position.y - 195, infoButton.transform.position.z);
 
 		soundOnImage = Resources.Load <Sprite>("soundOnButton");
 		soundOffImage = Resources.Load <Sprite>("soundOffButton");

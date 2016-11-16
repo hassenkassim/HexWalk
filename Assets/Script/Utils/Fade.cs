@@ -26,21 +26,21 @@ public class Fade : MonoBehaviour {
 		instance.StartCoroutine (FadeIn (time));
 	}
 
-	public static void StartFadeOut(float time){
+	public static void StartFadeOut(float time, Camera cam){
 		InputManager.active = false;
 		overlay.gameObject.SetActive (true);
-		instance.StartCoroutine (FadeOut (time));
+		instance.StartCoroutine (FadeOut (time, cam));
 	}
 
-	public static void FadeAndStartScene(string sceneName, float time){
+	public static void FadeAndStartScene(string sceneName, float time, Camera cam){
 		sceneStr = sceneName;
 		changeScene = true;
-		StartFadeOut (time);
+		StartFadeOut (time, cam);
 	}
 
-	public static void FadeAndNewWorld(float time){
+	public static void FadeAndNewWorld(float time, Camera cam){
 		changeWorld = true;
-		StartFadeOut (time);
+		StartFadeOut (time, cam);
 	}
 
 	//fade to clear:
@@ -65,7 +65,7 @@ public class Fade : MonoBehaviour {
 	}
 
 	//fade to black:
-	public static IEnumerator FadeOut(float fadeTime){
+	public static IEnumerator FadeOut(float fadeTime, Camera cam){
 		float rate = 1.5f/fadeTime;
 		float progress = 0.0f;
 
@@ -79,7 +79,7 @@ public class Fade : MonoBehaviour {
 			if (progress > 0.5f && changeWorld) { // changing the world and fadeOut
 				instance.StartCoroutine(FadeIn(fadeTime));
 				changeWorld=false;
-				BackgroundManager.loadSkybox (LevelPlay.cam);
+				BackgroundManager.loadSkybox (cam);
 				yield break;
 			}
 

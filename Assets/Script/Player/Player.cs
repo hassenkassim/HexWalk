@@ -85,18 +85,13 @@ public class Player {
 		playerobj.transform.position = new Vector3(0, 3, 0);
 		playerobj.transform.rotation = Quaternion.Euler(0, 0, 0);
 		playerobj.tag = "Player";
-<<<<<<< HEAD
-		playerobj.GetComponent<MeshCollider> ().convex = true; //dursun
-		playerobj.AddComponent<Rigidbody>();	//dursun
-		playerobj.GetComponent<Rigidbody> ().useGravity = false;	//dursun
-		playerobj.GetComponent<Rigidbody> ().mass = 0.1f;	//dursun
-=======
-		//playerobj.AddComponent<BoxCollider> ();
-		//playerobj.GetComponent<MeshCollider> ().convex = true; //dursun
+
+//		playerobj.GetComponent<MeshCollider> ().convex = true; //dursun
+//		playerobj.AddComponent<Rigidbody>();	//dursun
+//		playerobj.GetComponent<Rigidbody> ().useGravity = false;	//dursun
+//		playerobj.GetComponent<Rigidbody> ().mass = 0.1f;	//dursun
 
 		playerobj.AddComponent<MeshRenderer> ().material = Materials.glanz;
-
->>>>>>> 8a26bf810e1e6cd21c731dff3256658821f24bce
 
 		this.colorCount = colorCount;
 		curColor = Col.GRUEN;

@@ -38,26 +38,32 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		splash = GameObject.Find ("Splash");
-		if (splash.GetComponent<Splash> ().getSplashShown () == 0) {
+	
+		//dursun 
+		switch (splash.GetComponent<Splash> ().getSplashShown ()) {
+		case 0:
 			posX = 0;
 			walkPosY = 1.299f;
 			cubePosY = 1.36f;
 			posZ = -2.0f;//-0.303f;
 
-			walkLogo = GameObject.Find ("walkText");
-			cubeLogo = GameObject.Find ("cubeText");
-
-			walkLogo.transform.position = new Vector3 (posX, walkPosY, posZ);
-			cubeLogo.transform.position = new Vector3 (posX, cubePosY, posZ);
-			setPosition (walkLogo.transform.position + startCamPos);
+//			walkLogo = GameObject.Find ("walkText");
+//			cubeLogo = GameObject.Find ("cubeText");
+//
+//			walkLogo.transform.position = new Vector3 (posX, walkPosY, posZ);
+//			cubeLogo.transform.position = new Vector3 (posX, cubePosY, posZ);
+			setPosition (startCamPos);
 			setRotation (startCamRotation);
-		} else {
-			walkLogo = GameObject.Find ("walkText");
-			cubeLogo = GameObject.Find ("cubeText");
-			disableSplash ();
+			break;
+		case 1:
+			LevelPlay.playerobj.GetComponent<Rigidbody> ().useGravity = true;
+			splash.GetComponent<Splash> ().setSplashShown (2);
+			break;
+		default:
 			InputManager.active = true;
 			setPosition (LevelPlay.playerobj.transform.position + offsetPlayerCam);
 			setRotation (rotationPlayerCam);
+			break;
 		}
 			
 	}
@@ -72,8 +78,9 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 		//initial setup of camera position and rotation
 		if (LevelPlayerController.showID == 0) {
 			//setPosition (walkLogo.transform.position + startCamPos);
-			Vector3 tmp= new Vector3(1.1f, 0.0f, -2.5f);
-			setPosition (LevelPlay.gameName.transform.position + startCamPos + tmp); // dursun
+
+			setPosition (LevelPlay.playerobj.transform.position + startCamPos+Vector3.back*3.5f);
+
 
 			setRotation (startCamRotation);
 
@@ -86,10 +93,7 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 		}
 	}
 
-	public static void disableSplash(){
-		walkLogo.gameObject.SetActive (false);
-		cubeLogo.gameObject.SetActive (false);
-	}
+
 
 	public void setPosition(Vector3 pos){
 		transform.position = pos;
@@ -106,15 +110,12 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 
 	IEnumerator TransitionGamefieldPlayer(float lerpSpeed)
 	{    
-		//dursun
-		Splash.destroyGameNames();
-
 			float t = 0.0f;
 			Vector3 newPosition;
 			//get Position on the fly
 			newPosition = LevelPlay.playerobj.transform.position + offsetPlayerCam;
 			Vector3 newRotation = rotationPlayerCam;
-			Vector3 startingPos = startCamPos + walkLogo.transform.position;
+		Vector3 startingPos = startCamPos;// + walkLogo.transform.position;
 			currentAngle = transform.eulerAngles;
 
 			while (t < 1.0f) {

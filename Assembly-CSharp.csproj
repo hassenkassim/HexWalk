@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{6CF1A2D0-B507-0FB8-1F88-6F5F98AC256B}</ProjectGuid>
+    <ProjectGuid>{9BA87874-83A0-3F7E-CAB2-153B9F5F9716}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -62,8 +62,6 @@
      <Compile Include="Assets\Script\Level\LevelPlayerController.cs" />
      <Compile Include="Assets\Script\Level\PlayerPrefsX.cs" />
      <Compile Include="Assets\Script\Level\PrefabsManagerLevelPlay.cs" />
-     <Compile Include="Assets\Script\Level\ProgressBar.cs" />
-     <Compile Include="Assets\Script\Level\Splash.cs" />
      <Compile Include="Assets\Script\Manager\LevelManager.cs" />
      <Compile Include="Assets\Script\Manager\MenuManager.cs" />
      <Compile Include="Assets\Script\Manager\PrefabsManager.cs" />
@@ -74,6 +72,10 @@
      <Compile Include="Assets\Script\Path\PathfinderController.cs" />
      <Compile Include="Assets\Script\Player\Player.cs" />
      <Compile Include="Assets\Script\Player\PlayerController.cs" />
+     <Compile Include="Assets\Script\Splash\PrefabsManagerSplashScene.cs" />
+     <Compile Include="Assets\Script\Splash\ProgressBar.cs" />
+     <Compile Include="Assets\Script\Splash\Splash.cs" />
+     <Compile Include="Assets\Script\Splash\SplashLoad.cs" />
      <Compile Include="Assets\Script\Utils\Col.cs" />
      <Compile Include="Assets\Script\Utils\DebugConsole.cs" />
      <Compile Include="Assets\Script\Utils\Fade.cs" />

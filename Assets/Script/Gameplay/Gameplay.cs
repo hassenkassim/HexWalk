@@ -80,7 +80,11 @@ public class Gameplay : MonoBehaviour {
 		cam = Camera.main;
 		cam.gameObject.AddComponent <CameraPosition>();
 
-		version = 1;
+		//dursun
+		BackgroundManager.loadSkybox(cam);
+		Fade.StartFadeIn (2.0f);
+
+
 
 		//Call Score Manager constructor
 		scoreMgr = new ScoreManager();
@@ -97,8 +101,10 @@ public class Gameplay : MonoBehaviour {
 		BackgroundManager.loadSkybox(cam);
 		Fade.StartFadeIn (2.0f);
 
-		GameObject.Find("WorldText").GetComponent<Text>().text = "World: " + (currentLevel.getWorld() + 1 );
+		GameObject.Find("WorldText").GetComponent<Text>().text = "World: " + (currentLevel.getWorld() + 1);
 		GameObject.Find("LevelText").GetComponent<Text>().text = "Level: " + (currentLevel.getLevel() + 1);
+
+		version = currentLevel.getWorld() + 1;
 
 		//Create Player
 		player = new Player(currentLevel.getColorCount(), version);
@@ -107,26 +113,19 @@ public class Gameplay : MonoBehaviour {
 		savePlayerPrefs= new SavePlayerPrefs();
 
 		//Create Gamefield
-		gamefield = new Gamefield (currentLevel.getWidth(), currentLevel.getHeight(), currentLevel.getColorCount());
+		gamefield = new Gamefield (currentLevel.getWidth(), currentLevel.getHeight(), 1);
 
 		// Call Pathfinder constructor
 		pathfinder = new Pathfinder (currentLevel.getColorCount());
 
 		//tolga
 		//Load Musics
-		if(PlayerPrefs.GetInt("SoundOn", 1) == 1){
-			AudioListener.pause = false;
-		}else{
-			AudioListener.pause = true;
-		}
 		SoundManager.playLevelMusic(currentLevel.getWorld());
 
 		explode = false;
 
 		//Setup Button
 		pauseBtn = GameObject.Find("PauseButton");
-
-
 
 	}
 
@@ -192,7 +191,9 @@ public class Gameplay : MonoBehaviour {
 			field.setColor (player.getColor ());
 
 			//play the RotationSound
-			SoundManager.playRotationSound ("GameScene");
+			if (PlayerPrefs.GetInt ("SoundOn", 1) == 1) {
+				SoundManager.playRotationSound ("GameScene");
+			}
 		} else {
 			lose ();
 		}
@@ -211,7 +212,10 @@ public class Gameplay : MonoBehaviour {
 
 		field.getGameobject().SetActive(false);
 
-		SoundManager.playGameoverMusic ();
+		if (PlayerPrefs.GetInt ("SoundOn", 1) == 1) {
+			SoundManager.stopMusic ();
+			SoundManager.playGameoverMusic ();
+		}
 
 		explode = true;
 		field.fractureCube (0.125f, field);

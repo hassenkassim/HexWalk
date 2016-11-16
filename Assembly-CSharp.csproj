@@ -6,7 +6,11 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
+<<<<<<< HEAD
     <ProjectGuid>{9BA87874-83A0-3F7E-CAB2-153B9F5F9716}</ProjectGuid>
+=======
+    <ProjectGuid>{5BD8CF1B-F62B-562F-9A83-15E3830F3B55}</ProjectGuid>
+>>>>>>> 83d88301a81c92709b1802f7fe220f27d3af417f
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -63,6 +67,7 @@
      <Compile Include="Assets\Script\Level\LevelPlayerController.cs" />
      <Compile Include="Assets\Script\Level\PlayerPrefsX.cs" />
      <Compile Include="Assets\Script\Level\PrefabsManagerLevelPlay.cs" />
+     <Compile Include="Assets\Script\Manager\AdManager.cs" />
      <Compile Include="Assets\Script\Manager\LevelManager.cs" />
      <Compile Include="Assets\Script\Manager\MenuManager.cs" />
      <Compile Include="Assets\Script\Manager\PrefabsManager.cs" />
@@ -123,7 +128,6 @@
      <None Include="Assets\Images\skybox\11\license.txt" />
      <None Include="Assets\Images\skybox\20\mp_moondust.shader" />
      <None Include="Assets\Images\skybox\21\license.txt" />
-     <None Include="Assets\Resources\Material\Double Sided Glass Reflection (Advanced).shader" />
      <None Include="Assets\Images\skybox\15\Down Under.txt" />
      <None Include="Assets\Images\skybox\15\license.txt" />
      <None Include="Assets\Images\skybox\13\license.txt" />

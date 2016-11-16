@@ -157,7 +157,7 @@ public class Field {
 	public Field(string name, System.Type[] comp, Color col){
 		field = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		field.AddComponent<MeshRenderer> ().material = Materials.glanz;
-		field.GetComponent<MeshRenderer> ().material.SetColor("_DiffuseColor", col);
+		field.GetComponent<MeshRenderer> ().material.SetColor("_Color", col);
 	}
 
 
@@ -192,7 +192,7 @@ public class Field {
 	}
 
 	public void setColor(Color col){
-		field.GetComponent<MeshRenderer> ().material.SetColor("_DiffuseColor", col);
+		field.GetComponent<MeshRenderer> ().material.SetColor("_Color", col);
 	}
 
 	public void setPosition(float x, float y){
@@ -218,7 +218,7 @@ public class Field {
 	}
 
 	public Color getColor(){
-		return field.GetComponent<MeshRenderer> ().material.GetColor("_DiffuseColor");
+		return field.GetComponent<MeshRenderer> ().material.GetColor("_Color");
 	}
 
 	public GameObject getGameobject(){
@@ -226,7 +226,7 @@ public class Field {
 	}
 
 	public bool blocked(){
-		Color col = field.GetComponent<MeshRenderer> ().material.GetColor("_DiffuseColor");
+		Color col = field.GetComponent<MeshRenderer> ().material.GetColor("_Color");
 		if(col.Equals(Col.BLOCKEDCOLOR) || col.Equals(Col.WORLDBLOCKCOLOR)){
 			return true;
 		} else{

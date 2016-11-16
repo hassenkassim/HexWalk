@@ -43,13 +43,14 @@ public class InputManager {
 		if (active) {
 			#if UNITY_ANDROID || UNITY_IPHONE
 				if(Input.touchCount > 0){
-					if (Input.touches[0].phase == TouchPhase.Ended) {
-						DebugConsole.Log("Touched");
-						return true;
-					}else{
-						return false;
-					}
-			    }
+						if (Input.touches[0].phase == TouchPhase.Ended) {
+							DebugConsole.Log("Touched");
+							return true;
+						}else{
+							return false;
+						}
+				}
+
 			#endif
 
 			if (Input.GetKeyUp (KeyCode.Space) || Input.GetMouseButtonUp (0)) {

@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class LevelPlay : MonoBehaviour {
 
@@ -64,15 +65,20 @@ public class LevelPlay : MonoBehaviour {
 
 	//Buttons
 	public static Button listButton;
-	public static Button soundOnButton;
+	public static Button soundButton;
 	public static Button shareButton;
 	public static Button infoButton;
-	public static Vector3 startButtonPos;
-	public static Vector3 soundOnEndPosition;
-	public static Vector3 shareEndPosition;
-	public static Vector3 infoEndPosition;
+
+
+	public static float soundEndPosition;
+	public static float shareEndPosition;
+	public static float infoEndPosition;
+	float soundBtnActPos;
+	float shareBtnActPos;
+	float infoBtnActPos;
 	public bool listButtonClicked;
 	public bool transitionEnd;
+	public bool enumeratorEnd;
 	public Sprite soundOnImage;
 	public Sprite soundOffImage;
 
@@ -85,9 +91,24 @@ public class LevelPlay : MonoBehaviour {
 	public static float starDistance = 10;
 	public static float starClipDistance = 1;
 
+	public static IEnumerator buttonTrans;
+	public static float startInfoY;
+	public static float startShareY;
+	public static float startSoundY;
+	public static float endInfoY;
+	public static float endShareY;
+	public static float endSoundY;
+	public static int aufzu = -1;
+	public static float yvalueInfo;
+	public static float yvalueShare;
+	public static float yvalueSound;
+
+
 	// Use this for initialization
 	public void Start () {
 		//PlayerPrefs.DeleteAll ();
+
+		buttonTrans = TransitionButtons (2.0f);
 
 
 		splash = GameObject.Find ("Splash");
@@ -115,8 +136,6 @@ public class LevelPlay : MonoBehaviour {
 		cam = Camera.main;
 		cam.gameObject.AddComponent <CameraPositionLevelPlay>();
 
-
-
 		//Initiate all variables
 		init ();
 
@@ -131,15 +150,6 @@ public class LevelPlay : MonoBehaviour {
 		transitionEnd = true;
 		loadButtons ();
 
-		//sound
-		if (PlayerPrefs.GetInt ("SoundIsOn", 1) == 1) {
-			soundOnButton.image.sprite = soundOnImage;
-			AudioListener.pause = false;
-		} else {
-			soundOnButton.image.sprite = soundOffImage;
-			AudioListener.pause = true;
-		}
-			
 	}
 
 	private void init(){
@@ -156,12 +166,15 @@ public class LevelPlay : MonoBehaviour {
 
 
 	public void Update () {
+
 		Vector2 input = InputManager.getInput ();
 
 		if (input.x == 0 && input.y == 0) {
-			if (InputManager.getClickTouchInput ()) {
-				print ("STARTLEVEL");
-				startLevel ();
+			if (!EventSystem.current.IsPointerOverGameObject ()) {
+				if (InputManager.getClickTouchInput ()) {
+					print ("STARTLEVEL");
+					startLevel ();
+				}
 			}
 		}
 
@@ -293,7 +306,6 @@ public class LevelPlay : MonoBehaviour {
 		if (gamePosition.y % 2 != 0)
 			return;
 		//setting currentLevel
-
 		levelmgr.setNextLevel(levelmgr.curLevel.getWorld(), levelmgr.curLevel.getLevel());
 
 		Fade.FadeAndStartScene ("GameScene", 3.0f);
@@ -344,13 +356,13 @@ public class LevelPlay : MonoBehaviour {
 		for (int j = 0; j < height; j++) { 
 			//add WorldBlock Field
 			if (j % 2 == 1) {
-				addField (0, j, 9);
+				addField (0, j, 0);
 				loadFieldColor (0, j);
 
 				continue;
 			}
 			for (int i = 0; i < level; i++) {
-				addField (i, j, 9);
+				addField (i, j, 0);
 				loadFieldColor (i, j);
 
 			}
@@ -379,7 +391,7 @@ public class LevelPlay : MonoBehaviour {
 		} else {
 			if(levelmgr.worldCompleted >= y/2) {
 				// Field Enabled
-				if (levelmgr.levels [y / 2, x].getCompleted () == 0) {
+				if (levelmgr.levels [y/2, x].getCompleted () == 0) {
 					fie.setColor(Col.ENABLEDCOLOR);
 				} else {
 					fie.setColor(Col.COMPLETEDCOLOR);
@@ -392,21 +404,21 @@ public class LevelPlay : MonoBehaviour {
 	}
 
 	private static void setColor(GameObject g, Color col){
-		g.GetComponent<MeshRenderer> ().material.SetColor("_DiffuseColor",col);
+		g.GetComponent<MeshRenderer> ().material.SetColor("_Color",col);
 	}
 
 	public void loadPlayer(){
 		//Create Player
-		playerobj = LevelPlay.prefabsMgr.generateObjectFromPrefab ("cube0");
+		playerobj = LevelPlay.prefabsMgr.generateObjectFromPrefab ("cube2");
 		playerobj.AddComponent<MeshRenderer> ().material = Materials.glanz;
-		playerobj.GetComponent<MeshRenderer>().material.SetColor("_DiffuseColor",Col.WEISS);
+		playerobj.GetComponent<MeshRenderer>().material.SetColor("_Color",Col.WEISS);
 		playerobj.transform.localScale = new Vector3 (0.3f, 0.3f, 0.3f);
 		playerobj.name = "PlayerDynamic";
 		playerobj.AddComponent <LevelPlayerController>();
 
 		Vector2 pos = new Vector2(PlayerPrefs.GetInt(LevelManager.NEXTLEVEL,0), PlayerPrefs.GetInt(LevelManager.NEXTWORLD,0));
 
-		playerobj.transform.position = new Vector3(pos.x, 1.39f, pos.y*2);
+		playerobj.transform.position = new Vector3(pos.x, 1.36f, pos.y * 2);
 		playerobj.transform.rotation = Quaternion.Euler(0, 0, 0);
 		playerobj.tag = "Player";
 		gamePosition = new Vector2 (pos.x, pos.y*2);
@@ -435,29 +447,43 @@ public class LevelPlay : MonoBehaviour {
 
 	public void loadButtons(){
 		listButton = GameObject.Find ("ListButton").GetComponent<Button> ();
-		soundOnButton = GameObject.Find ("SoundOnButton").GetComponent<Button> ();
+		soundButton = GameObject.Find ("SoundButton").GetComponent<Button> ();
 		shareButton = GameObject.Find ("ShareButton").GetComponent<Button> ();
 		infoButton = GameObject.Find ("InfoButton").GetComponent<Button> ();
 
-		startButtonPos = new Vector3 (infoButton.transform.position.x, infoButton.transform.position.y, infoButton.transform.position.z);
-		soundOnEndPosition = new Vector3 (infoButton.transform.position.x, infoButton.transform.position.y - 65, infoButton.transform.position.z);
-		shareEndPosition = new Vector3 (infoButton.transform.position.x, infoButton.transform.position.y - 130, infoButton.transform.position.z);
-		infoEndPosition = new Vector3 (infoButton.transform.position.x, infoButton.transform.position.y - 195, infoButton.transform.position.z);
+		soundEndPosition = listButton.transform.position.y - 50;
+		shareEndPosition = soundEndPosition - 100;
+		infoEndPosition = listButton.transform.position.y - 150;
 
 		soundOnImage = Resources.Load <Sprite>("soundOnButton");
 		soundOffImage = Resources.Load <Sprite>("soundOffButton");
 
+
+		if (PlayerPrefs.GetInt ("SoundOn", 1) == 1) {
+			soundButton.image.sprite = soundOnImage;
+		} else {
+			soundButton.image.sprite = soundOffImage;
+		}
+
+		yvalueInfo = listButton.transform.position.y;
+		yvalueShare = listButton.transform.position.y;
+		yvalueSound = listButton.transform.position.y;
+
 	}
 
 	public void onSoundOn(){
+		
 		if (PlayerPrefs.GetInt("SoundOn") == 1) {
 			AudioListener.pause = true;
-			soundOnButton.image.sprite = soundOffImage;
+			soundButton.image.overrideSprite = soundOffImage;
 			PlayerPrefs.SetInt ("SoundOn", 0);
+			print (PlayerPrefs.GetInt("SoundOn"));
+
 		} else {
 			AudioListener.pause = false;
-			soundOnButton.image.sprite = soundOnImage;
+			soundButton.image.overrideSprite = soundOnImage;
 			PlayerPrefs.SetInt ("SoundOn", 1);
+	
 		}
 	}
 		
@@ -465,79 +491,60 @@ public class LevelPlay : MonoBehaviour {
 		Share.IntentShareText ("This game is awesome! Get the game from play store: balblaLink!");
 	}
 
-	public void onInfo(){
+	public void onListButton(){
+		//aufzu = 1 == zu
+		//aufzu = -1 == auf
 
-	}
+		StopCoroutine (buttonTrans);//Stop Coroutine
 
+		aufzu = -aufzu; //toggle
 
-	public void onListButton(){ 
-		if (transitionEnd == true) {
-			StartCoroutine (TransitionButtons (0.5f));
-			if (listButtonClicked == false) {
-				listButtonClicked = true;
-			} else {
-				listButtonClicked = false;
-			}
+		if (aufzu == 1) { //öffnen
+			startInfoY = yvalueInfo;
+			endInfoY = listButton.transform.position.y - 150;
+			startShareY = yvalueShare;
+			endShareY = listButton.transform.position.y - 100;
+			startSoundY = yvalueSound;
+			endSoundY = listButton.transform.position.y - 50;
+		} else { // schließen
+			startInfoY = yvalueInfo;
+			endInfoY = listButton.transform.position.y;
+			startShareY = yvalueShare;
+			endShareY = listButton.transform.position.y;
+			startSoundY = yvalueSound;
+			endSoundY = listButton.transform.position.y;
+
 		}
-	}
 
+		float speed = Mathf.Abs (endInfoY - startInfoY) / 300;
+
+		buttonTrans = TransitionButtons (speed);
+
+		StartCoroutine (buttonTrans);
+	}
+		
 
 	IEnumerator TransitionButtons(float lerpSpeed)
 	{    
-		
+	
 		float t = 0.0f;
 
-		if (listButtonClicked == false) {
+		while (t < 1.0f) {
 			
-			while (t < 1.0f) {
-				
-				transitionEnd = false;
-				t += Time.deltaTime * (Time.timeScale / lerpSpeed);
+			t += Time.deltaTime * (Time.timeScale / lerpSpeed);
 
-				soundOnButton.transform.position = new Vector3 (
-					startButtonPos.x, Mathf.SmoothStep (startButtonPos.y, soundOnEndPosition.y, t), startButtonPos.z);
+			yvalueSound = Mathf.SmoothStep (startSoundY, endSoundY, t);
+			yvalueInfo = Mathf.SmoothStep (startInfoY, endInfoY, t);
+			yvalueShare = Mathf.SmoothStep (startShareY, endShareY, t);
 
-				shareButton.transform.position = new Vector3 (
-					startButtonPos.x, Mathf.SmoothStep (startButtonPos.y, shareEndPosition.y, t),startButtonPos.z);
+			infoButton.transform.position = new Vector3(listButton.transform.position.x, yvalueInfo, listButton.transform.position.z);
+			shareButton.transform.position = new Vector3(listButton.transform.position.x, yvalueShare, listButton.transform.position.z);
+			soundButton.transform.position = new Vector3(listButton.transform.position.x, yvalueSound, listButton.transform.position.z);
+			yield return 0;
 
-				infoButton.transform.position = new Vector3 (
-					startButtonPos.x, Mathf.SmoothStep (startButtonPos.y, infoEndPosition.y, t), startButtonPos.z);
-			
-				yield return 0;
-
-			}
-			transitionEnd = true;
-			InputManager.active = false;
-		
-		}else{
-			
-			while (t < 1.0f) {
-				
-				transitionEnd = false;
-				t += Time.deltaTime * (Time.timeScale / lerpSpeed);
-
-				soundOnButton.transform.position = new Vector3 (
-					Mathf.SmoothStep (soundOnEndPosition.x, startButtonPos.x, t),
-					Mathf.SmoothStep (soundOnEndPosition.y, startButtonPos.y, t),
-					Mathf.SmoothStep (soundOnEndPosition.z, startButtonPos.z, t));
-
-				shareButton.transform.position = new Vector3 (
-					Mathf.SmoothStep (shareEndPosition.x, startButtonPos.x, t),
-					Mathf.SmoothStep (shareEndPosition.y, startButtonPos.y, t),
-					Mathf.SmoothStep (shareEndPosition.z, startButtonPos.z, t));
-
-				infoButton.transform.position = new Vector3 (
-					Mathf.SmoothStep (infoEndPosition.x, startButtonPos.x, t),
-					Mathf.SmoothStep (infoEndPosition.y, startButtonPos.y, t),
-					Mathf.SmoothStep (infoEndPosition.z, startButtonPos.z, t));
-				
-				yield return 0;
-
-			}
-			transitionEnd = true;
-			InputManager.active = true;
 		}
-			
+		yield return 0;
+
 	}
 
 }

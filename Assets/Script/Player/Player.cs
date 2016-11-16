@@ -140,7 +140,7 @@ public class Player {
 
 	public void setColor(Color col){
 		curColor = col;
-		playerobj.GetComponent<MeshRenderer> ().material.SetColor("_DiffuseColor", col);
+		playerobj.GetComponent<MeshRenderer> ().material.SetColor("_Color", col);
 	}
 
 	public void setNextColor(){

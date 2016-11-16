@@ -14,6 +14,13 @@ public class SoundManager : MonoBehaviour{
 		audioSource = GameObject.Find ("Audio Source").GetComponent<AudioSource> ();
 		levelMusik = new AudioClip [12];
 		loadMusic ();
+
+		if (PlayerPrefs.GetInt ("SoundOn", 1) == 1) {
+			AudioListener.pause = false;
+		} else {
+			AudioListener.pause = true;
+		}
+
 	}
 
 	public void loadMusic(){
@@ -38,41 +45,47 @@ public class SoundManager : MonoBehaviour{
 	}
 
 	public static void playLevelMusic(int number){
-		audioSource = GameObject.Find ("Audio Source").GetComponent<AudioSource> ();
-		audioSource.clip = levelMusik[number];
-		audioSource.loop = true;
-		audioSource.Play ();
+
+			audioSource = GameObject.Find ("Audio Source").GetComponent<AudioSource> ();
+			audioSource.clip = levelMusik [number];
+			audioSource.loop = true;
+			audioSource.Play ();
+
 	}
 
 	public static void playMenuMusic(){
-		audioSource = GameObject.Find ("Audio Source").GetComponent<AudioSource> ();
-		audioSource.clip = menuMusik;
-		audioSource.loop = true;
-		audioSource.Play ();	
+		
+			audioSource = GameObject.Find ("Audio Source").GetComponent<AudioSource> ();
+			audioSource.clip = menuMusik;
+			audioSource.loop = true;
+			audioSource.Play ();	
 
 	}
 
 	public static void playSplashMusic(){
-		audioSource = GameObject.Find ("Audio Source").GetComponent<AudioSource> ();
-		audioSource.clip = splashMusik;
-		audioSource.volume = 10.0f;
-		audioSource.Play ();
+
+			audioSource = GameObject.Find ("Audio Source").GetComponent<AudioSource> ();
+			audioSource.clip = splashMusik;
+			audioSource.volume = 10.0f;
+			audioSource.Play ();
 
 	}
 
 	public static void playRotationSound(string SceneName){
-		if (SceneName == "GameScene") {
-			Vector3 pos = new Vector3 (Gameplay.cam.transform.position.x, Gameplay.cam.transform.position.y, Gameplay.cam.transform.position.z); 
-			playSound (rotationMusik, pos, 10.0f);
-		} else if (SceneName == "LevelScene") {
-			Vector3 pos = new Vector3 (LevelPlay.cam.transform.position.x, LevelPlay.cam.transform.position.z, LevelPlay.cam.transform.position.y); 
-			playSound (rotationMusik, pos, 10.0f);
-		}
+
+			if (SceneName == "GameScene") {
+				Vector3 pos = new Vector3 (Gameplay.cam.transform.position.x, Gameplay.cam.transform.position.y, Gameplay.cam.transform.position.z); 
+				playSound (rotationMusik, pos, 10.0f);
+			} else if (SceneName == "LevelScene") {
+				Vector3 pos = new Vector3 (LevelPlay.cam.transform.position.x, LevelPlay.cam.transform.position.z, LevelPlay.cam.transform.position.y); 
+				playSound (rotationMusik, pos, 10.0f);
+			}
 	}
 
 	public static void playGameoverMusic(){
-		Vector3 pos = new Vector3 (Gameplay.cam.transform.position.x, Gameplay.cam.transform.position.y, Gameplay.cam.transform.position.z); 
-		playSound (gameoverMusik, pos, 10.0f);
+
+			Vector3 pos = new Vector3 (Gameplay.cam.transform.position.x, Gameplay.cam.transform.position.y, Gameplay.cam.transform.position.z); 
+			playSound (gameoverMusik, pos, 10.0f);
 	}
 
 	public static void stopMusic(){

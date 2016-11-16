@@ -59,7 +59,7 @@ public class LevelPlayerController : MonoBehaviour {
 		}
 
 		//dursun
-		BackgroundManager.setParticleSystem(LevelPlay.cam);
+		//BackgroundManager.setParticleSystem(LevelPlay.cam);
 	}
 
 	void OnCollisionEnter(Collision coll)

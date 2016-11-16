@@ -54,6 +54,7 @@
      <Compile Include="Assets\Script\Gameplay\Gameplay.cs" />
      <Compile Include="Assets\Script\Gameplay\GameplayController.cs" />
      <Compile Include="Assets\Script\Gameplay\GamesceneManager.cs" />
+     <Compile Include="Assets\Script\Input\GyroController.cs" />
      <Compile Include="Assets\Script\Input\InputManager.cs" />
      <Compile Include="Assets\Script\Input\SwipeManager.cs" />
      <Compile Include="Assets\Script\Level\CameraPositionLevelPlay.cs" />

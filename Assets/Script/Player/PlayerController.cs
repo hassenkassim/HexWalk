@@ -45,9 +45,10 @@ public class PlayerController : MonoBehaviour {
 
 		if (input.x == 0 && input.y == 0) {
 			if (InputManager.getClickTouchInput ()) {
-				Gameplay.player.setNextColor();
+				Gameplay.player.setNextColor ();
 				return;
-			}
+			} else
+				return;
 		}
 
 		//check if move is allowed
@@ -121,22 +122,18 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	private bool moveAllowed(int x, int y){
-		Field field = null;
-		try {
-			field= Gameplay.gamefield.fields [(int)Gameplay.player.getGamePosition().x + x, (int)Gameplay.player.getGamePosition().y + y];
-			if (field.blocked () == true) {
-				return false;
-			} else {
-				return true;
-			}
-		} catch(System.Exception e){
-			/*if (e is System.NullReferenceException) {
-				print ("Field not available");
-			} else if (e is System.IndexOutOfRangeException) {
-				print ("Field Index out of Range");
-			}*/
+		return inGamefield (x, y);
+	}
+
+	private bool inGamefield(int x, int y){
+		int maxwidth = Gameplay.gamefield.fields.GetLength (0);
+		int maxheight = Gameplay.gamefield.fields.GetLength (1);
+
+		if ((int)Gameplay.player.getGamePosition ().x + x >= maxwidth|| (int)Gameplay.player.getGamePosition ().x + x < 0
+			|| (int)Gameplay.player.getGamePosition ().y + y >= maxheight || (int)Gameplay.player.getGamePosition ().y + y < 0) {
 			return false;
-		}
+		} 
+		return true;
 	}
 
 }

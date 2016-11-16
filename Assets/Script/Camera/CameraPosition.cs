@@ -13,8 +13,8 @@ using System.Collections;
  * */
 public class CameraPosition : MonoBehaviour {
 
-	readonly private Vector3 offsetPlayerCam = new Vector3 (0.0f, 3.0f, -4.0f);
-	readonly private Vector3 rotationPlayerCam = new Vector3 (36.5f, 0.0f, 0.0f);
+	readonly private Vector3 offsetPlayerCam = new Vector3 (0.0f, 3.0f, -5.0f);
+	readonly private Vector3 rotationPlayerCam = new Vector3 (30.5f, 0.0f, 0.0f);
 	private Vector3 offsetGamefieldCam;
 	readonly private Vector3 rotationGamefieldCam = new Vector3 (90.0f, 0.0f, 0.0f);
 
@@ -27,7 +27,7 @@ public class CameraPosition : MonoBehaviour {
 	 * CamID == 1: GamefieldCam
 	 * CamID == 2: PlayerCam - Just Rotation!
 	 * */
-	private int CamID;
+	public static int CamID = 1;
 
 	// Use this for initialization
 	void Start () {
@@ -53,15 +53,16 @@ public class CameraPosition : MonoBehaviour {
 		if (follow) {
 			if (CamID == 0) {
 				setPosition (Gameplay.player.getTransform ().position + offsetPlayerCam);
-				setRotation (rotationPlayerCam);
+				//setRotation (rotationPlayerCam);
+				//Quaternion vect = transform.rotation;
+				//setRotation (new Vector3(vect.x - Input.gyro.rotationRateUnbiased.x, vect.y - Input.gyro.rotationRateUnbiased.y, vect.z - Input.gyro.rotationRateUnbiased.z));
+
 			} else if (CamID == 1) {
 				setPosition (offsetGamefieldCam);
 				setRotation (rotationGamefieldCam);
 			} else if(CamID == 2){
-				float zaehler = (transform.position.z - Gameplay.player.playerobj.transform.position.z);
-				float nenner = (transform.position.y - Gameplay.player.playerobj.transform.position.y);
-				float rot = 90.0f - Mathf.Atan(zaehler/nenner) * Mathf.Rad2Deg * -1;
-				setRotation (new Vector3(rot,0,0));
+				Vector3 relativePos = Gameplay.player.playerobj.transform.position - transform.position;
+				transform.rotation = Quaternion.LookRotation (relativePos);
 			}	
 		}
 
@@ -123,7 +124,7 @@ public class CameraPosition : MonoBehaviour {
 
 
 		//dursun
-		BackgroundManager.setParticleSystem(Gameplay.cam);
+		//BackgroundManager.setParticleSystem(Gameplay.cam);
 
 		//enable Input
 		InputManager.active = true;

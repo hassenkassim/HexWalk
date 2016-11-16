@@ -63,7 +63,6 @@
      <Compile Include="Assets\Script\Level\LevelPlayerController.cs" />
      <Compile Include="Assets\Script\Level\PlayerPrefsX.cs" />
      <Compile Include="Assets\Script\Level\PrefabsManagerLevelPlay.cs" />
-     <Compile Include="Assets\Script\Level\Splash.cs" />
      <Compile Include="Assets\Script\Manager\LevelManager.cs" />
      <Compile Include="Assets\Script\Manager\MenuManager.cs" />
      <Compile Include="Assets\Script\Manager\PrefabsManager.cs" />
@@ -74,6 +73,10 @@
      <Compile Include="Assets\Script\Path\PathfinderController.cs" />
      <Compile Include="Assets\Script\Player\Player.cs" />
      <Compile Include="Assets\Script\Player\PlayerController.cs" />
+     <Compile Include="Assets\Script\Splash\PrefabsManagerSplashScene.cs" />
+     <Compile Include="Assets\Script\Splash\ProgressBar.cs" />
+     <Compile Include="Assets\Script\Splash\Splash.cs" />
+     <Compile Include="Assets\Script\Splash\SplashLoad.cs" />
      <Compile Include="Assets\Script\Utils\Col.cs" />
      <Compile Include="Assets\Script\Utils\DebugConsole.cs" />
      <Compile Include="Assets\Script\Utils\Fade.cs" />

@@ -11,7 +11,7 @@ public class BackgroundManager : MonoBehaviour
 {
 
 	public static void loadSkybox(Camera cam){ // if true = from GamePlay class, if false = from LevelPlay class
-			
+
 		cam.gameObject.AddComponent<Skybox> ();
 		cam.GetComponent<Skybox> ().material = Resources.Load<Material> ("skybox/skybox" + (((int)((LevelPlay.gamePosition.y) / 2 + 1)) - 1));
 	}

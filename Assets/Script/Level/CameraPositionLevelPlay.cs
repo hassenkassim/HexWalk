@@ -75,7 +75,7 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 			setRotation (startCamRotation);
 
 			//dursun
-			BackgroundManager.setParticleSystem (LevelPlay.cam);
+			//BackgroundManager.setParticleSystem (LevelPlay.cam);
 		} else if(LevelPlayerController.showID == 10) {
 			setPosition (LevelPlay.playerobj.transform.position + offsetPlayerCam);
 			setRotation (rotationPlayerCam);

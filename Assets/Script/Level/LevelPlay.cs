@@ -19,8 +19,6 @@ public class LevelPlay : MonoBehaviour {
 	public static int world;
 	public static int height;
 	public static int soundIsOn;
-	//public static int curWorld;
-	//public static int curLevel;
 
 	public static Level curLevel;
 
@@ -133,10 +131,10 @@ public class LevelPlay : MonoBehaviour {
 
 		//sound
 		if (PlayerPrefs.GetInt ("SoundIsOn", 1) == 1) {
-			soundOnButton.image.sprite = soundOnImage;
+			//soundOnButton.image.sprite = soundOnImage;
 			AudioListener.pause = false;
 		} else {
-			soundOnButton.image.sprite = soundOffImage;
+			//soundOnButton.image.sprite = soundOffImage;
 			AudioListener.pause = true;
 		}
 			
@@ -167,10 +165,6 @@ public class LevelPlay : MonoBehaviour {
 
 		if ((input.x != 0 || input.y != 0) && !isRotate) {
 			rotatePlayer (input.x, input.y);
-		}
-
-		if (!Camera.main.GetComponent<Skybox> ().material.name.Equals ("skybox" + (((int)((gamePosition.y) / 2 + 1)) - 1))) {
-			Fade.FadeAndNewWorld (1.0f);
 		}
 	}
 
@@ -227,31 +221,33 @@ public class LevelPlay : MonoBehaviour {
 	}
 
 	private bool moveAllowed(int x, int y){
-		Field field = null;
-		try {
-			field= fields [(int)gamePosition.x + x, (int)gamePosition.y + y];
-			if (field.blocked () == true) {
-				return false;
-			} else {
-				return true;
-			}
-		} catch(System.Exception e){
-			if (e is System.NullReferenceException) {
-				print ("Field not available");
-			} else if (e is System.IndexOutOfRangeException) {
-				print ("Field Index out of Range");
-			}
-			return false;
-		}
+		return inGamefield (x, y);
 	}
 
+	private bool inGamefield(int x, int y){
+		int maxwidth = fields.GetLength (0);
+		int maxheight = fields.GetLength (1);
+
+		int X = (int)gamePosition.x + x;
+		int Y = (int)gamePosition.y + y;
+
+		if (X >= maxwidth|| X < 0 || Y >= maxheight || Y < 0) {
+			return false;
+		} 
+
+		if (X != 0 && (Y % 2 == 1))
+			return false;
+
+		Field field = fields [X, Y];
+		if (field.blocked () == true) {
+			return false;
+		}
+		return true;
+	}
+
+
+
 	public static void collision(){
-		// dursun 
-		// change world to world number
-		/*if(!worldFaded){ // not for the first collision 
-			fading.fadeInOut=true;
-			worldFaded = true;
-		}*/
 			
 		levelmgr.setCurrentLevel ((int)gamePosition.y / 2, (int)gamePosition.x);
 
@@ -270,6 +266,10 @@ public class LevelPlay : MonoBehaviour {
 			enableText ();
 		} else {
 			disableText ();
+		}
+
+		if (!Camera.main.GetComponent<Skybox> ().material.name.Equals ("skybox" + (((int)((gamePosition.y) / 2 + 1)) - 1))) {
+			Fade.FadeAndNewWorld (1.0f);
 		}
 	}
 

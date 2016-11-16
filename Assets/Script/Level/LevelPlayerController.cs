@@ -43,7 +43,7 @@ public class LevelPlayerController : MonoBehaviour {
 		LevelPlay.enableText ();
 
 		//dursun
-		BackgroundManager.setParticleSystem(LevelPlay.cam);
+		//BackgroundManager.setParticleSystem(LevelPlay.cam);
 	}
 
 

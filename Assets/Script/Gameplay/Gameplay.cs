@@ -37,6 +37,7 @@ public class Gameplay : MonoBehaviour {
 	public static ScoreManager scoreMgr;
 	public static SoundManager soundMgr;
 	public static PrefabsManager prefabsMgr;
+	private BackgroundManager backgroundmgr;
 	public static GameObject pauseBtn;
 
 	public static float totalTime = 0f;
@@ -92,7 +93,9 @@ public class Gameplay : MonoBehaviour {
 		prefabsMgr = (PrefabsManager)GameObject.Find("System").GetComponent <PrefabsManager>();
 
 		//Get Level Properties
-		Level currentLevel = LevelPlay.levelmgr.getCurrentLevel ();
+		//Level currentLevel = LevelPlay.levelmgr.getCurrentLevel ();
+
+		Level currentLevel = LevelPlay.levelmgr.getLevel (11, 0);
 
 		GameObject.Find("WorldText").GetComponent<Text>().text = "World: " + (currentLevel.getWorld() + 1 );
 		GameObject.Find("LevelText").GetComponent<Text>().text = "Level: " + (currentLevel.getLevel() + 1);
@@ -200,8 +203,9 @@ public class Gameplay : MonoBehaviour {
 		Field field = gamefield.getField ((int)platePos.x, (int)platePos.y);
 
 		cam.GetComponent<CameraPosition> ().setToFollowPlayerByRotation ();
-		field.setColor (Color.red);
-		field.activateRigidbody ();
+
+		field.getGameobject().SetActive(false);
+
 
 		SoundManager.playGameoverMusic ();
 

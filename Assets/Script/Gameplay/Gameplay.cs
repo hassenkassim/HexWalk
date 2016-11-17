@@ -221,6 +221,7 @@ public class Gameplay : MonoBehaviour {
 		field.fractureCube (0.125f, field);
 
 		GamesceneManager.displayGameover ();
+
 	}
 
 	private static void setLevelToCompleted(){

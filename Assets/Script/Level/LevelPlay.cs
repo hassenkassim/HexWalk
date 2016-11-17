@@ -115,9 +115,6 @@ public class LevelPlay : MonoBehaviour {
 		cam = Camera.main;
 		cam.gameObject.AddComponent <CameraPositionLevelPlay> ();
 
-		//Disable Input
-		InputManager.active = false;
-
 		//Call Level Manager constructor
 		levelmgr = new LevelManager ();
 
@@ -276,6 +273,8 @@ public class LevelPlay : MonoBehaviour {
 
 		levelmgr.setCurrentLevel ((int)gamePosition.y / 2, (int)gamePosition.x);
 
+		InputManager.active = true;
+		
 		setCurrentFieldColor (Col.SELECTEDCOLOR);
 
 
@@ -421,7 +420,7 @@ public class LevelPlay : MonoBehaviour {
 
 	public void loadPlayer(){
 		//Create Player
-		playerobj = LevelPlay.prefabsMgr.generateObjectFromPrefab ("cube2");
+		playerobj = LevelPlay.prefabsMgr.generateObjectFromPrefab (SplashLoad.getCubeName());
 		playerobj.AddComponent<MeshRenderer> ().material = Materials.glanz;
 		playerobj.GetComponent<MeshRenderer>().material.SetColor("_Color",Col.WEISS);
 		playerobj.transform.localScale = new Vector3 (0.3f, 0.3f, 0.3f);

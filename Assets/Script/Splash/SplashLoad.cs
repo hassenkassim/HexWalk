@@ -9,6 +9,7 @@ public class SplashLoad : MonoBehaviour {
 	public static GameObject pointLight;
 	public static GameObject playerobj;
 	public static GameObject gameName;
+	public static string cubeName;
 
 	private Vector3 beginLight =new Vector3 (-5.0f, 10.0f, -1.0f);
 	private Vector3 endLight =new Vector3 (5.0f, 10.0f, -1.0f);
@@ -30,11 +31,11 @@ public class SplashLoad : MonoBehaviour {
 	
 		BackgroundManager.loadSkybox (cam);
 		BackgroundManager.setParticleSystem (cam);
+
+		setCubeName ("cube2");
+
 		//Load the Player
 		loadPlayer ();
-
-		cam.transform.position =new Vector3 (0.0f, 9.4f, -4.0f);
-		cam.transform.rotation= Quaternion.Euler(0.0f, 0.0f, 0.0f);
 
 		//Disable Input
 		InputManager.active = false;
@@ -67,10 +68,16 @@ public class SplashLoad : MonoBehaviour {
 		pointLight.transform.position = Vector3.Lerp (beginLight, endLight, Mathf.PingPong (Time.time*1.0f, 1.0f));
 	}
 
+	public static void setCubeName(string name){
+		cubeName = name;
+	}
+	public static string getCubeName(){
+		return cubeName;
+	}
 
 	public void loadPlayer(){
 		//Create Player
-		playerobj = prefabsMgr.generateObjectFromPrefab ("cube0");
+		playerobj = prefabsMgr.generateObjectFromPrefab (cubeName);
 		playerobj.AddComponent<MeshRenderer> ().material = Materials.glanz;
 		playerobj.GetComponent<MeshRenderer>().material.SetColor("_DiffuseColor",Col.WEISS);
 		playerobj.transform.localScale = new Vector3 (0.3f, 0.3f, 0.3f);

@@ -75,8 +75,10 @@ public class GamesceneManager : MonoBehaviour {
 		wonText.gameObject.SetActive (false);
 		gameoverText.gameObject.SetActive (true);
 
-
 	}
+
+
+
 
 	public static void displayWon(){
 

@@ -105,7 +105,7 @@ public class LevelPlay : MonoBehaviour {
 	// Use this for initialization
 	public void Start () {
 		
-		//PlayerPrefs.DeleteAll ();
+		PlayerPrefs.DeleteAll ();
 
 		buttonTrans = TransitionButtons (2.0f);
 
@@ -165,7 +165,6 @@ public class LevelPlay : MonoBehaviour {
 
 		//tolga
 		disableText();
-
 
 		//dursun
 		gameName = SplashLoad.prefabsMgr.generateObjectFromPrefab("gameName");
@@ -422,7 +421,7 @@ public class LevelPlay : MonoBehaviour {
 
 	public void loadPlayer(){
 		//Create Player
-		playerobj = LevelPlay.prefabsMgr.generateObjectFromPrefab ("cube2");
+		playerobj = LevelPlay.prefabsMgr.generateObjectFromPrefab ("cube0");
 		playerobj.AddComponent<MeshRenderer> ().material = Materials.glanz;
 		playerobj.GetComponent<MeshRenderer>().material.SetColor("_Color",Col.WEISS);
 		playerobj.transform.localScale = new Vector3 (0.3f, 0.3f, 0.3f);
@@ -433,7 +432,7 @@ public class LevelPlay : MonoBehaviour {
 
 
 		playerobj.transform.position =  new Vector3(pos.x, 1.39f +splash.GetComponent<Splash>().getSplashOffset(), pos.y*2); //new Vector3 (0.0f,9.4f,0.0f);
-		splash.GetComponent<Splash>().setSplashOffset(0.0f);
+		splash.GetComponent<Splash>().setSplashOffset(7.0f);
 		playerobj.transform.rotation = Quaternion.Euler(0, 0, 0);
 		playerobj.tag = "Player";
 		gamePosition = new Vector2 (pos.x, pos.y*2);

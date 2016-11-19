@@ -72,7 +72,7 @@ public class SplashLoad : MonoBehaviour {
 		//Create Player
 		playerobj = prefabsMgr.generateObjectFromPrefab ("cube0");
 		playerobj.AddComponent<MeshRenderer> ().material = Materials.glanz;
-		playerobj.GetComponent<MeshRenderer>().material.SetColor("_DiffuseColor",Col.WEISS);
+		playerobj.GetComponent<MeshRenderer>().material.SetColor("_Color",Col.WEISS);
 		playerobj.transform.localScale = new Vector3 (0.3f, 0.3f, 0.3f);
 	}
 

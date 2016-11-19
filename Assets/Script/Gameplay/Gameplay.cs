@@ -7,6 +7,7 @@
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.UI;
 
@@ -59,12 +60,13 @@ public class Gameplay : MonoBehaviour {
 	int version;
 
 	public static int colorCount; // How many Colors should be in the game
-//	public static int materialVersion; // How many Colors should be in the game
+	public static Gameplay instance;
 
 	static int offsetY;
 
 	void Awake() {
 		first = true;
+		instance = this;
 	}
 
 	// Use this for initialization
@@ -84,8 +86,6 @@ public class Gameplay : MonoBehaviour {
 		BackgroundManager.loadSkybox(cam);
 		Fade.StartFadeIn (2.0f);
 
-
-
 		//Call Score Manager constructor
 		scoreMgr = new ScoreManager();
 
@@ -95,7 +95,7 @@ public class Gameplay : MonoBehaviour {
 		//Get Level Properties
 		//Level currentLevel = LevelPlay.levelmgr.getCurrentLevel ();
 
-		Level currentLevel = LevelPlay.levelmgr.getLevel (11, 0);
+		Level currentLevel = LevelPlay.levelmgr.getLevel (11, 9);
 
 		//dursun
 		BackgroundManager.loadSkybox(cam);
@@ -220,7 +220,11 @@ public class Gameplay : MonoBehaviour {
 		explode = true;
 		field.fractureCube (0.125f, field);
 
-		GamesceneManager.displayGameover ();
+		InputManager.active = false;
+
+		instance.StartCoroutine (waitForGameover(3.0f));
+			
+		//GamesceneManager.displayGameover ();
 	}
 
 	private static void setLevelToCompleted(){
@@ -251,4 +255,12 @@ public class Gameplay : MonoBehaviour {
 		player.setColor (Col.GRUEN);
 		player.setColorCount (currentLevel.getColorCount ());
 	}
+
+	public static IEnumerator waitForGameover(float timetowait){
+	
+		yield return new WaitForSeconds (timetowait);
+		AdManager.showAd ();
+		Fade.FadeAndStartScene ("LevelScene", 2.0f, cam);
+	}
+		
 }

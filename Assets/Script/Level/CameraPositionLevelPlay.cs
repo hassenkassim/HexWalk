@@ -79,7 +79,7 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 		if (LevelPlayerController.showID == 0) {
 			//setPosition (walkLogo.transform.position + startCamPos);
 
-			setPosition (LevelPlay.playerobj.transform.position + startCamPos+Vector3.back*3.5f);
+			setPosition (LevelPlay.playerobj.transform.position + startCamPos + Vector3.back * 3.5f);
 
 
 			setRotation (startCamRotation);

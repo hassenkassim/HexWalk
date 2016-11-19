@@ -225,6 +225,7 @@ public class Gameplay : MonoBehaviour {
 		instance.StartCoroutine (waitForGameover(3.0f));
 			
 		//GamesceneManager.displayGameover ();
+
 	}
 
 	private static void setLevelToCompleted(){

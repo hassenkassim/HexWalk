@@ -34,7 +34,7 @@ public class GamesceneManager : MonoBehaviour {
 			AudioListener.pause = false;
 		}
 			
-		loadGameObjects ();
+		//loadGameObjects ();
 
 	}
 
@@ -42,7 +42,7 @@ public class GamesceneManager : MonoBehaviour {
 	void Update () {
 
 	}
-
+	/*
 	public void loadGameObjects(){
 
 		//Initialize Button
@@ -62,6 +62,7 @@ public class GamesceneManager : MonoBehaviour {
 
 
 	}
+	*/
 
 	public static void displayGameover(){
 
@@ -75,8 +76,10 @@ public class GamesceneManager : MonoBehaviour {
 		wonText.gameObject.SetActive (false);
 		gameoverText.gameObject.SetActive (true);
 
-
 	}
+
+
+
 
 	public static void displayWon(){
 

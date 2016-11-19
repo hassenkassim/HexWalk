@@ -33,10 +33,14 @@ public class Splash : MonoBehaviour {
 		SplashLoad.playerobj.transform.position =  new Vector3(pos.x, 1.39f + splashOffset, pos.y*2); 
 		SplashLoad.gameName = SplashLoad.prefabsMgr.generateObjectFromPrefab("gameName");
 		SplashLoad.gameName.GetComponent<Rigidbody>().useGravity=false;
-		SplashLoad.gameName.transform.position = new Vector3 (-1.1f,10.0f,0.0f);
+		SplashLoad.gameName.transform.position = new Vector3 (pos.x+-1.1f,1.39f + splashOffset+0.4f,pos.y*2);
 		SplashLoad.gameName.AddComponent<Splash> ();
 		SplashLoad.gameName.SetActive (true);
-		setSplashShown (1); //splash.GetComponent<Splash>().
+		setSplashShown (1); 
+
+		SplashLoad.cam.transform.position =new Vector3 (0.0f, 1.39f + splashOffset, pos.y*2-5);
+		SplashLoad.cam.transform.rotation= Quaternion.Euler(0.0f, 0.0f, 0.0f);
+
 		ProgressBar.loading=false;
 	}
 

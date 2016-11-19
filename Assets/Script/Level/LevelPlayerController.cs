@@ -19,7 +19,6 @@ public class LevelPlayerController : MonoBehaviour {
 	void Start () {
 		splash = GameObject.Find ("Splash");
 		if (splash.GetComponent<Splash> ().getSplashShown () == 0) {
-			SoundManager.playSplashMusic ();
 			showID = SHOWSPLASH;
 			timer = 6;
 		}
@@ -35,7 +34,6 @@ public class LevelPlayerController : MonoBehaviour {
 				}
 				break;
 			case SHOWLEVELWORLD:
-				
 				LevelPlay.cam.GetComponent<CameraPositionLevelPlay> ().startTransition ();
 				showID = 2;
 				break;

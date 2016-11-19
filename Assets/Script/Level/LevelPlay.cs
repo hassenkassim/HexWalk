@@ -105,7 +105,7 @@ public class LevelPlay : MonoBehaviour {
 	// Use this for initialization
 	public void Start () {
 		
-		PlayerPrefs.DeleteAll ();
+		//PlayerPrefs.DeleteAll ();
 
 		buttonTrans = TransitionButtons (2.0f);
 
@@ -114,9 +114,6 @@ public class LevelPlay : MonoBehaviour {
 		//Setup Camera
 		cam = Camera.main;
 		cam.gameObject.AddComponent <CameraPositionLevelPlay> ();
-
-		//Disable Input
-		InputManager.active = false;
 
 		//Call Level Manager constructor
 		levelmgr = new LevelManager ();
@@ -140,14 +137,6 @@ public class LevelPlay : MonoBehaviour {
 
 		//Initiate all variables
 		init ();
-
-			
-
-		//start music
-//		if (splash.GetComponent<Splash> ().getSplashShown () != 0) {
-//			SoundManager.playMenuMusic ();
-//		} 
-
 
 		//load buttons
 		transitionEnd = true;
@@ -269,13 +258,14 @@ public class LevelPlay : MonoBehaviour {
 		}
 		return true;
 	}
-
-
+		
 
 	public static void collision(){
 
 		levelmgr.setCurrentLevel ((int)gamePosition.y / 2, (int)gamePosition.x);
 
+		InputManager.active = true;
+		
 		setCurrentFieldColor (Col.SELECTEDCOLOR);
 
 
@@ -421,12 +411,14 @@ public class LevelPlay : MonoBehaviour {
 
 	public void loadPlayer(){
 		//Create Player
-		playerobj = LevelPlay.prefabsMgr.generateObjectFromPrefab ("cube0");
+
+		playerobj = LevelPlay.prefabsMgr.generateObjectFromPrefab (SplashLoad.getCubeName());
 		playerobj.AddComponent<MeshRenderer> ().material = Materials.glanz;
 		playerobj.GetComponent<MeshRenderer>().material.SetColor("_Color",Col.WEISS);
 		playerobj.transform.localScale = new Vector3 (0.3f, 0.3f, 0.3f);
 		playerobj.name = "PlayerDynamic";
 		playerobj.AddComponent <LevelPlayerController>();
+		setColor (playerobj, Col.ENABLEDCOLOR);
 
 		Vector2 pos = new Vector2(PlayerPrefs.GetInt(LevelManager.NEXTLEVEL,0), PlayerPrefs.GetInt(LevelManager.NEXTWORLD,0));
 

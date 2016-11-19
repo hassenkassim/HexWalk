@@ -1,22 +1,11 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Input/GyroController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Input/GyroControl.cs">
     <Files>
-      <File FileName="Assets/Script/Gameplay/Gameplay.cs" Line="205" Column="66" />
-      <File FileName="Assets/Script/Gamefield/GamefieldController.cs" Line="21" Column="18" />
-      <File FileName="Assets/Script/Level/Level.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Level/LevelPlayerController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Level/LevelPlay.cs" Line="287" Column="11" />
-      <File FileName="Assets/Script/Manager/SoundManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Level/CameraPositionLevelPlay.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Gamefield/Gamefield.cs" Line="31" Column="13" />
-      <File FileName="Assets/Script/Player/PlayerController.cs" Line="124" Column="1" />
-      <File FileName="Assets/Script/Utils/Fade.cs" Line="87" Column="27" />
-      <File FileName="Assets/Script/Gameplay/GameplayController.cs" Line="53" Column="1" />
-      <File FileName="Assets/Script/Gamefield/Field.cs" Line="180" Column="32" />
-      <File FileName="Assets/Script/Background/BackgroundManager.cs" Line="19" Column="70" />
-      <File FileName="Assets/Script/Camera/CameraPosition.cs" Line="7" Column="1" />
-      <File FileName="Assets/Script/Input/GyroController.cs" Line="259" Column="2" />
+      <File FileName="Assets/Script/Input/GyroController.cs" Line="48" Column="2" />
+      <File FileName="Assets/Script/Input/GyroControllerCustom.cs" Line="33" Column="58" />
+      <File FileName="Assets/Script/Input/DeviceRotation.cs" Line="32" Column="93" />
+      <File FileName="Assets/Script/Input/GyroControl.cs" Line="30" Column="15" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

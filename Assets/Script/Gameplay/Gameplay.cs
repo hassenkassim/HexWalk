@@ -222,7 +222,7 @@ public class Gameplay : MonoBehaviour {
 
 		InputManager.active = false;
 
-		instance.StartCoroutine (waitForGameover(3.0f));
+		instance.StartCoroutine (waitForGameover(4.0f));
 			
 		//GamesceneManager.displayGameover ();
 

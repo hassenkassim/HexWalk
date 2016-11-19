@@ -11,11 +11,14 @@ public class SplashLoad : MonoBehaviour {
 	public static GameObject gameName;
 	public static string cubeName;
 
-	private Vector3 beginLight =new Vector3 (-5.0f, 10.0f, -1.0f);
-	private Vector3 endLight =new Vector3 (5.0f, 10.0f, -1.0f);
+	private Vector3 beginLight = new Vector3 (-10.0f, 10.0f, -1.0f);
+	private Vector3 endLight = new Vector3 (10.0f, 10.0f, -1.0f);
 
 	// Use this for initialization
 	void Start () {
+
+		//Disable Input
+		InputManager.active = false;
 
 		Fade.StartFadeIn(2.0f);
 		//Call Prefab Manager constructor
@@ -38,37 +41,25 @@ public class SplashLoad : MonoBehaviour {
 		//Load the Player
 		loadPlayer ();
 
-		//Disable Input
-		InputManager.active = false;
-
 		// for the first splash; dursun
 		splash.GetComponent<Splash> ().initSplash();
 
 		if (splash.GetComponent<Splash> ().getSplashShown () == 0)
 			Fade.StartFadeIn(2.0f);
-			
+
 		//sound
 		if (PlayerPrefs.GetInt ("SoundIsOn", 1) == 1) {
-			//			soundOnButton.image.sprite = soundOnImage; 
 			AudioListener.pause = false;
 		} else {
-			//			soundOnButton.image.sprite = soundOffImage;
 			AudioListener.pause = true;
 		}
 	}
 
 	// Update is called once per frame
 	void Update () {
-		pointLight.transform.position = Vector3.Lerp (beginLight, endLight, Mathf.PingPong (Time.time*1.0f, 1.0f));
+		moveLight ();
 	}
-
-	public static void setCubeName(string name){
-		cubeName = name;
-	}
-	public static string getCubeName(){
-		return cubeName;
-	}
-
+		
 	public void loadPlayer(){
 		//Create Player
 		playerobj = prefabsMgr.generateObjectFromPrefab (cubeName);
@@ -84,6 +75,15 @@ public class SplashLoad : MonoBehaviour {
 		pointLight.GetComponent<Light> ().color = Color.white;
 		pointLight.transform.position = beginLight;
 	}
-
 		
+	private void moveLight(){
+		pointLight.transform.position = Vector3.Lerp (beginLight, endLight, Mathf.PingPong (Time.time*1.0f, 2.0f));
+	}
+
+	public static void setCubeName(string name){
+		cubeName = name;
+	}
+	public static string getCubeName(){
+		return cubeName;
+	}
 }

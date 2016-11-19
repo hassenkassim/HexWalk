@@ -27,10 +27,10 @@ public class LevelPlay : MonoBehaviour {
 	public float rotationPeriod = 0.25f;		
 	public float sideLength = 1f;			
 
-	public bool isRotate = false;					
-	public float directionX = 0;					
-	public float directionZ = 0;	
-	public float rotationTime = 0;					
+	public bool isRotate = false;
+	public float directionX = 0;
+	public float directionZ = 0;
+	public float rotationTime = 0;
 	public float radius;	
 
 	public static Player player;
@@ -129,11 +129,6 @@ public class LevelPlay : MonoBehaviour {
 
 		//Load Text Objects
 		loadGameObjects ();
-
-		//Setup Camera
-		//cam = Camera.main;
-		//cam.gameObject.AddComponent <CameraPositionLevelPlay>();
-
 
 		//Initiate all variables
 		init ();
@@ -425,6 +420,7 @@ public class LevelPlay : MonoBehaviour {
 
 		playerobj.transform.position =  new Vector3(pos.x, 1.39f +splash.GetComponent<Splash>().getSplashOffset(), pos.y*2); //new Vector3 (0.0f,9.4f,0.0f);
 		splash.GetComponent<Splash>().setSplashOffset(7.0f);
+		//splash.GetComponent<Splash>().setSplashOffset(0.0f);
 		playerobj.transform.rotation = Quaternion.Euler(0, 0, 0);
 		playerobj.tag = "Player";
 		gamePosition = new Vector2 (pos.x, pos.y*2);

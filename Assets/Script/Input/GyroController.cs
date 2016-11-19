@@ -1,278 +1,84 @@
-// ***********************************************************
-// Written by Heyworks Unity Studio http://unity.heyworks.com/
-// ***********************************************************
+﻿/************************************************
+ * HAMOTO Production 2016						*
+ * Project: HexWalk								*
+ * Authors: Tolga, Mohamed, Dursun, Hassen		*
+ * Year: 2016									*
+ *************************************************/
+
 using UnityEngine;
+using System.Collections;
 
-/// <summary>
-/// Gyroscope controller that works with any device orientation.
-/// </summary>
-public class GyroController : MonoBehaviour 
-{
-	#region [Private fields]
+/*
+ * This class manages the gyroscope control of the game.
+ * Only supports y-axis for now. Can be easily modified though.
+ * */
+public class GyroController : MonoBehaviour {
 
-	private Gyroscope gyro;
+	private bool gyroEnabled = false;
 
-	private bool gyroSupport;
-	private bool gyroEnabled = true;
-	private const float lowPassFilterFactor = 0.2f;
+	/* reference for the axes we want to detect changes 
+ 	*/
+	private float y;
 
-	private readonly Quaternion baseIdentity =  Quaternion.Euler(30, 0, 0);
-	private readonly Quaternion landscapeRight =  Quaternion.Euler(0, 0, 90);
-	private readonly Quaternion landscapeLeft =  Quaternion.Euler(0, 0, -90);
-	private readonly Quaternion upsideDown =  Quaternion.Euler(0, 0, 180);
-	
-	private Quaternion cameraBase =  Quaternion.identity;
-	private Quaternion calibration =  Quaternion.identity;
-	private Quaternion baseOrientation =  Quaternion.Euler(90, 0, 0);
-	private Quaternion baseOrientationRotationFix =  Quaternion.identity;
+	//offset rotation sensibility
+	static float sensitivity = 15.0f;
 
-	private Quaternion referanceRotation = Quaternion.identity;
-	private bool debug = true;
-
-	#endregion
-
-	#region [Unity events]
-
-	protected void Start () 
-	{
-		AttachGyro();
+	void Awake(){
+		InitGyro();
 	}
+	
+	// Update is called once per frame
+	void Update () {
 
-	protected void Update() 
-	{
+		//Wait for the Camera to reach starting point
 		if (CameraPosition.CamID != 0)
 			return;
-		if (!gyroEnabled)
-			return;
-
-		ApplyGyroRotation ();
-	}
-
-	private void ApplyGyroRotation(){
-		Quaternion fromRot = transform.rotation;
-		Vector3 fromRotEuler = fromRot.eulerAngles;
-		Quaternion toRot = cameraBase * (referanceRotation * Input.gyro.attitude * GetRotFix ());
-		Vector3 toRotEuler = toRot.eulerAngles;
-		toRotEuler = new Vector3 (fromRotEuler.x, toRotEuler.y, fromRotEuler.z);
-		Quaternion toRotFinal = Quaternion.Euler (toRotEuler);
-
-
-		transform.rotation = Quaternion.Slerp (fromRot, toRotFinal, lowPassFilterFactor);
-
-
-		/*transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x,
-			(Mathf.LerpAngle (transform.rotation.eulerAngles.y, cameraBase.eulerAngles.y * referanceRotation.eulerAngles.y * Input.gyro.attitude.eulerAngles.y, lowPassFilterFactor)),
-			transform.rotation.eulerAngles.z));
-
-
-		transform.rotation = Quaternion.Slerp(transform.rotation,
-			cameraBase * ( ConvertRotation(referanceRotation * Input.gyro.attitude) * GetRotFix()), lowPassFilterFactor);*/
-	}
-
-	protected void OnGUI()
-	{
-		if (!debug)
-			return;
-
-		GUILayout.Label("Orientation: " + Screen.orientation);
-		GUILayout.Label("Calibration: " + calibration);
-		GUILayout.Label("Camera base: " + cameraBase);
-		GUILayout.Label("input.gyro.attitude: " + Input.gyro.attitude);
-		GUILayout.Label("transform.rotation: " + transform.rotation);
-
-		if (GUILayout.Button("On/off gyro: " + Input.gyro.enabled, GUILayout.Height(100)))
-		{
-			Input.gyro.enabled = !Input.gyro.enabled;
-		}
-
-		if (GUILayout.Button("On/off gyro controller: " + gyroEnabled, GUILayout.Height(100)))
-		{
-			if (gyroEnabled)
-			{
-				DetachGyro();
-			}
-			else
-			{
-				AttachGyro();
-			}
-		}
-
-		if (GUILayout.Button("Update gyro calibration (Horizontal only)", GUILayout.Height(80)))
-		{
-			UpdateCalibration(true);
-		}
-
-		if (GUILayout.Button("Update camera base rotation (Horizontal only)", GUILayout.Height(80)))
-		{
-			UpdateCameraBaseRotation(true);
-		}
-
-		if (GUILayout.Button("Reset base orientation", GUILayout.Height(80)))
-		{
-			ResetBaseOrientation();
-		}
-
-		if (GUILayout.Button("Reset camera rotation", GUILayout.Height(80)))
-		{
-			transform.rotation = Quaternion.identity;
-		}
-	}
-
-	#endregion
-
-	#region [Public methods]
-
-	/// <summary>
-	/// Attaches gyro controller to the transform.
-	/// </summary>
-	private void AttachGyro()
-	{
-
-
-
-		CheckGyroscope ();
-		gyroEnabled = true;
-		ResetBaseOrientation();
-		UpdateCalibration(true);
-		UpdateCameraBaseRotation(true);
-		RecalculateReferenceRotation();
-	}
-
-	/// <summary>
-	/// Detaches gyro controller from the transform
-	/// </summary>
-	private void DetachGyro()
-	{
-		gyroEnabled = false;
-	}
-
-	#endregion
-
-	#region [Private methods]
-
-	/// <summary>
-	/// Update the gyro calibration.
-	/// </summary>
-	private void UpdateCalibration(bool onlyHorizontal)
-	{
-		if (onlyHorizontal)
-		{
-			var fw = (Input.gyro.attitude) * (-Vector3.forward);
-			fw.z = 0;
-			if (fw == Vector3.zero)
-			{
-				calibration = Quaternion.identity;
-			}
-			else
-			{
-				calibration = (Quaternion.FromToRotation(baseOrientationRotationFix * Vector3.up, fw));
-			}
-		}
-		else
-		{
-			calibration = Input.gyro.attitude;
-		}
-	}
-	
-	/// <summary>
-	/// Update the camera base rotation.
-	/// </summary>
-	/// <param name='onlyHorizontal'>
-	/// Only y rotation.
-	/// </param>
-	private void UpdateCameraBaseRotation(bool onlyHorizontal)
-	{
-		if (onlyHorizontal)
-		{
-			var fw = transform.forward;
-			fw.y = 0;
-			if (fw == Vector3.zero)
-			{
-				cameraBase = Quaternion.identity;
-			}
-			else
-			{
-				cameraBase = Quaternion.FromToRotation(Vector3.forward, fw);
-			}
-		}
-		else
-		{
-			cameraBase = transform.rotation;
-		}
-	}
-	
-	/// <summary>
-	/// Converts the rotation from right handed to left handed.
-	/// </summary>
-	/// <returns>
-	/// The result rotation.
-	/// </returns>
-	/// <param name='q'>
-	/// The rotation to convert.
-	/// </param>
-	private static Quaternion ConvertRotation(Quaternion q)
-	{
-		return new Quaternion(q.x, q.y, -q.z, -q.w);	
-	}
-	
-	/// <summary>
-	/// Gets the rot fix for different orientations.
-	/// </summary>
-	/// <returns>
-	/// The rot fix.
-	/// </returns>
-	private Quaternion GetRotFix()
-	{
-#if UNITY_3_5
-		if (Screen.orientation == ScreenOrientation.Portrait)
-			return Quaternion.identity;
 		
-		if (Screen.orientation == ScreenOrientation.LandscapeLeft || Screen.orientation == ScreenOrientation.Landscape)
-			return landscapeLeft;
-				
-		if (Screen.orientation == ScreenOrientation.LandscapeRight)
-			return landscapeRight;
-				
-		if (Screen.orientation == ScreenOrientation.PortraitUpsideDown)
-			return upsideDown;
-		return Quaternion.identity;
-#else
-		return Quaternion.identity;
-#endif
-	}
-
-	/// <summary>
-	/// Check Gyroscope availability
-	/// </summary>
-	private void CheckGyroscope(){
-		gyroSupport = SystemInfo.supportsGyroscope;
-
-		if (gyroSupport) {
-			gyro = Input.gyro;
-			gyroEnabled = true;
-			gyro.enabled = true;
-		} else {
-			gyroEnabled = false;
-			print ("NO GYRO");
+		//if gyroscope is supported start GyroRotation
+		if(gyroEnabled){
+			GyroRotation();
 		}
 	}
-	
-	/// <summary>
-	/// Recalculates reference system.
-	/// </summary>
-	private void ResetBaseOrientation()
-	{
-		baseOrientationRotationFix = GetRotFix();
-		baseOrientation = baseOrientationRotationFix * baseIdentity;
+
+
+	void InitGyro() {
+		if (HasGyroscope) {
+			Input.gyro.enabled = true;              // enable the gyroscope
+			Input.gyro.updateInterval = 0.0167f;    // set the update interval to it's highest value (60 Hz)
+			gyroEnabled = true;
+		} else {
+			// show a error message for the devices without a gyroscope
+			DebugConsole.Log("The device's gyroscope can't be detected");
+		}
 	}
 
-	/// <summary>
-	/// Recalculates reference rotation.
-	/// </summary>
-	private void RecalculateReferenceRotation()
-	{
-		referanceRotation = Quaternion.Inverse(baseOrientation)*Quaternion.Inverse(calibration);
+	bool HasGyroscope {
+		get {
+			return SystemInfo.supportsGyroscope;
+		}
 	}
 
-	#endregion
+	void GyroRotation(){
+		//get y-value from the gyroscope
+		y = Input.gyro.rotationRate.y;
+
+		//map the y rotationRate for continuos rotation when the device is moving
+		float yFiltered = FilterGyroValues(y);
+		RotateRightLeft(yFiltered);
+	}
+		
+	//to prevent "shaking" camera
+	float FilterGyroValues(float axis) {
+		if(axis < -0.1 || axis > 0.1){
+			return axis;
+		} else {
+			return 0.0f;
+		}
+	}
+
+	//rotate the camera rigt and left (y rotation)
+	void RotateRightLeft(float axis){
+		transform.RotateAround(transform.position, Vector3.up, -axis * Time.deltaTime * sensitivity);
+	}
+
 }

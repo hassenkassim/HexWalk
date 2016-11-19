@@ -87,6 +87,7 @@
      <Compile Include="Assets\Script\Utils\Pause.cs" />
      <Compile Include="Assets\Script\Utils\SavePlayerPrefs.cs" />
      <Compile Include="Assets\Script\Utils\Share.cs" />
+     <Compile Include="Assets\Script\Utils\SkyBoxChoosing.cs" />
      <None Include="Assets\Images\skybox\20\Moon Dust.txt" />
      <None Include="Assets\Images\skybox\7\readme.txt" />
      <None Include="Assets\Images\skybox\12\mp_cc.shader" />

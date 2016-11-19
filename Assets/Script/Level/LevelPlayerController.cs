@@ -35,7 +35,6 @@ public class LevelPlayerController : MonoBehaviour {
 				}
 				break;
 			case SHOWLEVELWORLD:
-				
 				LevelPlay.cam.GetComponent<CameraPositionLevelPlay> ().startTransition ();
 				showID = 2;
 				break;

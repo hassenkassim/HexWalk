@@ -27,10 +27,10 @@ public class LevelPlay : MonoBehaviour {
 	public float rotationPeriod = 0.25f;		
 	public float sideLength = 1f;			
 
-	public bool isRotate = false;					
-	public float directionX = 0;					
-	public float directionZ = 0;	
-	public float rotationTime = 0;					
+	public bool isRotate = false;
+	public float directionX = 0;
+	public float directionZ = 0;
+	public float rotationTime = 0;
 	public float radius;	
 
 	public static Player player;
@@ -115,9 +115,6 @@ public class LevelPlay : MonoBehaviour {
 		cam = Camera.main;
 		cam.gameObject.AddComponent <CameraPositionLevelPlay> ();
 
-		//Disable Input
-		InputManager.active = false;
-
 		//Call Level Manager constructor
 		levelmgr = new LevelManager ();
 
@@ -133,21 +130,8 @@ public class LevelPlay : MonoBehaviour {
 		//Load Text Objects
 		loadGameObjects ();
 
-		//Setup Camera
-		//cam = Camera.main;
-		//cam.gameObject.AddComponent <CameraPositionLevelPlay>();
-
-
 		//Initiate all variables
 		init ();
-
-			
-
-		//start music
-//		if (splash.GetComponent<Splash> ().getSplashShown () != 0) {
-//			SoundManager.playMenuMusic ();
-//		} 
-
 
 		//load buttons
 		transitionEnd = true;
@@ -270,13 +254,14 @@ public class LevelPlay : MonoBehaviour {
 		}
 		return true;
 	}
-
-
+		
 
 	public static void collision(){
 
 		levelmgr.setCurrentLevel ((int)gamePosition.y / 2, (int)gamePosition.x);
 
+		InputManager.active = true;
+		
 		setCurrentFieldColor (Col.SELECTEDCOLOR);
 
 
@@ -422,7 +407,7 @@ public class LevelPlay : MonoBehaviour {
 
 	public void loadPlayer(){
 		//Create Player
-		playerobj = LevelPlay.prefabsMgr.generateObjectFromPrefab ("cube2");
+		playerobj = LevelPlay.prefabsMgr.generateObjectFromPrefab (SplashLoad.getCubeName());
 		playerobj.AddComponent<MeshRenderer> ().material = Materials.glanz;
 		playerobj.GetComponent<MeshRenderer>().material.SetColor("_Color",Col.WEISS);
 		playerobj.transform.localScale = new Vector3 (0.3f, 0.3f, 0.3f);
@@ -432,7 +417,7 @@ public class LevelPlay : MonoBehaviour {
 		Vector2 pos = new Vector2(PlayerPrefs.GetInt(LevelManager.NEXTLEVEL,0), PlayerPrefs.GetInt(LevelManager.NEXTWORLD,0));
 
 
-		playerobj.transform.position =  new Vector3(pos.x, 1.39f +splash.GetComponent<Splash>().getSplashOffset(), pos.y*2); //new Vector3 (0.0f,9.4f,0.0f);
+		playerobj.transform.position =  new Vector3(pos.x, 1.39f + splash.GetComponent<Splash>().getSplashOffset(), pos.y*2); //new Vector3 (0.0f,9.4f,0.0f);
 		splash.GetComponent<Splash>().setSplashOffset(0.0f);
 		playerobj.transform.rotation = Quaternion.Euler(0, 0, 0);
 		playerobj.tag = "Player";

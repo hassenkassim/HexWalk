@@ -47,11 +47,6 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 			cubePosY = 1.36f;
 			posZ = -2.0f;//-0.303f;
 
-//			walkLogo = GameObject.Find ("walkText");
-//			cubeLogo = GameObject.Find ("cubeText");
-//
-//			walkLogo.transform.position = new Vector3 (posX, walkPosY, posZ);
-//			cubeLogo.transform.position = new Vector3 (posX, cubePosY, posZ);
 			setPosition (startCamPos);
 			setRotation (startCamRotation);
 			break;
@@ -81,18 +76,16 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 
 			setPosition (LevelPlay.playerobj.transform.position + startCamPos+Vector3.back*3.5f);
 
+			BackgroundManager.setParticleSystem (LevelPlay.cam);
 
 			setRotation (startCamRotation);
 
-			//dursun
-			BackgroundManager.setParticleSystem (LevelPlay.cam);
-
 		} else if(LevelPlayerController.showID == 10) {
+			
 			setPosition (LevelPlay.playerobj.transform.position + offsetPlayerCam);
 			setRotation (rotationPlayerCam);
 		}
 	}
-
 
 
 	public void setPosition(Vector3 pos){
@@ -115,7 +108,9 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 			//get Position on the fly
 			newPosition = LevelPlay.playerobj.transform.position + offsetPlayerCam;
 			Vector3 newRotation = rotationPlayerCam;
-		Vector3 startingPos = startCamPos;// + walkLogo.transform.position;
+
+		Vector3 startingPos = new Vector3(LevelPlay.playerobj.transform.position.x,LevelPlay.playerobj.transform.position.y,LevelPlay.playerobj.transform.position.z-5);//startCamPos;// + walkLogo.transform.position;
+			
 			currentAngle = transform.eulerAngles;
 
 			while (t < 1.0f) {
@@ -147,7 +142,6 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 
 			//enable Input
 			InputManager.active = true;
-
 
 			SoundManager.playMenuMusic ();
 			yield return 0;

@@ -6,11 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-<<<<<<< HEAD
     <ProjectGuid>{9BA87874-83A0-3F7E-CAB2-153B9F5F9716}</ProjectGuid>
-=======
-    <ProjectGuid>{6CF1A2D0-B507-0FB8-1F88-6F5F98AC256B}</ProjectGuid>
->>>>>>> c3e14d0c5864dc264ae151616c47e8c1f15b26f3
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -92,9 +88,6 @@
      <Compile Include="Assets\Script\Utils\SavePlayerPrefs.cs" />
      <Compile Include="Assets\Script\Utils\Share.cs" />
      <Compile Include="Assets\Script\Utils\SkyBoxChoosing.cs" />
- <Reference Include="UnityEngine.Advertisements">
- <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
- </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

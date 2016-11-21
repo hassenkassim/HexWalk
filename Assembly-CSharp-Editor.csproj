@@ -6,11 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-<<<<<<< HEAD
     <ProjectGuid>{99447A7F-BDF4-F484-B93C-682A29C39CDF}</ProjectGuid>
-=======
-    <ProjectGuid>{314BFFA8-8753-44A9-8D85-650281003414}</ProjectGuid>
->>>>>>> c3e14d0c5864dc264ae151616c47e8c1f15b26f3
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
@@ -50,9 +46,6 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Editor\CrossPlatformInput\CrossPlatformInputInitialize.cs" />
- <Reference Include="UnityEngine.Advertisements">
- <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
- </Reference>
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
  </Reference>
@@ -92,11 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp.csproj">
-<<<<<<< HEAD
       <Project>{9BA87874-83A0-3F7E-CAB2-153B9F5F9716}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
-=======
-      <Project>{6CF1A2D0-B507-0FB8-1F88-6F5F98AC256B}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
->>>>>>> c3e14d0c5864dc264ae151616c47e8c1f15b26f3
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

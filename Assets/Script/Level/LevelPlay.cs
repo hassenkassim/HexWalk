@@ -59,7 +59,7 @@ public class LevelPlay : MonoBehaviour {
 
 	public static PrefabsManagerLevelPlay prefabsMgr;
 
-	public GameObject splash;
+	public static GameObject splash;
 	public static GameObject gameName; //dursun
 
 	//Buttons
@@ -102,10 +102,14 @@ public class LevelPlay : MonoBehaviour {
 	public static float yvalueShare;
 	public static float yvalueSound;
 
+	public static bool landing;
+
 	// Use this for initialization
 	public void Start () {
 		
 		//PlayerPrefs.DeleteAll ();
+
+		InputManager.active = false;
 
 		buttonTrans = TransitionButtons (2.0f);
 
@@ -136,6 +140,11 @@ public class LevelPlay : MonoBehaviour {
 		//load buttons
 		transitionEnd = true;
 		loadButtons ();
+
+		//play music
+		setAudio ();
+
+		landing = false;
 
 	}
 		
@@ -259,7 +268,13 @@ public class LevelPlay : MonoBehaviour {
 
 		levelmgr.setCurrentLevel ((int)gamePosition.y / 2, (int)gamePosition.x);
 
-		InputManager.active = true;
+		if (splash.GetComponent<Splash> ().getSplashShown () == 2) {
+			InputManager.active = true;
+			if (landing == false) {
+				SoundManager.playMenuMusic ();
+				landing = true;
+			}
+		}
 		
 		setCurrentFieldColor (Col.SELECTEDCOLOR);
 
@@ -326,17 +341,13 @@ public class LevelPlay : MonoBehaviour {
 	}
 		
 	public static void setAudio(){
-
-		if (PlayerPrefs.HasKey ("soundIsOn") == false) {
-			PlayerPrefs.SetInt ("soundIsOn", 1);
+	
+		if (PlayerPrefs.GetInt ("soundIsOn", 1) == 1) {
 			AudioListener.pause = false;
-
 		} else {
-			if (PlayerPrefs.GetInt ("soundIsOn") == 1) {
-				AudioListener.pause = false;
-			} else {
-			}
+			AudioListener.pause = true;
 		}
+
 	}
 
 	//Load the Gamefield
@@ -452,9 +463,9 @@ public class LevelPlay : MonoBehaviour {
 		shareButton = GameObject.Find ("ShareButton").GetComponent<Button> ();
 		infoButton = GameObject.Find ("InfoButton").GetComponent<Button> ();
 
-		soundEndPosition = listButton.transform.position.y - 50;
-		shareEndPosition = soundEndPosition - 100;
-		infoEndPosition = listButton.transform.position.y - 150;
+		soundEndPosition = listButton.transform.position.y + listButton.transform.position.y/2;
+		shareEndPosition = soundEndPosition + listButton.transform.position.y + listButton.transform.position.y;
+		infoEndPosition = listButton.transform.position.y + listButton.transform.position.y + listButton.transform.position.y/2*3;
 
 
 		soundOnImage = Resources.Load <Sprite>("soundOnButton");

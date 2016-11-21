@@ -7,7 +7,6 @@ public class AdManager : MonoBehaviour {
 	public static string adID ="videoAd";
 
 	public static void showAd(){
-
 		//if(Advertisement.IsReady ()){
 			/*InputManager.active = false;
 			Advertisement.Show (adID, new ShowOptions(){resultCallback = handleAdResult});*/

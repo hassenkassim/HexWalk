@@ -60,7 +60,9 @@ public class Fade : MonoBehaviour {
 
 			yield return null;
 		}
-		InputManager.active = true;
+		if (Application.loadedLevelName != "GameScene") {
+			InputManager.active = true;
+		}
 		yield return null;
 	}
 
@@ -88,7 +90,9 @@ public class Fade : MonoBehaviour {
 
 			yield return null;
 		}
-		InputManager.active = true;
+		if (Application.loadedLevelName != "GameScene") {
+			InputManager.active = true;
+		}
 		yield return null;
 	}
 

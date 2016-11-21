@@ -31,6 +31,7 @@ public class GameplayController : MonoBehaviour {
 		//setup all timer here
 		timer = 1.0f;
 		showID = SHOWREADY;
+		InputManager.active = false;
 	}
 
 	// Update is called once per frame
@@ -62,7 +63,7 @@ public class GameplayController : MonoBehaviour {
 					if (Gameplay.first == true) {
 						Gameplay.cam.GetComponent<CameraPosition> ().startTransition ();
 					} else {
-						InputManager.active = true;
+						//InputManager.active = true;
 					}
 				}
 				return true;
@@ -79,6 +80,7 @@ public class GameplayController : MonoBehaviour {
 			if (PathfinderController.coloringEnd == true) {
 				if (timer < 0) {
 					showID = SHOWNOTHING2;
+					InputManager.active = true;
 				}
 				return true;
 			} else {

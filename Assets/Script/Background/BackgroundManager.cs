@@ -22,6 +22,9 @@ public class BackgroundManager : MonoBehaviour
 		if (cam.gameObject.GetComponent <ParticleSystem> () == null) {		
 			cam.gameObject.AddComponent <ParticleSystem> ();
 			ParticleSystem ps = cam.gameObject.GetComponent<ParticleSystem> ();
+
+			ps.GetComponent<Renderer>().material = (Material)Resources.Load ("ParticleGlow");
+
 			ps.maxParticles = 1000;
 			ps.startSize = 0.05f;
 			var sh = ps.shape;

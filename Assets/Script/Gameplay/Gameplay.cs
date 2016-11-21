@@ -82,6 +82,9 @@ public class Gameplay : MonoBehaviour {
 		cam = Camera.main;
 		cam.gameObject.AddComponent <CameraPosition>();
 
+
+		initLight ();
+
 		//dursun
 		BackgroundManager.loadSkybox(cam);
 		Fade.StartFadeIn (2.0f);
@@ -127,6 +130,14 @@ public class Gameplay : MonoBehaviour {
 		//Setup Button
 		pauseBtn = GameObject.Find("PauseButton");
 
+	}
+
+	void initLight(){
+		cam.gameObject.AddComponent<Light> ();
+		cam.GetComponent<Light> ().type = LightType.Directional;
+		cam.GetComponent<Light> ().transform.eulerAngles= new Vector3 (200.0f,140.0f,15.0f);
+
+		cam.GetComponent<Light> ().intensity = 0.8f;
 	}
 
 	void Update(){

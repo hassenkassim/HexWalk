@@ -65,6 +65,7 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 
 	void Update () {
 		if (splash.GetComponent<Splash> ().getSplashShown () == 1) {
+
 			setPosition (LevelPlay.playerobj.transform.position + offsetPlayerCam);
 			setRotation (rotationPlayerCam);
 			return;
@@ -80,11 +81,14 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 
 			setRotation (startCamRotation);
 
-		} else if(LevelPlayerController.showID == 10) {
-			
+		} else if (LevelPlayerController.showID == 10) {
 			setPosition (LevelPlay.playerobj.transform.position + offsetPlayerCam);
 			setRotation (rotationPlayerCam);
-		}
+		} else if (LevelPlayerController.showID == 9) {
+			// here first time after gamescene: different rotation
+			Vector3 relativePos = LevelPlay.playerobj.transform.position - transform.position;
+			LevelPlay.cam.transform.rotation = Quaternion.LookRotation (relativePos);
+		} 
 	}
 
 
@@ -139,6 +143,7 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 			splash.GetComponent<Splash> ().setSplashShown (1);
 			
 			LevelPlayerController.showID = 10;
+
 
 			//enable Input
 			InputManager.active = true;

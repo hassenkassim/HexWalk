@@ -55,7 +55,7 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 			splash.GetComponent<Splash> ().setSplashShown (2);
 			break;
 		default:
-			InputManager.active = true;
+			//InputManager.active = true;
 			setPosition (LevelPlay.playerobj.transform.position + offsetPlayerCam);
 			setRotation (rotationPlayerCam);
 			break;
@@ -74,7 +74,7 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 		if (LevelPlayerController.showID == 0) {
 			//setPosition (walkLogo.transform.position + startCamPos);
 
-			setPosition (LevelPlay.playerobj.transform.position + startCamPos+Vector3.back*3.5f);
+			setPosition (LevelPlay.playerobj.transform.position + startCamPos + Vector3.back * 3.5f);
 
 			BackgroundManager.setParticleSystem (LevelPlay.cam);
 

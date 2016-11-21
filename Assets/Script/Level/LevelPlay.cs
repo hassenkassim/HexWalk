@@ -27,10 +27,10 @@ public class LevelPlay : MonoBehaviour {
 	public float rotationPeriod = 0.25f;		
 	public float sideLength = 1f;			
 
-	public bool isRotate = false;					
-	public float directionX = 0;					
-	public float directionZ = 0;	
-	public float rotationTime = 0;					
+	public bool isRotate = false;
+	public float directionX = 0;
+	public float directionZ = 0;
+	public float rotationTime = 0;
 	public float radius;	
 
 	public static Player player;
@@ -59,7 +59,7 @@ public class LevelPlay : MonoBehaviour {
 
 	public static PrefabsManagerLevelPlay prefabsMgr;
 
-	public GameObject splash;
+	public static GameObject splash;
 	public static GameObject gameName; //dursun
 
 	//Buttons
@@ -102,10 +102,14 @@ public class LevelPlay : MonoBehaviour {
 	public static float yvalueShare;
 	public static float yvalueSound;
 
+	public static bool landing;
+
 	// Use this for initialization
 	public void Start () {
 		
 		//PlayerPrefs.DeleteAll ();
+
+		InputManager.active = false;
 
 		buttonTrans = TransitionButtons (2.0f);
 
@@ -130,25 +134,17 @@ public class LevelPlay : MonoBehaviour {
 		//Load Text Objects
 		loadGameObjects ();
 
-		//Setup Camera
-		//cam = Camera.main;
-		//cam.gameObject.AddComponent <CameraPositionLevelPlay>();
-
-
 		//Initiate all variables
 		init ();
-
-			
-
-		//start music
-//		if (splash.GetComponent<Splash> ().getSplashShown () != 0) {
-//			SoundManager.playMenuMusic ();
-//		} 
-
 
 		//load buttons
 		transitionEnd = true;
 		loadButtons ();
+
+		//play music
+		setAudio ();
+
+		landing = false;
 
 	}
 		
@@ -162,7 +158,6 @@ public class LevelPlay : MonoBehaviour {
 
 		//tolga
 		disableText();
-
 
 		//dursun
 		gameName = SplashLoad.prefabsMgr.generateObjectFromPrefab("gameName");
@@ -273,7 +268,13 @@ public class LevelPlay : MonoBehaviour {
 
 		levelmgr.setCurrentLevel ((int)gamePosition.y / 2, (int)gamePosition.x);
 
-		InputManager.active = true;
+		if (splash.GetComponent<Splash> ().getSplashShown () == 2) {
+			InputManager.active = true;
+			if (landing == false) {
+				SoundManager.playMenuMusic ();
+				landing = true;
+			}
+		}
 		
 		setCurrentFieldColor (Col.SELECTEDCOLOR);
 
@@ -340,17 +341,13 @@ public class LevelPlay : MonoBehaviour {
 	}
 		
 	public static void setAudio(){
-
-		if (PlayerPrefs.HasKey ("soundIsOn") == false) {
-			PlayerPrefs.SetInt ("soundIsOn", 1);
+	
+		if (PlayerPrefs.GetInt ("soundIsOn", 1) == 1) {
 			AudioListener.pause = false;
-
 		} else {
-			if (PlayerPrefs.GetInt ("soundIsOn") == 1) {
-				AudioListener.pause = false;
-			} else {
-			}
+			AudioListener.pause = true;
 		}
+
 	}
 
 	//Load the Gamefield
@@ -420,18 +417,21 @@ public class LevelPlay : MonoBehaviour {
 
 	public void loadPlayer(){
 		//Create Player
+
 		playerobj = LevelPlay.prefabsMgr.generateObjectFromPrefab (SplashLoad.getCubeName());
 		playerobj.AddComponent<MeshRenderer> ().material = Materials.glanz;
 		playerobj.GetComponent<MeshRenderer>().material.SetColor("_Color",Col.WEISS);
 		playerobj.transform.localScale = new Vector3 (0.3f, 0.3f, 0.3f);
 		playerobj.name = "PlayerDynamic";
 		playerobj.AddComponent <LevelPlayerController>();
+		setColor (playerobj, Col.ENABLEDCOLOR);
 
 		Vector2 pos = new Vector2(PlayerPrefs.GetInt(LevelManager.NEXTLEVEL,0), PlayerPrefs.GetInt(LevelManager.NEXTWORLD,0));
 
 
 		playerobj.transform.position =  new Vector3(pos.x, 1.39f +splash.GetComponent<Splash>().getSplashOffset(), pos.y*2); //new Vector3 (0.0f,9.4f,0.0f);
-		splash.GetComponent<Splash>().setSplashOffset(0.0f);
+		splash.GetComponent<Splash>().setSplashOffset(7.0f);
+		//splash.GetComponent<Splash>().setSplashOffset(0.0f);
 		playerobj.transform.rotation = Quaternion.Euler(0, 0, 0);
 		playerobj.tag = "Player";
 		gamePosition = new Vector2 (pos.x, pos.y*2);
@@ -463,9 +463,9 @@ public class LevelPlay : MonoBehaviour {
 		shareButton = GameObject.Find ("ShareButton").GetComponent<Button> ();
 		infoButton = GameObject.Find ("InfoButton").GetComponent<Button> ();
 
-		soundEndPosition = listButton.transform.position.y - 50;
-		shareEndPosition = soundEndPosition - 100;
-		infoEndPosition = listButton.transform.position.y - 150;
+		soundEndPosition = listButton.transform.position.y + listButton.transform.position.y/2;
+		shareEndPosition = soundEndPosition + listButton.transform.position.y + listButton.transform.position.y;
+		infoEndPosition = listButton.transform.position.y + listButton.transform.position.y + listButton.transform.position.y/2*3;
 
 
 		soundOnImage = Resources.Load <Sprite>("soundOnButton");

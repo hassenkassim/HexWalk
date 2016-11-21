@@ -14,7 +14,7 @@ using System.Collections;
 public class CameraPosition : MonoBehaviour {
 
 	readonly private Vector3 offsetPlayerCam = new Vector3 (0.0f, 3.0f, -5.0f);
-	readonly private Vector3 rotationPlayerCam = new Vector3 (30.5f, 0.0f, 0.0f);
+	readonly private Vector3 rotationPlayerCam = new Vector3 (29f, 0.0f, 0.0f);
 	private Vector3 offsetGamefieldCam;
 	readonly private Vector3 rotationGamefieldCam = new Vector3 (90.0f, 0.0f, 0.0f);
 

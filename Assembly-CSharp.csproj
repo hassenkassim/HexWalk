@@ -6,7 +6,11 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
+<<<<<<< HEAD
     <ProjectGuid>{9BA87874-83A0-3F7E-CAB2-153B9F5F9716}</ProjectGuid>
+=======
+    <ProjectGuid>{6CF1A2D0-B507-0FB8-1F88-6F5F98AC256B}</ProjectGuid>
+>>>>>>> c3e14d0c5864dc264ae151616c47e8c1f15b26f3
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -88,48 +92,9 @@
      <Compile Include="Assets\Script\Utils\SavePlayerPrefs.cs" />
      <Compile Include="Assets\Script\Utils\Share.cs" />
      <Compile Include="Assets\Script\Utils\SkyBoxChoosing.cs" />
-     <None Include="Assets\Images\skybox\20\Moon Dust.txt" />
-     <None Include="Assets\Images\skybox\7\readme.txt" />
-     <None Include="Assets\Images\skybox\12\mp_cc.shader" />
-     <None Include="Assets\Images\skybox\10\license.txt" />
-     <None Include="Assets\Images\skybox\13\mp_classm.shader" />
-     <None Include="Assets\Images\skybox\18\Bloody Marvelous.txt" />
-     <None Include="Assets\Images\skybox\20\license.txt" />
-     <None Include="Assets\Images\skybox\7\mp_5dim.shader" />
-     <None Include="Assets\Images\skybox\12\license.txt" />
-     <None Include="Assets\Images\skybox\11\mp_bloodvalley.shader" />
-     <None Include="Assets\Images\skybox\16\readme.txt" />
-     <None Include="Assets\Images\skybox\10\mp_aft.shader" />
-     <None Include="Assets\Images\skybox\8\mp_ac.shader" />
-     <None Include="Assets\Images\skybox\16\license.txt" />
-     <None Include="Assets\Images\skybox\9\mp_ae.shader" />
-     <None Include="Assets\Images\skybox\22\license.txt" />
-     <None Include="Assets\Images\skybox\21\mp_sc.shader" />
-     <None Include="Assets\Images\skybox\14\mp_cloud9.shader" />
-     <None Include="Assets\Images\skybox\2\icyhell.shader" />
-     <None Include="Assets\Images\skybox\17\mp_druidcove.shader" />
-     <None Include="Assets\Images\skybox\8\license.txt" />
-     <None Include="Assets\Images\skybox\15\mp_downunder.shader" />
-     <None Include="Assets\Images\skybox\9\license.txt" />
-     <None Include="Assets\Images\skybox\16\mp_drakeq.shader" />
-     <None Include="Assets\Images\skybox\11\Blood Valley.txt" />
-     <None Include="Assets\Images\skybox\14\license.txt" />
-     <None Include="Assets\Images\skybox\19\license.txt" />
-     <None Include="Assets\Images\skybox\10\readme.txt" />
-     <None Include="Assets\Images\skybox\19\mp_midnight.shader" />
-     <None Include="Assets\Images\skybox\8\readme.txt" />
-     <None Include="Assets\Images\skybox\18\mp_marvelous.shader" />
-     <None Include="Assets\Images\skybox\19\Midnight Silence.txt" />
-     <None Include="Assets\Images\skybox\17\license.txt" />
-     <None Include="Assets\Images\skybox\18\license.txt" />
-     <None Include="Assets\Images\skybox\11\license.txt" />
-     <None Include="Assets\Images\skybox\20\mp_moondust.shader" />
-     <None Include="Assets\Images\skybox\21\license.txt" />
-     <None Include="Assets\Images\skybox\15\Down Under.txt" />
-     <None Include="Assets\Images\skybox\15\license.txt" />
-     <None Include="Assets\Images\skybox\13\license.txt" />
-     <None Include="Assets\Images\skybox\7\license.txt" />
-     <None Include="Assets\Images\skybox\22\mp_vr.shader" />
+ <Reference Include="UnityEngine.Advertisements">
+ <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

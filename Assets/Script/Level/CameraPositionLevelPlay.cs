@@ -13,7 +13,6 @@ using System.Collections;
  * */
 public class CameraPositionLevelPlay : MonoBehaviour {
 
-	object transitionLock = new object();
 
 	public Vector3 offsetPlayerCam = new Vector3 (0.0f, 3.0f, -4.0f);
 	public Vector3 rotationPlayerCam = new Vector3 (36.5f, 0.0f, 0.0f);

@@ -11,8 +11,8 @@ public class SplashLoad : MonoBehaviour {
 	public static GameObject gameName;
 	public static string cubeName;
 
-	private Vector3 beginLight = new Vector3 (-10.0f, 10.0f, -1.0f);
-	private Vector3 endLight = new Vector3 (10.0f, 10.0f, -1.0f);
+	private Vector3 beginLight = new Vector3 (-5f, 10.0f, -1.0f);
+	private Vector3 endLight = new Vector3 (5f, 10.0f, -1.0f);
 
 	// Use this for initialization
 	void Start () {
@@ -77,7 +77,7 @@ public class SplashLoad : MonoBehaviour {
 	}
 		
 	private void moveLight(){
-		pointLight.transform.position = Vector3.Lerp (beginLight, endLight, Mathf.PingPong (Time.time*1.0f, 2.0f));
+		pointLight.transform.position = Vector3.Lerp (beginLight, endLight, Mathf.PingPong (Time.time*1.0f, 1f));
 	}
 
 	public static void setCubeName(string name){

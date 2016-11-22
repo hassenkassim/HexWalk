@@ -124,7 +124,7 @@ public class CameraPosition : MonoBehaviour {
 
 
 		//dursun
-		//BackgroundManager.setParticleSystem(Gameplay.cam);
+		BackgroundManager.setParticleSystem(Gameplay.cam);
 
 		//enable Input
 		InputManager.active = true;

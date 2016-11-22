@@ -76,13 +76,17 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 
 			setPosition (LevelPlay.playerobj.transform.position + startCamPos + Vector3.back * 3.5f);
 
-			BackgroundManager.setParticleSystem (LevelPlay.cam);
+			//BackgroundManager.setParticleSystem (LevelPlay.cam);
 
 			setRotation (startCamRotation);
 
 		} else if (LevelPlayerController.showID == 10) {
 			setPosition (LevelPlay.playerobj.transform.position + offsetPlayerCam);
 			setRotation (rotationPlayerCam);
+
+			//dursun
+			BackgroundManager.setParticleSystem(LevelPlay.cam);
+
 		} else if (LevelPlayerController.showID == 9) {
 			// here first time after gamescene: different rotation
 			Vector3 relativePos = LevelPlay.playerobj.transform.position - transform.position;
@@ -143,6 +147,8 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 			
 			LevelPlayerController.showID = 10;
 
+		//dursun
+		BackgroundManager.setParticleSystem(LevelPlay.cam);
 
 			//enable Input
 			InputManager.active = true;

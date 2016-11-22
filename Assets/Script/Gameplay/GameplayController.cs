@@ -80,7 +80,6 @@ public class GameplayController : MonoBehaviour {
 			if (PathfinderController.coloringEnd == true) {
 				if (timer < 0) {
 					showID = SHOWNOTHING2;
-					InputManager.active = true;
 				}
 				return true;
 			} else {

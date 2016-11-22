@@ -365,13 +365,13 @@ public class LevelPlay : MonoBehaviour {
 		for (int j = 0; j < height; j++) { 
 			//add WorldBlock Field
 			if (j % 2 == 1) {
-				addField (0, j, 7);
+				addField (0, j, 0);
 				loadFieldColor (0, j);
 
 				continue;
 			}
 			for (int i = 0; i < level; i++) {
-				addField (i, j, 7);
+				addField (i, j, 0);
 				loadFieldColor (i, j);
 
 			}

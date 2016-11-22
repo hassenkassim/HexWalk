@@ -65,7 +65,6 @@ public class CameraPosition : MonoBehaviour {
 				transform.rotation = Quaternion.LookRotation (relativePos);
 			}	
 		}
-
 	}
 
 

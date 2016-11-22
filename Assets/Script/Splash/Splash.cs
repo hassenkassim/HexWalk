@@ -15,7 +15,6 @@ public class Splash : MonoBehaviour {
 	void Update (){
 
 	}
-		
 
 	public int getSplashShown(){
 		return splashShown;

@@ -25,7 +25,7 @@ public class ProgressBar : MonoBehaviour {
 				SoundManager.stopMusicSmoothly ();
 			}
 			if (async.progress<0.9f) {
-				TextIndicator.GetComponent<Text> ().text = (progress + "%");
+				TextIndicator.GetComponent<Text> ().text = (Mathf.Round(progress * 100) + "%");
 				TextLoading.gameObject.SetActive (true);
 
 			} else {

@@ -174,11 +174,8 @@ public class LevelPlay : MonoBehaviour {
 		//dursun
 		gameName = SplashLoad.prefabsMgr.generateObjectFromPrefab("gameName");
 		gameName.GetComponent<Rigidbody>().useGravity=false;
-<<<<<<< HEAD
-		gameName.transform.position = new Vector3 (-1.1f+playerobj.transform.position.x,10.0f,playerobj.transform.position.z);
-=======
+
 		gameName.transform.position = new Vector3 (-1.1f + playerobj.transform.position.x,10.0f,playerobj.transform.position.z);
->>>>>>> b856ea3b48fa89eeedc267844e202e06cae30b53
 		gameName.AddComponent<Splash> ();
 		gameName.SetActive (true);
 	}

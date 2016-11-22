@@ -77,7 +77,9 @@ public class SplashLoad : MonoBehaviour {
 	}
 		
 	private void moveLight(){
-		pointLight.transform.position = Vector3.Lerp (beginLight, endLight, Mathf.PingPong (Time.time*1.0f, 1f));
+
+		pointLight.transform.position = Vector3.Lerp (beginLight, endLight, Mathf.PingPong (Time.time*1.0f, 1.0f));
+
 	}
 
 	public static void setCubeName(string name){

@@ -9,8 +9,13 @@ public class SoundManager : MonoBehaviour{
 	public static AudioClip splashMusik;
 	public static AudioClip rotationMusik;
 	public static AudioSource audioSource;
+	public static float volume;
+	public static SoundManager instance;
 
-	public void Start () {
+	void Awake() {
+		
+		instance = this;
+
 		audioSource = GameObject.Find ("Audio Source").GetComponent<AudioSource> ();
 		levelMusik = new AudioClip [12];
 		loadMusic ();
@@ -21,6 +26,10 @@ public class SoundManager : MonoBehaviour{
 			AudioListener.pause = true;
 		}
 
+	}
+
+	public void Update () {
+		
 	}
 
 	public void loadMusic(){
@@ -46,29 +55,37 @@ public class SoundManager : MonoBehaviour{
 
 	public static void playLevelMusic(int number){
 
-			audioSource = GameObject.Find ("Audio Source").GetComponent<AudioSource> ();
-			audioSource.clip = levelMusik [number];
-			audioSource.loop = true;
-			audioSource.Play ();
+		audioSource = GameObject.Find ("Audio Source").GetComponent<AudioSource> ();
+		audioSource.clip = levelMusik [number];
+		audioSource.loop = true;
+		instance.StartCoroutine (fadeInMusic (audioSource, 2.0f));	
+		//audioSource.Play ();
 
 	}
 
 	public static void playMenuMusic(){
 		
-			audioSource = GameObject.Find ("Audio Source").GetComponent<AudioSource> ();
-			audioSource.clip = menuMusik;
-			audioSource.loop = true;
-			audioSource.Play ();	
+		audioSource = GameObject.Find ("Audio Source").GetComponent<AudioSource> ();
+		audioSource.clip = menuMusik;
+		audioSource.loop = true;
+		instance.StartCoroutine (fadeInMusic (audioSource, 2.0f));
+		//audioSource.Play ();	
 
 	}
 
 	public static void playSplashMusic(){
 
-			audioSource = GameObject.Find ("Audio Source").GetComponent<AudioSource> ();
-			audioSource.clip = splashMusik;
-			audioSource.volume = 10.0f;
-			audioSource.Play ();
+		audioSource = GameObject.Find ("Audio Source").GetComponent<AudioSource> ();
+		audioSource.clip = splashMusik;
+		instance.StartCoroutine (fadeInMusic (audioSource, 2.0f));
+		//audioSource.volume = 10.0f;
+		//audioSource.Play ();
 
+	}
+
+	public static void stopMusicSmoothly(){
+		audioSource = GameObject.Find ("Audio Source").GetComponent<AudioSource> ();
+		instance.StartCoroutine (fadeOutMusic (audioSource, 0.8f));
 	}
 
 	public static void playRotationSound(string SceneName){
@@ -84,8 +101,8 @@ public class SoundManager : MonoBehaviour{
 
 	public static void playGameoverMusic(){
 
-			Vector3 pos = new Vector3 (Gameplay.cam.transform.position.x, Gameplay.cam.transform.position.y, Gameplay.cam.transform.position.z); 
-			playSound (gameoverMusik, pos, 10.0f);
+		Vector3 pos = new Vector3 (Gameplay.cam.transform.position.x, Gameplay.cam.transform.position.y, Gameplay.cam.transform.position.z); 
+		playSound (gameoverMusik, pos, 10.0f);
 	}
 
 	public static void stopMusic(){
@@ -94,5 +111,32 @@ public class SoundManager : MonoBehaviour{
 
 	public static void playSound(AudioClip sound, Vector3 sourcePos, float vol){
 		AudioSource.PlayClipAtPoint (sound, sourcePos, vol);
+	}
+
+	static IEnumerator fadeOutMusic(AudioSource source, float speed)
+	{
+		float t = 10.0f;
+		while (t > 0.0f) {
+			t -= Time.deltaTime/speed;
+			source.volume = t;
+			yield return new WaitForSeconds(0);
+		}
+		source.volume = 0.0f;
+		source.Stop ();
+		//source.loop = false;
+	}
+
+	static IEnumerator fadeInMusic(AudioSource source, float speed)
+	{
+		source.volume = 0.0f;
+		source.Play ();
+		//clip.loop = true;
+		float t = 0.0f;
+		while (t < 10.0f) {
+			print("AudioVolume: "+source.volume);
+			t += Time.deltaTime/speed;
+			source.volume = t;
+			yield return new WaitForSeconds(0);
+		}
 	}
 }

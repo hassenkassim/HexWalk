@@ -96,9 +96,9 @@ public class Gameplay : MonoBehaviour {
 		prefabsMgr = (PrefabsManager)GameObject.Find("System").GetComponent <PrefabsManager>();
 
 		//Get Level Properties
-		//Level currentLevel = LevelPlay.levelmgr.getCurrentLevel ();
+		Level currentLevel = LevelPlay.levelmgr.getCurrentLevel ();
 
-		Level currentLevel = LevelPlay.levelmgr.getLevel (11, 9);
+		//Level currentLevel = LevelPlay.levelmgr.getLevel (11, 9);
 
 		//dursun
 		BackgroundManager.loadSkybox(cam);
@@ -116,7 +116,7 @@ public class Gameplay : MonoBehaviour {
 		savePlayerPrefs= new SavePlayerPrefs();
 
 		//Create Gamefield
-		gamefield = new Gamefield (currentLevel.getWidth(), currentLevel.getHeight(), 1);
+		gamefield = new Gamefield (currentLevel.getWidth(), currentLevel.getHeight(), currentLevel.getWorld() + 1);
 
 		// Call Pathfinder constructor
 		pathfinder = new Pathfinder (currentLevel.getColorCount());
@@ -258,7 +258,7 @@ public class Gameplay : MonoBehaviour {
 		GameObject.Find("LevelText").GetComponent<Text>().text = "Level: " + (currentLevel.getLevel() + 1);
 
 
-		nextGamefield = new Gamefield (currentLevel.getWidth(), currentLevel.getHeight(), currentLevel.getColorCount(), offsetY, Gamefield.SLIDEFROMBOTTOM);
+		nextGamefield = new Gamefield (currentLevel.getWidth(), currentLevel.getHeight(), currentLevel.getWorld() + 1, offsetY, Gamefield.SLIDEFROMBOTTOM);
 		gamefield = nextGamefield;
 
 		// Call Pathfinder constructor

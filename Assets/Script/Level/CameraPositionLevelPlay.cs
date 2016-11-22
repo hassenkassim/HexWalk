@@ -160,4 +160,6 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 	public Transform getTransform(){
 		return LevelPlay.playerobj.transform;
 	}
+
+
 }

@@ -20,7 +20,7 @@ public class LevelPlayerController : MonoBehaviour {
 		splash = GameObject.Find ("Splash");
 		if (splash.GetComponent<Splash> ().getSplashShown () == 0) {
 			showID = SHOWSPLASH;
-			timer = 6;
+			timer = 2;
 		}
 
 	}

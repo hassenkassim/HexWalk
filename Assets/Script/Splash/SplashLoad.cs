@@ -36,7 +36,7 @@ public class SplashLoad : MonoBehaviour {
 		BackgroundManager.loadSkybox (cam);
 		BackgroundManager.setParticleSystem (cam);
 
-		setCubeName ("cube2");
+		setCubeName ("cube0");
 
 		//Load the Player
 		loadPlayer ();
@@ -77,7 +77,7 @@ public class SplashLoad : MonoBehaviour {
 	}
 		
 	private void moveLight(){
-		pointLight.transform.position = Vector3.Lerp (beginLight, endLight, Mathf.PingPong (Time.time*1.0f, 2.0f));
+		pointLight.transform.position = Vector3.Lerp (beginLight, endLight, Mathf.PingPong (Time.time*1.0f, 1.0f));
 	}
 
 	public static void setCubeName(string name){

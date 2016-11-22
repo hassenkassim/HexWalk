@@ -162,7 +162,7 @@ public class LevelPlay : MonoBehaviour {
 		//dursun
 		gameName = SplashLoad.prefabsMgr.generateObjectFromPrefab("gameName");
 		gameName.GetComponent<Rigidbody>().useGravity=false;
-		gameName.transform.position = new Vector3 (-1.1f,10.0f,playerobj.transform.position.z);
+		gameName.transform.position = new Vector3 (-1.1f + playerobj.transform.position.x,10.0f,playerobj.transform.position.z);
 		gameName.AddComponent<Splash> ();
 		gameName.SetActive (true);
 	}
@@ -176,6 +176,7 @@ public class LevelPlay : MonoBehaviour {
 			if (!EventSystem.current.IsPointerOverGameObject ()) {
 				if (InputManager.getClickTouchInput ()) {
 					print ("STARTLEVEL");
+					SoundManager.stopMusicSmoothly ();
 					startLevel ();
 				}
 			}
@@ -364,13 +365,13 @@ public class LevelPlay : MonoBehaviour {
 		for (int j = 0; j < height; j++) { 
 			//add WorldBlock Field
 			if (j % 2 == 1) {
-				addField (0, j, 0);
+				addField (0, j, 7);
 				loadFieldColor (0, j);
 
 				continue;
 			}
 			for (int i = 0; i < level; i++) {
-				addField (i, j, 0);
+				addField (i, j, 7);
 				loadFieldColor (i, j);
 
 			}

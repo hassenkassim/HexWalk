@@ -279,7 +279,7 @@ public class LevelPlay : MonoBehaviour {
 		
 
 	public static void collision(){
-
+		
 		levelmgr.setCurrentLevel ((int)gamePosition.y / 2, (int)gamePosition.x);
 
 		if (splash.GetComponent<Splash> ().getSplashShown () == 2) {
@@ -446,7 +446,7 @@ public class LevelPlay : MonoBehaviour {
 		playerobj.transform.position =  new Vector3(pos.x, 1.39f +splash.GetComponent<Splash>().getSplashOffset(), pos.y*2); //new Vector3 (0.0f,9.4f,0.0f);
 
 
-		splash.GetComponent<Splash>().setSplashOffset(4.0f);
+		splash.GetComponent<Splash>().setSplashOffset(20.0f);
 
 		playerobj.transform.rotation = Quaternion.Euler(0, 0, 0);
 		playerobj.tag = "Player";

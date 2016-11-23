@@ -216,6 +216,8 @@ public class Gameplay : MonoBehaviour {
 		};
 		print ("GAMEOVER!");
 
+
+
 		Vector2 platePos = player.getGamePosition ();
 		Field field = gamefield.getField ((int)platePos.x, (int)platePos.y);
 
@@ -237,6 +239,13 @@ public class Gameplay : MonoBehaviour {
 			
 		//GamesceneManager.displayGameover ();
 
+		//dursun 
+		LevelPlayerController.showID=9;
+		// if going back to levelscene start from a different cam
+		CameraPositionLevelPlay.setPos = false;
+		//deactivate the gameName
+		if(LevelPlay.gameName!=null)
+			LevelPlay.gameName.SetActive(false);
 	}
 
 	private static void setLevelToCompleted(){

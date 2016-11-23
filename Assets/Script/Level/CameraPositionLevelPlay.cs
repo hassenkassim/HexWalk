@@ -33,6 +33,7 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 	public float posZ;
 
 
+	public static bool setPos=false;
 
 	// Use this for initialization
 	void Start () {
@@ -88,9 +89,24 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 			BackgroundManager.setParticleSystem(LevelPlay.cam);
 
 		} else if (LevelPlayerController.showID == 9) {
+			InputManager.active = false;
+			Fade.StartFadeIn (2.0f);
 			// here first time after gamescene: different rotation
 			Vector3 relativePos = LevelPlay.playerobj.transform.position - transform.position;
 			LevelPlay.cam.transform.rotation = Quaternion.LookRotation (relativePos);
+			if (!setPos) {
+				setPos = true;
+				setPosition (new Vector3(10.0f,4.35f,0.0f));
+				setRotation (new Vector3(36.493f,0.0f,0.0f));
+			}
+				
+			if (LevelPlay.playerobj.transform.position.y <= 1.5f) {
+				InputManager.active = true;
+				LevelPlayerController.showID=10;
+				setPosition (LevelPlay.playerobj.transform.position + offsetPlayerCam);
+				setRotation (rotationPlayerCam);
+			}
+				
 		} 
 	}
 

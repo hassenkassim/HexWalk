@@ -10,6 +10,7 @@ public class Fade : MonoBehaviour {
 	public static GUITexture overlay;
 	private static bool changeScene = false; // to load new scene
 	private static bool changeWorld = false; // to load new world
+	private static bool changeCube=false;
 
 
 	void Awake(){ //called when an instance awakes in the game
@@ -42,6 +43,11 @@ public class Fade : MonoBehaviour {
 		changeWorld = true;
 		StartFadeOut (time, cam);
 	}
+	public static void FadeAndNewWorldForGameplay(float time, Camera cam){
+		changeWorld = true;
+		StartFadeOut (time, cam);
+		changeCube = true;
+	}
 
 	//fade to clear:
 	public static IEnumerator FadeIn(float fadeTime){
@@ -60,7 +66,7 @@ public class Fade : MonoBehaviour {
 
 			yield return null;
 		}
-		if (Application.loadedLevelName != "GameScene") {
+		if (Application.loadedLevelName == "LevelScene" && LevelPlay.playerobj.transform.position.y <= 1.5f) {
 			InputManager.active = true;
 		}
 		yield return null;
@@ -82,6 +88,10 @@ public class Fade : MonoBehaviour {
 				instance.StartCoroutine(FadeIn(fadeTime));
 				changeWorld=false;
 				BackgroundManager.loadSkybox (cam);
+				if (changeCube) {
+					Gameplay.changeCubeGameplay ();
+					changeCube = false;
+				}
 				yield break;
 			}
 
@@ -90,12 +100,15 @@ public class Fade : MonoBehaviour {
 
 			yield return null;
 		}
-		if (Application.loadedLevelName != "GameScene") {
-			InputManager.active = true;
-		}
+
+		// tolga vllt drinnen
+//		if (Application.loadedLevelName != "GameScene") {
+//			InputManager.active = true;
+//		}
+
 		yield return null;
 	}
-
+		
 
 	public static IEnumerator startScene() {
 		AsyncOperation async = Application.LoadLevelAsync(sceneStr);

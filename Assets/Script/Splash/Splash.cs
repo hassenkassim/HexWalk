@@ -29,6 +29,7 @@ public class Splash : MonoBehaviour {
 		//dursun
 		SplashLoad.playerobj.GetComponent<Rigidbody>().useGravity=false;
 
+
 		SplashLoad.playerobj.transform.position =  new Vector3(pos.x, 1.39f + splashOffset, pos.y*2); 
 		SplashLoad.gameName = SplashLoad.prefabsMgr.generateObjectFromPrefab("gameName");
 		SplashLoad.gameName.GetComponent<Rigidbody>().useGravity=false;
@@ -36,6 +37,7 @@ public class Splash : MonoBehaviour {
 		SplashLoad.gameName.AddComponent<Splash> ();
 		SplashLoad.gameName.SetActive (true);
 		setSplashShown (1); 
+
 
 		SplashLoad.cam.transform.position =new Vector3 (0.0f, 1.39f + splashOffset, pos.y*2-5);
 		SplashLoad.cam.transform.rotation= Quaternion.Euler(0.0f, 0.0f, 0.0f);

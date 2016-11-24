@@ -30,7 +30,7 @@ public class ProgressBar : MonoBehaviour {
 
 			} else {
 				TextLoading.gameObject.SetActive (false);
-				TextIndicator.GetComponent<Text> ().text = "Done!";
+				TextIndicator.GetComponent<Text> ().text = "100 %"; // Done
 			}
 			LoadingBar.GetComponent<Image> ().fillAmount = progress;
 			yield return async.isDone;

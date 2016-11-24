@@ -63,7 +63,7 @@ public class GameplayController : MonoBehaviour {
 					if (Gameplay.first == true) {
 						Gameplay.cam.GetComponent<CameraPosition> ().startTransition ();
 					} else {
-						//InputManager.active = true;
+						InputManager.active = true;
 					}
 				}
 				return true;

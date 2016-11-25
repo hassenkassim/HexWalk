@@ -162,7 +162,8 @@ public class Gameplay : MonoBehaviour {
 		Field field = gamefield.getField ((int)platePos.x, (int)platePos.y);
 
 		if (!Camera.main.GetComponent<Skybox> ().material.name.Equals ("skybox" +LevelPlay.levelmgr.curLevel.getWorld())){
-			Fade.FadeAndNewWorld (1.0f, cam);
+			//Fade.FadeAndNewWorld (1.0f, cam);
+			Fade.FadeAndNewWorldForGameplay (1.0f, cam);
 		}
 
 		int pointer = pathfinder.pointer;
@@ -241,11 +242,9 @@ public class Gameplay : MonoBehaviour {
 
 		//dursun 
 		LevelPlayerController.showID=9;
+
 		// if going back to levelscene start from a different cam
 		CameraPositionLevelPlay.setPos = false;
-		//deactivate the gameName
-		if(LevelPlay.gameName!=null)
-			LevelPlay.gameName.SetActive(false);
 	}
 
 	private static void setLevelToCompleted(){
@@ -284,4 +283,21 @@ public class Gameplay : MonoBehaviour {
 		Fade.FadeAndStartScene ("LevelScene", 2.0f, cam);
 	}
 		
+	// changes the cube for each world and sound
+	public static void changeCubeGameplay(){
+		//cube changing
+		Level currentLevel = LevelPlay.levelmgr.getCurrentLevel ();
+
+		Player tmp = new Player (currentLevel.getColorCount(), currentLevel.getWorld() + 1);
+		tmp.setPosition (Gameplay.player.playerobj.transform.position);
+		Destroy (Gameplay.player.playerobj);
+		Gameplay.player.playerobj = tmp.playerobj;
+
+		//sound changing
+		SoundManager.stopMusicSmoothly ();
+		SoundManager.playLevelMusic (currentLevel.getWorld() + 1);
+
+		InputManager.active = true;
+
+	}
 }

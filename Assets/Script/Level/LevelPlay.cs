@@ -171,13 +171,18 @@ public class LevelPlay : MonoBehaviour {
 		//tolga
 		disableText();
 
-		//dursun
-		gameName = SplashLoad.prefabsMgr.generateObjectFromPrefab("gameName");
-		gameName.GetComponent<Rigidbody>().useGravity=false;
+		print (splash.GetComponent<Splash> ().getSplashShown ());
 
-		gameName.transform.position = new Vector3 (-1.1f + playerobj.transform.position.x,10.0f,playerobj.transform.position.z);
-		gameName.AddComponent<Splash> ();
-		gameName.SetActive (true);
+		if (splash.GetComponent<Splash> ().getSplashShown () == 0) {
+			//dursun
+				gameName = SplashLoad.prefabsMgr.generateObjectFromPrefab ("gameName");
+				gameName.GetComponent<Rigidbody> ().useGravity = false;
+
+				gameName.transform.position = new Vector3 (-1.1f + playerobj.transform.position.x, 10.0f, playerobj.transform.position.z);
+				gameName.AddComponent<Splash> ();
+				gameName.SetActive (true);	
+		}
+		
 	}
 
 
@@ -283,10 +288,11 @@ public class LevelPlay : MonoBehaviour {
 		levelmgr.setCurrentLevel ((int)gamePosition.y / 2, (int)gamePosition.x);
 
 		if (splash.GetComponent<Splash> ().getSplashShown () == 2) {
-			InputManager.active = true;
+
 			if (landing == false) {
 				SoundManager.playMenuMusic ();
-				landing = true;
+				InputManager.active = true;
+				landing = true;			
 			}
 		}
 		

@@ -24,6 +24,8 @@ public class PathfinderController : MonoBehaviour {
 		coloringStarted = true;
 		coloringEnd = false;
 		instance.StartCoroutine(paintFieldWhite(timebetweenfields, startingIndex, path));
+
+
 	}
 
 	//This starts the coroutines (threads) for the timly painting of the fields (COLOR: FROM PATHFINDER CLASS)

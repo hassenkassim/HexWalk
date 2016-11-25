@@ -33,6 +33,7 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 	public float posZ;
 
 
+	public static bool setPos=false;
 
 	// Use this for initialization
 	void Start () {
@@ -64,6 +65,7 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 
 	void Update () {
 		if (splash.GetComponent<Splash> ().getSplashShown () == 1) {
+
 			setPosition (LevelPlay.playerobj.transform.position + offsetPlayerCam);
 			setRotation (rotationPlayerCam);
 			return;
@@ -75,15 +77,37 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 
 			setPosition (LevelPlay.playerobj.transform.position + startCamPos + Vector3.back * 3.5f);
 
-			BackgroundManager.setParticleSystem (LevelPlay.cam);
+			//BackgroundManager.setParticleSystem (LevelPlay.cam);
 
 			setRotation (startCamRotation);
 
-		} else if(LevelPlayerController.showID == 10) {
-			
+		} else if (LevelPlayerController.showID == 10) {
 			setPosition (LevelPlay.playerobj.transform.position + offsetPlayerCam);
 			setRotation (rotationPlayerCam);
-		}
+
+			//dursun
+			BackgroundManager.setParticleSystem(LevelPlay.cam);
+
+		} else if (LevelPlayerController.showID == 9) {
+			InputManager.active = false;
+			Fade.StartFadeIn (2.0f);
+			// here first time after gamescene: different rotation
+			Vector3 relativePos = LevelPlay.playerobj.transform.position - transform.position;
+			LevelPlay.cam.transform.rotation = Quaternion.LookRotation (relativePos);
+			if (!setPos) {
+				setPos = true;
+				setPosition (new Vector3(10.0f,4.35f,0.0f));
+				setRotation (new Vector3(36.493f,0.0f,0.0f));
+			}
+				
+			if (LevelPlay.playerobj.transform.position.y <= 1.5f) {
+				InputManager.active = true;
+				LevelPlayerController.showID=10;
+				setPosition (LevelPlay.playerobj.transform.position + offsetPlayerCam);
+				setRotation (rotationPlayerCam);
+			}
+				
+		} 
 	}
 
 
@@ -138,6 +162,9 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 			splash.GetComponent<Splash> ().setSplashShown (1);
 			
 			LevelPlayerController.showID = 10;
+
+		//dursun
+		BackgroundManager.setParticleSystem(LevelPlay.cam);
 
 			//enable Input
 			InputManager.active = true;

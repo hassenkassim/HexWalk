@@ -133,7 +133,7 @@ public class SoundManager : MonoBehaviour{
 		//clip.loop = true;
 		float t = 0.0f;
 		while (t < 10.0f) {
-			print("AudioVolume: "+source.volume);
+			//print("AudioVolume: "+source.volume);
 			t += Time.deltaTime/speed;
 			source.volume = t;
 			yield return new WaitForSeconds(0);

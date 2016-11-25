@@ -90,7 +90,6 @@ public class Pathfinder {
 
 			if (possibleSteps.Count > 1) {
 				int rand = Random.Range (0, 9);
-				Debug.Log ("random number: "+rand);
 				if (rand <= 3) { // 30% get closer to the end 
 					Vector2 schlepp = possibleSteps [0];
 					for (int k = 1; k < possibleSteps.Count; k++) {

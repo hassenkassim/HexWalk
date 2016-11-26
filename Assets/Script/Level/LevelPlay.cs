@@ -124,7 +124,7 @@ public class LevelPlay : MonoBehaviour {
 
 
 		//Call Level Manager constructor
-		levelmgr = new LevelManager ();
+		levelmgr = new LevelManager (); 
 
 		//Call Prefab Manager constructor
 		prefabsMgr = (PrefabsManagerLevelPlay)GameObject.Find ("System").GetComponent <PrefabsManagerLevelPlay> ();
@@ -178,7 +178,7 @@ public class LevelPlay : MonoBehaviour {
 				gameName = SplashLoad.prefabsMgr.generateObjectFromPrefab ("gameName");
 				gameName.GetComponent<Rigidbody> ().useGravity = false;
 
-				gameName.transform.position = new Vector3 (-1.1f + playerobj.transform.position.x, 10.0f, playerobj.transform.position.z);
+				gameName.transform.position = new Vector3 (-0.78f + playerobj.transform.position.x, 10.0f, playerobj.transform.position.z);
 				gameName.AddComponent<Splash> ();
 				gameName.SetActive (true);	
 		}
@@ -194,7 +194,8 @@ public class LevelPlay : MonoBehaviour {
 			if (!EventSystem.current.IsPointerOverGameObject ()) {
 				if (InputManager.getClickTouchInput ()) {
 					print ("STARTLEVEL");
-					SoundManager.stopMusicSmoothly ();
+					//SoundManager.stopMusicSmoothly ();
+					SoundManager.stopMusic ();
 					startLevel ();
 				}
 			}
@@ -290,7 +291,7 @@ public class LevelPlay : MonoBehaviour {
 		if (splash.GetComponent<Splash> ().getSplashShown () == 2) {
 
 			if (landing == false) {
-				SoundManager.playMenuMusic ();
+				SoundManager.playLevelMusic(levelmgr.curLevel.getWorld());
 				InputManager.active = true;
 				landing = true;			
 			}

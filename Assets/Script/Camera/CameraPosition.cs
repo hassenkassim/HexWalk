@@ -88,6 +88,7 @@ public class CameraPosition : MonoBehaviour {
 
 	public void setToFollowPlayerByRotation(){
 		CamID = 2;
+		PathfinderController.camID = true;
 	}
 		
 	IEnumerator TransitionGamefieldPlayer(float lerpSpeed)
@@ -126,6 +127,7 @@ public class CameraPosition : MonoBehaviour {
 		BackgroundManager.setParticleSystem(Gameplay.cam);
 
 		//enable Input
+		PathfinderController.camID = true;
 		InputManager.active = true;
 
 		follow = true;

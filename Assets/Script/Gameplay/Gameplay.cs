@@ -162,7 +162,6 @@ public class Gameplay : MonoBehaviour {
 		Field field = gamefield.getField ((int)platePos.x, (int)platePos.y);
 
 		if (!Camera.main.GetComponent<Skybox> ().material.name.Equals ("skybox" +LevelPlay.levelmgr.curLevel.getWorld())){
-			//Fade.FadeAndNewWorld (1.0f, cam);
 			Fade.FadeAndNewWorldForGameplay (1.0f, cam);
 		}
 
@@ -242,9 +241,11 @@ public class Gameplay : MonoBehaviour {
 
 		//dursun 
 		LevelPlayerController.showID=9;
-
 		// if going back to levelscene start from a different cam
 		CameraPositionLevelPlay.setPos = false;
+		//deactivate the gameName
+		if(LevelPlay.gameName!=null)
+			LevelPlay.gameName.SetActive(false);
 	}
 
 	private static void setLevelToCompleted(){
@@ -282,8 +283,7 @@ public class Gameplay : MonoBehaviour {
 		AdManager.showAd ();
 		Fade.FadeAndStartScene ("LevelScene", 2.0f, cam);
 	}
-		
-	// changes the cube for each world and sound
+
 	public static void changeCubeGameplay(){
 		//cube changing
 		Level currentLevel = LevelPlay.levelmgr.getCurrentLevel ();
@@ -300,4 +300,6 @@ public class Gameplay : MonoBehaviour {
 		InputManager.active = true;
 
 	}
+
+		
 }

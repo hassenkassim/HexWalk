@@ -25,6 +25,7 @@ public class GameplayController : MonoBehaviour {
 	private static int showID;
 	private static float timer;
 
+	public static LevelManager levelmanager;
 
 	// Use this for initialization
 	void Start () {
@@ -32,6 +33,7 @@ public class GameplayController : MonoBehaviour {
 		timer = 1.0f;
 		showID = SHOWREADY;
 		InputManager.active = false;
+		levelmanager = new LevelManager();
 	}
 
 	// Update is called once per frame
@@ -63,7 +65,7 @@ public class GameplayController : MonoBehaviour {
 					if (Gameplay.first == true) {
 						Gameplay.cam.GetComponent<CameraPosition> ().startTransition ();
 					} else {
-						InputManager.active = true;
+						
 					}
 				}
 				return true;

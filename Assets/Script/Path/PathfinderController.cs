@@ -14,10 +14,12 @@ public class PathfinderController : MonoBehaviour {
 
 	public static bool coloringStarted = false;
 	public static bool coloringEnd = true;
+	public static bool camID = false;
 
 	void Awake(){ //called when an instance awakes in the game
 		instance = this; //set our static reference to our newly initialized instance
 	}
+
 
 	//This starts the coroutines (threads) for the timly painting of the fields (COLOR: WHITE)
 	public static void paintWhitePath(float timebetweenfields, int startingIndex, List<Vector2> path){
@@ -43,6 +45,9 @@ public class PathfinderController : MonoBehaviour {
 			yield return new WaitForSeconds (timetowait);
 		}
 		coloringEnd = true;
+		if (camID == true) {
+			InputManager.active = true;
+		}
 		yield return 0;
 	}
 

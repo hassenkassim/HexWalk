@@ -22,7 +22,8 @@ public class ProgressBar : MonoBehaviour {
 			float progress = Mathf.Clamp01(async.progress / 0.9f);
 			//Debug.Log("Loading progress: " + (progress * 100) + "%");
 			if (async.progress<0.3f){
-				SoundManager.stopMusicSmoothly ();
+				//SoundManager.stopMusicSmoothly ();
+				SoundManager.stopMusic ();
 			}
 			if (async.progress<0.9f) {
 				TextIndicator.GetComponent<Text> ().text = (Mathf.Round(progress * 100) + "%");

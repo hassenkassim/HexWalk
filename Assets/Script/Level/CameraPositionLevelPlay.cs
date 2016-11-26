@@ -13,6 +13,7 @@ using System.Collections;
  * */
 public class CameraPositionLevelPlay : MonoBehaviour {
 
+	public static LevelManager levelmanager;
 
 	public Vector3 offsetPlayerCam = new Vector3 (0.0f, 3.0f, -4.0f);
 	public Vector3 rotationPlayerCam = new Vector3 (36.5f, 0.0f, 0.0f);
@@ -38,6 +39,7 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		splash = GameObject.Find ("Splash");
+		levelmanager = new LevelManager ();
 	
 		//dursun 
 		switch (splash.GetComponent<Splash> ().getSplashShown ()) {
@@ -169,7 +171,7 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 		//enable Input
 		InputManager.active = true;
 
-		SoundManager.playMenuMusic ();
+		SoundManager.playLevelMusic ((int)LevelPlay.playerobj.transform.position.z / 2 + 1);
 		yield return 0;
 	}
 

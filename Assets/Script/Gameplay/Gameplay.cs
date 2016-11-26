@@ -123,7 +123,7 @@ public class Gameplay : MonoBehaviour {
 
 		//tolga
 		//Load Musics
-		SoundManager.playLevelMusic(currentLevel.getWorld());
+		SoundManager.playLevelMusic(currentLevel.getWorld() + 1);
 
 		explode = false;
 
@@ -141,7 +141,6 @@ public class Gameplay : MonoBehaviour {
 	}
 
 	void Update(){
-
 		if (explode==true) {
 			Vector3 tmp = new Vector3 (player.getPosition ().x,player.getPosition ().y,player.getPosition ().z);
 			foreach (Collider col in Physics.OverlapSphere(transform.position,radius)) {
@@ -285,6 +284,7 @@ public class Gameplay : MonoBehaviour {
 	}
 
 	public static void changeCubeGameplay(){
+		Debug.Log ("changecube");
 		//cube changing
 		Level currentLevel = LevelPlay.levelmgr.getCurrentLevel ();
 
@@ -295,7 +295,7 @@ public class Gameplay : MonoBehaviour {
 
 		//sound changing
 		SoundManager.stopMusicSmoothly ();
-		SoundManager.playLevelMusic (currentLevel.getWorld() + 1);
+		SoundManager.playLevelMusic (currentLevel.getWorld());
 
 		InputManager.active = true;
 

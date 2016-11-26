@@ -11,7 +11,7 @@ public class Fade : MonoBehaviour {
 	public static GUITexture overlay;
 	private static bool changeScene = false; // to load new scene
 	private static bool changeWorld = false; // to load new world
-	private static bool changeCube=false;
+	private static bool changeCube = false;
 
 
 
@@ -22,6 +22,10 @@ public class Fade : MonoBehaviour {
 		overlay.gameObject.SetActive (false);
 
 		levelmgr = new LevelManager ();  
+	}
+
+	void Update(){
+		print ("changecube: " + changeCube + " changeScene: " + changeScene);
 	}
 
 
@@ -48,18 +52,18 @@ public class Fade : MonoBehaviour {
 		StartFadeOut (time, cam);
 	}
 	public static void FadeAndNewWorldForGameplay(float time, Camera cam){
+		changeCube = true;
 		changeWorld = true;
 		StartFadeOut (time, cam);
-		changeCube = true;
+
 
 	}
 
 	//fade to clear:
 	public static IEnumerator FadeIn(float fadeTime){
-		print ("fadein");
 		float rate = 1.5f/fadeTime;
 		float progress = 0.0f;
-
+		changeCube = true;
 		while (progress<1.0f) {
 			if (progress > 0.5f && changeScene) { // changing the scene 
 				instance.StartCoroutine(startScene ());
@@ -96,11 +100,11 @@ public class Fade : MonoBehaviour {
 			if (progress > 0.5f && changeScene) {
 				instance.StartCoroutine(startScene ());
 				changeScene = false;
-				if (changeCube) {
+				Debug.Log ("fade:"+changeCube);
+				if (changeCube == true) {
 					Gameplay.changeCubeGameplay ();
 					changeCube = false;
 				}
-
 				yield break;
 			}
 
@@ -116,11 +120,8 @@ public class Fade : MonoBehaviour {
 
 			yield return null;
 		}
-
-
 		yield return null;
 	}
-		
 
 	public static IEnumerator startScene() {
 		AsyncOperation async = Application.LoadLevelAsync(sceneStr);

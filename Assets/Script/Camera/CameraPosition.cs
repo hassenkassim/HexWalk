@@ -88,7 +88,7 @@ public class CameraPosition : MonoBehaviour {
 
 	public void setToFollowPlayerByRotation(){
 		CamID = 2;
-		PathfinderController.camID = true;
+		//PathfinderController.camID = true;
 	}
 		
 	IEnumerator TransitionGamefieldPlayer(float lerpSpeed)

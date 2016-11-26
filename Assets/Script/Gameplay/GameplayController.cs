@@ -41,7 +41,6 @@ public class GameplayController : MonoBehaviour {
 		if (changeState () == true) {
 			countTime ();
 		}
-		print (showID);
 	}
 
 	private bool changeState(){

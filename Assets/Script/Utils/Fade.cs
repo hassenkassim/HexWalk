@@ -52,7 +52,7 @@ public class Fade : MonoBehaviour {
 		StartFadeOut (time, cam);
 	}
 	public static void FadeAndNewWorldForGameplay(float time, Camera cam){
-		changeCube = true;
+		//changeCube = true;
 		changeWorld = true;
 		StartFadeOut (time, cam);
 
@@ -63,7 +63,6 @@ public class Fade : MonoBehaviour {
 	public static IEnumerator FadeIn(float fadeTime){
 		float rate = 1.5f/fadeTime;
 		float progress = 0.0f;
-		changeCube = true;
 		while (progress<1.0f) {
 			if (progress > 0.5f && changeScene) { // changing the scene 
 				instance.StartCoroutine(startScene ());

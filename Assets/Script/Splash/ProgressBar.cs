@@ -30,10 +30,58 @@ public class ProgressBar : MonoBehaviour {
 
 			} else {
 				TextLoading.gameObject.SetActive (false);
+				//because of fading maybe alpha is less than 1.. so set it to 1
+				Color tmp = TextIndicator.GetComponent<Text> ().color;
+				tmp.a = 1.0f;
+				TextIndicator.GetComponent<Text> ().color = tmp;
+
 				TextIndicator.GetComponent<Text> ().text = "100 %"; // Done
 			}
 			LoadingBar.GetComponent<Image> ().fillAmount = progress;
 			yield return async.isDone;
 		}
+	}
+
+	void Update(){
+		StartCoroutine (fadingLoadingbar ());
+	}
+
+	IEnumerator fadingLoadingbar(){
+		// loading bar fading
+//		Color tmp = LoadingBar.GetComponent<Image> ().color;
+//		while (true) {
+//			while (tmp.a > 0) {
+//				tmp.a -= 0.1f * Time.deltaTime * 20.5f;//Mathf.Lerp (0.0f, 1.0f, progress);
+//				LoadingBar.GetComponent<Image> ().color = tmp;
+//				yield return null;
+//			}
+//			while (tmp.a < 1) {
+//				tmp.a += 0.1f * Time.deltaTime * 20.5f;//Mathf.Lerp (0.0f, 1.0f, progress);
+//				LoadingBar.GetComponent<Image> ().color = tmp;
+//				yield return null;
+//			}
+//		}
+//		yield return null;
+
+		// loadingText fading
+		Color tmp = TextLoading.GetComponent<Text> ().color;
+		while (true) {
+			while (tmp.a > 0) {
+				tmp.a -= Time.deltaTime * 2.5f;
+				TextLoading.GetComponent<Text> ().color = tmp;
+				TextIndicator.GetComponent<Text> ().color = tmp;
+				yield return null;
+			}
+			while (tmp.a < 1) {
+				tmp.a +=  Time.deltaTime * 2.5f;
+				TextLoading.GetComponent<Text> ().color = tmp;
+				TextIndicator.GetComponent<Text> ().color = tmp;
+				yield return null;
+			}
+			while (tmp.a >= 1 && tmp.a < 2) {
+				tmp.a+= Time.deltaTime * 2.5f;
+			}
+		}
+		yield return null;
 	}
 }

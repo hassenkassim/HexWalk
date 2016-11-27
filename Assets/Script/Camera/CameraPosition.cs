@@ -126,11 +126,12 @@ public class CameraPosition : MonoBehaviour {
 		//dursun
 		BackgroundManager.setParticleSystem(Gameplay.cam);
 
-		//enable Input
-		PathfinderController.camID = true;
+		follow = true;
+
 		InputManager.active = true;
 
-		follow = true;
+		//enable Input
+		PathfinderController.camID = true;
 
 		yield return 0;
 	}

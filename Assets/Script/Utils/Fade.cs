@@ -23,12 +23,7 @@ public class Fade : MonoBehaviour {
 
 		levelmgr = new LevelManager ();  
 	}
-
-	void Update(){
-		print ("changecube: " + changeCube + " changeScene: " + changeScene);
-	}
-
-
+		
 	public static void StartFadeIn (float time){
 		InputManager.active = false;
 		overlay.gameObject.SetActive (true);
@@ -52,11 +47,11 @@ public class Fade : MonoBehaviour {
 		StartFadeOut (time, cam);
 	}
 	public static void FadeAndNewWorldForGameplay(float time, Camera cam){
-		//changeCube = true;
+
+		AdManager.showRewardedVideo ();
+		changeCube = true;
 		changeWorld = true;
 		StartFadeOut (time, cam);
-
-
 	}
 
 	//fade to clear:
@@ -77,8 +72,8 @@ public class Fade : MonoBehaviour {
 		//trotzdem lassen
 		if (Application.loadedLevelName == "LevelScene" && LevelPlay.playerobj.transform.position.y <= 1.5f) {
 			InputManager.active = true;
-			SoundManager.playLevelMusic ((int)LevelPlay.playerobj.transform.position.z / 2 + 1);
-		} else if (Application.loadedLevelName == "GameScene") {
+			//SoundManager.playLevelMusic ((int)LevelPlay.playerobj.transform.position.z / 2 + 1);
+		} else if (Application.loadedLevelName == "GameScene" && PathfinderController.camID == true) {
 			InputManager.active = true;
 		}
 		yield return null;
@@ -91,19 +86,14 @@ public class Fade : MonoBehaviour {
 		float rate = 1.5f/fadeTime;
 		float progress = 0.0f;
 
-		if (Application.loadedLevelName == "LevelScene") {
-			//SoundManager.stopMusicSmoothly ();
-			SoundManager.stopMusic ();
-		}
+		//if (Application.loadedLevelName == "LevelScene") {
+		//	SoundManager.stopMusic ();
+		//}
+
 		while (progress<1.0f) {
 			if (progress > 0.5f && changeScene) {
 				instance.StartCoroutine(startScene ());
 				changeScene = false;
-				Debug.Log ("fade:"+changeCube);
-				if (changeCube == true) {
-					Gameplay.changeCubeGameplay ();
-					changeCube = false;
-				}
 				yield break;
 			}
 
@@ -111,6 +101,10 @@ public class Fade : MonoBehaviour {
 				instance.StartCoroutine(FadeIn(fadeTime));
 				changeWorld=false;
 				BackgroundManager.loadSkybox (cam);
+				if (changeCube == true) {
+					Gameplay.changeCubeGameplay ();
+					changeCube = false;
+				}
 				yield break;
 			}
 

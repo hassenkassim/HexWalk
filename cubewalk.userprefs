@@ -1,21 +1,21 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Gameplay/Gameplay.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Level/LevelPlay.cs">
     <Files>
+      <File FileName="Assets/Script/Level/LevelPlay.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Utils/Fade.cs" Line="1" Column="1" />
       <File FileName="Assets/Script/Level/LevelPlayerController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Gameplay/Gameplay.cs" Line="277" Column="48" />
-      <File FileName="Assets/Script/Utils/Fade.cs" Line="81" Column="31" />
-      <File FileName="Assets/Script/Path/PathfinderController.cs" Line="45" Column="21" />
-      <File FileName="Assets/Script/Splash/Splash.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Splash/ProgressBar.cs" Line="17" Column="20" />
+      <File FileName="Assets/Script/Gameplay/Gameplay.cs" Line="1" Column="1" />
       <File FileName="Assets/Script/Path/Pathfinder.cs" Line="1" Column="1" />
       <File FileName="Assets/Script/Gameplay/GameplayController.cs" Line="1" Column="1" />
       <File FileName="Assets/Script/Gamefield/Gamefield.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Level/LevelPlay.cs" Line="293" Column="27" />
       <File FileName="Assets/Script/Splash/SplashLoad.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Manager/SoundManager.cs" Line="139" Column="21" />
-      <File FileName="Assets/Script/Level/CameraPositionLevelPlay.cs" Line="60" Column="6" />
-      <File FileName="Assets/Script/Camera/CameraPosition.cs" Line="91" Column="5" />
+      <File FileName="Assets/Script/Manager/SoundManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Level/CameraPositionLevelPlay.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Player/Player.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Camera/CameraPosition.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Path/PathfinderController.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Manager/LevelManager.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

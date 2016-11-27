@@ -109,6 +109,8 @@ public class LevelPlay : MonoBehaviour {
 		
 		//PlayerPrefs.DeleteAll ();
 
+		print(AdManager.adFrequence);
+
 		InputManager.active = false;
 
 		buttonTrans = TransitionButtons (2.0f);
@@ -194,7 +196,6 @@ public class LevelPlay : MonoBehaviour {
 			if (!EventSystem.current.IsPointerOverGameObject ()) {
 				if (InputManager.getClickTouchInput ()) {
 					print ("STARTLEVEL");
-					//SoundManager.stopMusicSmoothly ();
 					SoundManager.stopMusic ();
 					startLevel ();
 				}
@@ -291,7 +292,7 @@ public class LevelPlay : MonoBehaviour {
 		if (splash.GetComponent<Splash> ().getSplashShown () == 2) {
 
 			if (landing == false) {
-				SoundManager.playLevelMusic(levelmgr.curLevel.getWorld());
+				SoundManager.playMenuMusic ();
 				InputManager.active = true;
 				landing = true;			
 			}
@@ -581,6 +582,15 @@ public class LevelPlay : MonoBehaviour {
 		}
 		yield return 0;
 
+	}
+
+	public void showAd(){
+		AdManager.adFrequence = 3;
+		AdManager.showVideo ();
+	}
+
+	public void showRewarded(){
+		AdManager.showRewardedVideo ();
 	}
 
 }

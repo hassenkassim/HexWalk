@@ -31,8 +31,10 @@ public class Splash : MonoBehaviour {
 
 
 		SplashLoad.playerobj.transform.position =  new Vector3(pos.x, 1.39f + splashOffset, pos.y*2); 
+
 		SplashLoad.gameName = SplashLoad.prefabsMgr.generateObjectFromPrefab("gameName");
 		SplashLoad.gameName.GetComponent<Rigidbody>().useGravity=false;
+
 		SplashLoad.gameName.transform.position = new Vector3 (pos.x+-0.8f,1.39f + splashOffset+0.4f,pos.y*2);
 		SplashLoad.gameName.AddComponent<Splash> ();
 		SplashLoad.gameName.SetActive (true);

@@ -78,9 +78,6 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 			//setPosition (walkLogo.transform.position + startCamPos);
 
 			setPosition (LevelPlay.playerobj.transform.position + startCamPos + Vector3.back * 3.5f);
-
-			//BackgroundManager.setParticleSystem (LevelPlay.cam);
-
 			setRotation (startCamRotation);
 
 		} else if (LevelPlayerController.showID == 10) {
@@ -93,6 +90,8 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 		} else if (LevelPlayerController.showID == 9) {
 			Fade.StartFadeIn (2.0f);
 			// here first time after gamescene: different rotation
+			BackgroundManager.setParticleSystem(LevelPlay.cam);
+
 			Vector3 relativePos = LevelPlay.playerobj.transform.position - transform.position;
 			LevelPlay.cam.transform.rotation = Quaternion.LookRotation (relativePos);
 			LevelPlay.cam.transform.position = new Vector3 (LevelPlay.playerobj.transform.position.x+offsetPlayerCam.x,1.35f+offsetPlayerCam.y,LevelPlay.playerobj.transform.position.z+offsetPlayerCam.z);

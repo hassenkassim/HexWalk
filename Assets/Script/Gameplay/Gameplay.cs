@@ -182,7 +182,7 @@ public class Gameplay : MonoBehaviour {
 			Fade.FadeAndNewWorldForGameplay (1.0f, cam);
 		}
 
-		int pointer = pathfinder.pointer;
+//		int pointer = pathfinder.pointer;
 		if (field.getColor ().Equals (Col.GRUEN))
 			return;
 		if (platePos.x == pathfinder.end.x && platePos.y == pathfinder.end.y) {

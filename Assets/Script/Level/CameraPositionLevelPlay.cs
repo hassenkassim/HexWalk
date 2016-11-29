@@ -171,7 +171,7 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 		//enable Input
 		InputManager.active = true;
 
-		SoundManager.playLevelMusic ((int)LevelPlay.playerobj.transform.position.z / 2 + 1);
+		SoundManager.playMenuMusic ();
 		yield return 0;
 	}
 

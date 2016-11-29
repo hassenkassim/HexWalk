@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 public class InputManager {
+
+	static EventSystem eventsystem;
 
 	public static bool active = false;
 
@@ -42,14 +45,15 @@ public class InputManager {
 	public static bool getClickTouchInput(){
 		if (active) {
 			#if UNITY_ANDROID || UNITY_IPHONE
-				if(Input.touchCount > 0){
-						if (Input.touches[0].phase == TouchPhase.Ended) {
+			if(Input.touchCount > 0 && !eventsystem.IsPointerOverGameObject (Input.GetTouch (0).fingerId)){
+				if (Input.touches[0].phase == TouchPhase.Ended) {
 							DebugConsole.Log("Touched");
 							return true;
 						}else{
 							return false;
 						}
 				}
+
 
 			#endif
 

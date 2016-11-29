@@ -8,7 +8,7 @@ public class AdManager : MonoBehaviour {
 	public static string rewardedVideoID = "rewardedVideo";
 	public static int adFrequence = 3;
 	public static GameObject adManager;
-	public static int loseCounter = 1;
+	public static int loseCounter = 0;
 
 	public void Start(){
 		

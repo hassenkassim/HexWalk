@@ -59,7 +59,7 @@ public class Field {
 			setScale (new Vector3 (0.4f, 0.4f, 0.05f));
 			break;
 		case 9:
-			field = Gameplay.prefabsMgr.generateObjectFromPrefab ("platte9");
+			field = Gameplay.prefabsMgr.generateObjectFromPrefab ("platte1");
 			setScale (new Vector3 (0.4f, 0.4f, 0.05f));
 			break;
 		case 10:

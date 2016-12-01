@@ -59,6 +59,8 @@ public class LevelPlay : MonoBehaviour {
 
 	public static PrefabsManagerLevelPlay prefabsMgr;
 
+	public static GameObject Gyro;
+
 	public static GameObject splash;
 	public static GameObject gameName; //dursun
 
@@ -104,6 +106,12 @@ public class LevelPlay : MonoBehaviour {
 
 	public static bool landing;
 
+	void Awake(){
+		//Set GyroController
+		Gyro = GameObject.Find("GyroCanvas");
+		Gyro.AddComponent<GyroController> ();
+	}
+
 	// Use this for initialization
 	public void Start () {
 		
@@ -118,6 +126,9 @@ public class LevelPlay : MonoBehaviour {
 		//Setup Camera
 		cam = Camera.main;
 		cam.gameObject.AddComponent <CameraPositionLevelPlay> ();
+
+		initLight ();
+
 
 		//Call Level Manager constructor
 		levelmgr = new LevelManager ();
@@ -147,6 +158,14 @@ public class LevelPlay : MonoBehaviour {
 		landing = false;
 
 	}
+
+	void initLight(){
+		cam.gameObject.AddComponent<Light> ();
+		cam.GetComponent<Light> ().type = LightType.Directional;
+		cam.GetComponent<Light> ().transform.eulerAngles= new Vector3 (200.0f,140.0f,15.0f);
+
+		cam.GetComponent<Light> ().intensity = 0.8f;
+	}
 		
 	private void init(){
 		curLevel = levelmgr.curLevel;
@@ -162,7 +181,8 @@ public class LevelPlay : MonoBehaviour {
 		//dursun
 		gameName = SplashLoad.prefabsMgr.generateObjectFromPrefab("gameName");
 		gameName.GetComponent<Rigidbody>().useGravity=false;
-		gameName.transform.position = new Vector3 (-1.1f,10.0f,playerobj.transform.position.z);
+
+		gameName.transform.position = new Vector3 (-1.1f + playerobj.transform.position.x,10.0f,playerobj.transform.position.z);
 		gameName.AddComponent<Splash> ();
 		gameName.SetActive (true);
 	}
@@ -176,6 +196,7 @@ public class LevelPlay : MonoBehaviour {
 			if (!EventSystem.current.IsPointerOverGameObject ()) {
 				if (InputManager.getClickTouchInput ()) {
 					print ("STARTLEVEL");
+					SoundManager.stopMusicSmoothly ();
 					startLevel ();
 				}
 			}
@@ -430,8 +451,10 @@ public class LevelPlay : MonoBehaviour {
 
 
 		playerobj.transform.position =  new Vector3(pos.x, 1.39f +splash.GetComponent<Splash>().getSplashOffset(), pos.y*2); //new Vector3 (0.0f,9.4f,0.0f);
-		splash.GetComponent<Splash>().setSplashOffset(7.0f);
-		//splash.GetComponent<Splash>().setSplashOffset(0.0f);
+
+
+		splash.GetComponent<Splash>().setSplashOffset(4.0f);
+
 		playerobj.transform.rotation = Quaternion.Euler(0, 0, 0);
 		playerobj.tag = "Player";
 		gamePosition = new Vector2 (pos.x, pos.y*2);

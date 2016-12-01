@@ -20,7 +20,7 @@ public class LevelPlayerController : MonoBehaviour {
 		splash = GameObject.Find ("Splash");
 		if (splash.GetComponent<Splash> ().getSplashShown () == 0) {
 			showID = SHOWSPLASH;
-			timer = 6;
+			timer = 2;
 		}
 
 	}
@@ -34,6 +34,7 @@ public class LevelPlayerController : MonoBehaviour {
 				}
 				break;
 			case SHOWLEVELWORLD:
+				DebugConsole.Log ("STARTTRANS");
 				LevelPlay.cam.GetComponent<CameraPositionLevelPlay> ().startTransition ();
 				showID = 2;
 				break;
@@ -55,9 +56,6 @@ public class LevelPlayerController : MonoBehaviour {
 				}
 			}
 		}
-
-		//dursun
-		//BackgroundManager.setParticleSystem(LevelPlay.cam);
 	}
 
 	void OnCollisionEnter(Collision coll)

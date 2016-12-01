@@ -55,7 +55,7 @@ public class Player {
 			setScale (new Vector3 (0.3f, 0.3f, 0.3f));
 			break;
 		case 7:
-			playerobj = Gameplay.prefabsMgr.generateObjectFromPrefab ("cube2");
+			playerobj = Gameplay.prefabsMgr.generateObjectFromPrefab ("cube6");
 			setScale (new Vector3 (0.3f, 0.3f, 0.3f));
 			break;
 		case 8:
@@ -71,7 +71,7 @@ public class Player {
 			setScale (new Vector3 (0.3f, 0.3f, 0.3f));
 			break;
 		case 11:
-			playerobj = Gameplay.prefabsMgr.generateObjectFromPrefab ("cube6");
+			playerobj = Gameplay.prefabsMgr.generateObjectFromPrefab ("cube7");
 			setScale (new Vector3 (0.3f, 0.3f, 0.3f));
 			break;
 		case 12:

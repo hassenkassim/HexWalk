@@ -24,10 +24,9 @@ public class SplashLoad : MonoBehaviour {
 		//Call Prefab Manager constructor
 		prefabsMgr = (PrefabsManagerSplashScene)GameObject.Find ("System").GetComponent <PrefabsManagerSplashScene> ();
 
-		splash = GameObject.Find ("Splash");
-
 		initLight ();
 
+		splash = GameObject.Find ("Splash");
 		DontDestroyOnLoad (splash);
 
 		//Setup Camera
@@ -77,7 +76,9 @@ public class SplashLoad : MonoBehaviour {
 	}
 		
 	private void moveLight(){
-		pointLight.transform.position = Vector3.Lerp (beginLight, endLight, Mathf.PingPong (Time.time*1.0f, 1f));
+
+		pointLight.transform.position = Vector3.Lerp (beginLight, endLight, Mathf.PingPong (Time.time*1.0f, 1.0f));
+
 	}
 
 	public static void setCubeName(string name){

@@ -128,7 +128,7 @@ public class Gameplay : MonoBehaviour {
 
 		//tolga
 		//Load Musics
-		SoundManager.playLevelMusic(currentLevel.getWorld());
+		SoundManager.playLevelMusic(currentLevel.getWorld() + 1);
 
 		explode = false;
 
@@ -146,7 +146,6 @@ public class Gameplay : MonoBehaviour {
 	}
 
 	void Update(){
-
 		if (explode==true) {
 			Vector3 tmp = new Vector3 (player.getPosition ().x,player.getPosition ().y,player.getPosition ().z);
 			foreach (Collider col in Physics.OverlapSphere(transform.position,radius)) {
@@ -160,6 +159,24 @@ public class Gameplay : MonoBehaviour {
 		}
 	}
 
+	public static void changeCubeGameplay(){
+		//cube changing
+		print("in changeCubeGameplayMethode");
+		Level currentLevel = LevelPlay.levelmgr.getCurrentLevel ();
+
+		Player tmp = new Player (currentLevel.getColorCount(), currentLevel.getWorld() + 1);
+		tmp.setPosition (Gameplay.player.playerobj.transform.position);
+		Destroy (Gameplay.player.playerobj);
+		Gameplay.player.playerobj = tmp.playerobj;
+
+		//sound changing
+		SoundManager.stopMusicSmoothly ();
+		SoundManager.playLevelMusic (currentLevel.getWorld());
+
+		InputManager.active = true;
+
+	}
+
 	public static void collision(){
 		//Alles was ich brauche bekomme ich durch unsere Gameplay Klasse. Egal was ich brauche, ich gehe zuerst ins Gameplay rein, dann entweder Gamefield, 
 		//oder Player oder Path, je nachdem was ich brauche und dann rufe ich den jeweiligen Getter auf!
@@ -167,10 +184,10 @@ public class Gameplay : MonoBehaviour {
 		Field field = gamefield.getField ((int)platePos.x, (int)platePos.y);
 
 		if (!Camera.main.GetComponent<Skybox> ().material.name.Equals ("skybox" +LevelPlay.levelmgr.curLevel.getWorld())){
-			Fade.FadeAndNewWorld (1.0f, cam);
+			Fade.FadeAndNewWorldForGameplay (1.0f, cam);
 		}
 
-		int pointer = pathfinder.pointer;
+//		int pointer = pathfinder.pointer;
 		if (field.getColor ().Equals (Col.GRUEN))
 			return;
 		if (platePos.x == pathfinder.end.x && platePos.y == pathfinder.end.y) {
@@ -181,6 +198,7 @@ public class Gameplay : MonoBehaviour {
 	}
 
 	public static void win(){
+		//changeCubeGameplay ();
 		print ("Won");
 		if (first == true) {
 			first = false; //Not the first start start
@@ -221,6 +239,8 @@ public class Gameplay : MonoBehaviour {
 		};
 		print ("GAMEOVER!");
 
+
+
 		Vector2 platePos = player.getGamePosition ();
 		Field field = gamefield.getField ((int)platePos.x, (int)platePos.y);
 
@@ -242,6 +262,13 @@ public class Gameplay : MonoBehaviour {
 			
 		//GamesceneManager.displayGameover ();
 
+		//dursun 
+		LevelPlayerController.showID=9;
+		// if going back to levelscene start from a different cam
+		CameraPositionLevelPlay.setPos = false;
+		//deactivate the gameName
+		if(LevelPlay.gameName!=null)
+			LevelPlay.gameName.SetActive(false);
 	}
 
 	private static void setLevelToCompleted(){

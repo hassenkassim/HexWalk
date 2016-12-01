@@ -13,6 +13,7 @@ using System.Collections;
  * */
 public class CameraPositionLevelPlay : MonoBehaviour {
 
+	public static LevelManager levelmanager;
 
 	public Vector3 offsetPlayerCam = new Vector3 (0.0f, 3.0f, -4.0f);
 	public Vector3 rotationPlayerCam = new Vector3 (29f, 0.0f, 0.0f);
@@ -32,10 +33,12 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 	public float walkPosY;
 	public float posZ;
 
+	public static bool setPos=false;
 
 	// Use this for initialization
 	void Start () {
 		splash = GameObject.Find ("Splash");
+		levelmanager = new LevelManager ();
 	
 		//dursun 
 		switch (splash.GetComponent<Splash> ().getSplashShown ()) {
@@ -76,9 +79,6 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 			//setPosition (walkLogo.transform.position + startCamPos);
 
 			setPosition (LevelPlay.playerobj.transform.position + startCamPos + Vector3.back * 3.5f);
-
-			//BackgroundManager.setParticleSystem (LevelPlay.cam);
-
 			setRotation (startCamRotation);
 
 		} else if (LevelPlayerController.showID == 10) {
@@ -89,9 +89,26 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 			BackgroundManager.setParticleSystem(LevelPlay.cam);
 
 		} else if (LevelPlayerController.showID == 9) {
+			Fade.StartFadeIn (2.0f);
 			// here first time after gamescene: different rotation
+			BackgroundManager.setParticleSystem(LevelPlay.cam);
+
 			Vector3 relativePos = LevelPlay.playerobj.transform.position - transform.position;
 			LevelPlay.cam.transform.rotation = Quaternion.LookRotation (relativePos);
+			LevelPlay.cam.transform.position = new Vector3 (LevelPlay.playerobj.transform.position.x+offsetPlayerCam.x,1.35f+offsetPlayerCam.y,LevelPlay.playerobj.transform.position.z+offsetPlayerCam.z);
+			if (!setPos) {
+				setPos = true;
+				setPosition (new Vector3(10.0f,4.35f,0.0f));
+				setRotation (new Vector3(36.493f,0.0f,0.0f));
+			}
+
+				
+			if (LevelPlay.playerobj.transform.position.y <= 1.5f) {
+				LevelPlayerController.showID=10;
+				setPosition (LevelPlay.playerobj.transform.position + offsetPlayerCam);
+				setRotation (rotationPlayerCam);
+			}
+				
 		} 
 	}
 
@@ -111,45 +128,45 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 
 	IEnumerator TransitionGamefieldPlayer(float lerpSpeed)
 	{    
-			float t = 0.0f;
-			Vector3 newPosition;
-			//get Position on the fly
-			newPosition = LevelPlay.playerobj.transform.position + offsetPlayerCam;
-			Vector3 newRotation = rotationPlayerCam;
+		float t = 0.0f;
+		Vector3 newPosition;
+		//get Position on the fly
+		newPosition = LevelPlay.playerobj.transform.position + offsetPlayerCam;
+		Vector3 newRotation = rotationPlayerCam;
 
-		Vector3 startingPos = new Vector3(LevelPlay.playerobj.transform.position.x,LevelPlay.playerobj.transform.position.y,LevelPlay.playerobj.transform.position.z-5);//startCamPos;// + walkLogo.transform.position;
+		Vector3 startingPos = new Vector3 (LevelPlay.playerobj.transform.position.x, LevelPlay.playerobj.transform.position.y, LevelPlay.playerobj.transform.position.z - 5);//startCamPos;// + walkLogo.transform.position;
 			
-			currentAngle = transform.eulerAngles;
+		currentAngle = transform.eulerAngles;
 
-			while (t < 1.0f) {
+		while (t < 1.0f) {
 
-				t += Time.deltaTime * (Time.timeScale / lerpSpeed);
+			t += Time.deltaTime * (Time.timeScale / lerpSpeed);
 
-				transform.position = new Vector3(
-					Mathf.SmoothStep(startingPos.x, newPosition.x, t),
-					Mathf.SmoothStep(startingPos.y, newPosition.y, t),
-					Mathf.SmoothStep(startingPos.z, newPosition.z, t));
+			transform.position = new Vector3 (
+				Mathf.SmoothStep (startingPos.x, newPosition.x, t),
+				Mathf.SmoothStep (startingPos.y, newPosition.y, t),
+				Mathf.SmoothStep (startingPos.z, newPosition.z, t));
 
-				currentAngle = new Vector3 (
-					Mathf.SmoothStep (startCamRotation.x, newRotation.x, t),
-					Mathf.SmoothStep (startCamRotation.y, newRotation.y, t),
-					Mathf.SmoothStep (startCamRotation.z, newRotation.z, t));
+			currentAngle = new Vector3 (
+				Mathf.SmoothStep (startCamRotation.x, newRotation.x, t),
+				Mathf.SmoothStep (startCamRotation.y, newRotation.y, t),
+				Mathf.SmoothStep (startCamRotation.z, newRotation.z, t));
 
-				transform.eulerAngles = currentAngle;
+			transform.eulerAngles = currentAngle;
 
-				if (t > 0.7f) {
+			if (t > 0.7f) {
 					
-				}
-
-				yield return 0;
 			}
 
-			splash.GetComponent<Splash> ().setSplashShown (1);
+			yield return 0;
+		}
+
+		splash.GetComponent<Splash> ().setSplashShown (1);
 			
-			LevelPlayerController.showID = 10;
+		LevelPlayerController.showID = 10;
 
 		//dursun
-		BackgroundManager.setParticleSystem(LevelPlay.cam);
+		BackgroundManager.setParticleSystem (LevelPlay.cam);
 
 		//enable Input
 		InputManager.active = true;
@@ -157,7 +174,8 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 		//start Gyro
 		LevelPlay.Gyro.GetComponent<GyroController>().setEnableGyro(true);
 
-		SoundManager.playMenuMusic ();
+		SoundManager.playLevelMusic ((int)LevelPlay.playerobj.transform.position.z / 2 + 1);
+
 		yield return 0;
 	}
 

@@ -131,7 +131,7 @@ public class LevelPlay : MonoBehaviour {
 
 
 		//Call Level Manager constructor
-		levelmgr = new LevelManager ();
+		levelmgr = new LevelManager (); 
 
 		//Call Prefab Manager constructor
 		prefabsMgr = (PrefabsManagerLevelPlay)GameObject.Find ("System").GetComponent <PrefabsManagerLevelPlay> ();
@@ -178,13 +178,18 @@ public class LevelPlay : MonoBehaviour {
 		//tolga
 		disableText();
 
-		//dursun
-		gameName = SplashLoad.prefabsMgr.generateObjectFromPrefab("gameName");
-		gameName.GetComponent<Rigidbody>().useGravity=false;
+		print (splash.GetComponent<Splash> ().getSplashShown ());
 
-		gameName.transform.position = new Vector3 (-1.1f + playerobj.transform.position.x,10.0f,playerobj.transform.position.z);
-		gameName.AddComponent<Splash> ();
-		gameName.SetActive (true);
+		if (splash.GetComponent<Splash> ().getSplashShown () == 0) {
+			//dursun
+				gameName = SplashLoad.prefabsMgr.generateObjectFromPrefab ("gameName");
+				gameName.GetComponent<Rigidbody> ().useGravity = false;
+
+				gameName.transform.position = new Vector3 (-0.8f + playerobj.transform.position.x, 10.0f, playerobj.transform.position.z);
+				gameName.AddComponent<Splash> ();
+				gameName.SetActive (true);	
+		}
+		
 	}
 
 
@@ -196,7 +201,8 @@ public class LevelPlay : MonoBehaviour {
 			if (!EventSystem.current.IsPointerOverGameObject ()) {
 				if (InputManager.getClickTouchInput ()) {
 					print ("STARTLEVEL");
-					SoundManager.stopMusicSmoothly ();
+					//SoundManager.stopMusicSmoothly ();
+					SoundManager.stopMusic ();
 					startLevel ();
 				}
 			}
@@ -286,14 +292,15 @@ public class LevelPlay : MonoBehaviour {
 		
 
 	public static void collision(){
-
+		
 		levelmgr.setCurrentLevel ((int)gamePosition.y / 2, (int)gamePosition.x);
 
 		if (splash.GetComponent<Splash> ().getSplashShown () == 2) {
-			InputManager.active = true;
+
 			if (landing == false) {
-				SoundManager.playMenuMusic ();
-				landing = true;
+				SoundManager.playLevelMusic(levelmgr.curLevel.getWorld());
+				InputManager.active = true;
+				landing = true;			
 			}
 		}
 		
@@ -453,7 +460,7 @@ public class LevelPlay : MonoBehaviour {
 		playerobj.transform.position =  new Vector3(pos.x, 1.39f +splash.GetComponent<Splash>().getSplashOffset(), pos.y*2); //new Vector3 (0.0f,9.4f,0.0f);
 
 
-		splash.GetComponent<Splash>().setSplashOffset(4.0f);
+		splash.GetComponent<Splash>().setSplashOffset(20.0f);
 
 		playerobj.transform.rotation = Quaternion.Euler(0, 0, 0);
 		playerobj.tag = "Player";

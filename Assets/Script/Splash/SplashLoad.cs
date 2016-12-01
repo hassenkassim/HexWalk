@@ -8,6 +8,7 @@ public class SplashLoad : MonoBehaviour {
 	public static Camera cam;
 	public static GameObject pointLight;
 	public static GameObject playerobj;
+
 	public static GameObject gameName;
 	public static string cubeName;
 

@@ -7,12 +7,7 @@ public class IntroGame : MonoBehaviour {
 
 	public static GameObject playerobj;
 	private static GameObject gameName;
-
-	//public static Field[,] fields;
-	//public static Gamefield gamefield;
-
 	private static Camera cam;
-
 	private static GameObject introText;
 	private static GameObject loadingBar;
 	private static GameObject swipeIcon;
@@ -25,10 +20,8 @@ public class IntroGame : MonoBehaviour {
 
 	public static Vector2 pos;
 	public float splashOffset = 8.2f;
-
 	public static GameObject field;
 	private static GameObject[] fields;
-
 	public float rotationPeriod = 0.25f;		
 	float directionX = 0;					
 	float directionZ = 0;
@@ -41,6 +34,7 @@ public class IntroGame : MonoBehaviour {
 	Vector2 input;
 
 	static bool waitForFunction=false; // wait to the end of the description
+	static bool waitForEndOfScene=false;
 	int swipeInput=-1; // 0=right; 1=left; 2=up; 3=down; 4=tap;
 	public static bool collision = true; // for the last field no collision
 	public static bool explode= false; // for explosion of the last field
@@ -51,7 +45,7 @@ public class IntroGame : MonoBehaviour {
 	}
 
 	// Use this for initialization
-	void Start () {
+	IEnumerator Start () {
 		Fade.StartFadeIn (2.0f);
 
 		InputManager.active = false;
@@ -84,6 +78,14 @@ public class IntroGame : MonoBehaviour {
 
 		// start directly the intro
 		StartCoroutine (tutorialProcess ());
+		while(waitForEndOfScene)
+			yield return new WaitForSeconds(0.1f);
+
+		Fade.StartFadeOut (2.0f, cam);
+		loadLevelScene ();
+
+		yield return null;
+
 	}
 
 	// Update is called once per frame
@@ -120,6 +122,8 @@ public class IntroGame : MonoBehaviour {
 
 	// the whole intro is here ################ start ##################
 	IEnumerator tutorialProcess(){
+		waitForEndOfScene = true;
+
 		//show the intro description
 		StartCoroutine (description ());
 		while(waitForFunction)
@@ -267,15 +271,12 @@ public class IntroGame : MonoBehaviour {
 			}
 			yield return null;
 		}
+			
 		cam.GetComponent<CameraPositionIntro> ().setToFollowPlayerByRotation ();
-
-//		yield return new WaitForSeconds (waitingTimeBetweenInputs);
-
-
-		loadLevelScene ();
 
 		yield return new WaitForSeconds (2.0f);
 
+		waitForEndOfScene = false;
 
 		yield return null;
 	}

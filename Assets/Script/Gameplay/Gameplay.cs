@@ -38,9 +38,9 @@ public class Gameplay : MonoBehaviour {
 	public static ScoreManager scoreMgr;
 	public static SoundManager soundMgr;
 	public static PrefabsManager prefabsMgr;
+	public static GameObject Gyro;
 	private BackgroundManager backgroundmgr;
 	public static GameObject pauseBtn;
-
 	public static float totalTime = 0f;
 
 	//dursun
@@ -67,6 +67,8 @@ public class Gameplay : MonoBehaviour {
 	void Awake() {
 		first = true;
 		instance = this;
+		Gyro = GameObject.Find("GyroCanvas");
+		Gyro.AddComponent<GyroController> ();
 	}
 
 	// Use this for initialization
@@ -82,7 +84,6 @@ public class Gameplay : MonoBehaviour {
 		cam = Camera.main;
 		cam.gameObject.AddComponent <CameraPosition>();
 
-
 		initLight ();
 
 		//dursun
@@ -93,7 +94,11 @@ public class Gameplay : MonoBehaviour {
 		scoreMgr = new ScoreManager();
 
 		//Call Prefab Manager constructor
-		prefabsMgr = (PrefabsManager)GameObject.Find("System").GetComponent <PrefabsManager>();
+		prefabsMgr = (PrefabsManager)GameObject.Find("System").GetComponent <PrefabsManager>(); 
+
+		//Set GyroController
+		//GameObject Gyro = GameObject.Find("GyroCanvas");
+		//Gyro.AddComponent<GyroController> ();
 
 		//Get Level Properties
 		Level currentLevel = LevelPlay.levelmgr.getCurrentLevel ();
@@ -301,8 +306,4 @@ public class Gameplay : MonoBehaviour {
 		AdManager.showAd ();
 		Fade.FadeAndStartScene ("LevelScene", 2.0f, cam);
 	}
-
-
-
-		
 }

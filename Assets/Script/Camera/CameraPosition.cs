@@ -22,6 +22,8 @@ public class CameraPosition : MonoBehaviour {
 
 	private bool follow;
 
+	public bool startGyro = false;
+
 	/*
 	 * CamID == 0: PlayerCam
 	 * CamID == 1: GamefieldCam
@@ -53,10 +55,6 @@ public class CameraPosition : MonoBehaviour {
 		if (follow) {
 			if (CamID == 0) {
 				setPosition (Gameplay.player.getTransform ().position + offsetPlayerCam);
-				//setRotation (rotationPlayerCam);
-				//Quaternion vect = transform.rotation;
-				//setRotation (new Vector3(vect.x - Input.gyro.rotationRateUnbiased.x, vect.y - Input.gyro.rotationRateUnbiased.y, vect.z - Input.gyro.rotationRateUnbiased.z));
-
 			} else if (CamID == 1) {
 				setPosition (offsetGamefieldCam);
 				setRotation (rotationGamefieldCam);
@@ -92,8 +90,7 @@ public class CameraPosition : MonoBehaviour {
 	}
 		
 	IEnumerator TransitionGamefieldPlayer(float lerpSpeed)
-	{    
-		
+	{
 		float t = 0.0f;
 		Vector3 newPosition;
 		//get Position on the fly
@@ -129,6 +126,9 @@ public class CameraPosition : MonoBehaviour {
 		//enable Input
 		PathfinderController.camID = true;
 		InputManager.active = true;
+
+		//start Gyro
+		Gameplay.Gyro.GetComponent<GyroController>().setEnableGyro(true);
 
 		follow = true;
 

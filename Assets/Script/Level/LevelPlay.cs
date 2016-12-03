@@ -59,6 +59,8 @@ public class LevelPlay : MonoBehaviour {
 
 	public static PrefabsManagerLevelPlay prefabsMgr;
 
+	public static GameObject Gyro;
+
 	public static GameObject splash;
 	public static GameObject gameName; //dursun
 
@@ -104,6 +106,12 @@ public class LevelPlay : MonoBehaviour {
 
 	public static bool landing;
 
+	void Awake(){
+		//Set GyroController
+		Gyro = GameObject.Find("GyroCanvas");
+		Gyro.AddComponent<GyroController> ();
+	}
+
 	// Use this for initialization
 	public void Start () {
 		
@@ -118,7 +126,6 @@ public class LevelPlay : MonoBehaviour {
 		//Setup Camera
 		cam = Camera.main;
 		cam.gameObject.AddComponent <CameraPositionLevelPlay> ();
-
 
 		initLight ();
 

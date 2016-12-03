@@ -25,13 +25,9 @@ public class SplashLoad : MonoBehaviour {
 		//Call Prefab Manager constructor
 		prefabsMgr = (PrefabsManagerSplashScene)GameObject.Find ("System").GetComponent <PrefabsManagerSplashScene> ();
 
-
-
-
-		splash = GameObject.Find ("Splash");
-
 		initLight ();
 
+		splash = GameObject.Find ("Splash");
 		DontDestroyOnLoad (splash);
 
 		//Setup Camera

@@ -16,9 +16,9 @@ public class ProgressBar : MonoBehaviour {
 
 //		PlayerPrefs.DeleteAll ();
 
-		if (PlayerPrefs.GetInt ("introLoad1", 0) == 0) {
+		if (PlayerPrefs.GetInt ("introLoad", 0) == 0) {
 				
-			PlayerPrefs.SetInt ("introLoad1", 1);
+			PlayerPrefs.SetInt ("introLoad", 1);
 			// load intro
 			levelName= "Scene/IntroScene";
 

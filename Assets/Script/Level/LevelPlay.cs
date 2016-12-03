@@ -246,7 +246,6 @@ public class LevelPlay : MonoBehaviour {
 			float distanceY = radius * (Mathf.Sin (45f * Mathf.Deg2Rad + thetaRad) - Mathf.Sin (45f * Mathf.Deg2Rad));						
 			float distanceZ = directionZ * radius * (Mathf.Cos (45f * Mathf.Deg2Rad) - Mathf.Cos (45f * Mathf.Deg2Rad + thetaRad));			
 			playerobj.transform.position = new Vector3 (startPos.x + distanceX, startPos.y + distanceY, startPos.z + distanceZ);						
-
 			playerobj.transform.rotation = Quaternion.Lerp (fromRotation, toRotation, ratio);	
 
 			if (ratio == 1) {

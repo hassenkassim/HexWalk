@@ -57,6 +57,9 @@
      <Compile Include="Assets\Script\Input\GyroController.cs" />
      <Compile Include="Assets\Script\Input\InputManager.cs" />
      <Compile Include="Assets\Script\Input\SwipeManager.cs" />
+     <Compile Include="Assets\Script\Intro\CameraPositionIntro.cs" />
+     <Compile Include="Assets\Script\Intro\IntroGame.cs" />
+     <Compile Include="Assets\Script\Intro\IntroGameController.cs" />
      <Compile Include="Assets\Script\Level\CameraPositionLevelPlay.cs" />
      <Compile Include="Assets\Script\Level\Level.cs" />
      <Compile Include="Assets\Script\Level\LevelPlay.cs" />
@@ -82,7 +85,6 @@
      <Compile Include="Assets\Script\Utils\DebugConsole.cs" />
      <Compile Include="Assets\Script\Utils\Fade.cs" />
      <Compile Include="Assets\Script\Utils\FileUtils.cs" />
-     <Compile Include="Assets\Script\Utils\IntroGame.cs" />
      <Compile Include="Assets\Script\Utils\Joker.cs" />
      <Compile Include="Assets\Script\Utils\Materials.cs" />
      <Compile Include="Assets\Script\Utils\Pause.cs" />

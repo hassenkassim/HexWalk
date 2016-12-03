@@ -16,14 +16,15 @@ public class ProgressBar : MonoBehaviour {
 
 //		PlayerPrefs.DeleteAll ();
 
-		print ("introLoad:"+PlayerPrefs.GetInt ("introLoad"));
-		if (PlayerPrefs.GetInt ("introLoad", 0) == 0) {
-			PlayerPrefs.SetInt ("introLoad", 1);
+		if (PlayerPrefs.GetInt ("introLoad1", 0) == 0) {
+				
+			PlayerPrefs.SetInt ("introLoad1", 1);
 			// load intro
 			levelName= "Scene/IntroScene";
+
 			StartCoroutine (loadNewScene());
 
-		} else {
+		} else{
 			levelName= "Scene/LevelScene";
 			StartCoroutine (loadNewScene());
 		}
@@ -35,7 +36,7 @@ public class ProgressBar : MonoBehaviour {
 
 	IEnumerator loadNewScene(){
 		SoundManager.playSplashMusic ();
-		yield return new WaitForSeconds (3.5f);
+		yield return new WaitForSeconds (2.0f);
 		async = SceneManager.LoadSceneAsync (levelName);
 
 		while (!async.isDone)

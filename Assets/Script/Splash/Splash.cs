@@ -55,4 +55,13 @@ public class Splash : MonoBehaviour {
 		this.splashOffset = splashOffset;
 	}
 
+	public Camera getSplashCam(){
+		return SplashLoad.cam;
+	}
+	public GameObject getSplashPlayer(){
+		return SplashLoad.playerobj;
+	}
+
+
+
 }

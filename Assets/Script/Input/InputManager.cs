@@ -57,7 +57,7 @@ public class InputManager {
 
 			#endif
 
-			if (Input.GetKeyUp (KeyCode.Space) || Input.GetMouseButtonUp (0)) {
+			if (Input.GetKeyUp (KeyCode.Space) || Input.GetMouseButtonUp (0) && !EventSystem.current.IsPointerOverGameObject ()) {
 				return true;
 			} else {
 				return false;

@@ -181,8 +181,7 @@ public class Field {
 				fracture1.name = "fracture"+numFrac+yAxis;
 
 			}
-		}  // muessen wir die fractures destroyen ??
-
+		} 
 	}
 
 

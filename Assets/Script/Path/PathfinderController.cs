@@ -44,6 +44,7 @@ public class PathfinderController : MonoBehaviour {
 					Gameplay.gamefield.getField ((int)path [i].x, (int)path [i].y).setColor (Col.WEISS);
 			yield return new WaitForSeconds (timetowait);
 		}
+		//InputManager.active = true;
 		coloringEnd = true;
 		if (camID == true) {
 			InputManager.active = true;

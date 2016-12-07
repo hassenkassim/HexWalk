@@ -16,7 +16,7 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 	public static LevelManager levelmanager;
 
 	public Vector3 offsetPlayerCam = new Vector3 (0.0f, 3.0f, -4.0f);
-	public Vector3 rotationPlayerCam = new Vector3 (36.5f, 0.0f, 0.0f);
+	public Vector3 rotationPlayerCam = new Vector3 (29f, 0.0f, 0.0f);
 
 	public static Vector3 startCamPos = new Vector3 (0.0f, 0.0f, -1.5f);
 	public Vector3 startCamRotation = new Vector3 (0f, 0.0f, 0.0f);
@@ -32,7 +32,6 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 	public float cubePosY;
 	public float walkPosY;
 	public float posZ;
-
 
 	public static bool setPos=false;
 
@@ -59,7 +58,9 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 		default:
 			//InputManager.active = true;
 			setPosition (LevelPlay.playerobj.transform.position + offsetPlayerCam);
-			setRotation (rotationPlayerCam);
+			//DebugConsole.Log ("2");
+
+			//setRotation (rotationPlayerCam);
 			break;
 		}
 			
@@ -67,9 +68,9 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 
 	void Update () {
 		if (splash.GetComponent<Splash> ().getSplashShown () == 1) {
-
+			//DebugConsole.Log ("1");
 			setPosition (LevelPlay.playerobj.transform.position + offsetPlayerCam);
-			setRotation (rotationPlayerCam);
+			//setRotation (rotationPlayerCam);
 			return;
 		}
 
@@ -78,9 +79,6 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 			//setPosition (walkLogo.transform.position + startCamPos);
 
 			setPosition (LevelPlay.playerobj.transform.position + startCamPos + Vector3.back * 3.5f);
-
-			//BackgroundManager.setParticleSystem (LevelPlay.cam);
-
 			setRotation (startCamRotation);
 
 		} else if (LevelPlayerController.showID == 10) {
@@ -93,6 +91,8 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 		} else if (LevelPlayerController.showID == 9) {
 			Fade.StartFadeIn (2.0f);
 			// here first time after gamescene: different rotation
+			BackgroundManager.setParticleSystem(LevelPlay.cam);
+
 			Vector3 relativePos = LevelPlay.playerobj.transform.position - transform.position;
 			LevelPlay.cam.transform.rotation = Quaternion.LookRotation (relativePos);
 			LevelPlay.cam.transform.position = new Vector3 (LevelPlay.playerobj.transform.position.x+offsetPlayerCam.x,1.35f+offsetPlayerCam.y,LevelPlay.playerobj.transform.position.z+offsetPlayerCam.z);
@@ -172,12 +172,16 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 		InputManager.active = true;
 
 		SoundManager.playMenuMusic ();
+
+		//start Gyro
+		LevelPlay.Gyro.GetComponent<GyroController>().setEnableGyro(true);
+
+		//SoundManager.playLevelMusic ((int)LevelPlay.playerobj.transform.position.z / 2 + 1);
+
 		yield return 0;
 	}
 
 	public Transform getTransform(){
 		return LevelPlay.playerobj.transform;
 	}
-
-
 }

@@ -48,7 +48,7 @@ public class Fade : MonoBehaviour {
 	}
 	public static void FadeAndNewWorldForGameplay(float time, Camera cam){
 
-		AdManager.showRewardedVideo ();
+		//AdManager.showRewardedVideo ();
 		changeCube = true;
 		changeWorld = true;
 		StartFadeOut (time, cam);
@@ -70,10 +70,16 @@ public class Fade : MonoBehaviour {
 			yield return null;
 		}
 		//trotzdem lassen
-		if (Application.loadedLevelName == "LevelScene" && LevelPlay.playerobj.transform.position.y <= 1.5f) {
+		Scene tmp =SceneManager.GetActiveScene();
+		if (tmp.name== "LevelScene" && LevelPlay.playerobj.transform.position.y <= 1.5f) {
 			InputManager.active = true;
+
 			//SoundManager.playLevelMusic ((int)LevelPlay.playerobj.transform.position.z / 2 + 1);
-		} else if (Application.loadedLevelName == "GameScene" && PathfinderController.camID == true) {
+		//} else if (Application.loadedLevelName == "GameScene" && PathfinderController.camID == true) {
+
+			//SoundManager.playLevelMusic ((int)LevelPlay.playerobj.transform.position.z / 2 + 1);
+		} else if (tmp.name == "GameScene"  && PathfinderController.camID == true) {
+
 			InputManager.active = true;
 		}
 		yield return null;
@@ -89,6 +95,11 @@ public class Fade : MonoBehaviour {
 		//if (Application.loadedLevelName == "LevelScene") {
 		//	SoundManager.stopMusic ();
 		//}
+
+		Scene tmp = SceneManager.GetActiveScene();
+		if (tmp.name == "LevelScene") {
+			SoundManager.stopMusic ();
+		}
 
 		while (progress<1.0f) {
 			if (progress > 0.5f && changeScene) {
@@ -117,7 +128,7 @@ public class Fade : MonoBehaviour {
 	}
 
 	public static IEnumerator startScene() {
-		AsyncOperation async = Application.LoadLevelAsync(sceneStr);
+		AsyncOperation async = SceneManager.LoadSceneAsync(sceneStr);
 		while (!async.isDone) {
 			yield return null;
 		}

@@ -58,6 +58,8 @@ public class LevelPlay : MonoBehaviour {
 
 	public static PrefabsManagerLevelPlay prefabsMgr;
 
+	public static GameObject Gyro;
+
 	public static GameObject splash;
 	public static GameObject gameName; //dursun
 
@@ -104,6 +106,12 @@ public class LevelPlay : MonoBehaviour {
 	public static bool landing;
 	public static bool infoPanel = false;
 
+	void Awake(){
+		//Set GyroController
+		Gyro = GameObject.Find("GyroCanvas");
+		Gyro.AddComponent<GyroController> ();
+	}
+
 	// Use this for initialization
 	public void Start () {
 		
@@ -120,7 +128,6 @@ public class LevelPlay : MonoBehaviour {
 		//Setup Camera
 		cam = Camera.main;
 		cam.gameObject.AddComponent <CameraPositionLevelPlay> ();
-
 
 		initLight ();
 
@@ -247,7 +254,6 @@ public class LevelPlay : MonoBehaviour {
 			float distanceY = radius * (Mathf.Sin (45f * Mathf.Deg2Rad + thetaRad) - Mathf.Sin (45f * Mathf.Deg2Rad));						
 			float distanceZ = directionZ * radius * (Mathf.Cos (45f * Mathf.Deg2Rad) - Mathf.Cos (45f * Mathf.Deg2Rad + thetaRad));			
 			playerobj.transform.position = new Vector3 (startPos.x + distanceX, startPos.y + distanceY, startPos.z + distanceZ);						
-
 			playerobj.transform.rotation = Quaternion.Lerp (fromRotation, toRotation, ratio);	
 
 			if (ratio == 1) {
@@ -597,11 +603,11 @@ public class LevelPlay : MonoBehaviour {
 
 	public void showAd(){
 		AdManager.adFrequence = 3;
-		AdManager.showVideo ();
+		//AdManager.showVideo ();
 	}
 
 	public void showRewarded(){
-		AdManager.showRewardedVideo ();
+		//AdManager.showRewardedVideo ();
 	}
 
 	public void onInfo(){
@@ -613,6 +619,18 @@ public class LevelPlay : MonoBehaviour {
 			infoPanel = false;
 		}
 
+	}
+
+	public void onDescription(){
+
+		Fade.FadeAndStartScene ("IntroScene", 3.0f, cam);
+		InfoPanel.FadeOutPanel ();
+
+	}
+
+	public void onBack(){
+		InfoPanel.FadeOutPanel ();
+		infoPanel = false;
 	}
 
 }

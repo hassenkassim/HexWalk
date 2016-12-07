@@ -20,10 +20,10 @@ public class Player {
 	Vector2 gamePosition;
 	Color curColor;
 	int colorCount;
-	int version;
+//	int version;
 
 	public Player(int colorCount, int version){
-		this.version = version;
+//		this.version = version;
 
 		switch (version) {
 		case 0:

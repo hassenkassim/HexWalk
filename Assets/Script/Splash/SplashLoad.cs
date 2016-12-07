@@ -8,6 +8,7 @@ public class SplashLoad : MonoBehaviour {
 	public static Camera cam;
 	public static GameObject pointLight;
 	public static GameObject playerobj;
+
 	public static GameObject gameName;
 	public static string cubeName;
 
@@ -24,15 +25,14 @@ public class SplashLoad : MonoBehaviour {
 		//Call Prefab Manager constructor
 		prefabsMgr = (PrefabsManagerSplashScene)GameObject.Find ("System").GetComponent <PrefabsManagerSplashScene> ();
 
-		splash = GameObject.Find ("Splash");
-
 		initLight ();
 
+		splash = GameObject.Find ("Splash");
 		DontDestroyOnLoad (splash);
 
 		//Setup Camera
 		cam = Camera.main;
-	
+
 		BackgroundManager.loadSkybox (cam);
 		BackgroundManager.setParticleSystem (cam);
 

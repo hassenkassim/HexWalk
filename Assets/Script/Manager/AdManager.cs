@@ -16,7 +16,7 @@ public class AdManager : MonoBehaviour {
 		DontDestroyOnLoad (adManager);
 
 	}
-
+	/*
 	public static void showVideo(){
 		
 		if (loseCounter % adFrequence == 0) {
@@ -58,5 +58,5 @@ public class AdManager : MonoBehaviour {
 		}
 	}
 
-
+	*/
 }

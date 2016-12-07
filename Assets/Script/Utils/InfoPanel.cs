@@ -23,6 +23,7 @@ public class InfoPanel : MonoBehaviour {
 
 	static IEnumerator DoFadeIn(){
 		while (canvasGroup.alpha < 1) {
+			InputManager.active = false;
 			canvasGroup.alpha += Time.deltaTime * 5;
 			yield return null;
 		}
@@ -39,6 +40,7 @@ public class InfoPanel : MonoBehaviour {
 			yield return null;
 		}
 		canvasGroup.interactable = false;
-		canvasGroup.gameObject.SetActive (false);	
+		canvasGroup.gameObject.SetActive (false);
+		InputManager.active = true;
 	}
 }

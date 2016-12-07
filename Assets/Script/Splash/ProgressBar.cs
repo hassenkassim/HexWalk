@@ -8,13 +8,35 @@ public class ProgressBar : MonoBehaviour {
 	public Transform TextLoading;
 	public Transform TextIndicator;
 
-	string levelName= "LevelScene";
+	string levelName;
 	AsyncOperation async;
 	public static bool loading = true;
 
-	IEnumerator Start(){
+	void Start(){
+
+//		PlayerPrefs.DeleteAll ();
+
+		if (PlayerPrefs.GetInt ("introLoad", 0) == 0) {
+				
+			PlayerPrefs.SetInt ("introLoad", 1);
+			// load intro
+			levelName= "Scene/IntroScene";
+
+			StartCoroutine (loadNewScene());
+
+		} else{
+			levelName= "Scene/LevelScene";
+			StartCoroutine (loadNewScene());
+		}
+	}
+
+	void Update(){
+		StartCoroutine (fadingLoadingbar ());
+	}
+
+	IEnumerator loadNewScene(){
 		SoundManager.playSplashMusic ();
-		yield return new WaitForSeconds (3.5f);
+		yield return new WaitForSeconds (2.0f);
 		async = SceneManager.LoadSceneAsync (levelName);
 
 		while (!async.isDone)
@@ -43,9 +65,6 @@ public class ProgressBar : MonoBehaviour {
 		}
 	}
 
-	void Update(){
-		StartCoroutine (fadingLoadingbar ());
-	}
 
 	IEnumerator fadingLoadingbar(){
 		// loading bar fading
@@ -83,6 +102,6 @@ public class ProgressBar : MonoBehaviour {
 				tmp.a+= Time.deltaTime * 2.5f;
 			}
 		}
-		yield return null;
+//		yield return null;
 	}
 }

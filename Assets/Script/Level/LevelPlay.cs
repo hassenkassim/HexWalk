@@ -2,7 +2,6 @@
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
-using UnityEngine.EventSystems;
 
 public class LevelPlay : MonoBehaviour {
 
@@ -105,6 +104,7 @@ public class LevelPlay : MonoBehaviour {
 	public static float yvalueSound;
 
 	public static bool landing;
+	public static bool infoPanel = false;
 
 	void Awake(){
 		//Set GyroController
@@ -117,9 +117,11 @@ public class LevelPlay : MonoBehaviour {
 		
 		//PlayerPrefs.DeleteAll ();
 
+
+
 		InputManager.active = false;
 
-		buttonTrans = TransitionButtons (2.0f);
+		buttonTrans = TransitionButtons (0.2f);
 
 		splash = GameObject.Find ("Splash");
 
@@ -185,7 +187,7 @@ public class LevelPlay : MonoBehaviour {
 				gameName = SplashLoad.prefabsMgr.generateObjectFromPrefab ("gameName");
 				gameName.GetComponent<Rigidbody> ().useGravity = false;
 
-				gameName.transform.position = new Vector3 (-0.8f + playerobj.transform.position.x, 10.0f, playerobj.transform.position.z);
+				gameName.transform.position = new Vector3 (-1.28f + playerobj.transform.position.x, 10.0f, playerobj.transform.position.z);
 				gameName.AddComponent<Splash> ();
 				gameName.SetActive (true);	
 		}
@@ -198,14 +200,13 @@ public class LevelPlay : MonoBehaviour {
 		Vector2 input = InputManager.getInput ();
 
 		if (input.x == 0 && input.y == 0) {
-			if (!EventSystem.current.IsPointerOverGameObject ()) {
-				if (InputManager.getClickTouchInput ()) {
-					print ("STARTLEVEL");
-					//SoundManager.stopMusicSmoothly ();
-					SoundManager.stopMusic ();
-					startLevel ();
-				}
+
+			if (InputManager.getClickTouchInput ()) {
+				print ("STARTLEVEL");
+				SoundManager.stopMusic ();
+				startLevel ();
 			}
+
 		}
 
 		if ((input.x != 0 || input.y != 0) && !isRotate) {
@@ -297,7 +298,7 @@ public class LevelPlay : MonoBehaviour {
 		if (splash.GetComponent<Splash> ().getSplashShown () == 2) {
 
 			if (landing == false) {
-				SoundManager.playLevelMusic(levelmgr.curLevel.getWorld());
+				SoundManager.playMenuMusic ();
 				InputManager.active = true;
 				landing = true;			
 			}
@@ -311,9 +312,9 @@ public class LevelPlay : MonoBehaviour {
 			worldText.text = "World: " + ((int)(gamePosition.y/2 + 1));
 
 			if (levelmgr.curLevel.getCompleted() == 1) {
-				statusText.text = "Level finished";
+				statusText.text = "";
 			} else if (levelmgr.curLevel.getCompleted() == 0) {
-				statusText.text = "Level not finished";
+				statusText.text = "";
 			}
 			enableText ();
 		} else {
@@ -345,7 +346,9 @@ public class LevelPlay : MonoBehaviour {
 		if (gamePosition.y % 2 != 0)
 			return;
 		//setting currentLevel
-		levelmgr.setNextLevel(levelmgr.curLevel.getWorld(), levelmgr.curLevel.getLevel());
+		if (InputManager.active == true) {
+			levelmgr.setNextLevel (levelmgr.curLevel.getWorld (), levelmgr.curLevel.getLevel ());
+		}
 
 		Fade.FadeAndStartScene ("GameScene", 3.0f, cam);
 
@@ -454,7 +457,7 @@ public class LevelPlay : MonoBehaviour {
 		setColor (playerobj, Col.ENABLEDCOLOR);
 
 		Vector2 pos = new Vector2(PlayerPrefs.GetInt(LevelManager.NEXTLEVEL,0), PlayerPrefs.GetInt(LevelManager.NEXTWORLD,0));
-
+		Debug.Log ("LevelManager.NEXTLEVEL:"+PlayerPrefs.GetInt(LevelManager.NEXTLEVEL,0)+ "   LevelManager.NEXTWORLD:"+PlayerPrefs.GetInt(LevelManager.NEXTWORLD,0));
 
 		playerobj.transform.position =  new Vector3(pos.x, 1.39f +splash.GetComponent<Splash>().getSplashOffset(), pos.y*2); //new Vector3 (0.0f,9.4f,0.0f);
 
@@ -542,13 +545,19 @@ public class LevelPlay : MonoBehaviour {
 		aufzu = -aufzu; //toggle
 
 		if (aufzu == 1) { //öffnen
+			//InputManager.active = false;
 			startInfoY = yvalueInfo;
-			endInfoY = listButton.transform.position.y - 150;
+			endInfoY = listButton.transform.position.y - 810;
 			startShareY = yvalueShare;
-			endShareY = listButton.transform.position.y - 100;
+			endShareY = listButton.transform.position.y - 540;
 			startSoundY = yvalueSound;
-			endSoundY = listButton.transform.position.y - 50;
+			endSoundY = listButton.transform.position.y - 270;
+
 		} else { // schließen
+			if(infoPanel == true){
+				InfoPanel.FadeOutPanel ();
+				infoPanel = false;
+			}
 			startInfoY = yvalueInfo;
 			endInfoY = listButton.transform.position.y;
 			startShareY = yvalueShare;
@@ -558,7 +567,7 @@ public class LevelPlay : MonoBehaviour {
 
 		}
 
-		float speed = Mathf.Abs (endInfoY - startInfoY) / 300;
+		float speed = Mathf.Abs (endInfoY - startInfoY) / 1000;
 
 		buttonTrans = TransitionButtons (speed);
 
@@ -582,11 +591,46 @@ public class LevelPlay : MonoBehaviour {
 			infoButton.transform.position = new Vector3(listButton.transform.position.x, yvalueInfo, listButton.transform.position.z);
 			shareButton.transform.position = new Vector3(listButton.transform.position.x, yvalueShare, listButton.transform.position.z);
 			soundButton.transform.position = new Vector3(listButton.transform.position.x, yvalueSound, listButton.transform.position.z);
+
+
 			yield return 0;
 
 		}
+
 		yield return 0;
 
+	}
+
+	public void showAd(){
+		AdManager.adFrequence = 3;
+		//AdManager.showVideo ();
+	}
+
+	public void showRewarded(){
+		//AdManager.showRewardedVideo ();
+	}
+
+	public void onInfo(){
+		if (infoPanel == false) {
+			InfoPanel.FadeInPanel ();
+			infoPanel = true;
+		} else {
+			InfoPanel.FadeOutPanel ();
+			infoPanel = false;
+		}
+
+	}
+
+	public void onDescription(){
+
+		Fade.FadeAndStartScene ("IntroScene", 3.0f, cam);
+		InfoPanel.FadeOutPanel ();
+
+	}
+
+	public void onBack(){
+		InfoPanel.FadeOutPanel ();
+		infoPanel = false;
 	}
 
 }

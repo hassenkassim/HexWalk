@@ -23,7 +23,7 @@ public class CameraPositionIntro : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		offsetGamefieldCam = new Vector3 (0.0f, 9.59f, -5.0f);//new Vector3 (((float)Gameplay.gamefield.width-1)/2, 2.0f + ((float)Gameplay.gamefield.getFieldHeight() * ((float)9/(float)5)), ((float)Gameplay.gamefield.height-1)/2);;
+		offsetGamefieldCam = new Vector3 (0.0f, 9.59f, -5.0f);// -IntroGame.playerobj.transform.localScale.x / 2
 
 		//initial setup of camera position and rotation
 		setPosition (offsetGamefieldCam);
@@ -42,7 +42,7 @@ public class CameraPositionIntro : MonoBehaviour {
 
 	public void setToFollowPlayerByRotation(){
 		CamID = 2;
-		//PathfinderController.camID = true;
+		PathfinderController.camID = true;
 	}
 
 	public void setPosition(Vector3 pos){

@@ -26,6 +26,7 @@ public class BackgroundManager : MonoBehaviour
 //TODO: crashes on ios debug --> auskommentiert wird kein particlesystem angezeigt obwohl eig standard angezeigt werden sollte
 //variante1:			ps.GetComponent<Renderer>().material = (Material)Resources.Load ("ParticleGlow");
 //variante2:			ps.GetComponent<Renderer>().material = Resources.Load ("ParticleGlow",typeof(Material)) as Material;
+			ps.GetComponent<Renderer>().material = (Material)Resources.Load ("ParticleGlow");
 
 			ps.maxParticles = 1000;
 			ps.startSize = 0.05f;

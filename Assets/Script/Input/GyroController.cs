@@ -94,7 +94,7 @@ public class GyroController : MonoBehaviour {
 			Input.gyro.updateInterval = 0.0167f;    // set the update interval to it's highest value (60 Hz)
 		} else {
 			// show a error message for the devices without a gyroscope
-			DebugConsole.Log ("The device's gyroscope can't be detected");
+//			DebugConsole.Log ("The device's gyroscope can't be detected");
 		}
 	}
 
@@ -136,7 +136,7 @@ public class GyroController : MonoBehaviour {
 	}
 
 	private void toogleGyro(){
-		DebugConsole.Log("TOOGLE");
+//		DebugConsole.Log("TOOGLE");
 		//butt1.GetComponent<Button>().onClick.RemoveAllListeners();
 		//butt1.onClick.AddListener(delegate{toogleGyro();});
 
@@ -168,7 +168,7 @@ public class GyroController : MonoBehaviour {
 		switch (SceneName) {
 		case ScenesManager.SCENE_SPLASH:
 			print ("1");
-			return false;
+			return true;
 		case ScenesManager.SCENE_GAME:
 			print ("2");
 			return true;
@@ -177,7 +177,7 @@ public class GyroController : MonoBehaviour {
 			return true;
 		default:
 			print ("4");
-			return false;
+			return true;
 		}
 	}	
 

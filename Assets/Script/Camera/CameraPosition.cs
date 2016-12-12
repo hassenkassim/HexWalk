@@ -87,6 +87,7 @@ public class CameraPosition : MonoBehaviour {
 	public void setToFollowPlayerByRotation(){
 		CamID = 2;
 		//PathfinderController.camID = true;
+		//InputManager.active = true;
 	}
 		
 	IEnumerator TransitionGamefieldPlayer(float lerpSpeed)
@@ -123,9 +124,12 @@ public class CameraPosition : MonoBehaviour {
 		//dursun
 		BackgroundManager.setParticleSystem(Gameplay.cam);
 
+		follow = true;
+
+		InputManager.active = true;
+
 		//enable Input
 		PathfinderController.camID = true;
-		InputManager.active = true;
 
 		//start Gyro
 		Gameplay.Gyro.GetComponent<GyroController>().setEnableGyro(true);

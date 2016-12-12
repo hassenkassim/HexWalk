@@ -36,7 +36,7 @@ public class IntroGame : MonoBehaviour {
 	static bool waitForFunction=false; // wait to the end of the description
 	static bool waitForEndOfScene=false;
 	int swipeInput=-1; // 0=right; 1=left; 2=up; 3=down; 4=tap;
-	public static bool collision = true; // for the last field no collision
+	public static bool collision; // for the last field no collision
 	public static bool explode= false; // for explosion of the last field
 	static bool showPathBool=true;
 
@@ -49,6 +49,7 @@ public class IntroGame : MonoBehaviour {
 		Fade.StartFadeIn (2.0f);
 
 		InputManager.active = false;
+		collision = true;
 
 		// for loading new scene with loadingbar
 		loadingBar = GameObject.Find("Loading");
@@ -58,7 +59,7 @@ public class IntroGame : MonoBehaviour {
 		introText.GetComponent<Text> ().text = "";
 
 		swipeIcon = GameObject.Find ("swipeIcon");
-
+		swipeIcon.SetActive (false);
 
 		cam = Camera.main;
 		cam.gameObject.AddComponent <CameraPositionIntro>();
@@ -69,7 +70,8 @@ public class IntroGame : MonoBehaviour {
 		initLight ();
 
 		// set pos
-		pos= new Vector2(PlayerPrefs.GetInt(LevelManager.NEXTLEVEL,0), PlayerPrefs.GetInt(LevelManager.NEXTWORLD,0));
+//		pos= new Vector2(PlayerPrefs.GetInt(LevelManager.NEXTLEVEL,0), PlayerPrefs.GetInt(LevelManager.NEXTWORLD,0));
+		pos= new Vector2(0.0f,0.0f);
 
 		loadPlayer ();
 
@@ -143,6 +145,7 @@ public class IntroGame : MonoBehaviour {
 		//show the path to follow if you tap
 		//1. swipe tap ____________________________________________________
 		introText.GetComponent<Text> ().text = "Tap to start the game ...";
+		swipeIcon.SetActive (true);
 		swipeIcon.GetComponent<Image> ().sprite=swipeTap;
 		StartCoroutine (fadeInGameobject(swipeIcon,1.0f));
 		StartCoroutine (fadeInText(introText,1.5f));
@@ -278,6 +281,8 @@ public class IntroGame : MonoBehaviour {
 
 		waitForEndOfScene = false;
 
+		LevelPlayerController.showID=9;
+
 		yield return null;
 	}
 		
@@ -400,6 +405,7 @@ public class IntroGame : MonoBehaviour {
 		playerobj.AddComponent<MeshRenderer> ().material = Materials.glanz;
 		playerobj.GetComponent<MeshRenderer>().material.SetColor("_Color",Col.WEISS);
 		playerobj.transform.localScale = new Vector3 (0.3f, 0.3f, 0.3f);
+//		playerobj.transform.transform.position = new Vector3 ();
 		playerobj.transform.rotation = Quaternion.Euler(0, 0, 0);
 		playerobj.AddComponent<IntroGameController> ();
 	}
@@ -411,7 +417,7 @@ public class IntroGame : MonoBehaviour {
 		gameName = (GameObject)Instantiate(Resources.Load("gameName"));
 		gameName.GetComponent<Rigidbody>().useGravity=false;
 
-		gameName.transform.position = new Vector3 (pos.x+-0.8f,1.39f + splashOffset+0.4f,pos.y*2);
+		gameName.transform.position = new Vector3 (pos.x-1.25f,1.39f + splashOffset+0.4f,pos.y*2);
 		gameName.AddComponent<Splash> ();
 		gameName.SetActive (true);
 

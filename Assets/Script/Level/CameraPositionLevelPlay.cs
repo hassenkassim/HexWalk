@@ -171,10 +171,12 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 		//enable Input
 		InputManager.active = true;
 
+		SoundManager.playMenuMusic ();
+
 		//start Gyro
 		LevelPlay.Gyro.GetComponent<GyroController>().setEnableGyro(true);
 
-		SoundManager.playLevelMusic ((int)LevelPlay.playerobj.transform.position.z / 2 + 1);
+		//SoundManager.playLevelMusic ((int)LevelPlay.playerobj.transform.position.z / 2 + 1);
 
 		yield return 0;
 	}

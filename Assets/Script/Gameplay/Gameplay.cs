@@ -128,7 +128,7 @@ public class Gameplay : MonoBehaviour {
 
 		//tolga
 		//Load Musics
-		SoundManager.playLevelMusic(currentLevel.getWorld() + 1);
+		SoundManager.playLevelMusic(currentLevel.getWorld());
 
 		explode = false;
 
@@ -173,6 +173,7 @@ public class Gameplay : MonoBehaviour {
 		SoundManager.stopMusicSmoothly ();
 		SoundManager.playLevelMusic (currentLevel.getWorld());
 
+		//bei World und Cube Wechsel
 		InputManager.active = true;
 
 	}
@@ -234,12 +235,15 @@ public class Gameplay : MonoBehaviour {
 	}
 
 	private static void lose(){
+
+		AdManager.loseCounter = AdManager.loseCounter + 1;
+
 		if (first == true) {
 			first = false; //Not the first start start
 		};
 		print ("GAMEOVER!");
 
-
+		PathfinderController.camID = false;
 
 		Vector2 platePos = player.getGamePosition ();
 		Field field = gamefield.getField ((int)platePos.x, (int)platePos.y);
@@ -303,7 +307,7 @@ public class Gameplay : MonoBehaviour {
 	public static IEnumerator waitForGameover(float timetowait){
 	
 		yield return new WaitForSeconds (timetowait);
-		AdManager.showAd ();
+		//AdManager.showVideo ();
 		Fade.FadeAndStartScene ("LevelScene", 2.0f, cam);
 	}
 }

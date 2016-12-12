@@ -1,13 +1,16 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Input/GyroController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Background/BackgroundManager.cs">
     <Files>
-      <File FileName="Assets/Script/Gameplay/Gameplay.cs" Line="69" Column="19" />
-      <File FileName="Assets/Script/Camera/CameraPosition.cs" Line="129" Column="1" />
-      <File FileName="Assets/Script/Gameplay/GameplayController.cs" Line="54" Column="1" />
+      <File FileName="Assets/Script/Gameplay/Gameplay.cs" Line="54" Column="32" />
       <File FileName="Assets/Script/Level/LevelPlay.cs" Line="112" Column="35" />
-      <File FileName="Assets/Script/Level/CameraPositionLevelPlay.cs" Line="158" Column="1" />
-      <File FileName="Assets/Script/Input/GyroController.cs" Line="143" Column="30" />
+      <File FileName="Assets/Script/Camera/CameraPosition.cs" Line="131" Column="38" />
+      <File FileName="Assets/Script/Level/CameraPositionLevelPlay.cs" Line="94" Column="25" />
+      <File FileName="Assets/Script/Input/GyroController.cs" Line="28" Column="16" />
+      <File FileName="Assets/Script/Gameplay/GameplayController.cs" Line="54" Column="1" />
+      <File FileName="Assets/Script/Manager/ScenesManager.cs" Line="12" Column="34" />
+      <File FileName="Assets/Script/Splash/SplashLoad.cs" Line="37" Column="24" />
+      <File FileName="Assets/Script/Background/BackgroundManager.cs" Line="21" Column="51" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

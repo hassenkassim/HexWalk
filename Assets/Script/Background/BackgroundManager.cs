@@ -18,13 +18,42 @@ public class BackgroundManager : MonoBehaviour
 		cam.GetComponent<Skybox> ().material = Resources.Load<Material> ("skybox/skybox" + world);
 	}	
 
-	public static void setParticleSystem(Camera cam){ // if true = from GamePlay class, if false = from LevelPlay class
+	public static void setParticleSystem(Camera cam){
 		if (cam.gameObject.GetComponent <ParticleSystem> () == null) {		
 			cam.gameObject.AddComponent <ParticleSystem> ();
 			ParticleSystem ps = cam.gameObject.GetComponent<ParticleSystem> ();
 
 //TODO: crashes on ios debug --> auskommentiert wird kein particlesystem angezeigt obwohl eig standard angezeigt werden sollte
-//variante1:			ps.GetComponent<Renderer>().material = (Material)Resources.Load ("ParticleGlow");
+			Material psMat = Resources.Load ("ParticleGlow",typeof(Material)) as Material;
+			if (psMat == null) {
+				DebugConsole.Log ("Material == NULL!");
+				DebugConsole.Log ("Material == NULL!");
+				DebugConsole.Log ("Material == NULL!");
+				DebugConsole.Log ("Material == NULL!");
+				DebugConsole.Log ("Material == NULL!");
+				DebugConsole.Log ("Material == NULL!");
+			} else {
+				DebugConsole.Log ("Material != NULL!");
+				DebugConsole.Log ("Material != NULL!");
+				DebugConsole.Log ("Material != NULL!");
+				DebugConsole.Log ("Material != NULL!");
+				DebugConsole.Log ("Material != NULL!");
+				DebugConsole.Log ("Material != NULL!");
+				DebugConsole.Log ("Material != NULL!");
+				DebugConsole.Log ("Material != NULL!");
+				DebugConsole.Log ("Material != NULL!");
+				DebugConsole.Log ("Material != NULL!");
+				DebugConsole.Log ("Material != NULL!");
+				DebugConsole.Log ("Material != NULL!");
+				DebugConsole.Log (psMat.name);
+
+
+			}
+
+			ps.GetComponent<Renderer> ().material = psMat;
+
+			//DebugConsole.Log (ps.GetComponent<ParticleRenderer> ().material.name);
+						//ps.GetComponent<ParticleRenderer>().material = (Material)Resources.Load ("ParticleGlow");
 //variante2:			ps.GetComponent<Renderer>().material = Resources.Load ("ParticleGlow",typeof(Material)) as Material;
 
 			ps.maxParticles = 1000;

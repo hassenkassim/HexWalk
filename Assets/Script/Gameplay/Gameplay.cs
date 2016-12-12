@@ -236,7 +236,7 @@ public class Gameplay : MonoBehaviour {
 
 	private static void lose(){
 
-		AdManager.loseCounter = AdManager.loseCounter + 1;
+		//AdManager.loseCounter = AdManager.loseCounter + 1;
 
 		if (first == true) {
 			first = false; //Not the first start start

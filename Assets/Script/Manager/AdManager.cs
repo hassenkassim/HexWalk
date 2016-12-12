@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.Advertisements;
+//using UnityEngine.Advertisements;
 
 public class AdManager : MonoBehaviour {
 
@@ -58,5 +58,6 @@ public class AdManager : MonoBehaviour {
 		}
 	}
 
-	*/
+*/
+
 }

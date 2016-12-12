@@ -7,6 +7,7 @@
 using UnityEngine;
 public class BackgroundManager : MonoBehaviour 
 {
+	private static GameObject particleSys;
 	public const string CURWORLD = "CURWORLD";
 
 	void Start(){
@@ -18,22 +19,22 @@ public class BackgroundManager : MonoBehaviour
 		cam.GetComponent<Skybox> ().material = Resources.Load<Material> ("skybox/skybox" + world);
 	}	
 
-	public static void setParticleSystem(Camera cam){ // if true = from GamePlay class, if false = from LevelPlay class
-		if (cam.gameObject.GetComponent <ParticleSystem> () == null) {		
-			cam.gameObject.AddComponent <ParticleSystem> ();
-			ParticleSystem ps = cam.gameObject.GetComponent<ParticleSystem> ();
+	public static void setParticleSystem(Camera cam){
+		string SceneName = ScenesManager.getCurrentSceneName ();
+		switch (SceneName) {
+		case ScenesManager.SCENE_SPLASH:
+			particleSys=SplashLoad.prefabsMgr.generateObjectFromPrefab ("ParticleSystem");
 
-//TODO: crashes on ios debug --> auskommentiert wird kein particlesystem angezeigt obwohl eig standard angezeigt werden sollte
-//variante1:			ps.GetComponent<Renderer>().material = (Material)Resources.Load ("ParticleGlow");
-//variante2:			ps.GetComponent<Renderer>().material = Resources.Load ("ParticleGlow",typeof(Material)) as Material;
-			ps.GetComponent<Renderer>().material = (Material)Resources.Load ("ParticleGlow");
-
-			ps.maxParticles = 1000;
-			ps.startSize = 0.05f;
-			var sh = ps.shape;
-			sh.enabled = true;
-			sh.shapeType = ParticleSystemShapeType.Cone;
-			sh.angle = 15;
+			break;
+		case ScenesManager.SCENE_GAME:
+			particleSys=Gameplay.prefabsMgr.generateObjectFromPrefab ("ParticleSystem");
+			break;
+		case ScenesManager.SCENE_LEVEL:
+			particleSys=LevelPlay.prefabsMgr.generateObjectFromPrefab ("ParticleSystem");
+			break;
+		case ScenesManager.SCENE_LEVEL2:
+			particleSys=LevelPlay.prefabsMgr.generateObjectFromPrefab ("ParticleSystem");
+			break;
 		}
 	}
 }

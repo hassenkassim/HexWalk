@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 public class ScenesManager : MonoBehaviour {
 	public const string SCENE_SPLASH = "SplashLoadingScene";
 	public const string SCENE_LEVEL = "LevelScene";
+	public const string SCENE_LEVEL2 = "Scene/LevelScene";
 	public const string SCENE_GAME = "GameScene";
 
 

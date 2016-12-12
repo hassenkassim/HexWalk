@@ -602,7 +602,7 @@ public class LevelPlay : MonoBehaviour {
 	}
 
 	public void showAd(){
-		AdManager.adFrequence = 3;
+		//AdManager.adFrequence = 3;
 		//AdManager.showVideo ();
 	}
 

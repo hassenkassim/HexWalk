@@ -4,19 +4,45 @@ using System.Collections;
 
 public class AdManager : MonoBehaviour {
 
-	public static string adID ="videoAd";
+	public static string videoID = "video";
+	public static string rewardedVideoID = "rewardedVideo";
+	public static int adFrequence = 3;
+	public static GameObject adManager;
+	public static int loseCounter = 0;
 
-	public static void showAd(){
-		//if(Advertisement.IsReady ()){
-			/*InputManager.active = false;
-			Advertisement.Show (adID, new ShowOptions(){resultCallback = handleAdResult});*/
-		//}
+	public void Start(){
+		
+		adManager = GameObject.Find ("AdManager");
+		DontDestroyOnLoad (adManager);
 
+	}
+	/*
+	public static void showVideo(){
+		
+		if (loseCounter % adFrequence == 0) {
+			
+			if (Advertisement.IsReady ()) {
+				
+				InputManager.active = false;
+				Advertisement.Show (videoID, new ShowOptions (){ resultCallback = handleAdResult });
+
+			}
+		}
 
 	}
 
-	/*private static void handleAdResult(ShowResult result){
-	/*	switch (result) {
+	public static void showRewardedVideo(){
+
+		if (Advertisement.IsReady ()) {
+
+			InputManager.active = false;
+			Advertisement.Show (rewardedVideoID, new ShowOptions (){ resultCallback = handleAdResult });
+
+		}
+	}
+
+	private static void handleAdResult(ShowResult result){
+		switch (result) {
 		case ShowResult.Finished:
 			Debug.Log ("Ad was finished!");
 			InputManager.active = true;
@@ -30,7 +56,8 @@ public class AdManager : MonoBehaviour {
 			InputManager.active = true;
 			break;
 		}
-	}*/
+	}
 
+*/
 
 }

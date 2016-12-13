@@ -34,7 +34,7 @@ public class SplashLoad : MonoBehaviour {
 		cam = Camera.main;
 
 		BackgroundManager.loadSkybox (cam);
-		//BackgroundManager.setParticleSystem (cam);
+		BackgroundManager.setParticleSystem (cam);
 
 		setCubeName ("cube0");
 

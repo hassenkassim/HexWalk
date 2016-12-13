@@ -30,15 +30,15 @@ public class IntroGame : MonoBehaviour {
 	public static float radius;							
 	Quaternion fromRotation;				
 	Quaternion toRotation;	
-	bool isRotate = false;					
+	bool isRotate;					
 	Vector2 input;
 
-	static bool waitForFunction=false; // wait to the end of the description
-	static bool waitForEndOfScene=false;
-	int swipeInput=-1; // 0=right; 1=left; 2=up; 3=down; 4=tap;
+	static bool waitForFunction; // wait to the end of the description
+	static bool waitForEndOfScene;
+	int swipeInput; // 0=right; 1=left; 2=up; 3=down; 4=tap;
 	public static bool collision; // for the last field no collision
-	public static bool explode= false; // for explosion of the last field
-	static bool showPathBool=true;
+	public static bool explode; // for explosion of the last field
+	static bool showPathBool;
 
 	void Awake(){
 		instance = this;
@@ -50,6 +50,12 @@ public class IntroGame : MonoBehaviour {
 
 		InputManager.active = false;
 		collision = true;
+		isRotate = false;
+		waitForFunction = false;
+		waitForEndOfScene = false;
+		explode = false;
+		showPathBool = true;
+		swipeInput = -1;
 
 		// for loading new scene with loadingbar
 		loadingBar = GameObject.Find("Loading");

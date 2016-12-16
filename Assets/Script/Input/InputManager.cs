@@ -29,10 +29,10 @@ public class InputManager {
 		if (active) {
 			#if UNITY_ANDROID || UNITY_IPHONE
 				if (SwipeManager.IsSwipingDown()) {
-					//DebugConsole.Log("IsSwipingDown");
+//					DebugConsole.Log("IsSwipingDown");
 					return -1;
 				} else if(SwipeManager.IsSwipingUp()) {
-					//DebugConsole.Log("IsSwipingUp");
+//					DebugConsole.Log("IsSwipingUp");
 					return 1;
 				}
 			#endif
@@ -44,7 +44,7 @@ public class InputManager {
 
 	public static bool getClickTouchInput(){
 		if (active) {
-			#if UNITY_ANDROID || UNITY_IPHONE
+		#if UNITY_ANDROID || UNITY_IPHONE
 			if(Input.touchCount > 0){ // && !eventsystem.IsPointerOverGameObject (Input.GetTouch (0).fingerId)){
 				if (Input.touches[0].phase == TouchPhase.Ended) {
 							//DebugConsole.Log("Touched");

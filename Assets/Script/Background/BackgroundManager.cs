@@ -24,35 +24,36 @@ public class BackgroundManager : MonoBehaviour
 	public static void setParticleSystem(Camera cam){
 		string SceneName = ScenesManager.getCurrentSceneName ();
 		switch (SceneName) {
-		case ScenesManager.SCENE_SPLASH:
+		case ScenesManager.SCENE_SPLASH: // passt
 			particleSys = SplashLoad.prefabsMgr.generateObjectFromPrefab ("ParticleSystem");
 			particleSys.transform.parent = cam.transform;
 
 			particleSys.transform.position = cam.transform.position;
 			particleSys.transform.eulerAngles = new Vector3(90.0f,0.0f,0.0f);
 			break;
-		case ScenesManager.SCENE_GAME:
+		case ScenesManager.SCENE_GAME: // passt
 			particleSys = Gameplay.prefabsMgr.generateObjectFromPrefab ("ParticleSystem");
 			particleSys.transform.parent = cam.transform;
 
-			particleSys.transform.position = cam.transform.position;
-			particleSys.transform.eulerAngles = new Vector3(10.0f,0.0f,0.0f);			break;
+			setParticlePos (cam, particleSys);
+			break;
 		case ScenesManager.SCENE_LEVEL:
 			particleSys = LevelPlay.prefabsMgr.generateObjectFromPrefab ("ParticleSystem");
 			particleSys.transform.parent = cam.transform;
 
-			particleSys.transform.position = cam.transform.position;
-			particleSys.transform.eulerAngles = new Vector3(10.0f,0.0f,0.0f);			break;
-		case ScenesManager.SCENE_LEVEL2:
+			setParticlePos (cam, particleSys);
+			break;
+		case ScenesManager.SCENE_LEVEL2: // passt
 			particleSys = LevelPlay.prefabsMgr.generateObjectFromPrefab ("ParticleSystem");
 			particleSys.transform.parent = cam.transform;
 
-			particleSys.transform.position = cam.transform.position;
-			particleSys.transform.eulerAngles = new Vector3(10.0f,0.0f,0.0f);			break;
+			setParticlePos (cam, particleSys);
+			break;
 		}
 	}
 
 	public static void setParticlePos(Camera cam,GameObject pS){
-		
+		particleSys.transform.position = cam.transform.position;
+		particleSys.transform.eulerAngles = new Vector3(10.0f,0.0f,0.0f);
 	}
 }

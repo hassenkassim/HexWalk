@@ -528,7 +528,7 @@ public class IntroGame : MonoBehaviour {
 		#if UNITY_ANDROID || UNITY_IPHONE
 		if(Input.touchCount > 0){
 			if (Input.touches[0].phase == TouchPhase.Ended) {
-				DebugConsole.Log("Touched");
+				//DebugConsole.Log("Touched");
 				return true;
 			}else{
 				return false;

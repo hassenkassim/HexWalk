@@ -97,7 +97,7 @@ public class MenuManager : MonoBehaviour {
 		soundIsOn = GetBool ("soundIsOn");
 
 		//PlayerPrefs.Save ();
-		Debug.Log(soundIsOn);
+		//Debug.Log(soundIsOn);
 		PlayerPrefs.Save();
 
 		AudioListener.pause = true;
@@ -111,7 +111,7 @@ public class MenuManager : MonoBehaviour {
 		SetBool ("soundIsOn", true);
 		soundIsOn = GetBool ("soundIsOn");
 		//PlayerPrefs.Save ();
-		Debug.Log(soundIsOn);
+		//Debug.Log(soundIsOn);
 		PlayerPrefs.Save();
 
 		AudioListener.pause = false;
@@ -148,9 +148,9 @@ public class MenuManager : MonoBehaviour {
 	}
 
 	void DidLoadLeaderboard (bool result) {
-		Debug.Log("Received " + m_Leaderboard.scores.Length + " scores");
-		foreach (IScore score in m_Leaderboard.scores)
-			Debug.Log(score);
+		//Debug.Log("Received " + m_Leaderboard.scores.Length + " scores");
+		//foreach (IScore score in m_Leaderboard.scores)
+			//Debug.Log(score);
 	}
 
 }

@@ -161,7 +161,7 @@ public class Gameplay : MonoBehaviour {
 
 	public static void changeCubeGameplay(){
 		//cube changing
-		print("in changeCubeGameplayMethode");
+		//print("in changeCubeGameplayMethode");
 		Level currentLevel = LevelPlay.levelmgr.getCurrentLevel ();
 
 		Player tmp = new Player (currentLevel.getColorCount(), currentLevel.getWorld() + 1);
@@ -200,7 +200,7 @@ public class Gameplay : MonoBehaviour {
 
 	public static void win(){
 		//changeCubeGameplay ();
-		print ("Won");
+		//print ("Won");
 		if (first == true) {
 			first = false; //Not the first start start
 		};
@@ -241,7 +241,7 @@ public class Gameplay : MonoBehaviour {
 		if (first == true) {
 			first = false; //Not the first start start
 		};
-		print ("GAMEOVER!");
+		//print ("GAMEOVER!");
 
 		PathfinderController.camID = false;
 

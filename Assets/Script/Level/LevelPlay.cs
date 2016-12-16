@@ -300,6 +300,9 @@ public class LevelPlay : MonoBehaviour {
 			if (landing == false) {
 				SoundManager.playMenuMusic ();
 				InputManager.active = true;
+
+
+
 				landing = true;			
 			}
 		}
@@ -475,13 +478,14 @@ public class LevelPlay : MonoBehaviour {
 		worldText = GameObject.Find("WorldText").GetComponent<Text> ();
 		statusText = GameObject.Find("StatusText").GetComponent<Text> ();
 	}
-
-
+		
 	public static void enableText(){
 		levelText.GetComponent<Text> ().enabled = true;
 		worldText.GetComponent<Text> ().enabled = true;
 		statusText.GetComponent<Text> ().enabled = true;
+
 	}
+
 
 	public static void disableText(){
 		levelText.GetComponent<Text> ().enabled = false;

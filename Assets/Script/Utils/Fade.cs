@@ -25,18 +25,21 @@ public class Fade : MonoBehaviour {
 	}
 		
 	public static void StartFadeIn (float time){
+		Debug.Log ("FadeIn");
 		InputManager.active = false;
 		overlay.gameObject.SetActive (true);
 		instance.StartCoroutine (FadeIn (time));
 	}
 
 	public static void StartFadeOut(float time, Camera cam){
+		Debug.Log ("FadeOut");
 		InputManager.active = false;
 		overlay.gameObject.SetActive (true);
 		instance.StartCoroutine (FadeOut (time, cam));
 	}
 
 	public static void FadeAndStartScene(string sceneName, float time, Camera cam){
+		Debug.Log ("FadeAndStartScene");
 		sceneStr = sceneName;
 		changeScene = true;
 		StartFadeOut (time, cam);

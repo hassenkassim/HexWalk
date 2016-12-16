@@ -158,7 +158,7 @@ public class GyroController : MonoBehaviour {
 
 	private bool getIconActivateInScene(){
 		string SceneName = ScenesManager.getCurrentSceneName ();
-		DebugConsole.Log ("SCENE: " + SceneName);
+//		DebugConsole.Log ("SCENE: " + SceneName);
 		switch (SceneName) {
 		case ScenesManager.SCENE_SPLASH:
 			return false;

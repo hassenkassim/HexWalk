@@ -105,10 +105,6 @@ public class Gameplay : MonoBehaviour {
 
 		//Level currentLevel = LevelPlay.levelmgr.getLevel (11, 9);
 
-		//dursun
-		BackgroundManager.loadSkybox(cam);
-		Fade.StartFadeIn (2.0f);
-
 		GameObject.Find("WorldText").GetComponent<Text>().text = "World: " + (currentLevel.getWorld() + 1);
 		GameObject.Find("LevelText").GetComponent<Text>().text = "Level: " + (currentLevel.getLevel() + 1);
 

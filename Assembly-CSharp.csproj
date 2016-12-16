@@ -81,6 +81,7 @@
      <Compile Include="Assets\Script\Splash\ProgressBar.cs" />
      <Compile Include="Assets\Script\Splash\Splash.cs" />
      <Compile Include="Assets\Script\Splash\SplashLoad.cs" />
+     <Compile Include="Assets\Script\Utils\BoxSize.cs" />
      <Compile Include="Assets\Script\Utils\Col.cs" />
      <Compile Include="Assets\Script\Utils\DebugConsole.cs" />
      <Compile Include="Assets\Script\Utils\Fade.cs" />

@@ -69,6 +69,8 @@ public class LevelPlay : MonoBehaviour {
 	public static Button shareButton;
 	public static Button infoButton;
 
+	private static Rect buttonRect;
+
 
 	public static float soundEndPosition;
 	public static float shareEndPosition;
@@ -451,6 +453,8 @@ public class LevelPlay : MonoBehaviour {
 	public void loadPlayer(){
 		//Create Player
 
+		DebugConsole.Log ("Cube Name: " + SplashLoad.getCubeName());
+
 		playerobj = LevelPlay.prefabsMgr.generateObjectFromPrefab (SplashLoad.getCubeName());
 		playerobj.AddComponent<MeshRenderer> ().material = Materials.glanz;
 		playerobj.GetComponent<MeshRenderer>().material.SetColor("_Color",Col.WEISS);
@@ -494,10 +498,13 @@ public class LevelPlay : MonoBehaviour {
 	}
 
 	public void loadButtons(){
+		//GameObject listObject = GameObject.Find ("ListButton");
 		listButton = GameObject.Find ("ListButton").GetComponent<Button> ();
 		soundButton = GameObject.Find ("SoundButton").GetComponent<Button> ();
 		shareButton = GameObject.Find ("ShareButton").GetComponent<Button> ();
 		infoButton = GameObject.Find ("InfoButton").GetComponent<Button> ();
+
+		//buttonRect = BoxSize.GUIRectWithObject (listObject);
 
 		soundEndPosition = listButton.transform.position.y + listButton.transform.position.y/2;
 		shareEndPosition = soundEndPosition + listButton.transform.position.y + listButton.transform.position.y;
@@ -544,6 +551,15 @@ public class LevelPlay : MonoBehaviour {
 		//aufzu = 1 == zu
 		//aufzu = -1 == auf
 
+
+
+		DebugConsole.Log("height: " + buttonRect.height);
+
+		float height1 = 270.0f;
+		float height2 = 270.0f*2.0f;
+		float height3 = 270.0f*3.0f;
+
+
 		StopCoroutine (buttonTrans);//Stop Coroutine
 
 		aufzu = -aufzu; //toggle
@@ -551,11 +567,11 @@ public class LevelPlay : MonoBehaviour {
 		if (aufzu == 1) { //öffnen
 			//InputManager.active = false;
 			startInfoY = yvalueInfo;
-			endInfoY = listButton.transform.position.y - 810;
+			endInfoY = listButton.transform.position.y - height3;
 			startShareY = yvalueShare;
-			endShareY = listButton.transform.position.y - 540;
+			endShareY = listButton.transform.position.y - height2;
 			startSoundY = yvalueSound;
-			endSoundY = listButton.transform.position.y - 270;
+			endSoundY = listButton.transform.position.y - height1;
 
 		} else { // schließen
 			if(infoPanel == true){

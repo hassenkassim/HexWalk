@@ -30,15 +30,15 @@ public class IntroGame : MonoBehaviour {
 	public static float radius;							
 	Quaternion fromRotation;				
 	Quaternion toRotation;	
-	bool isRotate = false;					
+	bool isRotate;					
 	Vector2 input;
 
-	static bool waitForFunction=false; // wait to the end of the description
-	static bool waitForEndOfScene=false;
-	int swipeInput=-1; // 0=right; 1=left; 2=up; 3=down; 4=tap;
-	public static bool collision = true; // for the last field no collision
-	public static bool explode= false; // for explosion of the last field
-	static bool showPathBool=true;
+	static bool waitForFunction; // wait to the end of the description
+	static bool waitForEndOfScene;
+	int swipeInput; // 0=right; 1=left; 2=up; 3=down; 4=tap;
+	public static bool collision; // for the last field no collision
+	public static bool explode; // for explosion of the last field
+	static bool showPathBool;
 
 	void Awake(){
 		instance = this;
@@ -49,6 +49,13 @@ public class IntroGame : MonoBehaviour {
 		Fade.StartFadeIn (2.0f);
 
 		InputManager.active = false;
+		collision = true;
+		isRotate = false;
+		waitForFunction = false;
+		waitForEndOfScene = false;
+		explode = false;
+		showPathBool = true;
+		swipeInput = -1;
 
 		// for loading new scene with loadingbar
 		loadingBar = GameObject.Find("Loading");
@@ -58,7 +65,7 @@ public class IntroGame : MonoBehaviour {
 		introText.GetComponent<Text> ().text = "";
 
 		swipeIcon = GameObject.Find ("swipeIcon");
-
+		swipeIcon.SetActive (false);
 
 		cam = Camera.main;
 		cam.gameObject.AddComponent <CameraPositionIntro>();
@@ -144,6 +151,7 @@ public class IntroGame : MonoBehaviour {
 		//show the path to follow if you tap
 		//1. swipe tap ____________________________________________________
 		introText.GetComponent<Text> ().text = "Tap to start the game ...";
+		swipeIcon.SetActive (true);
 		swipeIcon.GetComponent<Image> ().sprite=swipeTap;
 		StartCoroutine (fadeInGameobject(swipeIcon,1.0f));
 		StartCoroutine (fadeInText(introText,1.5f));

@@ -450,6 +450,8 @@ public class LevelPlay : MonoBehaviour {
 	public void loadPlayer(){
 		//Create Player
 
+		DebugConsole.Log ("Cube Name: " + SplashLoad.getCubeName());
+
 		playerobj = LevelPlay.prefabsMgr.generateObjectFromPrefab (SplashLoad.getCubeName());
 		playerobj.AddComponent<MeshRenderer> ().material = Materials.glanz;
 		playerobj.GetComponent<MeshRenderer>().material.SetColor("_Color",Col.WEISS);
@@ -459,7 +461,7 @@ public class LevelPlay : MonoBehaviour {
 		setColor (playerobj, Col.ENABLEDCOLOR);
 
 		Vector2 pos = new Vector2(PlayerPrefs.GetInt(LevelManager.NEXTLEVEL,0), PlayerPrefs.GetInt(LevelManager.NEXTWORLD,0));
-
+		Debug.Log ("LevelManager.NEXTLEVEL:"+PlayerPrefs.GetInt(LevelManager.NEXTLEVEL,0)+ "   LevelManager.NEXTWORLD:"+PlayerPrefs.GetInt(LevelManager.NEXTWORLD,0));
 
 		playerobj.transform.position =  new Vector3(pos.x, 1.39f +splash.GetComponent<Splash>().getSplashOffset(), pos.y*2); //new Vector3 (0.0f,9.4f,0.0f);
 

@@ -5,8 +5,11 @@
  * Year: 2016									*
  *************************************************/
 using UnityEngine;
+using System.Collections.Generic ;
+
 public class BackgroundManager : MonoBehaviour 
 {
+	private static GameObject particleSys;
 	public const string CURWORLD = "CURWORLD";
 
 	void Start(){
@@ -22,17 +25,34 @@ public class BackgroundManager : MonoBehaviour
 		string SceneName = ScenesManager.getCurrentSceneName ();
 		switch (SceneName) {
 		case ScenesManager.SCENE_SPLASH:
-			SplashLoad.prefabsMgr.generateObjectFromPrefab("ParticleSystem");
+			particleSys = SplashLoad.prefabsMgr.generateObjectFromPrefab ("ParticleSystem");
+			particleSys.transform.parent = cam.transform;
+
+			particleSys.transform.position = cam.transform.position;
+			particleSys.transform.eulerAngles = new Vector3(90.0f,0.0f,0.0f);
 			break;
 		case ScenesManager.SCENE_GAME:
-			Gameplay.prefabsMgr.generateObjectFromPrefab ("ParticleSystem");
-			break;
+			particleSys = Gameplay.prefabsMgr.generateObjectFromPrefab ("ParticleSystem");
+			particleSys.transform.parent = cam.transform;
+
+			particleSys.transform.position = cam.transform.position;
+			particleSys.transform.eulerAngles = new Vector3(10.0f,0.0f,0.0f);			break;
 		case ScenesManager.SCENE_LEVEL:
-			LevelPlay.prefabsMgr.generateObjectFromPrefab ("ParticleSystem");
-			break;
+			particleSys = LevelPlay.prefabsMgr.generateObjectFromPrefab ("ParticleSystem");
+			particleSys.transform.parent = cam.transform;
+
+			particleSys.transform.position = cam.transform.position;
+			particleSys.transform.eulerAngles = new Vector3(10.0f,0.0f,0.0f);			break;
 		case ScenesManager.SCENE_LEVEL2:
-			LevelPlay.prefabsMgr.generateObjectFromPrefab ("ParticleSystem");
-			break;
+			particleSys = LevelPlay.prefabsMgr.generateObjectFromPrefab ("ParticleSystem");
+			particleSys.transform.parent = cam.transform;
+
+			particleSys.transform.position = cam.transform.position;
+			particleSys.transform.eulerAngles = new Vector3(10.0f,0.0f,0.0f);			break;
 		}
+	}
+
+	public static void setParticlePos(Camera cam,GameObject pS){
+		
 	}
 }

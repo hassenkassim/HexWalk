@@ -14,7 +14,7 @@ public class ProgressBar : MonoBehaviour {
 
 	void Start(){
 
-//		PlayerPrefs.DeleteAll ();
+		//PlayerPrefs.DeleteAll ();
 
 		if (PlayerPrefs.GetInt ("introLoad", 0) == 0) {
 				

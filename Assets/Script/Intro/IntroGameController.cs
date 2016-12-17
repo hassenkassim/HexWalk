@@ -3,11 +3,12 @@ using System.Collections;
 
 public class IntroGameController : MonoBehaviour {
 	bool colision;
-	public static bool blue=false;
+	public static bool blue;
 
 	// Use this for initialization
 	void Start () {
 		colision = false;
+		blue = false;
 	}
 	
 	// Update is called once per frame

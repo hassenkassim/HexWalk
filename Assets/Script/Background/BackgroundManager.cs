@@ -5,8 +5,11 @@
  * Year: 2016									*
  *************************************************/
 using UnityEngine;
+using System.Collections.Generic ;
+
 public class BackgroundManager : MonoBehaviour 
 {
+	private static GameObject particleSys;
 	public const string CURWORLD = "CURWORLD";
 
 	void Start(){
@@ -18,22 +21,39 @@ public class BackgroundManager : MonoBehaviour
 		cam.GetComponent<Skybox> ().material = Resources.Load<Material> ("skybox/skybox" + world);
 	}	
 
-	public static void setParticleSystem(Camera cam){ // if true = from GamePlay class, if false = from LevelPlay class
-		if (cam.gameObject.GetComponent <ParticleSystem> () == null) {		
-			cam.gameObject.AddComponent <ParticleSystem> ();
-			ParticleSystem ps = cam.gameObject.GetComponent<ParticleSystem> ();
+	public static void setParticleSystem(Camera cam){
+		string SceneName = ScenesManager.getCurrentSceneName ();
+		switch (SceneName) {
+		case ScenesManager.SCENE_SPLASH: // passt
+			particleSys = SplashLoad.prefabsMgr.generateObjectFromPrefab ("ParticleSystem");
+			particleSys.transform.parent = cam.transform;
 
-//TODO: crashes on ios debug --> auskommentiert wird kein particlesystem angezeigt obwohl eig standard angezeigt werden sollte
-//variante1:			ps.GetComponent<Renderer>().material = (Material)Resources.Load ("ParticleGlow");
-//variante2:			ps.GetComponent<Renderer>().material = Resources.Load ("ParticleGlow",typeof(Material)) as Material;
-			ps.GetComponent<Renderer>().material = (Material)Resources.Load ("ParticleGlow");
+			particleSys.transform.position = cam.transform.position;
+			particleSys.transform.eulerAngles = new Vector3(90.0f,0.0f,0.0f);
+			break;
+		case ScenesManager.SCENE_GAME: // passt
+			particleSys = Gameplay.prefabsMgr.generateObjectFromPrefab ("ParticleSystem");
+			particleSys.transform.parent = cam.transform;
 
-			ps.maxParticles = 1000;
-			ps.startSize = 0.05f;
-			var sh = ps.shape;
-			sh.enabled = true;
-			sh.shapeType = ParticleSystemShapeType.Cone;
-			sh.angle = 15;
+			setParticlePos (cam, particleSys);
+			break;
+		case ScenesManager.SCENE_LEVEL:
+			particleSys = LevelPlay.prefabsMgr.generateObjectFromPrefab ("ParticleSystem");
+			particleSys.transform.parent = cam.transform;
+
+			setParticlePos (cam, particleSys);
+			break;
+		case ScenesManager.SCENE_LEVEL2: // passt
+			particleSys = LevelPlay.prefabsMgr.generateObjectFromPrefab ("ParticleSystem");
+			particleSys.transform.parent = cam.transform;
+
+			setParticlePos (cam, particleSys);
+			break;
 		}
+	}
+
+	public static void setParticlePos(Camera cam,GameObject pS){
+		particleSys.transform.position = cam.transform.position;
+		particleSys.transform.eulerAngles = new Vector3(10.0f,0.0f,0.0f);
 	}
 }

@@ -39,7 +39,7 @@ public class Pause : MonoBehaviour {
 			//If we found the object , get the Canvas component from it.
 			pauseCanvas = tempObject.GetComponent<Canvas>();
 			if(pauseCanvas == null){
-				Debug.Log("Could not locate Canvas component on " + tempObject.name);
+				//Debug.Log("Could not locate Canvas component on " + tempObject.name);
 			}
 		}
 		//pauseCanvas.enabled = false;

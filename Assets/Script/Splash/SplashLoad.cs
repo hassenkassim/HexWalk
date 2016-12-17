@@ -7,6 +7,7 @@ public class SplashLoad : MonoBehaviour {
 	public GameObject splash;
 	public static Camera cam;
 	public static GameObject pointLight;
+	public static GameObject staticLight;
 	public static GameObject playerobj;
 
 	public static GameObject gameName;
@@ -72,8 +73,20 @@ public class SplashLoad : MonoBehaviour {
 		pointLight = new GameObject();
 		pointLight.name = "pointLight";
 		pointLight.AddComponent<Light> ();
-		pointLight.GetComponent<Light> ().color = Color.white;
+		pointLight.GetComponent<Light> ().color = Color.blue;
 		pointLight.transform.position = beginLight;
+
+		//HASSEN: Additional faint Light to see CubeWalk
+		staticLight = new GameObject();
+		staticLight.name = "staticLight";
+		staticLight.AddComponent<Light> ();
+		staticLight.GetComponent<Light> ().color = Color.white;
+		staticLight.GetComponent<Light> ().type = LightType.Directional;
+		staticLight.GetComponent<Light> ().intensity = 0.4f;
+		staticLight.transform.rotation = Quaternion.Euler(new Vector3(200.0f, 180.0f, 10.0f));
+
+
+
 	}
 		
 	private void moveLight(){

@@ -34,12 +34,17 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 	public float posZ;
 
 	public static bool setPos=false;
+	private static bool particleSet;
+	private static bool firstFade;
 
 	// Use this for initialization
 	void Start () {
 		splash = GameObject.Find ("Splash");
 		levelmanager = new LevelManager ();
-	
+
+		firstFade = false;
+		particleSet = false;
+
 		//dursun 
 		switch (splash.GetComponent<Splash> ().getSplashShown ()) {
 		case 0:
@@ -86,12 +91,18 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 			setRotation (rotationPlayerCam);
 
 			//dursun
-			BackgroundManager.setParticleSystem(LevelPlay.cam);
+			if (!particleSet) {
+				BackgroundManager.setParticleSystem (LevelPlay.cam);
+				particleSet = true;
+			}
 
 		} else if (LevelPlayerController.showID == 9) {
-			Fade.StartFadeIn (2.0f);
+			if (!firstFade) {
+				Fade.StartFadeIn (2.0f);
+				firstFade = true;
+			}
+
 			// here first time after gamescene: different rotation
-			BackgroundManager.setParticleSystem(LevelPlay.cam);
 
 			Vector3 relativePos = LevelPlay.playerobj.transform.position - transform.position;
 			LevelPlay.cam.transform.rotation = Quaternion.LookRotation (relativePos);
@@ -107,8 +118,15 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 				LevelPlayerController.showID=10;
 				setPosition (LevelPlay.playerobj.transform.position + offsetPlayerCam);
 				setRotation (rotationPlayerCam);
+
+				if (!particleSet) {
+					BackgroundManager.setParticleSystem (LevelPlay.cam);
+					particleSet = true;
+					LevelPlay.Gyro.GetComponent<GyroController>().setEnableGyro(true);
+				}
+
+
 			}
-				
 		} 
 	}
 
@@ -166,7 +184,10 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 		LevelPlayerController.showID = 10;
 
 		//dursun
-		BackgroundManager.setParticleSystem (LevelPlay.cam);
+		if (!particleSet) {
+			BackgroundManager.setParticleSystem (LevelPlay.cam);
+			particleSet = true;
+		}
 
 		//enable Input
 		InputManager.active = true;

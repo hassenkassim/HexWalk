@@ -105,10 +105,6 @@ public class Gameplay : MonoBehaviour {
 
 		//Level currentLevel = LevelPlay.levelmgr.getLevel (11, 9);
 
-		//dursun
-		BackgroundManager.loadSkybox(cam);
-		Fade.StartFadeIn (2.0f);
-
 		GameObject.Find("WorldText").GetComponent<Text>().text = "World: " + (currentLevel.getWorld() + 1);
 		GameObject.Find("LevelText").GetComponent<Text>().text = "Level: " + (currentLevel.getLevel() + 1);
 
@@ -161,7 +157,7 @@ public class Gameplay : MonoBehaviour {
 
 	public static void changeCubeGameplay(){
 		//cube changing
-		print("in changeCubeGameplayMethode");
+		//print("in changeCubeGameplayMethode");
 		Level currentLevel = LevelPlay.levelmgr.getCurrentLevel ();
 
 		Player tmp = new Player (currentLevel.getColorCount(), currentLevel.getWorld() + 1);
@@ -200,7 +196,7 @@ public class Gameplay : MonoBehaviour {
 
 	public static void win(){
 		//changeCubeGameplay ();
-		print ("Won");
+		//print ("Won");
 		if (first == true) {
 			first = false; //Not the first start start
 		};
@@ -236,12 +232,12 @@ public class Gameplay : MonoBehaviour {
 
 	private static void lose(){
 
-		AdManager.loseCounter = AdManager.loseCounter + 1;
+		//AdManager.loseCounter = AdManager.loseCounter + 1;
 
 		if (first == true) {
 			first = false; //Not the first start start
 		};
-		print ("GAMEOVER!");
+		//print ("GAMEOVER!");
 
 		PathfinderController.camID = false;
 

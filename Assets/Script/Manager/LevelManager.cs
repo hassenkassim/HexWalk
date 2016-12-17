@@ -95,7 +95,7 @@ public class LevelManager {
 				//TODO: GAME END
 			}
 		} else {
-			if (curLevel.getLevel () < levelMax) {
+			if (curLevel.getLevel () < levelMax-1) { // TODO 
 				nLevel = curLevel.getLevel () + 1;
 			} else {
 				//give me next free level

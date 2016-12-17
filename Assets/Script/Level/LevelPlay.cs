@@ -69,6 +69,8 @@ public class LevelPlay : MonoBehaviour {
 	public static Button shareButton;
 	public static Button infoButton;
 
+	private static float buttonHeight;
+
 
 	public static float soundEndPosition;
 	public static float shareEndPosition;
@@ -180,7 +182,7 @@ public class LevelPlay : MonoBehaviour {
 		//tolga
 		disableText();
 
-		print (splash.GetComponent<Splash> ().getSplashShown ());
+		//print (splash.GetComponent<Splash> ().getSplashShown ());
 
 		if (splash.GetComponent<Splash> ().getSplashShown () == 0) {
 			//dursun
@@ -202,7 +204,7 @@ public class LevelPlay : MonoBehaviour {
 		if (input.x == 0 && input.y == 0) {
 
 			if (InputManager.getClickTouchInput ()) {
-				print ("STARTLEVEL");
+				//print ("STARTLEVEL");
 				SoundManager.stopMusic ();
 				startLevel ();
 			}
@@ -300,6 +302,9 @@ public class LevelPlay : MonoBehaviour {
 			if (landing == false) {
 				SoundManager.playMenuMusic ();
 				InputManager.active = true;
+
+
+
 				landing = true;			
 			}
 		}
@@ -448,6 +453,8 @@ public class LevelPlay : MonoBehaviour {
 	public void loadPlayer(){
 		//Create Player
 
+		//DebugConsole.Log ("Cube Name: " + SplashLoad.getCubeName());
+
 		playerobj = LevelPlay.prefabsMgr.generateObjectFromPrefab (SplashLoad.getCubeName());
 		playerobj.AddComponent<MeshRenderer> ().material = Materials.glanz;
 		playerobj.GetComponent<MeshRenderer>().material.SetColor("_Color",Col.WEISS);
@@ -457,7 +464,7 @@ public class LevelPlay : MonoBehaviour {
 		setColor (playerobj, Col.ENABLEDCOLOR);
 
 		Vector2 pos = new Vector2(PlayerPrefs.GetInt(LevelManager.NEXTLEVEL,0), PlayerPrefs.GetInt(LevelManager.NEXTWORLD,0));
-
+		//Debug.Log ("LevelManager.NEXTLEVEL:"+PlayerPrefs.GetInt(LevelManager.NEXTLEVEL,0)+ "   LevelManager.NEXTWORLD:"+PlayerPrefs.GetInt(LevelManager.NEXTWORLD,0));
 
 		playerobj.transform.position =  new Vector3(pos.x, 1.39f +splash.GetComponent<Splash>().getSplashOffset(), pos.y*2); //new Vector3 (0.0f,9.4f,0.0f);
 
@@ -475,13 +482,14 @@ public class LevelPlay : MonoBehaviour {
 		worldText = GameObject.Find("WorldText").GetComponent<Text> ();
 		statusText = GameObject.Find("StatusText").GetComponent<Text> ();
 	}
-
-
+		
 	public static void enableText(){
 		levelText.GetComponent<Text> ().enabled = true;
 		worldText.GetComponent<Text> ().enabled = true;
 		statusText.GetComponent<Text> ().enabled = true;
+
 	}
+
 
 	public static void disableText(){
 		levelText.GetComponent<Text> ().enabled = false;
@@ -494,6 +502,8 @@ public class LevelPlay : MonoBehaviour {
 		soundButton = GameObject.Find ("SoundButton").GetComponent<Button> ();
 		shareButton = GameObject.Find ("ShareButton").GetComponent<Button> ();
 		infoButton = GameObject.Find ("InfoButton").GetComponent<Button> ();
+
+		buttonHeight = getButtonHeight ();
 
 		soundEndPosition = listButton.transform.position.y + listButton.transform.position.y/2;
 		shareEndPosition = soundEndPosition + listButton.transform.position.y + listButton.transform.position.y;
@@ -522,7 +532,7 @@ public class LevelPlay : MonoBehaviour {
 			AudioListener.pause = true;
 			soundButton.image.overrideSprite = soundOffImage;
 			PlayerPrefs.SetInt ("SoundOn", 0);
-			print (PlayerPrefs.GetInt("SoundOn"));
+			//print (PlayerPrefs.GetInt("SoundOn"));
 
 		} else {
 			AudioListener.pause = false;
@@ -540,6 +550,13 @@ public class LevelPlay : MonoBehaviour {
 		//aufzu = 1 == zu
 		//aufzu = -1 == auf
 
+		float initheight = buttonHeight + 5;
+
+		float height1 = initheight;
+		float height2 = initheight*2.0f;
+		float height3 = initheight*3.0f;
+
+
 		StopCoroutine (buttonTrans);//Stop Coroutine
 
 		aufzu = -aufzu; //toggle
@@ -547,11 +564,11 @@ public class LevelPlay : MonoBehaviour {
 		if (aufzu == 1) { //öffnen
 			//InputManager.active = false;
 			startInfoY = yvalueInfo;
-			endInfoY = listButton.transform.position.y - 810;
+			endInfoY = listButton.transform.position.y - height3;
 			startShareY = yvalueShare;
-			endShareY = listButton.transform.position.y - 540;
+			endShareY = listButton.transform.position.y - height2;
 			startSoundY = yvalueSound;
-			endSoundY = listButton.transform.position.y - 270;
+			endSoundY = listButton.transform.position.y - height1;
 
 		} else { // schließen
 			if(infoPanel == true){
@@ -602,7 +619,7 @@ public class LevelPlay : MonoBehaviour {
 	}
 
 	public void showAd(){
-		AdManager.adFrequence = 3;
+		//AdManager.adFrequence = 3;
 		//AdManager.showVideo ();
 	}
 
@@ -631,6 +648,16 @@ public class LevelPlay : MonoBehaviour {
 	public void onBack(){
 		InfoPanel.FadeOutPanel ();
 		infoPanel = false;
+	}
+
+	private float getButtonHeight(){
+
+		Vector3 size = infoButton.GetComponent<BoxCollider2D> ().bounds.size;
+		//print ("Size X: " + size.x);
+		//print ("Size Y: " + size.y);
+		//print ("Size Z: " + size.z);
+
+		return 100 * size.x;
 	}
 
 }

@@ -16,16 +16,14 @@ using UnityEngine.UI;
  * */
 public class GyroController : MonoBehaviour {
 
-	Button butt1;
-
-	public static int a = 0;
+	Button butt;
 
 	public readonly static string ICON1STR = "gyroIcon1";
 	public readonly static string ICON2STR = "gyroIcon2";
 	public readonly static string ICON3STR = "gyroIcon3";
 
 	public bool firstStart = true;
-	private static bool gyroEnabled = false;
+	private bool gyroEnabled = false;
 	public bool gyroactive = false;
 
 	/* reference for the axes we want to detect changes 
@@ -48,10 +46,17 @@ public class GyroController : MonoBehaviour {
 
 	void Awake(){
 		resetCamRot = Quaternion.Euler (new Vector3 (29f, 0.0f, 0.0f));
-		InitGyro ();
+		//get icon gameobjects
+		Icon1 = GameObject.Find("gyroIcon1");
+		Icon2 = GameObject.Find("gyroIcon2");
+		Icon3 = GameObject.Find("gyroIcon3");
+
+		butt = GameObject.Find("GyroIcon").GetComponent<Button>();
+
 	}
 
 	void Start(){
+		InitGyro ();
 	}
 	
 	// Update is called once per frame
@@ -70,23 +75,11 @@ public class GyroController : MonoBehaviour {
 
 	public void InitGyro() {
 		setEnableGyro (false);
-		//resetRotation ();
-
 
 		//Setup Buttons
-		butt1 = GameObject.Find("GyroIcon").GetComponent<Button>();
-		butt1.GetComponent<Button>().onClick.RemoveAllListeners();
-		butt1.onClick.AddListener(delegate{toogleGyro();});
+		butt.GetComponent<Button>().onClick.RemoveAllListeners();
+		butt.onClick.AddListener(delegate{toogleGyro();});
 
-
-
-		//get icon gameobjects
-		Icon1 = GameObject.Find("gyroIcon1");
-		Icon2 = GameObject.Find("gyroIcon2");
-		Icon3 = GameObject.Find("gyroIcon3");
-
-		//Check wether we are in the right Scenes, to activate or deactivate Icons
-		setIconActive();
 
 		//check wether Gyroscope exists
 		if (HasGyroscope) {
@@ -94,8 +87,10 @@ public class GyroController : MonoBehaviour {
 			Input.gyro.updateInterval = 0.0167f;    // set the update interval to it's highest value (60 Hz)
 		} else {
 			// show a error message for the devices without a gyroscope
-//			DebugConsole.Log ("The device's gyroscope can't be detected");
 		}
+
+		//Check wether we are in the right Scenes, to activate or deactivate Icons
+		setIconActive();
 	}
 
 
@@ -103,8 +98,6 @@ public class GyroController : MonoBehaviour {
 	void GyroRotation(){
 		//get y-value from the gyroscope
 		y = Input.gyro.rotationRate.y;
-
-		//DebugConsole.Log ("Y: " + y);
 
 		//map the y rotationRate for continuos rotation when the device is moving
 		float yFiltered = FilterGyroValues(y);
@@ -136,21 +129,29 @@ public class GyroController : MonoBehaviour {
 	}
 
 	private void toogleGyro(){
-//		DebugConsole.Log("TOOGLE");
-		//butt1.GetComponent<Button>().onClick.RemoveAllListeners();
-		//butt1.onClick.AddListener(delegate{toogleGyro();});
-
 		if (gyroEnabled == false) {
 			gyroEnabled = true;
 		} else {
 			gyroEnabled = false;
 			resetRotation ();
 		}
-	}	
+	}
+
+	/*private void toogleGyro(){
+//		DebugConsole.Log("TOOGLE");
+		//butt1.GetComponent<Button>().onClick.RemoveAllListeners();
+		//butt1.onClick.AddListener(delegate{toogleGyro();});
+		if (gyroEnabled == false) {
+			gyroEnabled = true;
+		} else {
+			gyroEnabled = false;
+			resetRotation ();
+		}
+	}*/
 
 
 	public void setIconActive(){
-		if (getIconActivateInScene ()) {
+		if (getIconActivateInScene () && Input.gyro.enabled) {
 			Icon1.gameObject.SetActive (true);
 			Icon2.gameObject.SetActive (true);
 			Icon3.gameObject.SetActive (true);
@@ -165,19 +166,20 @@ public class GyroController : MonoBehaviour {
 
 	private bool getIconActivateInScene(){
 		string SceneName = ScenesManager.getCurrentSceneName ();
+		//DebugConsole.Log ("SCENE: " + SceneName);
+
 		switch (SceneName) {
 		case ScenesManager.SCENE_SPLASH:
-			print ("1");
-			return true;
+			return false;
 		case ScenesManager.SCENE_GAME:
-			print ("2");
 			return true;
 		case ScenesManager.SCENE_LEVEL:
-			print ("3");
+			return true;
+		case ScenesManager.SCENE_LEVEL2:
 			return true;
 		default:
-			print ("4");
-			return true;
+
+			return false;
 		}
 	}	
 
@@ -192,8 +194,6 @@ public class GyroController : MonoBehaviour {
 	}
 
 	private void resetRotation(){
-		DebugConsole.Log ("a: " + a++);
-
 		curIconRot1 = Icon1.transform.rotation;
 		curIconRot2 = Icon2.transform.rotation;
 		curIconRot3 = Icon3.transform.rotation;
@@ -238,4 +238,7 @@ public class GyroController : MonoBehaviour {
 			yield return 0;
 		}
 	}
+
+
+
 }

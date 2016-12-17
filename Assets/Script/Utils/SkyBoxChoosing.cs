@@ -21,7 +21,7 @@ public class SkyBoxChoosing : MonoBehaviour {
 		if (y != 0) {
 			world += y;
 			cam.GetComponent<Skybox> ().material = Resources.Load<Material> ("skybox/skybox" + world);
-			DebugConsole.Log ("Skybox: " + world);
+			//DebugConsole.Log ("Skybox: " + world);
 		}
 	}
 }

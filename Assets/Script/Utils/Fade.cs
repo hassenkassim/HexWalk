@@ -25,7 +25,7 @@ public class Fade : MonoBehaviour {
 	}
 		
 	public static void StartFadeIn (float time){
-		Debug.Log ("FadeIn");
+//		Debug.Log ("FadeIn");
 		InputManager.active = false;
 		overlay.gameObject.SetActive (true);
 		instance.StartCoroutine (FadeIn (time));

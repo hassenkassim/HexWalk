@@ -2,11 +2,16 @@
 using System.Collections;
 using UnityEngine.EventSystems;
 
-public class InputManager {
+public class InputManager : MonoBehaviour{
 
 	static EventSystem eventsystem;
 
 	public static bool active = false;
+
+	public void Awake(){
+		eventsystem = GameObject.Find("EventSystem").GetComponent<EventSystem> ();
+
+	}
 
 	public static float getHorizontalInput(){
 		if (active) {
@@ -14,7 +19,7 @@ public class InputManager {
 			if (SwipeManager.IsSwipingLeft ()) {
 				DebugConsole.Log("IsSwipingLeft");
 				return -1;
-			} else if (SwipeManager.IsSwipingRight ()) {
+			}else if (SwipeManager.IsSwipingRight ()) {
 				DebugConsole.Log("IsSwipingRight");
 				return 1;
 			}
@@ -45,16 +50,20 @@ public class InputManager {
 	public static bool getClickTouchInput(){
 		if (active) {
 			#if UNITY_ANDROID || UNITY_IPHONE
-			if(Input.touchCount > 0 && !eventsystem.IsPointerOverGameObject (Input.GetTouch (0).fingerId)){
+			if(Input.touchCount > 0 && !EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId)){
+
+				//if(Input.touchCount > 0 ){
 				if (Input.touches[0].phase == TouchPhase.Ended) {
-							DebugConsole.Log("Touched");
-							return true;
-						}else{
-							return false;
-						}
+
+					DebugConsole.Log("Touched");
+					return true;
+
+				}else{
+					return false;
 				}
 
-
+			}
+				
 			#endif
 
 			if (Input.GetKeyUp (KeyCode.Space) || Input.GetMouseButtonUp (0) && !EventSystem.current.IsPointerOverGameObject ()) {

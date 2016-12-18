@@ -32,12 +32,15 @@ public class CameraPositionIntro : MonoBehaviour {
 	}
 
 	void LateUpdate () {
-		if (CamID == 1) {
+		if (CamID == 0) {
+			setPosition (offsetGamefieldCam);
+			setRotation (rotationGamefieldCam);
+		}	else if (CamID == 1) {
 			setPosition (IntroGame.playerobj.transform.position + offsetPlayerCam);
-		} else if(CamID == 2){
-			Vector3 relativePos = IntroGame.playerobj.transform.position- transform.position;
+		} else if (CamID == 2) {
+			Vector3 relativePos = IntroGame.playerobj.transform.position - transform.position;
 			transform.rotation = Quaternion.LookRotation (relativePos);
-		}	
+		}
 	}
 
 	public void setToFollowPlayerByRotation(){

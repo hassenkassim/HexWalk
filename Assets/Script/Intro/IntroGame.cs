@@ -11,6 +11,9 @@ public class IntroGame : MonoBehaviour {
 	private static GameObject introText;
 	private static GameObject loadingBar;
 	private static GameObject swipeIcon;
+	private static GameObject skipIcon;
+	private static GameObject skipText;
+	private static Button skipButton;
 
 	public Sprite swipeRight; 
 	public Sprite swipeLeft; 
@@ -19,7 +22,7 @@ public class IntroGame : MonoBehaviour {
 	public Sprite swipeDown; 
 
 	public static Vector2 pos;
-	public float splashOffset = 8.2f;
+	public float splashOffset;
 	public static GameObject field;
 	private static GameObject[] fields;
 	public float rotationPeriod = 0.25f;		
@@ -39,6 +42,7 @@ public class IntroGame : MonoBehaviour {
 	public static bool collision; // for the last field no collision
 	public static bool explode; // for explosion of the last field
 	static bool showPathBool;
+	private static Color tmp;
 
 	void Awake(){
 		instance = this;
@@ -56,6 +60,7 @@ public class IntroGame : MonoBehaviour {
 		explode = false;
 		showPathBool = true;
 		swipeInput = -1;
+		splashOffset = 8.2f;
 
 		// for loading new scene with loadingbar
 		loadingBar = GameObject.Find("Loading");
@@ -67,11 +72,20 @@ public class IntroGame : MonoBehaviour {
 		swipeIcon = GameObject.Find ("swipeIcon");
 		swipeIcon.SetActive (false);
 
+		skipIcon=GameObject.Find ("skipIcon");
+		skipText = GameObject.Find ("skipText");
+		skipButton=skipIcon.GetComponent<Button> ();
+		skipIcon.SetActive (false);
+
 		cam = Camera.main;
 		cam.gameObject.AddComponent <CameraPositionIntro>();
+		CameraPositionIntro.CamID = 0;
 
 		BackgroundManager.loadSkybox (cam);
 		BackgroundManager.setParticleSystem (cam);
+
+		tmp= swipeIcon.GetComponent<Image> ().color;
+		tmp.a = 0.0f;
 
 		initLight ();
 
@@ -136,7 +150,8 @@ public class IntroGame : MonoBehaviour {
 		StartCoroutine (description ());
 		while(waitForFunction)
 			yield return new WaitForSeconds(0.1f);
-		
+
+		CameraPositionIntro.CamID = -1;
 		cam.GetComponent<CameraPositionIntro> ().startTransition ();
 //		gameName.SetActive (false);
 
@@ -155,6 +170,12 @@ public class IntroGame : MonoBehaviour {
 		swipeIcon.GetComponent<Image> ().sprite=swipeTap;
 		StartCoroutine (fadeInGameobject(swipeIcon,1.0f));
 		StartCoroutine (fadeInText(introText,1.5f));
+
+		skipIcon.SetActive (true);
+		StartCoroutine (fadeInGameobject(skipIcon,1.0f));
+		skipText.GetComponent<Text> ().text = "skip Intro";
+		StartCoroutine (fadeInText(skipText,1.0f));
+
 		while (true){
 			if (getClickTouchInput()) { 
 				CameraPositionIntro.CamID = 1;
@@ -162,7 +183,7 @@ public class IntroGame : MonoBehaviour {
 				playerobj.GetComponent<Rigidbody> ().useGravity = true;
 
 				swipeInput=4;// tap
-				StartCoroutine (fadeOutGameobject(swipeIcon,1.0f));
+				StartCoroutine (fadeOutGameobject(swipeIcon,0.5f));
 				StartCoroutine (fadeOutText(introText,1.5f));
 
 				while(showPathBool)
@@ -171,7 +192,8 @@ public class IntroGame : MonoBehaviour {
 			}
 			yield return null;
 		}
-
+		tmp.a = 0.0f;;
+		swipeIcon.GetComponent<Image> ().color = tmp;
 
 		introText.GetComponent<Text> ().text = "Swipe right ...";
 		//1. first swipe to right:____________________________________________________
@@ -295,7 +317,19 @@ public class IntroGame : MonoBehaviour {
 
 
 
-	// help functions:__ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+	// helper functions:__ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+	public void onSkip(){
+		StartCoroutine (fadeOutGameobject(skipIcon,1.0f));
+		StartCoroutine (fadeOutText(skipText,1.0f));
+		tmp.a = 0.0f;;
+		swipeIcon.GetComponent<Image> ().color = tmp;
+		introText.GetComponent<Text> ().color = tmp;
+
+		Fade.StartFadeOut (1.5f, cam);
+		LevelPlayerController.showID=9;
+		loadLevelScene ();
+	}
+
 
 	// describing the game:
 	IEnumerator description(){
@@ -347,7 +381,7 @@ public class IntroGame : MonoBehaviour {
 	// show the path
 	static IEnumerator showPath(){
 		waitForFunction = true;
-		float waitTime = 1.0f;
+		float waitTime = 0.5f;
 		fields= new GameObject[5];
 		fields[0] = GameObject.Find ("field0_0");
 		fields[0].GetComponent<MeshRenderer> ().material.SetColor("_Color", Col.GRUEN);
@@ -477,7 +511,7 @@ public class IntroGame : MonoBehaviour {
 	IEnumerator fadeOutGameobject(GameObject inp,float fadeTime){
 		float rate = 1.5f/fadeTime;
 		float progress = 0.0f;
-		Color tmp = inp.GetComponent<Image> ().color;
+		tmp = inp.GetComponent<Image> ().color;
 		while (progress<1.0f) {
 			tmp.a=Mathf.Lerp (1, 0, progress);
 			inp.GetComponent<Image> ().color = tmp;
@@ -490,7 +524,7 @@ public class IntroGame : MonoBehaviour {
 	IEnumerator fadeInGameobject(GameObject inp,float fadeTime){
 		float rate = 1.5f/fadeTime;
 		float progress = 0.0f;
-		Color tmp = inp.GetComponent<Image> ().color;
+		tmp = inp.GetComponent<Image> ().color;
 		while (progress<1.0f) {
 			tmp.a=Mathf.Lerp (0,1, progress);
 			inp.GetComponent<Image> ().color = tmp;
@@ -503,7 +537,7 @@ public class IntroGame : MonoBehaviour {
 	IEnumerator fadeOutText(GameObject inp,float fadeTime){
 		float rate = 1.5f/fadeTime;
 		float progress = 0.0f;
-		Color tmp = inp.GetComponent<Text> ().color;
+		tmp = inp.GetComponent<Text> ().color;
 		while (progress<1.0f) {
 			tmp.a=Mathf.Lerp (1, 0, progress);
 			inp.GetComponent<Text> ().color = tmp;
@@ -515,7 +549,7 @@ public class IntroGame : MonoBehaviour {
 	IEnumerator fadeInText(GameObject inp,float fadeTime){
 		float rate = 1.5f/fadeTime;
 		float progress = 0.0f;
-		Color tmp = inp.GetComponent<Text> ().color;
+		tmp = inp.GetComponent<Text> ().color;
 		while (progress<1.0f) {
 			tmp.a=Mathf.Lerp (0,1, progress);
 			inp.GetComponent<Text> ().color = tmp;

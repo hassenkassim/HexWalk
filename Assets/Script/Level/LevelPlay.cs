@@ -189,7 +189,7 @@ public class LevelPlay : MonoBehaviour {
 				gameName = SplashLoad.prefabsMgr.generateObjectFromPrefab ("gameName");
 				gameName.GetComponent<Rigidbody> ().useGravity = false;
 
-				gameName.transform.position = new Vector3 (-1.28f + playerobj.transform.position.x, 10.0f, playerobj.transform.position.z);
+				gameName.transform.position = new Vector3 (-1.25f + playerobj.transform.position.x, 10.0f, playerobj.transform.position.z);
 				gameName.AddComponent<Splash> ();
 				gameName.SetActive (true);	
 		}
@@ -498,7 +498,6 @@ public class LevelPlay : MonoBehaviour {
 	}
 
 	public void loadButtons(){
-		//GameObject listObject = GameObject.Find ("ListButton");
 		listButton = GameObject.Find ("ListButton").GetComponent<Button> ();
 		soundButton = GameObject.Find ("SoundButton").GetComponent<Button> ();
 		shareButton = GameObject.Find ("ShareButton").GetComponent<Button> ();

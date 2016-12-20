@@ -1,12 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.EventSystems;
+using System.Collections.Generic;
 
-public class InputManager {
+public class InputManager : MonoBehaviour{
 
 	static EventSystem eventsystem;
 
 	public static bool active = false;
+
+	public void Update(){
+		IsPointerOverUIObject ();
+	}
 
 	public static float getHorizontalInput(){
 		if (active) {
@@ -14,6 +19,7 @@ public class InputManager {
 			if (SwipeManager.IsSwipingLeft ()) {
 				//DebugConsole.Log("IsSwipingLeft");
 				return -1;
+
 			} else if (SwipeManager.IsSwipingRight ()) {
 				//DebugConsole.Log("IsSwipingRight");
 				return 1;
@@ -44,20 +50,22 @@ public class InputManager {
 
 	public static bool getClickTouchInput(){
 		if (active) {
-		#if UNITY_ANDROID || UNITY_IPHONE
-			if(Input.touchCount > 0){ // && !eventsystem.IsPointerOverGameObject (Input.GetTouch (0).fingerId)){
+
+			#if UNITY_ANDROID || UNITY_IPHONE
+			if(Input.touchCount > 0 && IsPointerOverUIObject() == false){
 				if (Input.touches[0].phase == TouchPhase.Ended) {
-							//DebugConsole.Log("Touched");
-							return true;
-						}else{
-							return false;
-						}
+					//DebugConsole.Log("Touched");
+					return true;
+				}else{
+					return false;
 				}
+			}
 
 
+				
 			#endif
 
-			if (Input.GetKeyUp (KeyCode.Space) || Input.GetMouseButtonUp (0) && !EventSystem.current.IsPointerOverGameObject ()) {
+			if (Input.GetKeyUp (KeyCode.Space) || Input.GetMouseButtonUp (0)  ){//&& !eventsystem.IsPointerOverGameObject ()){
 				return true;
 			} else {
 				return false;
@@ -65,7 +73,9 @@ public class InputManager {
 		} else {
 			return false;
 		}
+
 	}
+
 
 	public static Vector2 getInput(){
 		float x = 0;
@@ -74,5 +84,13 @@ public class InputManager {
 		if (x == 0) y = InputManager.getVerticalInput ();
 
 		return new Vector2 ((int)x, (int)y);
+	}
+
+	private static bool IsPointerOverUIObject() {
+		PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+		eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+		List<RaycastResult> results = new List<RaycastResult>();
+		EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+		return results.Count > 0;
 	}
 }

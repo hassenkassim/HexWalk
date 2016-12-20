@@ -1,23 +1,15 @@
-﻿<Properties StartupItem="Assembly-CSharp.csproj">
+﻿<Properties StartupItem="Assembly-CSharp.csproj" RefactoringSettings.EnableRefactorings="True">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Input/GyroController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Level/LevelPlay.cs">
     <Files>
-      <File FileName="Assets/Script/Manager/AdManager.cs" Line="61" Column="4" />
-      <File FileName="Assets/Script/Camera/CameraPosition.cs" Line="89" Column="5" />
-      <File FileName="Assets/Script/Level/LevelPlay.cs" Line="302" Column="5" />
-      <File FileName="Assets/Script/Utils/Fade.cs" Line="39" Column="80" />
+      <File FileName="Assets/Script/Input/InputManager.cs" Line="14" Column="3" />
+      <File FileName="Assets/Script/Level/LevelPlay.cs" Line="506" Column="30" />
+      <File FileName="Assets/Script/Background/BackgroundManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Manager/SoundManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Intro/IntroGame.cs" Line="1" Column="1" />
       <File FileName="Assets/Script/Level/LevelPlayerController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Gameplay/Gameplay.cs" Line="177" Column="3" />
-      <File FileName="Assets/Script/Gameplay/GameplayController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Splash/SplashLoad.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Input/InputManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Level/CameraPositionLevelPlay.cs" Line="59" Column="6" />
-      <File FileName="Assets/Script/Splash/Splash.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Input/GyroController.cs" Line="177" Column="16" />
-      <File FileName="Assets/Script/Path/PathfinderController.cs" Line="50" Column="4" />
-      <File FileName="Assets/Script/Intro/CameraPositionIntro.cs" Line="45" Column="3" />
-      <File FileName="Assets/Script/Splash/ProgressBar.cs" Line="40" Column="23" />
-      <File FileName="Assets/Script/Intro/IntroGame.cs" Line="275" Column="44" />
+      <File FileName="Assets/Script/Level/CameraPositionLevelPlay.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Input/SwipeManager.cs" Line="146" Column="35" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

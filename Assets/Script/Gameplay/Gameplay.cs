@@ -61,6 +61,7 @@ public class Gameplay : MonoBehaviour {
 
 	public static int colorCount; // How many Colors should be in the game
 	public static Gameplay instance;
+	public static GameObject staticLight;
 
 	static int offsetY;
 
@@ -139,6 +140,16 @@ public class Gameplay : MonoBehaviour {
 		cam.GetComponent<Light> ().transform.eulerAngles= new Vector3 (200.0f,140.0f,15.0f);
 
 		cam.GetComponent<Light> ().intensity = 0.8f;
+
+		//HASSEN: Additional faint Light to see CubeWalk
+		staticLight = new GameObject();
+		staticLight.name = "staticLight";
+		staticLight.AddComponent<Light> ();
+		staticLight.GetComponent<Light> ().color = Color.white;
+		staticLight.GetComponent<Light> ().type = LightType.Directional;
+		staticLight.GetComponent<Light> ().intensity = 0.4f;
+		staticLight.transform.rotation = Quaternion.Euler(new Vector3(200.0f, 180.0f, 10.0f));
+
 	}
 
 	void Update(){

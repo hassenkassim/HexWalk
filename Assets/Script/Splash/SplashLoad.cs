@@ -84,9 +84,6 @@ public class SplashLoad : MonoBehaviour {
 		staticLight.GetComponent<Light> ().type = LightType.Directional;
 		staticLight.GetComponent<Light> ().intensity = 0.4f;
 		staticLight.transform.rotation = Quaternion.Euler(new Vector3(200.0f, 180.0f, 10.0f));
-
-
-
 	}
 		
 	private void moveLight(){

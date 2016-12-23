@@ -13,6 +13,7 @@ public class IntroGame : MonoBehaviour {
 	private static GameObject swipeIcon;
 	private static GameObject skipIcon;
 	private static GameObject skipText;
+	public static GameObject staticLight;
 
 	public Sprite swipeRight; 
 	public Sprite swipeLeft; 
@@ -46,10 +47,12 @@ public class IntroGame : MonoBehaviour {
 	private bool rotateIc;
 	private bool slideIc;
 	private static Vector3 rotDir;
-	private Vector3 beginSlide = new Vector3 (0f, -150.0f, 0.0f);
-	private Vector3 endSlide = new Vector3 (95.0f, -150.0f, 0.0f);
+	private Vector3 beginSlide;
+	private Vector3 endSlide;
 	private float offsetDown;
+	private float time;
 
+	private bool setPos;
 	void Awake(){
 		instance = this;
 	}
@@ -71,6 +74,11 @@ public class IntroGame : MonoBehaviour {
 		slideIc = false;
 		rotDir=new Vector3(0.0f,0.0f,0.0f);
 		offsetDown = 0f;
+		time = 0f;
+
+		beginSlide = new Vector3 (0f, -150.0f, 0.0f);
+		endSlide = new Vector3 (95.0f, -150.0f, 0.0f);
+		setPos = true;
 
 		// for loading new scene with loadingbar
 		loadingBar = GameObject.Find("Loading");
@@ -99,13 +107,11 @@ public class IntroGame : MonoBehaviour {
 		initLight ();
 
 		// set pos
-//		pos= new Vector2(PlayerPrefs.GetInt(LevelManager.NEXTLEVEL,0), PlayerPrefs.GetInt(LevelManager.NEXTWORLD,0));
 		pos= new Vector2(0.0f,0.0f);
 
 		loadPlayer ();
 
 		initPlayer ();
-
 
 		// start directly the intro
 		StartCoroutine (tutorialProcess ());
@@ -121,7 +127,7 @@ public class IntroGame : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		
+		time = Time.time;
 		if (swipeInput==0 && !isRotate) {
 			swipeInput = -1;
 			rotatePlayer (1.0f,0.0f); // to right
@@ -144,19 +150,42 @@ public class IntroGame : MonoBehaviour {
 		}
 
 		if (rotateIc) {
-			beginSlide = new Vector3(0f,0f,0f);
-			endSlide = rotDir*20.0f; // rotdir unit vector in the direction
-			swipeIcon.transform.localEulerAngles = Vector3.Slerp (beginSlide,endSlide, Mathf.PingPong (Time.time*1.0f, 1.0f));
+//			Debug.Log ("rotIc Update");
+			if (setPos) {
+				time = 0f;
+				setPos = false;
+				beginSlide = new Vector3(0f,0f,0f);
+				endSlide = rotDir*20.0f; // rotdir unit vector in the direction
+			}
+//			Debug.Log ("begin:"+beginSlide+"  ,end:"+endSlide+"  lerp:"+Mathf.PingPong (Time.time, 1.0f));
+//			swipeIcon.transform.localEulerAngles = Vector3.Slerp (beginSlide,endSlide, Mathf.PingPong (Time.time, 1.0f));
+			StartCoroutine(rotateIcon());
 		}
 		if (slideIc) {
-			beginSlide = new Vector3 (0f, -150.0f, 0.0f);
-			endSlide = new Vector3 (0f, -140.0f-offsetDown, 0.0f);
-			swipeIcon.transform.localPosition = Vector3.Slerp (beginSlide,endSlide, Mathf.PingPong (Time.time*1.5f, 1.0f));
+			if (setPos) {
+				time = 0f;
+				setPos = false;
+				beginSlide = swipeIcon.transform.localPosition; //new Vector3 (0f, -280.0f, 0.0f);
+				endSlide =new Vector3 (0f, swipeIcon.transform.localPosition.y-10-offsetDown, 0.0f);
+			}
+//			swipeIcon.transform.localPosition = Vector3.Slerp (beginSlide,endSlide, Mathf.PingPong (Time.time, 1.0f));
+			StartCoroutine(slideIcon());
 		}
 	}
 
 	void FixedUpdate() {
 		rotation ();
+	}
+
+	IEnumerator slideIcon(){
+		time += Time.deltaTime;
+		swipeIcon.transform.localPosition = Vector3.Slerp (beginSlide,endSlide, Mathf.PingPong (time, 1.0f));
+		yield return null;
+	}
+	IEnumerator rotateIcon(){
+		time += Time.deltaTime;
+		swipeIcon.transform.localEulerAngles = Vector3.Slerp (beginSlide,endSlide, Mathf.PingPong (time, 1.0f));
+		yield return null;
 	}
 
 
@@ -191,15 +220,17 @@ public class IntroGame : MonoBehaviour {
 
 		skipIcon.SetActive (true);
 		StartCoroutine (fadeInGameobject (skipIcon, 1.0f));
-		skipText.GetComponent<Text> ().text = "skip Intro";
+		skipText.GetComponent<Text> ().text = "Skip ";
 		StartCoroutine (fadeInText (skipText, 1.0f));
 
 		while (true){
 			yield return new WaitForSeconds (1f);
 			break;
 		}
-		rotateIc = true;
+//		Debug.Log ("rotIc true");
 		rotDir = new Vector3 (1.0f, 0.0f, 0.0f);
+		setPos = true;
+		rotateIc = true;
 
 		while (true){
 			if (getClickTouchInput()) { 
@@ -228,8 +259,12 @@ public class IntroGame : MonoBehaviour {
 			yield return new WaitForSeconds (1f);
 			break;
 		}
-		rotateIc = true;
+
+//		Debug.Log ("rotIc true");
+
 		rotDir = new Vector3 (0.0f,0.0f,-1.0f);
+		setPos = true;
+		rotateIc = true;
 
 		while (true){
 			if (SwipeManager.IsSwipingRight ()) {
@@ -254,6 +289,7 @@ public class IntroGame : MonoBehaviour {
 			yield return new WaitForSeconds (1f);
 			break;
 		}
+		setPos = true;
 		slideIc = true;
 
 		while (true){
@@ -280,8 +316,9 @@ public class IntroGame : MonoBehaviour {
 			yield return new WaitForSeconds (1f);
 			break;
 		}
-		rotateIc = true;
 		rotDir = new Vector3 (1.0f,0.0f,0.0f);
+		setPos = true;
+		rotateIc = true;
 
 		while (true){
 			if (getClickTouchInput()) { 
@@ -306,6 +343,7 @@ public class IntroGame : MonoBehaviour {
 			yield return new WaitForSeconds (1f);
 			break;
 		}
+		setPos = true;
 		slideIc = true;
 
 		while (true){
@@ -331,8 +369,9 @@ public class IntroGame : MonoBehaviour {
 			yield return new WaitForSeconds (1f);
 			break;
 		}
-		rotateIc = true;
 		rotDir = new Vector3 (0.0f,0.0f,1.0f);
+		setPos = true;
+		rotateIc = true;
 
 		while (true){
 			if (SwipeManager.IsSwipingLeft ()) {
@@ -359,6 +398,7 @@ public class IntroGame : MonoBehaviour {
 			yield return new WaitForSeconds (1f);
 			break;
 		}
+		setPos = true;
 		slideIc = true;
 		offsetDown = 30f;
 
@@ -539,6 +579,16 @@ public class IntroGame : MonoBehaviour {
 		cam.GetComponent<Light> ().transform.eulerAngles= new Vector3 (200.0f,140.0f,15.0f);
 
 		cam.GetComponent<Light> ().intensity = 0.8f;
+
+		//HASSEN: Additional faint Light to see CubeWalk
+		staticLight = new GameObject();
+		staticLight.name = "staticLight";
+		staticLight.AddComponent<Light> ();
+		staticLight.GetComponent<Light> ().color = Color.white;
+		staticLight.GetComponent<Light> ().type = LightType.Directional;
+		staticLight.GetComponent<Light> ().intensity = 0.4f;
+		staticLight.transform.rotation = Quaternion.Euler(new Vector3(200.0f, 180.0f, 10.0f));
+
 	}
 
 
@@ -578,6 +628,8 @@ public class IntroGame : MonoBehaviour {
 
 	// ausblenden Image
 	IEnumerator fadeOutGameobject(GameObject inp,float fadeTime){
+//		Debug.Log ("rotIc false");
+
 		rotateIc = false;
 		slideIc = false;
 

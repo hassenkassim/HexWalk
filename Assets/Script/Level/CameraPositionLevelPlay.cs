@@ -122,7 +122,7 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 				if (!particleSet) {
 					BackgroundManager.setParticleSystem (LevelPlay.cam);
 					particleSet = true;
-					LevelPlay.Gyro.GetComponent<GyroController>().setEnableGyro(true);
+					//LevelPlay.Gyro.GetComponent<GyroController>().setEnableGyro(true);
 				}
 
 

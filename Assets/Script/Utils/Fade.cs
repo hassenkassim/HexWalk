@@ -74,7 +74,7 @@ public class Fade : MonoBehaviour {
 		}
 		//trotzdem lassen
 		Scene tmp =SceneManager.GetActiveScene();
-		if (tmp.name== "LevelScene" && LevelPlay.playerobj.transform.position.y <= 1.5f) {
+		if (tmp.name== "LevelScene" || tmp.name== "Scene/LevelScene" && LevelPlay.playerobj.transform.position.y <= 1.5f) {
 			InputManager.active = true;
 
 			//SoundManager.playLevelMusic ((int)LevelPlay.playerobj.transform.position.z / 2 + 1);
@@ -126,6 +126,12 @@ public class Fade : MonoBehaviour {
 			progress += rate * Time.deltaTime;
 
 			yield return null;
+		}
+		if (tmp.name== "LevelScene" || tmp.name== "Scene/LevelScene" && LevelPlay.playerobj.transform.position.y <= 1.5f) {
+			InputManager.active = true; 
+		} else if (tmp.name == "GameScene"  && PathfinderController.camID == true) {
+
+			InputManager.active = true;
 		}
 		yield return null;
 	}

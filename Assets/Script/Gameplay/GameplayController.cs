@@ -53,7 +53,7 @@ public class GameplayController : MonoBehaviour {
 			return true;
 		case SHOWREMAIN:
 			if (PathfinderController.coloringStarted == false) {
-				PathfinderController.paintColorPath (0.1f, Gameplay.pathfinder.path);
+				PathfinderController.paintColorPath (getTimeBetweenFields(), Gameplay.pathfinder.path);
 				return false;
 			}
 
@@ -74,8 +74,8 @@ public class GameplayController : MonoBehaviour {
 			}
 		case SHOWNOTHING:
 			if (PathfinderController.coloringStarted == false) {
-				if(Gameplay.first == true) PathfinderController.paintWhitePath (0.1f, 1, Gameplay.pathfinder.path);
-				else PathfinderController.paintWhitePath (0.1f, 0, Gameplay.pathfinder.path);
+				if(Gameplay.first == true) PathfinderController.paintWhitePath (getTimeBetweenFields(), 1, Gameplay.pathfinder.path);
+				else PathfinderController.paintWhitePath (getTimeBetweenFields(), 0, Gameplay.pathfinder.path);
 				return false;
 			}
 
@@ -102,5 +102,11 @@ public class GameplayController : MonoBehaviour {
 		PathfinderController.coloringStarted = false;
 		PathfinderController.coloringEnd = true;
 		showID = SHOWREADY;
+	}
+
+	private float getTimeBetweenFields(){
+		int level = LevelPlay.levelmgr.curLevel.getLevel ();
+		int world = LevelPlay.levelmgr.curLevel.getWorld ();
+		return (0.1f + ((level+1) * (world+1) * 0.003f));
 	}
 }

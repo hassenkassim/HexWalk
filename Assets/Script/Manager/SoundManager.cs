@@ -86,7 +86,7 @@ public class SoundManager : MonoBehaviour{
 
 	public static void playWinSound(){
 		Vector3 pos = new Vector3 (Gameplay.cam.transform.position.x, Gameplay.cam.transform.position.y, Gameplay.cam.transform.position.z); 
-		playSound (winSound, pos, 10.0f);
+		playSound (winSound, pos, 18.0f);
 	}
 
 	public static void stopMusicSmoothly(){

@@ -108,6 +108,8 @@ public class LevelPlay : MonoBehaviour {
 	public static bool landing;
 	public static bool infoPanel = false;
 
+	public static GameObject staticLight;
+
 	void Awake(){
 		//Set GyroController
 		Gyro = GameObject.Find("GyroCanvas");
@@ -167,6 +169,16 @@ public class LevelPlay : MonoBehaviour {
 		cam.GetComponent<Light> ().transform.eulerAngles= new Vector3 (200.0f,140.0f,15.0f);
 
 		cam.GetComponent<Light> ().intensity = 0.8f;
+
+		//HASSEN: Additional faint Light to see CubeWalk
+		staticLight = new GameObject();
+		staticLight.name = "staticLight";
+		staticLight.AddComponent<Light> ();
+		staticLight.GetComponent<Light> ().color = Color.white;
+		staticLight.GetComponent<Light> ().type = LightType.Directional;
+		staticLight.GetComponent<Light> ().intensity = 0.4f;
+		staticLight.transform.rotation = Quaternion.Euler(new Vector3(200.0f, 180.0f, 10.0f));
+
 	}
 		
 	private void init(){

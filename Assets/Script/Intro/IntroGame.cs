@@ -13,7 +13,7 @@ public class IntroGame : MonoBehaviour {
 	private static GameObject swipeIcon;
 	private static GameObject skipIcon;
 	private static GameObject skipText;
-	private static Button skipButton;
+	public static GameObject staticLight;
 
 	public Sprite swipeRight; 
 	public Sprite swipeLeft; 
@@ -44,6 +44,15 @@ public class IntroGame : MonoBehaviour {
 	static bool showPathBool;
 	private static Color tmp;
 
+	private bool rotateIc;
+	private bool slideIc;
+	private static Vector3 rotDir;
+	private Vector3 beginSlide;
+	private Vector3 endSlide;
+	private float offsetDown;
+	private float time;
+
+	private bool setPos;
 	void Awake(){
 		instance = this;
 	}
@@ -61,6 +70,15 @@ public class IntroGame : MonoBehaviour {
 		showPathBool = true;
 		swipeInput = -1;
 		splashOffset = 8.2f;
+		rotateIc = false;
+		slideIc = false;
+		rotDir=new Vector3(0.0f,0.0f,0.0f);
+		offsetDown = 0f;
+		time = 0f;
+
+		beginSlide = new Vector3 (0f, -150.0f, 0.0f);
+		endSlide = new Vector3 (95.0f, -150.0f, 0.0f);
+		setPos = true;
 
 		// for loading new scene with loadingbar
 		loadingBar = GameObject.Find("Loading");
@@ -74,7 +92,6 @@ public class IntroGame : MonoBehaviour {
 
 		skipIcon=GameObject.Find ("skipIcon");
 		skipText = GameObject.Find ("skipText");
-		skipButton=skipIcon.GetComponent<Button> ();
 		skipIcon.SetActive (false);
 
 		cam = Camera.main;
@@ -90,13 +107,11 @@ public class IntroGame : MonoBehaviour {
 		initLight ();
 
 		// set pos
-//		pos= new Vector2(PlayerPrefs.GetInt(LevelManager.NEXTLEVEL,0), PlayerPrefs.GetInt(LevelManager.NEXTWORLD,0));
 		pos= new Vector2(0.0f,0.0f);
 
 		loadPlayer ();
 
 		initPlayer ();
-
 
 		// start directly the intro
 		StartCoroutine (tutorialProcess ());
@@ -116,7 +131,6 @@ public class IntroGame : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		
 		if (swipeInput==0 && !isRotate) {
 			swipeInput = -1;
 			rotatePlayer (1.0f,0.0f); // to right
@@ -138,11 +152,39 @@ public class IntroGame : MonoBehaviour {
 			//tap 
 		}
 
+		if (rotateIc) {
+			if (setPos) {
+				time = 0f;
+				setPos = false;
+				beginSlide = new Vector3(0f,0f,0f);
+				endSlide = rotDir*20.0f; // rotdir unit vector in the direction
+			}
+			StartCoroutine(rotateIcon());
+		}
+		if (slideIc) {
+			if (setPos) {
+				time = 0f;
+				setPos = false;
+				beginSlide = swipeIcon.transform.localPosition; //new Vector3 (0f, -280.0f, 0.0f);
+				endSlide =new Vector3 (0f, swipeIcon.transform.localPosition.y-10-offsetDown+30f, 0.0f);
+			}
+			StartCoroutine(slideIcon());
+		}
 	}
-		
 
 	void FixedUpdate() {
 		rotation ();
+	}
+
+	IEnumerator slideIcon(){
+		swipeIcon.transform.localPosition = Vector3.Slerp (beginSlide,endSlide, Mathf.PingPong (time, 1.0f));
+		time += 0.05f;
+		yield return null;
+	}
+	IEnumerator rotateIcon(){
+		swipeIcon.transform.localEulerAngles = Vector3.Slerp (beginSlide,endSlide, Mathf.PingPong (time, 1.0f));
+		time += 0.05f;
+		yield return null;
 	}
 
 
@@ -152,15 +194,15 @@ public class IntroGame : MonoBehaviour {
 
 		//show the intro description
 		StartCoroutine (description ());
-		while(waitForFunction)
-			yield return new WaitForSeconds(0.1f);
+		while (waitForFunction)
+			yield return new WaitForSeconds (0.1f);
 
 		CameraPositionIntro.CamID = -1;
 		cam.GetComponent<CameraPositionIntro> ().startTransition ();
 //		gameName.SetActive (false);
 
 		//show fields
-		setField (2,3);
+		setField (2, 3);
 
 		yield return new WaitForSeconds (1.0f);
 
@@ -171,14 +213,23 @@ public class IntroGame : MonoBehaviour {
 		//1. swipe tap ____________________________________________________
 		introText.GetComponent<Text> ().text = "Tap to start the game ...";
 		swipeIcon.SetActive (true);
-		swipeIcon.GetComponent<Image> ().sprite=swipeTap;
-		StartCoroutine (fadeInGameobject(swipeIcon,1.0f));
-		StartCoroutine (fadeInText(introText,1.5f));
+		swipeIcon.GetComponent<Image> ().sprite = swipeTap;
+		StartCoroutine (fadeInGameobject (swipeIcon, 1.0f));
+		StartCoroutine (fadeInText (introText, 1.5f));
 
 		skipIcon.SetActive (true);
-		StartCoroutine (fadeInGameobject(skipIcon,1.0f));
-		skipText.GetComponent<Text> ().text = "skip Intro";
-		StartCoroutine (fadeInText(skipText,1.0f));
+		StartCoroutine (fadeInGameobject (skipIcon, 1.0f));
+		skipText.GetComponent<Text> ().text = "Skip ";
+		StartCoroutine (fadeInText (skipText, 1.0f));
+
+		while (true){
+			yield return new WaitForSeconds (1f);
+			break;
+		}
+		Debug.Log ("rotIc true");
+		rotDir = new Vector3 (1.0f, 0.0f, 0.0f);
+		setPos = true;
+		rotateIc = true;
 
 		while (true){
 			if (getClickTouchInput()) { 
@@ -196,14 +247,24 @@ public class IntroGame : MonoBehaviour {
 			}
 			yield return null;
 		}
-		tmp.a = 0.0f;;
-		swipeIcon.GetComponent<Image> ().color = tmp;
 
 		introText.GetComponent<Text> ().text = "Swipe right ...";
 		//1. first swipe to right:____________________________________________________
 		swipeIcon.GetComponent<Image> ().sprite=swipeRight;
 		StartCoroutine (fadeInGameobject(swipeIcon,2.0f));
 		StartCoroutine (fadeInText(introText,1.5f));
+
+		while (true){
+			yield return new WaitForSeconds (1f);
+			break;
+		}
+
+//		Debug.Log ("rotIc true");
+
+		rotDir = new Vector3 (0.0f,0.0f,-1.0f);
+		setPos = true;
+		rotateIc = true;
+
 		while (true){
 			if (SwipeManager.IsSwipingRight ()) {
 				StartCoroutine (fadeOutGameobject(swipeIcon,2.0f));
@@ -222,6 +283,14 @@ public class IntroGame : MonoBehaviour {
 		swipeIcon.GetComponent<Image> ().sprite=swipeUp;
 		StartCoroutine (fadeInGameobject(swipeIcon,2.0f));
 		StartCoroutine (fadeInText(introText,1.5f));
+
+		while (true){
+			yield return new WaitForSeconds (1f);
+			break;
+		}
+		setPos = true;
+		slideIc = true;
+
 		while (true){
 			if (SwipeManager.IsSwipingUp ()) {
 				StartCoroutine (fadeOutGameobject(swipeIcon,1.0f));
@@ -241,6 +310,15 @@ public class IntroGame : MonoBehaviour {
 		swipeIcon.GetComponent<Image> ().sprite=swipeTap;
 		StartCoroutine (fadeInGameobject(swipeIcon,1.0f));
 		StartCoroutine (fadeInText(introText,1.5f));
+
+		while (true){
+			yield return new WaitForSeconds (1f);
+			break;
+		}
+		rotDir = new Vector3 (1.0f,0.0f,0.0f);
+		setPos = true;
+		rotateIc = true;
+
 		while (true){
 			if (getClickTouchInput()) { 
 				swipeInput=4;// tap
@@ -259,6 +337,14 @@ public class IntroGame : MonoBehaviour {
 		//4. swipe up____________________________________________________
 		swipeIcon.GetComponent<Image> ().sprite=swipeUp;
 		StartCoroutine (fadeInGameobject(swipeIcon,1.0f));
+
+		while (true){
+			yield return new WaitForSeconds (1f);
+			break;
+		}
+		setPos = true;
+		slideIc = true;
+
 		while (true){
 			if (SwipeManager.IsSwipingUp ()) {
 				StartCoroutine (fadeOutGameobject(swipeIcon,1.0f));
@@ -277,6 +363,15 @@ public class IntroGame : MonoBehaviour {
 		//4. swipe to the left____________________________________________________
 		swipeIcon.GetComponent<Image> ().sprite=swipeLeft;
 		StartCoroutine (fadeInGameobject(swipeIcon,1.0f));
+
+		while (true){
+			yield return new WaitForSeconds (1f);
+			break;
+		}
+		rotDir = new Vector3 (0.0f,0.0f,1.0f);
+		setPos = true;
+		rotateIc = true;
+
 		while (true){
 			if (SwipeManager.IsSwipingLeft ()) {
 				StartCoroutine (fadeOutGameobject(swipeIcon,1.0f));
@@ -297,6 +392,15 @@ public class IntroGame : MonoBehaviour {
 		//5. swipe down____________________________________________________
 		swipeIcon.GetComponent<Image> ().sprite=swipeDown;
 		StartCoroutine (fadeInGameobject(swipeIcon,1.0f));
+
+		while (true){
+			yield return new WaitForSeconds (1f);
+			break;
+		}
+		setPos = true;
+		slideIc = true;
+		offsetDown = 40f;
+
 		while (true){
 			if (SwipeManager.IsSwipingDown ()) {
 				StartCoroutine (fadeOutGameobject(swipeIcon,1.0f));
@@ -474,6 +578,16 @@ public class IntroGame : MonoBehaviour {
 		cam.GetComponent<Light> ().transform.eulerAngles= new Vector3 (200.0f,140.0f,15.0f);
 
 		cam.GetComponent<Light> ().intensity = 0.8f;
+
+		//HASSEN: Additional faint Light to see CubeWalk
+		staticLight = new GameObject();
+		staticLight.name = "staticLight";
+		staticLight.AddComponent<Light> ();
+		staticLight.GetComponent<Light> ().color = Color.white;
+		staticLight.GetComponent<Light> ().type = LightType.Directional;
+		staticLight.GetComponent<Light> ().intensity = 0.4f;
+		staticLight.transform.rotation = Quaternion.Euler(new Vector3(200.0f, 180.0f, 10.0f));
+
 	}
 
 
@@ -513,6 +627,11 @@ public class IntroGame : MonoBehaviour {
 
 	// ausblenden Image
 	IEnumerator fadeOutGameobject(GameObject inp,float fadeTime){
+//		Debug.Log ("rotIc false");
+
+		rotateIc = false;
+		slideIc = false;
+
 		float rate = 1.5f/fadeTime;
 		float progress = 0.0f;
 		tmp = inp.GetComponent<Image> ().color;
@@ -522,10 +641,16 @@ public class IntroGame : MonoBehaviour {
 			progress += rate * Time.deltaTime;
 			yield return null;
 		}
+		tmp.a = 0.0f;;
+		swipeIcon.GetComponent<Image> ().color = tmp;
+		yield return null;
 	}
 
 	// einblenden Image
 	IEnumerator fadeInGameobject(GameObject inp,float fadeTime){
+		
+		inp.transform.eulerAngles = new Vector3 (0.0f,0.0f,0.0f);
+
 		float rate = 1.5f/fadeTime;
 		float progress = 0.0f;
 		tmp = inp.GetComponent<Image> ().color;
@@ -548,6 +673,9 @@ public class IntroGame : MonoBehaviour {
 			progress += rate * Time.deltaTime;
 			yield return null;
 		}
+		tmp.a = 0.0f;;
+		introText.GetComponent<Text> ().color = tmp;
+		yield return null;
 	}
 	// einblenden Text
 	IEnumerator fadeInText(GameObject inp,float fadeTime){

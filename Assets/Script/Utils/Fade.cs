@@ -74,7 +74,7 @@ public class Fade : MonoBehaviour {
 		}
 		//trotzdem lassen
 		Scene tmp =SceneManager.GetActiveScene();
-		if (tmp.name== "LevelScene" && LevelPlay.playerobj.transform.position.y <= 1.5f) {
+		if (tmp.name== "Scene/LevelScene" || tmp.name== "LevelScene" && LevelPlay.playerobj.transform.position.y <= 1.5f) {
 			InputManager.active = true;
 
 			//SoundManager.playLevelMusic ((int)LevelPlay.playerobj.transform.position.z / 2 + 1);
@@ -124,13 +124,10 @@ public class Fade : MonoBehaviour {
 
 			overlay.color = Color.Lerp (Color.clear, Color.black, progress);
 			progress += rate * Time.deltaTime;
-
 			yield return null;
 		}
-		if (tmp.name == "LevelScene") {
-			InputManager.active = true;
-		}
 		yield return null;
+
 	}
 
 	public static IEnumerator startScene() {

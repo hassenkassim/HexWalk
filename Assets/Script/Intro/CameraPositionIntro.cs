@@ -23,7 +23,7 @@ public class CameraPositionIntro : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		offsetGamefieldCam = new Vector3 (0.0f, 9.59f, -5.0f);// -IntroGame.playerobj.transform.localScale.x / 2
+		offsetGamefieldCam = new Vector3 (0.0f, 9.79f, -5.5f);// (0.0f, 9.59f, -5.0f)
 
 		//initial setup of camera position and rotation
 		setPosition (offsetGamefieldCam);

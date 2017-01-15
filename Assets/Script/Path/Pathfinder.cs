@@ -88,25 +88,25 @@ public class Pathfinder {
 			//choose one possible step by random
 			int i = Random.Range(0, possibleSteps.Count);
 
-			if (possibleSteps.Count > 1) {
-				int rand = Random.Range (0, 9);
-				if (rand <= 3) { // 30% get closer to the end 
-					Vector2 schlepp = possibleSteps [0];
-					for (int k = 1; k < possibleSteps.Count; k++) {
-						if (schlepp.y < possibleSteps [k].y) { // if closer to end chose this way
-							schlepp = possibleSteps [k];
-						}
-					}
-					path.Add (schlepp);
-					tmp = schlepp;
-				} else if (rand > 3) { // 40% random one from the possible list
-					path.Add (possibleSteps [i]);
-					tmp = possibleSteps [i];
-				}
-			} else { // if there is just 1 possible path, add it...
+//			if (possibleSteps.Count > 1) {
+//				int rand = Random.Range (0, 9);
+//				if (rand <= 3) { // 30% get closer to the end 
+//					Vector2 schlepp = possibleSteps [0];
+//					for (int k = 1; k < possibleSteps.Count; k++) {
+//						if (schlepp.y < possibleSteps [k].y) { // if closer to end chose this way
+//							schlepp = possibleSteps [k];
+//						}
+//					}
+//					path.Add (schlepp);
+//					tmp = schlepp;
+//				} else if (rand > 3) { // 70% random one from the possible list
+//					path.Add (possibleSteps [i]);
+//					tmp = possibleSteps [i];
+//				}
+//			} else { // if there is just 1 possible path, add it...
 				path.Add (possibleSteps [i]);
 				tmp = possibleSteps [i];
-			}
+//			}
 			int j = Random.Range(0, colorCount);
 			pathcolor.Add (Col.colors [j]);
 		}

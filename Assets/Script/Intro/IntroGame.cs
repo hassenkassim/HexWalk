@@ -127,7 +127,6 @@ public class IntroGame : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		time = Time.time;
 		if (swipeInput==0 && !isRotate) {
 			swipeInput = -1;
 			rotatePlayer (1.0f,0.0f); // to right
@@ -150,15 +149,12 @@ public class IntroGame : MonoBehaviour {
 		}
 
 		if (rotateIc) {
-//			Debug.Log ("rotIc Update");
 			if (setPos) {
 				time = 0f;
 				setPos = false;
 				beginSlide = new Vector3(0f,0f,0f);
 				endSlide = rotDir*20.0f; // rotdir unit vector in the direction
 			}
-//			Debug.Log ("begin:"+beginSlide+"  ,end:"+endSlide+"  lerp:"+Mathf.PingPong (Time.time, 1.0f));
-//			swipeIcon.transform.localEulerAngles = Vector3.Slerp (beginSlide,endSlide, Mathf.PingPong (Time.time, 1.0f));
 			StartCoroutine(rotateIcon());
 		}
 		if (slideIc) {
@@ -166,9 +162,8 @@ public class IntroGame : MonoBehaviour {
 				time = 0f;
 				setPos = false;
 				beginSlide = swipeIcon.transform.localPosition; //new Vector3 (0f, -280.0f, 0.0f);
-				endSlide =new Vector3 (0f, swipeIcon.transform.localPosition.y-10-offsetDown, 0.0f);
+				endSlide =new Vector3 (0f, swipeIcon.transform.localPosition.y-10-offsetDown+30f, 0.0f);
 			}
-//			swipeIcon.transform.localPosition = Vector3.Slerp (beginSlide,endSlide, Mathf.PingPong (Time.time, 1.0f));
 			StartCoroutine(slideIcon());
 		}
 	}
@@ -178,13 +173,13 @@ public class IntroGame : MonoBehaviour {
 	}
 
 	IEnumerator slideIcon(){
-		time += Time.deltaTime;
 		swipeIcon.transform.localPosition = Vector3.Slerp (beginSlide,endSlide, Mathf.PingPong (time, 1.0f));
+		time += 0.05f;
 		yield return null;
 	}
 	IEnumerator rotateIcon(){
-		time += Time.deltaTime;
 		swipeIcon.transform.localEulerAngles = Vector3.Slerp (beginSlide,endSlide, Mathf.PingPong (time, 1.0f));
+		time += 0.05f;
 		yield return null;
 	}
 
@@ -227,7 +222,7 @@ public class IntroGame : MonoBehaviour {
 			yield return new WaitForSeconds (1f);
 			break;
 		}
-//		Debug.Log ("rotIc true");
+		Debug.Log ("rotIc true");
 		rotDir = new Vector3 (1.0f, 0.0f, 0.0f);
 		setPos = true;
 		rotateIc = true;
@@ -400,7 +395,7 @@ public class IntroGame : MonoBehaviour {
 		}
 		setPos = true;
 		slideIc = true;
-		offsetDown = 30f;
+		offsetDown = 40f;
 
 		while (true){
 			if (SwipeManager.IsSwipingDown ()) {

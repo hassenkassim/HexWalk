@@ -61,7 +61,7 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 			splash.GetComponent<Splash> ().setSplashShown (2);
 			break;
 		default:
-			//InputManager.active = true;
+//			InputManager.active = true;
 			setPosition (LevelPlay.playerobj.transform.position + offsetPlayerCam);
 			//DebugConsole.Log ("2");
 

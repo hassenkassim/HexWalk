@@ -119,8 +119,6 @@ public class LevelPlay : MonoBehaviour {
 		
 		//PlayerPrefs.DeleteAll ();
 
-
-
 		InputManager.active = false;
 
 		buttonTrans = TransitionButtons (0.2f);
@@ -198,14 +196,16 @@ public class LevelPlay : MonoBehaviour {
 
 
 	public void Update () {
-
+		print (InputManager.active);
 		Vector2 input = InputManager.getInput ();
 
 		if (input.x == 0 && input.y == 0) {
 
 			if (InputManager.getClickTouchInput ()) {
 				//print ("STARTLEVEL");
+				if(PlayerPrefs.GetInt("SoundOn", 1) == 1){
 				SoundManager.stopMusic ();
+				}
 				startLevel ();
 			}
 
@@ -242,7 +242,10 @@ public class LevelPlay : MonoBehaviour {
 		isRotate = true;
 
 		//play the RotationSound
-		SoundManager.playRotationSound ("LevelScene");
+		if (PlayerPrefs.GetInt ("SoundOn", 1) == 1) {
+			SoundManager.playRotationSound ("LevelScene");
+		}
+
 	}
 
 	private void rotation(){
@@ -302,7 +305,9 @@ public class LevelPlay : MonoBehaviour {
 			if (landing == false) {
 				SoundManager.playMenuMusic ();
 				InputManager.active = true;
-
+				if (PlayerPrefs.GetInt ("SoundOn", 1) == 0) {
+					AudioListener.pause = true;
+				}
 
 
 				landing = true;			
@@ -532,7 +537,7 @@ public class LevelPlay : MonoBehaviour {
 			AudioListener.pause = true;
 			soundButton.image.overrideSprite = soundOffImage;
 			PlayerPrefs.SetInt ("SoundOn", 0);
-			//print (PlayerPrefs.GetInt("SoundOn"));
+			
 
 		} else {
 			AudioListener.pause = false;
@@ -550,7 +555,7 @@ public class LevelPlay : MonoBehaviour {
 		//aufzu = 1 == zu
 		//aufzu = -1 == auf
 
-		float initheight = buttonHeight + 5;
+		float initheight = buttonHeight + 8;
 
 		float height1 = initheight;
 		float height2 = initheight*2.0f;

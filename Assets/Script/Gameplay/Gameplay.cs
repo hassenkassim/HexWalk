@@ -124,8 +124,10 @@ public class Gameplay : MonoBehaviour {
 
 		//tolga
 		//Load Musics
-		SoundManager.playLevelMusic(currentLevel.getWorld());
-
+		setAudio();
+		if (PlayerPrefs.GetInt ("SoundOn", 1) == 1) {
+			SoundManager.playLevelMusic (currentLevel.getWorld ());
+		}
 		explode = false;
 
 		//Setup Button
@@ -166,9 +168,11 @@ public class Gameplay : MonoBehaviour {
 		Gameplay.player.playerobj = tmp.playerobj;
 
 		//sound changing
-		SoundManager.stopMusicSmoothly ();
-		SoundManager.playLevelMusic (currentLevel.getWorld());
-
+		//SoundManager.stopMusicSmoothly ();
+		SoundManager.stopMusic ();
+		if (PlayerPrefs.GetInt ("SoundOn", 1) == 1) {
+			SoundManager.playLevelMusic (currentLevel.getWorld ());
+		}
 		//bei World und Cube Wechsel
 		InputManager.active = true;
 
@@ -200,6 +204,10 @@ public class Gameplay : MonoBehaviour {
 		if (first == true) {
 			first = false; //Not the first start start
 		};
+
+		if (PlayerPrefs.GetInt ("SoundOn", 1) == 1) {
+			SoundManager.playWinSound ();
+		}
 
 		//save Level completed
 		setLevelToCompleted();
@@ -305,5 +313,15 @@ public class Gameplay : MonoBehaviour {
 		yield return new WaitForSeconds (timetowait);
 		//AdManager.showVideo ();
 		Fade.FadeAndStartScene ("LevelScene", 2.0f, cam);
+	}
+
+	public static void setAudio(){
+
+		if (PlayerPrefs.GetInt ("soundIsOn", 1) == 1) {
+			AudioListener.pause = false;
+		} else {
+			AudioListener.pause = true;
+		}
+
 	}
 }

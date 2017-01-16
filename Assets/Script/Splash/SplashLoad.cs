@@ -13,8 +13,8 @@ public class SplashLoad : MonoBehaviour {
 	public static GameObject gameName;
 	public static string cubeName;
 
-	private Vector3 beginLight = new Vector3 (-5f, 10.0f, -1.0f);
-	private Vector3 endLight = new Vector3 (5f, 10.0f, -1.0f);
+	private Vector3 beginLight = new Vector3 (-4f, 10.0f, 0.0f);
+	private Vector3 endLight = new Vector3 (4f, 10.0f, 0.0f);
 
 	// Use this for initialization
 	void Start () {
@@ -73,7 +73,9 @@ public class SplashLoad : MonoBehaviour {
 		pointLight = new GameObject();
 		pointLight.name = "pointLight";
 		pointLight.AddComponent<Light> ();
-		pointLight.GetComponent<Light> ().color = Color.blue;
+		pointLight.GetComponent<Light> ().range = 2.0f;
+		pointLight.GetComponent<Light> ().intensity = 3.6f;
+		pointLight.GetComponent<Light> ().color = Color.white;
 		pointLight.transform.position = beginLight;
 
 		//HASSEN: Additional faint Light to see CubeWalk

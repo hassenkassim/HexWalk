@@ -579,7 +579,7 @@ public class LevelPlay : MonoBehaviour {
 		aufzu = -aufzu; //toggle
 
 		if (aufzu == 1) { //öffnen
-			//InputManager.active = false;
+//			InputManager.active = false;
 			startInfoY = yvalueInfo;
 			endInfoY = listButton.transform.position.y - height3;
 			startShareY = yvalueShare;

@@ -61,7 +61,7 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 			splash.GetComponent<Splash> ().setSplashShown (2);
 			break;
 		default:
-			//InputManager.active = true;
+//			InputManager.active = true;
 			setPosition (LevelPlay.playerobj.transform.position + offsetPlayerCam);
 			//DebugConsole.Log ("2");
 
@@ -122,7 +122,7 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 				if (!particleSet) {
 					BackgroundManager.setParticleSystem (LevelPlay.cam);
 					particleSet = true;
-					LevelPlay.Gyro.GetComponent<GyroController>().setEnableGyro(true);
+					//LevelPlay.Gyro.GetComponent<GyroController>().setEnableGyro(true);
 				}
 
 

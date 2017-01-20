@@ -195,7 +195,7 @@ public class Gameplay : MonoBehaviour {
 		Vector2 platePos = player.getGamePosition ();//dazu gehe ich in unser Gameplay->Player->getGamePosition
 		Field field = gamefield.getField ((int)platePos.x, (int)platePos.y);
 
-		if (!Camera.main.GetComponent<Skybox> ().material.name.Equals ("skybox" +LevelPlay.levelmgr.curLevel.getWorld())){
+		if (!Camera.main.GetComponent<Skybox> ().material.name.Equals ("skybox" + LevelPlay.levelmgr.curLevel.getWorld())){
 			Fade.FadeAndNewWorldForGameplay (1.0f, cam);
 		}
 

@@ -25,7 +25,7 @@ public class Fade : MonoBehaviour {
 	}
 		
 	public static void StartFadeIn (float time){
-//		Debug.Log ("FadeIn");
+		Debug.Log ("FadeIn");
 		InputManager.active = false;
 		overlay.gameObject.SetActive (true);
 		instance.StartCoroutine (FadeIn (time));
@@ -74,7 +74,9 @@ public class Fade : MonoBehaviour {
 		}
 		//trotzdem lassen
 		Scene tmp =SceneManager.GetActiveScene();
-		if (tmp.name== "LevelScene" || tmp.name== "Scene/LevelScene" && LevelPlay.playerobj.transform.position.y <= 1.5f) {
+
+		if (tmp.name== "LevelScene" || tmp.name== "Scene/LevelScene" && LevelPlay.playerobj.transform.position.y <= 1.4f) {
+
 			InputManager.active = true;
 
 			//SoundManager.playLevelMusic ((int)LevelPlay.playerobj.transform.position.z / 2 + 1);
@@ -100,9 +102,9 @@ public class Fade : MonoBehaviour {
 		//}
 
 		Scene tmp = SceneManager.GetActiveScene();
-		if (tmp.name == "LevelScene") {
-			SoundManager.stopMusic ();
-		}
+//		if (tmp.name == "LevelScene") {
+//			SoundManager.stopMusic ();
+//		}
 
 		while (progress<1.0f) {
 			if (progress > 0.5f && changeScene) {
@@ -124,7 +126,6 @@ public class Fade : MonoBehaviour {
 
 			overlay.color = Color.Lerp (Color.clear, Color.black, progress);
 			progress += rate * Time.deltaTime;
-
 			yield return null;
 		}
 		if (tmp.name== "LevelScene" || tmp.name== "Scene/LevelScene" && LevelPlay.playerobj.transform.position.y <= 1.5f) {
@@ -134,6 +135,7 @@ public class Fade : MonoBehaviour {
 			InputManager.active = true;
 		}
 		yield return null;
+
 	}
 
 	public static IEnumerator startScene() {

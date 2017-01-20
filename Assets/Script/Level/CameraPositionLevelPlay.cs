@@ -191,8 +191,12 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 
 		//enable Input
 		InputManager.active = true;
-
+			
 		SoundManager.playMenuMusic ();
+
+		if (PlayerPrefs.GetInt ("SoundOn", 1) == 0) {
+			AudioListener.pause = true;
+		}
 
 		//start Gyro
 		//LevelPlay.Gyro.GetComponent<GyroController>().setEnableGyro(true);

@@ -1,4 +1,8 @@
 sceneSetups:
+<<<<<<< HEAD
+- path: Assets/Scene/LevelScene.unity
+=======
 - path: Assets/Scene/SplashLoadingScene.unity
+>>>>>>> 4c17b9b6df858b9f622a41d3bd0f98fb2e6dfedc
   isLoaded: 1
   isActive: 1

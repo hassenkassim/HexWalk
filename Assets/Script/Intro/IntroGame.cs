@@ -123,6 +123,10 @@ public class IntroGame : MonoBehaviour {
 
 		yield return null;
 
+		if (PlayerPrefs.GetInt ("SoundOn", 1) == 1) {
+			SoundManager.playMenuMusic ();
+		}
+
 	}
 
 	// Update is called once per frame

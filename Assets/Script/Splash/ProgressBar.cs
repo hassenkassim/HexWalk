@@ -16,7 +16,7 @@ public class ProgressBar : MonoBehaviour {
 
 		//PlayerPrefs.DeleteAll ();
 
-
+		print ("Splash"+PlayerPrefs.GetInt("SoundOn"));
 		if (PlayerPrefs.GetInt ("introLoad", 0) == 0) {
 				
 			PlayerPrefs.SetInt ("introLoad", 1);
@@ -36,7 +36,11 @@ public class ProgressBar : MonoBehaviour {
 	}
 
 	IEnumerator loadNewScene(){
+		if (PlayerPrefs.GetInt ("SoundOn", 1) == 0) {
+			AudioListener.pause = true;
+		}
 		SoundManager.playSplashMusic ();
+		
 		yield return new WaitForSeconds (2.0f);
 		async = SceneManager.LoadSceneAsync (levelName);
 

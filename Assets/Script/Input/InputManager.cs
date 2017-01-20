@@ -64,8 +64,13 @@ public class InputManager : MonoBehaviour{
 
 				
 			#endif
+<<<<<<< HEAD
 
 			if (Input.GetKeyUp (KeyCode.Space) || Input.GetMouseButtonUp (0) && !eventsystem.IsPointerOverGameObject ()){//&& !eventsystem.IsPointerOverGameObject ()){
+=======
+			if (Input.GetKeyUp (KeyCode.Space) || Input.GetMouseButtonUp (0)  ){//&& !eventsystem.IsPointerOverGameObject ()){
+
+>>>>>>> fe82152686cc2e913aba925e8494b32d47e1a972
 				return true;
 			} else {
 				return false;

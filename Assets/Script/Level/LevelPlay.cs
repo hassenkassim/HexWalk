@@ -112,8 +112,8 @@ public class LevelPlay : MonoBehaviour {
 
 	void Awake(){
 		//Set GyroController
-		Gyro = GameObject.Find("GyroCanvas");
-		Gyro.AddComponent<GyroController> ();
+		//Gyro = GameObject.Find("GyroCanvas");
+		//Gyro.AddComponent<GyroController> ();
 	}
 
 	// Use this for initialization

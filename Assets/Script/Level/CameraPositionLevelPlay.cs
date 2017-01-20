@@ -199,7 +199,7 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 		}
 
 		//start Gyro
-		LevelPlay.Gyro.GetComponent<GyroController>().setEnableGyro(true);
+		//LevelPlay.Gyro.GetComponent<GyroController>().setEnableGyro(true);
 
 		//SoundManager.playLevelMusic ((int)LevelPlay.playerobj.transform.position.z / 2 + 1);
 

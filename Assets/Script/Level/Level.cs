@@ -48,6 +48,15 @@ public class Level {
 		PlayerPrefs.SetInt (LevelManager.COMPLETEDPREF + LevelManager.WORLDPREF + world + LevelManager.LEVELPREF + level, 1);
 	}
 
+	public static void setAllLevelCompleted(){
+		for (int i = 0; i < 12; i++) {
+			for (int j = 0; j < 12; j++) {
+				PlayerPrefs.SetInt (LevelManager.COMPLETEDPREF + LevelManager.WORLDPREF + i + LevelManager.LEVELPREF + j, 1);
+			}
+		}
+
+	}
+
 	public int getWorld(){
 		return world;
 	}

@@ -127,7 +127,7 @@ public class CameraPosition : MonoBehaviour {
 		follow = true;
 
 		InputManager.active = true;
-
+		print ("true_CameraPos 129");
 		//enable Input
 		PathfinderController.camID = true;
 

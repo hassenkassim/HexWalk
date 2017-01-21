@@ -33,6 +33,7 @@ public class GameplayController : MonoBehaviour {
 		timer = 1.0f;
 		showID = SHOWREADY;
 		InputManager.active = false;
+		print ("false GPc");
 		levelmanager = new LevelManager();
 	}
 

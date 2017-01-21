@@ -11,6 +11,8 @@ public class Fade : MonoBehaviour {
 	public static GUITexture overlay;
 	private static bool changeScene = false; // to load new scene
 	private static bool changeWorld = false; // to load new world
+	private static bool fadeOutbool = false; // to load new world
+
 	private static bool changeCube = false;
 
 
@@ -27,6 +29,7 @@ public class Fade : MonoBehaviour {
 	public static void StartFadeIn (float time){
 		Debug.Log ("FadeIn");
 		InputManager.active = false;
+		print ("false_fade30");
 		overlay.gameObject.SetActive (true);
 		instance.StartCoroutine (FadeIn (time));
 	}
@@ -34,6 +37,7 @@ public class Fade : MonoBehaviour {
 	public static void StartFadeOut(float time, Camera cam){
 		Debug.Log ("FadeOut");
 		InputManager.active = false;
+		print ("false fade 37");
 		overlay.gameObject.SetActive (true);
 		instance.StartCoroutine (FadeOut (time, cam));
 	}
@@ -47,6 +51,7 @@ public class Fade : MonoBehaviour {
 
 	public static void FadeAndNewWorld(float time, Camera cam){
 		changeWorld = true;
+		fadeOutbool = true;
 		StartFadeOut (time, cam);
 	}
 	public static void FadeAndNewWorldForGameplay(float time, Camera cam){
@@ -75,10 +80,13 @@ public class Fade : MonoBehaviour {
 		//trotzdem lassen
 		Scene tmp =SceneManager.GetActiveScene();
 
+
 		if (tmp.name== "LevelScene" || tmp.name== "Scene/LevelScene" && LevelPlay.playerobj.transform.position.y <= 1.4f) {
-
-			InputManager.active = true;
-
+			if (fadeOutbool) {
+				fadeOutbool = false;
+				InputManager.active = true;
+				print ("true fade 80");
+			}
 			//SoundManager.playLevelMusic ((int)LevelPlay.playerobj.transform.position.z / 2 + 1);
 		//} else if (Application.loadedLevelName == "GameScene" && PathfinderController.camID == true) {
 
@@ -86,6 +94,7 @@ public class Fade : MonoBehaviour {
 		} else if (tmp.name == "GameScene"  && PathfinderController.camID == true) {
 
 			InputManager.active = true;
+			print ("true fade 88");
 		}
 		yield return null;
 	}
@@ -130,9 +139,11 @@ public class Fade : MonoBehaviour {
 		}
 		if (tmp.name== "LevelScene" || tmp.name== "Scene/LevelScene" && LevelPlay.playerobj.transform.position.y <= 1.5f) {
 			InputManager.active = true; 
+			print ("true fade 132");
 		} else if (tmp.name == "GameScene"  && PathfinderController.camID == true) {
 
 			InputManager.active = true;
+			print ("true fade 135");
 		}
 		yield return null;
 

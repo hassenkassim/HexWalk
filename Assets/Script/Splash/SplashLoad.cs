@@ -21,7 +21,7 @@ public class SplashLoad : MonoBehaviour {
 
 		//Disable Input
 		InputManager.active = false;
-
+		print ("false splashload ");
 		Fade.StartFadeIn(2.0f);
 		//Call Prefab Manager constructor
 		prefabsMgr = (PrefabsManagerSplashScene)GameObject.Find ("System").GetComponent <PrefabsManagerSplashScene> ();

@@ -62,6 +62,7 @@ public class IntroGame : MonoBehaviour {
 		Fade.StartFadeIn (2.0f);
 
 		InputManager.active = false;
+		print ("false introgame64");
 		collision = true;
 		isRotate = false;
 		waitForFunction = false;

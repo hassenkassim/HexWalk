@@ -123,6 +123,8 @@ public class LevelPlay : MonoBehaviour {
 
 		InputManager.active = false;
 
+		print ("false Levelplay 124");
+
 		buttonTrans = TransitionButtons (0.2f);
 
 		splash = GameObject.Find ("Splash");
@@ -208,7 +210,7 @@ public class LevelPlay : MonoBehaviour {
 
 
 	public void Update () {
-		print (InputManager.active);
+		//print (InputManager.active);
 		Vector2 input = InputManager.getInput ();
 
 		if (input.x == 0 && input.y == 0) {
@@ -317,6 +319,7 @@ public class LevelPlay : MonoBehaviour {
 			if (landing == false) {
 				SoundManager.playMenuMusic ();
 				InputManager.active = true;
+				print ("true landing levelplay");
 				if (PlayerPrefs.GetInt ("SoundOn", 1) == 0) {
 					AudioListener.pause = true;
 				}

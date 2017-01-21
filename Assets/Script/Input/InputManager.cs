@@ -15,7 +15,7 @@ public class InputManager : MonoBehaviour{
 
 	public static float getHorizontalInput(){
 		if (active) {
-			#if UNITY_ANDROID || UNITY_IPHONE
+			#if (UNITY_ANDROID || UNITY_IPHONE) && !UNITY_EDITOR
 			if (SwipeManager.IsSwipingLeft ()) {
 				//DebugConsole.Log("IsSwipingLeft");
 				return -1;
@@ -33,7 +33,7 @@ public class InputManager : MonoBehaviour{
 		
 	public static float getVerticalInput(){
 		if (active) {
-			#if UNITY_ANDROID || UNITY_IPHONE
+			#if (UNITY_ANDROID || UNITY_IPHONE) && !UNITY_EDITOR
 				if (SwipeManager.IsSwipingDown()) {
 //					DebugConsole.Log("IsSwipingDown");
 					return -1;
@@ -51,7 +51,7 @@ public class InputManager : MonoBehaviour{
 	public static bool getClickTouchInput(){
 		if (active) {
 
-			#if UNITY_ANDROID || UNITY_IPHONE
+			#if (UNITY_ANDROID || UNITY_IPHONE) && !UNITY_EDITOR
 			if(Input.touchCount > 0 && IsPointerOverUIObject() == false){
 				if (Input.touches[0].phase == TouchPhase.Ended) {
 					//DebugConsole.Log("Touched");
@@ -60,21 +60,21 @@ public class InputManager : MonoBehaviour{
 					return false;
 				}
 			}
-
-
-				
-			#endif
-<<<<<<< HEAD
-
 			if (Input.GetKeyUp (KeyCode.Space) || Input.GetMouseButtonUp (0) && !eventsystem.IsPointerOverGameObject ()){//&& !eventsystem.IsPointerOverGameObject ()){
-=======
-			if (Input.GetKeyUp (KeyCode.Space) || Input.GetMouseButtonUp (0)  ){//&& !eventsystem.IsPointerOverGameObject ()){
-
->>>>>>> fe82152686cc2e913aba925e8494b32d47e1a972
 				return true;
 			} else {
 				return false;
 			}
+			#endif
+
+			#if UNITY_EDITOR
+			if (Input.GetKeyUp (KeyCode.Space) || Input.GetMouseButtonUp (0)){//&& !eventsystem.IsPointerOverGameObject ()){
+				return true;
+			} else {
+				return false;
+			}
+			#endif
+
 		} else {
 			return false;
 		}

@@ -80,7 +80,7 @@ public class Gameplay : MonoBehaviour {
 		offsetY = 0;
 
 		InputManager.active = false;
-
+		print ("false_Gameplay 82");
 		//Setup Camera
 		cam = Camera.main;
 		cam.gameObject.AddComponent <CameraPosition>();
@@ -186,7 +186,7 @@ public class Gameplay : MonoBehaviour {
 		}
 		//bei World und Cube Wechsel
 		InputManager.active = true;
-
+		print ("true_gameplay188");
 	}
 
 	public static void collision(){

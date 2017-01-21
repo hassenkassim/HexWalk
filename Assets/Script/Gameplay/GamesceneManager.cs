@@ -67,7 +67,7 @@ public class GamesceneManager : MonoBehaviour {
 	public static void displayGameover(){
 
 		InputManager.active = false;
-
+		print ("false GsM");
 		gameOverOrWonCanvas.gameObject.SetActive (true);
 
 		restartBtn.gameObject.SetActive (true);
@@ -84,7 +84,7 @@ public class GamesceneManager : MonoBehaviour {
 	public static void displayWon(){
 
 		InputManager.active = false;
-
+		print ("false GsM 86");
 		gameOverOrWonCanvas.gameObject.SetActive (true);
 
 		nextLevelBtn.gameObject.SetActive (true);

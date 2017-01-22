@@ -16,6 +16,7 @@ public class SplashLoad : MonoBehaviour {
 	private Vector3 beginLight = new Vector3 (-4f, 10.0f, 0.0f);
 	private Vector3 endLight = new Vector3 (4f, 10.0f, 0.0f);
 
+
 	// Use this for initialization
 	void Start () {
 
@@ -30,6 +31,7 @@ public class SplashLoad : MonoBehaviour {
 
 		splash = GameObject.Find ("Splash");
 		DontDestroyOnLoad (splash);
+
 
 		//Setup Camera
 		cam = Camera.main;

@@ -3,10 +3,16 @@ using System.Collections;
 
 public class Splash : MonoBehaviour {
 
-	private int splashShown=0; // 0= showSplash; 1= endSplash; 2= nothing
+	public Splash instance;
+	public int splashShown = 0; // 0= showSplash; 1= endSplash; 2= nothing
 	public static Vector2 pos;
 	public float splashOffset = 8.2f;
 	// Use this for initialization
+
+	void Awake() {
+		instance = this;
+	}
+
 	void Start () {
 		splashShown = 0;
 		pos= new Vector2(PlayerPrefs.GetInt(LevelManager.NEXTLEVEL,0), PlayerPrefs.GetInt(LevelManager.NEXTWORLD,0));

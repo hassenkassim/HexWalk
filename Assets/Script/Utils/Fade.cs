@@ -56,7 +56,7 @@ public class Fade : MonoBehaviour {
 	}
 	public static void FadeAndNewWorldForGameplay(float time, Camera cam){
 
-		//AdManager.showRewardedVideo ();
+		AdManager.showRewardedVideo ();
 		changeCube = true;
 		changeWorld = true;
 		StartFadeOut (time, cam);

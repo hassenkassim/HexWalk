@@ -16,19 +16,32 @@ public class ProgressBar : MonoBehaviour {
 
 		//PlayerPrefs.DeleteAll ();
 
+		Scene tmpSc =SceneManager.GetActiveScene();
+		GameObject splash = GameObject.Find ("Splash");
+
+		if (tmpSc.name == "SplashLoadingScene" || tmpSc.name == "Scene/SplashLoadingScene" ) {
+			if (PlayerPrefs.GetInt ("SoundOn", 1) == 1) {
+				SoundManager.playSplashMusic ();
+			}
+		} else if (tmpSc.name == "IntroScene" || tmpSc.name == "Scene/IntroScene" || splash.GetComponent<Splash> ().getSplashShown () != 0) {
+			if (PlayerPrefs.GetInt ("SoundOn", 1) == 1) {
+				SoundManager.playMenuMusic ();
+			}
+		}
+
 		print ("Splash"+PlayerPrefs.GetInt("SoundOn"));
 		if (PlayerPrefs.GetInt ("introLoad", 0) == 0) {
 				
 			PlayerPrefs.SetInt ("introLoad", 1);
 			// load intro
 			levelName= "Scene/IntroScene";
-
 			StartCoroutine (loadNewScene());
 
 		} else{
 			levelName= "Scene/LevelScene";
 			StartCoroutine (loadNewScene());
 		}
+			
 	}
 
 	void Update(){
@@ -39,7 +52,6 @@ public class ProgressBar : MonoBehaviour {
 		if (PlayerPrefs.GetInt ("SoundOn", 1) == 0) {
 			AudioListener.pause = true;
 		}
-		SoundManager.playSplashMusic ();
 		
 		yield return new WaitForSeconds (2.0f);
 		async = SceneManager.LoadSceneAsync (levelName);

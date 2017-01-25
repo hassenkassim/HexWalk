@@ -639,12 +639,12 @@ public class LevelPlay : MonoBehaviour {
 	}
 
 	public void showAd(){
-		//AdManager.adFrequence = 3;
-		//AdManager.showVideo ();
+		AdManager.adFrequence = 3;
+		AdManager.showVideo ();
 	}
 
 	public void showRewarded(){
-		//AdManager.showRewardedVideo ();
+		AdManager.showRewardedVideo ();
 	}
 
 	public void onInfo(){

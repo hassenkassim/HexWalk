@@ -251,7 +251,7 @@ public class Gameplay : MonoBehaviour {
 
 	private static void lose(){
 
-		//AdManager.loseCounter = AdManager.loseCounter + 1;
+		AdManager.loseCounter = AdManager.loseCounter + 1;
 
 		if (first == true) {
 			first = false; //Not the first start start
@@ -322,7 +322,7 @@ public class Gameplay : MonoBehaviour {
 	public static IEnumerator waitForGameover(float timetowait){
 	
 		yield return new WaitForSeconds (timetowait);
-		//AdManager.showVideo ();
+		AdManager.showVideo ();
 		Fade.FadeAndStartScene ("LevelScene", 2.0f, cam);
 	}
 

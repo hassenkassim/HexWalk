@@ -7,7 +7,7 @@ public class IntroGame : MonoBehaviour {
 
 	public static GameObject playerobj;
 	private static GameObject gameName;
-	private static Camera cam;
+	public static Camera cam;
 	private static GameObject introText;
 	private static GameObject loadingBar;
 	private static GameObject swipeIcon;
@@ -603,6 +603,9 @@ public class IntroGame : MonoBehaviour {
 		playerobj.transform.rotation = fromRotation;											
 		rotationTime = 0;															
 		isRotate = true;
+		if (PlayerPrefs.GetInt ("SoundOn", 1) == 1) {
+			SoundManager.playRotationSound ("IntroScene");
+		}
 	}
 
 	private void rotation(){

@@ -96,13 +96,16 @@ public class SoundManager : MonoBehaviour{
 
 	public static void playRotationSound(string SceneName){
 
-			if (SceneName == "GameScene") {
-				Vector3 pos = new Vector3 (Gameplay.cam.transform.position.x, Gameplay.cam.transform.position.y, Gameplay.cam.transform.position.z); 
-				playSound (rotationMusik, pos, 10.0f);
-			} else if (SceneName == "LevelScene") {
-				Vector3 pos = new Vector3 (LevelPlay.cam.transform.position.x, LevelPlay.cam.transform.position.z, LevelPlay.cam.transform.position.y); 
-				playSound (rotationMusik, pos, 10.0f);
-			}
+		if (SceneName == "GameScene") {
+			Vector3 pos = new Vector3 (Gameplay.cam.transform.position.x, Gameplay.cam.transform.position.y, Gameplay.cam.transform.position.z); 
+			playSound (rotationMusik, pos, 10.0f);
+		} else if (SceneName == "LevelScene") {
+			Vector3 pos = new Vector3 (LevelPlay.cam.transform.position.x, LevelPlay.cam.transform.position.z, LevelPlay.cam.transform.position.y); 
+			playSound (rotationMusik, pos, 10.0f);
+		} else if (SceneName == "IntroScene") {
+			Vector3 pos = new Vector3 (IntroGame.cam.transform.position.x, IntroGame.cam.transform.position.z, IntroGame.cam.transform.position.y); 
+			playSound (rotationMusik, pos, 10.0f);
+		} 
 	}
 
 	public static void playGameoverMusic(){

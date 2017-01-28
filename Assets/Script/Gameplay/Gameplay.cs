@@ -200,7 +200,17 @@ public class Gameplay : MonoBehaviour {
 //		int pointer = pathfinder.pointer;
 		if (field.getColor ().Equals (Col.Col1))
 			return;
-		if (platePos.x == pathfinder.end.x && platePos.y == pathfinder.end.y) {
+	
+		int pointer = pathfinder.pointer;
+		print ("Pointer: " + pointer);
+		/*Color curColor = Gameplay.player.getColor ();
+		Color pathColor = pathfinder.pathcolor [pointer];
+		if(curColor.Equals(pathColor){
+		
+		}
+		//!!!!*/
+
+		if (platePos.x == pathfinder.end.x && platePos.y == pathfinder.end.y && pathfinder.pointer == pathfinder.path.Count-1) {
 			win ();
 		} else {
 			goNext ();
@@ -234,6 +244,9 @@ public class Gameplay : MonoBehaviour {
 		Field field = gamefield.getField ((int)platePos.x, (int)platePos.y);
 		int pointer = pathfinder.pointer;
 
+		//print ("Player Color: " + player.getColor ());
+		//print ("Pathfield Color: " + pathfinder.pathcolor [pointer]);
+
 		if (pathfinder.path [pointer].Equals (platePos) && player.getColor ().Equals (pathfinder.pathcolor [pointer])) {
 			pathfinder.pointer++;
 			field.setColor (player.getColor ());
@@ -243,9 +256,12 @@ public class Gameplay : MonoBehaviour {
 				SoundManager.playRotationSound ("GameScene");
 			}
 		} else {
-			//print (player.getColor ());
-			//print (pathfinder.pathcolor [pointer]);
-			lose ();
+			//print ("pointer: " + pathfinder.pointer);
+			print ("Player Color: " +  Gameplay.player.getColor());
+			print ("Pathfield Color: " + pathfinder.pathcolor [pointer]);
+			print ("Position: " + Gameplay.player.getGamePosition ());
+
+			//lose ();
 		}
 	}
 

@@ -8,10 +8,14 @@ TextureImporter:
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
+<<<<<<< HEAD
+    sRGBTexture: 0
+=======
     sRGBTexture: 1
+>>>>>>> a52f49a99b1ac5420267937e702debb0b641e749
     linearTexture: 0
     fadeOut: 0
-    borderMipMap: 0
+    borderMipMap: 1
     mipMapFadeDistanceStart: 1
     mipMapFadeDistanceEnd: 3
   bumpmap:
@@ -19,7 +23,7 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
-  isReadable: 0
+  isReadable: 1
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -28,7 +32,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
-    aniso: 16
+    aniso: 0
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
@@ -44,7 +48,11 @@ TextureImporter:
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
+<<<<<<< HEAD
+  textureType: 1
+=======
   textureType: 8
+>>>>>>> a52f49a99b1ac5420267937e702debb0b641e749
   textureShape: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
@@ -60,7 +68,11 @@ TextureImporter:
     overridden: 0
   - buildTarget: iPhone
     maxTextureSize: 2048
+<<<<<<< HEAD
+    textureFormat: 1
+=======
     textureFormat: 33
+>>>>>>> a52f49a99b1ac5420267937e702debb0b641e749
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -68,6 +80,8 @@ TextureImporter:
     overridden: 1
   - buildTarget: Standalone
     maxTextureSize: 2048
+<<<<<<< HEAD
+=======
     textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
@@ -76,6 +90,7 @@ TextureImporter:
     overridden: 0
   - buildTarget: Android
     maxTextureSize: 2048
+>>>>>>> a52f49a99b1ac5420267937e702debb0b641e749
     textureFormat: -1
     textureCompression: 1
     compressionQuality: 50

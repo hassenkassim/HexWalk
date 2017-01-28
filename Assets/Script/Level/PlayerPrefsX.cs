@@ -193,12 +193,12 @@ public class PlayerPrefsX
 			var bytes = System.Convert.FromBase64String (PlayerPrefs.GetString(key));
 			if (bytes.Length < 5)
 			{
-				Debug.LogError ("Corrupt preference file for " + key);
+				//Debug.LogError ("Corrupt preference file for " + key);
 				return new bool[0];
 			}
 			if ((ArrayType)bytes[0] != ArrayType.Bool)
 			{
-				Debug.LogError (key + " is not a boolean array");
+				//Debug.LogError (key + " is not a boolean array");
 				return new bool[0];
 			}
 			Initialize();
@@ -242,12 +242,12 @@ public class PlayerPrefsX
 		{
 			if (stringArray[i] == null)
 			{
-				Debug.LogError ("Can't save null entries in the string array when setting " + key);
+				//Debug.LogError ("Can't save null entries in the string array when setting " + key);
 				return false;
 			}
 			if (stringArray[i].Length > 255)
 			{
-				Debug.LogError ("Strings cannot be longer than 255 characters when setting " + key);
+				//Debug.LogError ("Strings cannot be longer than 255 characters when setting " + key);
 				return false;
 			}
 			bytes[idx++] = (byte)stringArray[i].Length;
@@ -270,12 +270,12 @@ public class PlayerPrefsX
 			var completeString = PlayerPrefs.GetString(key);
 			var separatorIndex = completeString.IndexOf("|"[0]);
 			if (separatorIndex < 4) {
-				Debug.LogError ("Corrupt preference file for " + key);
+				//Debug.LogError ("Corrupt preference file for " + key);
 				return new String[0];
 			}
 			var bytes = System.Convert.FromBase64String (completeString.Substring(0, separatorIndex));
 			if ((ArrayType)bytes[0] != ArrayType.String) {
-				Debug.LogError (key + " is not a string array");
+				//Debug.LogError (key + " is not a string array");
 				return new String[0];
 			}
 			Initialize();
@@ -288,7 +288,7 @@ public class PlayerPrefsX
 				int stringLength = bytes[idx++];
 				if (stringIndex + stringLength > completeString.Length)
 				{
-					Debug.LogError ("Corrupt preference file for " + key);
+					//Debug.LogError ("Corrupt preference file for " + key);
 					return new String[0];
 				}
 				stringArray[i] = completeString.Substring(stringIndex, stringLength);
@@ -528,12 +528,12 @@ public class PlayerPrefsX
 			var bytes = System.Convert.FromBase64String (PlayerPrefs.GetString(key));
 			if ((bytes.Length-1) % (vectorNumber*4) != 0)
 			{
-				Debug.LogError ("Corrupt preference file for " + key);
+				//Debug.LogError ("Corrupt preference file for " + key);
 				return;
 			}
 			if ((ArrayType)bytes[0] != arrayType)
 			{
-				Debug.LogError (key + " is not a " + arrayType.ToString() + " array");
+				//Debug.LogError (key + " is not a " + arrayType.ToString() + " array");
 				return;
 			}
 			Initialize();
@@ -582,7 +582,7 @@ public class PlayerPrefsX
 		if (bytes.Length > 0)
 		{
 			ArrayType arrayType = (ArrayType)bytes[0];
-			Debug.Log (key + " is a " + arrayType.ToString() + " array");
+			//Debug.Log (key + " is a " + arrayType.ToString() + " array");
 		}
 	}
 

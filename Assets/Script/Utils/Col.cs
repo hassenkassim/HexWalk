@@ -25,7 +25,7 @@ public class Col {
 	public readonly static  Color WEISS = Color.white;
 	public readonly static Color CYAN = Color.cyan;
 
-	public readonly static Color SELECTEDCOLOR = CYAN;
+	public readonly static Color SELECTEDCOLOR = new Color(0.8f,0.5f,0f);
 	public readonly static Color COMPLETEDCOLOR = GRUEN;
 	public readonly static Color BLOCKEDCOLOR = GRAU;
 	public readonly static Color WORLDBLOCKCOLOR = SCHWARZ;
@@ -34,7 +34,7 @@ public class Col {
 
 	public readonly static Color STANDARDFIELDCOLOR = WEISS;
 
-	public readonly static List<Color> colors = new List<Color>(new Color[]{ Color.green, Color.blue, Color.magenta, Color.yellow}); //This List is used to index the colors and to easily get the next color
+	public readonly static List<Color> colors = new List<Color>(new Color[]{ Color.blue, Color.red, new Color(0.44f, 0.0f, 1.0f), new Color(0.8f,0.5f,0f)}); //This List is used to index the colors and to easily get the next color
 
 	//this gives the nextColor, considering the count of active colors
 	public static Color nextColor(Color col, int colorCount){

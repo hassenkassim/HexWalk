@@ -74,6 +74,8 @@ public class LevelManager {
 		bool worldcompleted = isWorldCompleted(curLevel);
 
 		if (worldcompleted == true) {
+			AdManager.showRewardedVideo ();
+
 			//unlock next World
 			if (curLevel.getWorld() < worldMax) {
 				PlayerPrefs.SetInt (WORLDCOMPLETED, (curLevel.getWorld() + 1));

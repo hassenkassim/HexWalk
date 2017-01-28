@@ -193,6 +193,11 @@ public class Field {
 	public void setColor(Color col){
 		field.GetComponent<MeshRenderer> ().material.SetColor("_Color", col);
 	}
+		
+	public void setTexture(string file){
+		Material mat = Resources.Load<Material> ("flag");
+		field.GetComponent<MeshRenderer> ().material = mat;
+	}
 
 	public void setPosition(float x, float y){
 		field.transform.position = new Vector3 (x, 1, y);

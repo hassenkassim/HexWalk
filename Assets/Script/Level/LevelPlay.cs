@@ -123,8 +123,6 @@ public class LevelPlay : MonoBehaviour {
 
 		InputManager.active = false;
 
-		print ("false Levelplay 124");
-
 		buttonTrans = TransitionButtons (0.2f);
 
 		splash = GameObject.Find ("Splash");
@@ -178,7 +176,7 @@ public class LevelPlay : MonoBehaviour {
 		staticLight.AddComponent<Light> ();
 		staticLight.GetComponent<Light> ().color = Color.white;
 		staticLight.GetComponent<Light> ().type = LightType.Directional;
-		staticLight.GetComponent<Light> ().intensity = 0.4f;
+		staticLight.GetComponent<Light> ().intensity = 0.2f;
 		staticLight.transform.rotation = Quaternion.Euler(new Vector3(200.0f, 180.0f, 10.0f));
 
 	}
@@ -319,7 +317,6 @@ public class LevelPlay : MonoBehaviour {
 			if (landing == false) {
 				SoundManager.playMenuMusic ();
 				InputManager.active = true;
-				print ("true landing levelplay");
 				if (PlayerPrefs.GetInt ("SoundOn", 1) == 0) {
 					AudioListener.pause = true;
 				}
@@ -570,7 +567,7 @@ public class LevelPlay : MonoBehaviour {
 		//aufzu = 1 == zu
 		//aufzu = -1 == auf
 
-		float initheight = buttonHeight + 8;
+		float initheight = buttonHeight + 12;
 
 		float height1 = initheight;
 		float height2 = initheight*2.0f;
@@ -639,7 +636,7 @@ public class LevelPlay : MonoBehaviour {
 	}
 
 	public void showAd(){
-		AdManager.adFrequence = 3;
+		AdManager.adFrequence = 5;
 		AdManager.showVideo ();
 	}
 

@@ -62,4 +62,16 @@ public class PathfinderController : MonoBehaviour {
 		yield return 0;
 	}
 
+	public static void setEnd(Vector2 pos){
+		Field field = Gameplay.gamefield.getField ((int)pos.x, (int)pos.y);
+
+		Destroy (field.field);
+		field.field = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		field.setScale (new Vector3 (0.7f, 0.1f, 0.7f));
+		field.setPosition ((int)pos.x,(int)pos.y);
+
+		Material mat = Resources.Load<Material> ("flag");
+		field.field.GetComponent<MeshRenderer> ().material = mat;
+	}
+
 }

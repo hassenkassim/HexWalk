@@ -149,7 +149,7 @@ public class Gameplay : MonoBehaviour {
 		staticLight.AddComponent<Light> ();
 		staticLight.GetComponent<Light> ().color = Color.white;
 		staticLight.GetComponent<Light> ().type = LightType.Directional;
-		staticLight.GetComponent<Light> ().intensity = 0.4f;
+		staticLight.GetComponent<Light> ().intensity = 0.2f;
 		staticLight.transform.rotation = Quaternion.Euler(new Vector3(200.0f, 180.0f, 10.0f));
 
 	}
@@ -200,7 +200,7 @@ public class Gameplay : MonoBehaviour {
 		}
 
 //		int pointer = pathfinder.pointer;
-		if (field.getColor ().Equals (Col.GRUEN))
+		if (field.getColor ().Equals (Col.BLAU))
 			return;
 		if (platePos.x == pathfinder.end.x && platePos.y == pathfinder.end.y) {
 			win ();
@@ -245,6 +245,8 @@ public class Gameplay : MonoBehaviour {
 				SoundManager.playRotationSound ("GameScene");
 			}
 		} else {
+			//print (player.getColor ());
+			//print (pathfinder.pathcolor [pointer]);
 			lose ();
 		}
 	}
@@ -315,7 +317,7 @@ public class Gameplay : MonoBehaviour {
 		// Call Pathfinder constructor
 		pathfinder = new Pathfinder (currentLevel.getColorCount(), x);
 		player.setGamePosition (new Vector2(x, -1));
-		player.setColor (Col.GRUEN);
+		player.setColor (Col.BLAU);
 		player.setColorCount (currentLevel.getColorCount ());
 	}
 

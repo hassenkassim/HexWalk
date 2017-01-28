@@ -44,15 +44,15 @@ public class AdManager : MonoBehaviour {
 	private static void handleAdResult(ShowResult result){
 		switch (result) {
 		case ShowResult.Finished:
-			Debug.Log ("Ad was finished!");
+			//Debug.Log ("Ad was finished!");
 			InputManager.active = true;
 			break;
 		case ShowResult.Skipped:
-			Debug.Log ("Ad was skipped!");
+			//Debug.Log ("Ad was skipped!");
 			InputManager.active = true;
 			break;
 		case ShowResult.Failed:
-			Debug.Log ("Ad failed!");
+			//Debug.Log ("Ad failed!");
 			InputManager.active = true;
 			break;
 		}

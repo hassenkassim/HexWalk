@@ -586,7 +586,7 @@ public class IntroGame : MonoBehaviour {
 		staticLight.AddComponent<Light> ();
 		staticLight.GetComponent<Light> ().color = Color.white;
 		staticLight.GetComponent<Light> ().type = LightType.Directional;
-		staticLight.GetComponent<Light> ().intensity = 0.4f;
+		staticLight.GetComponent<Light> ().intensity = 0.2f;
 		staticLight.transform.rotation = Quaternion.Euler(new Vector3(200.0f, 180.0f, 10.0f));
 
 	}

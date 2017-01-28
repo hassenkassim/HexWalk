@@ -80,7 +80,6 @@ public class Gameplay : MonoBehaviour {
 		offsetY = 0;
 
 		InputManager.active = false;
-		print ("false_Gameplay 82");
 		//Setup Camera
 		cam = Camera.main;
 		cam.gameObject.AddComponent <CameraPosition>();
@@ -186,7 +185,6 @@ public class Gameplay : MonoBehaviour {
 		}
 		//bei World und Cube Wechsel
 		InputManager.active = true;
-		print ("true_gameplay188");
 	}
 
 	public static void collision(){
@@ -261,6 +259,7 @@ public class Gameplay : MonoBehaviour {
 		//print ("GAMEOVER!");
 
 		PathfinderController.camID = false;
+		PathfinderController.changingactive = false;
 
 		Vector2 platePos = player.getGamePosition ();
 		Field field = gamefield.getField ((int)platePos.x, (int)platePos.y);

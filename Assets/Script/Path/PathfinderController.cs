@@ -16,6 +16,8 @@ public class PathfinderController : MonoBehaviour {
 	public static bool coloringEnd = true;
 	public static bool camID = false;
 
+	public static bool changingactive = false;
+
 	void Awake(){ //called when an instance awakes in the game
 		instance = this; //set our static reference to our newly initialized instance
 	}
@@ -34,6 +36,10 @@ public class PathfinderController : MonoBehaviour {
 	public static void paintColorPath(float timebetweenfields, List<Vector2> path){
 		coloringStarted = true;
 		coloringEnd = false;
+		if ((LevelPlay.levelmgr.curLevel.getWorld () % 2) == 1 &&changingactive==false) {
+			changingactive = true;
+			instance.StartCoroutine (PlayerController.startswitchingcolor (0.8f));
+		}
 		instance.StartCoroutine (paintFieldPathColor (timebetweenfields, path));
 	}
 

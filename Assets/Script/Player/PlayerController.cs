@@ -136,4 +136,13 @@ public class PlayerController : MonoBehaviour {
 		return true;
 	}
 
+	public static IEnumerator startswitchingcolor(float timetowait){
+		while (true) {
+			if ((LevelPlay.levelmgr.curLevel.getWorld () % 2) == 0) {
+				break;
+			}
+			Gameplay.player.setNextColor ();
+			yield return new WaitForSeconds (timetowait);
+		}
+	}
 }

@@ -16,16 +16,25 @@ using System.Collections;
  * VERY IMPORTANT: This is the class to manage the main timer!
  * */
 public class GameplayController : MonoBehaviour {
+	static public GameplayController instance; //the instance of our class that will do the work
+
 
 	const int SHOWREADY = 0;
 	const int SHOWREMAIN = 1;
 	const int SHOWNOTHING = 2;
 	const int SHOWNOTHING2 = 3;
 
+	bool starteddd = false;
+
 	private static int showID;
 	private static float timer;
 
 	public static LevelManager levelmanager;
+
+	void Awake(){ //called when an instance awakes in the game
+		instance = this; //set our static reference to our newly initialized instance
+	}
+
 
 	// Use this for initialization
 	void Start () {
@@ -33,7 +42,6 @@ public class GameplayController : MonoBehaviour {
 		timer = 1.0f;
 		showID = SHOWREADY;
 		InputManager.active = false;
-		print ("false GPc");
 		levelmanager = new LevelManager();
 	}
 
@@ -59,7 +67,13 @@ public class GameplayController : MonoBehaviour {
 			}
 
 			if (PathfinderController.coloringEnd == true) {
-				
+				/*if (starteddd == false) {
+					starteddd = true;
+					if ((LevelPlay.levelmgr.curLevel.getWorld () % 2) == 1) {
+						instance.StartCoroutine (PlayerController.startswitchingcolor (0.8f));
+					}
+				}*/
+
 				if (timer < 0) {
 					PathfinderController.coloringStarted = false;
 					showID = SHOWNOTHING;
@@ -81,6 +95,7 @@ public class GameplayController : MonoBehaviour {
 			}
 
 			if (PathfinderController.coloringEnd == true) {
+				
 				if (timer < 0) {
 					showID = SHOWNOTHING2;
 				}

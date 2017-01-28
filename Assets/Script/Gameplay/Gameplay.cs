@@ -257,11 +257,11 @@ public class Gameplay : MonoBehaviour {
 			}
 		} else {
 			//print ("pointer: " + pathfinder.pointer);
-			print ("Player Color: " +  Gameplay.player.getColor());
-			print ("Pathfield Color: " + pathfinder.pathcolor [pointer]);
-			print ("Position: " + Gameplay.player.getGamePosition ());
+			//print ("Player Color: " +  Gameplay.player.getColor());
+			//print ("Pathfield Color: " + pathfinder.pathcolor [pointer]);
+			//print ("Position: " + Gameplay.player.getGamePosition ());
 
-			//lose ();
+			lose ();
 		}
 	}
 

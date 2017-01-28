@@ -29,7 +29,7 @@ public class ProgressBar : MonoBehaviour {
 			}
 		}
 
-		print ("Splash"+PlayerPrefs.GetInt("SoundOn"));
+		//print ("Splash"+PlayerPrefs.GetInt("SoundOn"));
 		if (PlayerPrefs.GetInt ("introLoad", 0) == 0) {
 				
 			PlayerPrefs.SetInt ("introLoad", 1);

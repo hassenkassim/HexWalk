@@ -17,7 +17,7 @@ public class SkyBoxChoosing : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		InputManager.active = true;
-		print ("true skyboxchoosing");
+		//print ("true skyboxchoosing");
 		float y = InputManager.getHorizontalInput ();
 		if (y != 0) {
 			world += y;

@@ -28,7 +28,7 @@ public class Pathfinder {
 
 	public Pathfinder(int colorCount){
 			this.start = new Vector2(Random.Range(0, Gameplay.gamefield.width-1), 0);
-			this.startColor = Col.BLAU;
+			this.startColor = Col.Col1;
 			this.end = new Vector2(Random.Range(0, Gameplay.gamefield.width-1), Gameplay.gamefield.height-1);
 			this.endColor = Col.GRUEN; //TODO: Finish Flag
 
@@ -51,7 +51,7 @@ public class Pathfinder {
 
 	public Pathfinder(int colorCount, int xOffset){
 			this.start = new Vector2(xOffset, 0);
-			this.startColor = Col.BLAU;
+			this.startColor = Col.Col1;
 			this.end = new Vector2(Random.Range(0, Gameplay.gamefield.width-1), Gameplay.gamefield.height-1);
 			this.endColor = Col.GRUEN; //TODO: Finish Flag
 			this.colorCount = colorCount;
@@ -75,13 +75,13 @@ public class Pathfinder {
 	public void findRandomPath(){
 		Vector2 tmp = start;
 		path.Add (start);
-		pathcolor.Add (Col.BLAU);
+		pathcolor.Add (Col.Col1);
 		while(!tmp.Equals(end)){
 			//find possible next steps
 			List<Vector2> possibleSteps = getNextPossibleSteps(tmp);
 
 			if (possibleSteps.Count == 0) {
-				Debug.Log ("No next Step possible! Abort!");
+				//Debug.Log ("No next Step possible! Abort!");
 				return;
 			}
 

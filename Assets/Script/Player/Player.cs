@@ -94,7 +94,7 @@ public class Player {
 		playerobj.AddComponent<MeshRenderer> ().material = Materials.glanz;
 
 		this.colorCount = colorCount;
-		curColor = Color.blue;
+		curColor = Col.Col1;
 
 		setColor (curColor);
 

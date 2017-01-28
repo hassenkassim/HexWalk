@@ -191,7 +191,6 @@ public class CameraPositionLevelPlay : MonoBehaviour {
 
 		//enable Input
 		InputManager.active = true;
-		print ("true CPlevelplay 193");
 		SoundManager.playMenuMusic ();
 
 		if (PlayerPrefs.GetInt ("SoundOn", 1) == 0) {

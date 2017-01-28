@@ -62,7 +62,6 @@ public class IntroGame : MonoBehaviour {
 		Fade.StartFadeIn (2.0f);
 
 		InputManager.active = false;
-		print ("false introgame64");
 		collision = true;
 		isRotate = false;
 		waitForFunction = false;
@@ -227,7 +226,7 @@ public class IntroGame : MonoBehaviour {
 			yield return new WaitForSeconds (1f);
 			break;
 		}
-		Debug.Log ("rotIc true");
+		//Debug.Log ("rotIc true");
 		rotDir = new Vector3 (1.0f, 0.0f, 0.0f);
 		setPos = true;
 		rotateIc = true;

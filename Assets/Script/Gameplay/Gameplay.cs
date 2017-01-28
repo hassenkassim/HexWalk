@@ -198,7 +198,7 @@ public class Gameplay : MonoBehaviour {
 		}
 
 //		int pointer = pathfinder.pointer;
-		if (field.getColor ().Equals (Col.BLAU))
+		if (field.getColor ().Equals (Col.Col1))
 			return;
 		if (platePos.x == pathfinder.end.x && platePos.y == pathfinder.end.y) {
 			win ();
@@ -316,7 +316,7 @@ public class Gameplay : MonoBehaviour {
 		// Call Pathfinder constructor
 		pathfinder = new Pathfinder (currentLevel.getColorCount(), x);
 		player.setGamePosition (new Vector2(x, -1));
-		player.setColor (Col.BLAU);
+		player.setColor (Col.Col1);
 		player.setColorCount (currentLevel.getColorCount ());
 	}
 

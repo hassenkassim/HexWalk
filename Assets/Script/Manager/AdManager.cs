@@ -6,7 +6,7 @@ public class AdManager : MonoBehaviour {
 
 	public static string videoID = "video";
 	public static string rewardedVideoID = "rewardedVideo";
-	public static int adFrequence = 3;
+	public static int adFrequence = 5;
 	public static GameObject adManager;
 	public static int loseCounter = 0;
 

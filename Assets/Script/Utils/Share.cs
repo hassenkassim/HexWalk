@@ -36,21 +36,20 @@ public class Share : MonoBehaviour {
 
 	public static void IntentShareText(string text){
 
-		if (Application.platform != RuntimePlatform.Android)
-			return;
+		if (Application.platform == RuntimePlatform.Android) {
+			if (!IsInitialized)
+				Initialize ();
 
-		//#if UNITY_ANDROID
+			sendIntent.Call<AndroidJavaObject> ("setAction", IntentClass.GetStatic<string> ("ACTION_SEND"));
+			sendIntent.Call<AndroidJavaObject> ("putExtra", IntentClass.GetStatic<string> ("EXTRA_TEXT"), text);
+			sendIntent.Call<AndroidJavaObject> ("setType", "text/plain");
+			currentActivity.Call("startActivity", sendIntent);
 
+		} else if (Application.platform == RuntimePlatform.IPhonePlayer) {
+			Application.OpenURL ("itms-apps:itunes.apple.com/"); //TODO: Verlinken
+			//Application.OpenURL ("itms-apps:itunes.apple.com/app/crossy-road-endless-arcade/id924373886");
+		} 
 
-		if (!IsInitialized)
-			Initialize ();
-
-		sendIntent.Call<AndroidJavaObject> ("setAction", IntentClass.GetStatic<string> ("ACTION_SEND"));
-		sendIntent.Call<AndroidJavaObject> ("putExtra", IntentClass.GetStatic<string> ("EXTRA_TEXT"), text);
-		sendIntent.Call<AndroidJavaObject> ("setType", "text/plain");
-
-
-		currentActivity.Call("startActivity", sendIntent);
 	}
 
 

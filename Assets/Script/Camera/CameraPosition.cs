@@ -131,7 +131,7 @@ public class CameraPosition : MonoBehaviour {
 		PathfinderController.camID = true;
 
 		//start Gyro
-		Gameplay.Gyro.GetComponent<GyroController>().setEnableGyro(true);
+		Gameplay.Gyro.GetComponent<GyroController>().setCamOK(true);
 
 		follow = true;
 

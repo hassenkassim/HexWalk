@@ -25,6 +25,9 @@ public class GyroController : MonoBehaviour {
 	public bool firstStart = true;
 	private bool gyroEnabled = false;
 	public bool gyroactive = false;
+	public bool camOk = false;
+
+	public int gyroactivePref;
 
 	/* reference for the axes we want to detect changes 
  	*/
@@ -45,6 +48,7 @@ public class GyroController : MonoBehaviour {
 	Quaternion resetCamRot;
 
 	void Awake(){
+
 		resetCamRot = Quaternion.Euler (new Vector3 (29f, 0.0f, 0.0f));
 		//get icon gameobjects
 		Icon1 = GameObject.Find("gyroIcon1");
@@ -52,20 +56,14 @@ public class GyroController : MonoBehaviour {
 		Icon3 = GameObject.Find("gyroIcon3");
 
 		butt = GameObject.Find("GyroIcon").GetComponent<Button>();
-
-	}
-
-	void Start(){
 		InitGyro ();
+
 	}
-	
+		
 	// Update is called once per frame
 	void Update () {
-		if (!gyroactive)
-			return;
-
 		//if gyroscope is supported start GyroRotation
-		if (gyroEnabled) {
+		if (gyroactive && camOk) {
 			// Rotate Camera
 			GyroRotation ();
 			//Rotate icon
@@ -74,23 +72,34 @@ public class GyroController : MonoBehaviour {
 	}
 
 	public void InitGyro() {
-		setEnableGyro (false);
+		//Check wether we are in the right Scenes, to activate or deactivate Icons
+		setIconActive();
 
 		//Setup Buttons
+		print("adding Listener!");
 		butt.GetComponent<Button>().onClick.RemoveAllListeners();
 		butt.onClick.AddListener(delegate{toogleGyro();});
 
-
 		//check wether Gyroscope exists
 		if (HasGyroscope) {
+			gyroEnabled = true;
 			Input.gyro.enabled = true;              // enable the gyroscope
 			Input.gyro.updateInterval = 0.0167f;    // set the update interval to it's highest value (60 Hz)
 		} else {
+			gyroEnabled = false;
 			// show a error message for the devices without a gyroscope
 		}
+			
+		gyroactivePref = PlayerPrefs.GetInt ("gyroactive", 1);
 
-		//Check wether we are in the right Scenes, to activate or deactivate Icons
-		setIconActive();
+		if (gyroactivePref == 0) {
+			gyroactive = false;
+		} else {
+			gyroactive = true;
+		}
+
+
+
 	}
 
 
@@ -128,38 +137,38 @@ public class GyroController : MonoBehaviour {
 		gyroEnabled = enabled;
 	}
 
+	public void setCamOK(bool boolean){
+		camOk = boolean;
+	}
+
 	private void toogleGyro(){
-		if (gyroEnabled == false) {
-			gyroEnabled = true;
+		print ("toogle!");
+		if (gyroactive == false) {
+			gyroactive = true;
+			PlayerPrefs.SetInt ("gyroactive", 1);
 		} else {
-			gyroEnabled = false;
+			gyroactive = false;
+			PlayerPrefs.SetInt ("gyroactive",0);
 			resetRotation ();
 		}
 	}
 
-	/*private void toogleGyro(){
-//		DebugConsole.Log("TOOGLE");
-		//butt1.GetComponent<Button>().onClick.RemoveAllListeners();
-		//butt1.onClick.AddListener(delegate{toogleGyro();});
-		if (gyroEnabled == false) {
-			gyroEnabled = true;
-		} else {
-			gyroEnabled = false;
-			resetRotation ();
-		}
-	}*/
-
-
 	public void setIconActive(){
-		if (getIconActivateInScene () && Input.gyro.enabled) {
+		if (getIconActivateInScene ()) {
 			Icon1.gameObject.SetActive (true);
 			Icon2.gameObject.SetActive (true);
 			Icon3.gameObject.SetActive (true);
-			gyroactive = true;
 		} else {
 			Icon1.gameObject.SetActive (false);
 			Icon2.gameObject.SetActive (false);
 			Icon3.gameObject.SetActive (false);
+		}
+	}
+
+	public void setActive(){
+		if (PlayerPrefs.GetInt ("gyroactive", 1) == 1) {
+			gyroactive = true;
+		} else {
 			gyroactive = false;
 		}
 	}

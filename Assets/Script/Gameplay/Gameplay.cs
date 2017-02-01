@@ -202,7 +202,7 @@ public class Gameplay : MonoBehaviour {
 			return;
 	
 		int pointer = pathfinder.pointer;
-		print ("Pointer: " + pointer);
+		//print ("Pointer: " + pointer);
 		/*Color curColor = Gameplay.player.getColor ();
 		Color pathColor = pathfinder.pathcolor [pointer];
 		if(curColor.Equals(pathColor){

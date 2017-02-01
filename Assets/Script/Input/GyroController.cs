@@ -76,7 +76,7 @@ public class GyroController : MonoBehaviour {
 		setIconActive();
 
 		//Setup Buttons
-		print("adding Listener!");
+		//print("adding Listener!");
 		butt.GetComponent<Button>().onClick.RemoveAllListeners();
 		butt.onClick.AddListener(delegate{toogleGyro();});
 
@@ -142,7 +142,7 @@ public class GyroController : MonoBehaviour {
 	}
 
 	private void toogleGyro(){
-		print ("toogle!");
+		//print ("toogle!");
 		if (gyroactive == false) {
 			gyroactive = true;
 			PlayerPrefs.SetInt ("gyroactive", 1);

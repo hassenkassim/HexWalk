@@ -46,8 +46,7 @@ public class Share : MonoBehaviour {
 			currentActivity.Call("startActivity", sendIntent);
 
 		} else if (Application.platform == RuntimePlatform.IPhonePlayer) {
-			Application.OpenURL ("itms-apps:itunes.apple.com/"); //TODO: Verlinken
-			//Application.OpenURL ("itms-apps:itunes.apple.com/app/crossy-road-endless-arcade/id924373886");
+			
 		} 
 
 	}

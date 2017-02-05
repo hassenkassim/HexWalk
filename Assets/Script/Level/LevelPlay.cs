@@ -559,9 +559,6 @@ public class LevelPlay : MonoBehaviour {
 		}
 	}
 		
-	public void onShare(){
-		Share.IntentShareText ("This game is awesome! Get the game from play store: balblaLink!");
-	}
 
 	public void onListButton(){
 		//aufzu = 1 == zu

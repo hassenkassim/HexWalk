@@ -107,7 +107,4 @@ public class GamesceneManager : MonoBehaviour {
 		SceneManager.LoadScene ("LevelScene");
 	}
 
-	public void onShare(){
-		Share.IntentShareText ("This game is awesome! Get the game from play store: balblaLink!");
-	}
 }

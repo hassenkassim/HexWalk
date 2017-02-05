@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.Advertisements;
+#if (UNITY_ANDROID || UNITY_IPHONE) && !UNITY_EDITOR && !UNITY_STANDALONE
 
-public class AdManager : MonoBehaviour {
+	using UnityEngine.Advertisements;
+
+	public class AdManager : MonoBehaviour {
 
 	public static string videoID = "video";
 	public static string rewardedVideoID = "rewardedVideo";
@@ -61,3 +63,25 @@ public class AdManager : MonoBehaviour {
 
 
 }
+#elif UNITY_EDITOR || UNITY_STANDALONE
+
+	public class AdManager : MonoBehaviour {
+		public static string videoID = "video";
+		public static string rewardedVideoID = "rewardedVideo";
+		public static int adFrequence = 5;
+		public static GameObject adManager;
+		public static int loseCounter = 0;
+
+		public void Start(){
+
+		}
+
+		public static void showVideo(){
+
+		}
+
+		public static void showRewardedVideo(){
+
+		}
+	}
+#endif

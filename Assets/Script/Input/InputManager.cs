@@ -67,13 +67,14 @@ public class InputManager : MonoBehaviour{
 			}
 			#endif
 
-			#if UNITY_EDITOR
+			#if UNITY_EDITOR || UNITY_STANDALONE
 			if (Input.GetKeyUp (KeyCode.Space) || Input.GetMouseButtonUp (0)){//&& !eventsystem.IsPointerOverGameObject ()){
 				return true;
 			} else {
 				return false;
 			}
 			#endif
+			return false;
 
 		} else {
 			return false;

@@ -24,8 +24,6 @@ public class GameplayController : MonoBehaviour {
 	const int SHOWNOTHING = 2;
 	const int SHOWNOTHING2 = 3;
 
-	bool starteddd = false;
-
 	private static int showID;
 	private static float timer;
 

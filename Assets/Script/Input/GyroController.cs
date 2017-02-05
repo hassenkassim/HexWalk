@@ -48,20 +48,27 @@ public class GyroController : MonoBehaviour {
 	Quaternion resetCamRot;
 
 	void Awake(){
+			resetCamRot = Quaternion.Euler (new Vector3 (29f, 0.0f, 0.0f));
+			//get icon gameobjects
+			Icon1 = GameObject.Find("gyroIcon1");
+			Icon2 = GameObject.Find("gyroIcon2");
+			Icon3 = GameObject.Find("gyroIcon3");
 
-		resetCamRot = Quaternion.Euler (new Vector3 (29f, 0.0f, 0.0f));
-		//get icon gameobjects
-		Icon1 = GameObject.Find("gyroIcon1");
-		Icon2 = GameObject.Find("gyroIcon2");
-		Icon3 = GameObject.Find("gyroIcon3");
+			butt = GameObject.Find("GyroIcon").GetComponent<Button>();
+		#if (UNITY_ANDROID || UNITY_IPHONE) && !UNITY_EDITOR && !UNITY_STANDALONE
 
-		butt = GameObject.Find("GyroIcon").GetComponent<Button>();
-		InitGyro ();
-
+			InitGyro ();
+		#elif UNITY_EDITOR || UNITY_STANDALONE
+			Icon1.gameObject.SetActive (false);
+			Icon2.gameObject.SetActive (false);
+			Icon3.gameObject.SetActive (false);
+		#endif
 	}
 		
 	// Update is called once per frame
 	void Update () {
+		#if (UNITY_ANDROID || UNITY_IPHONE) && !UNITY_EDITOR && !UNITY_STANDALONE
+
 		//if gyroscope is supported start GyroRotation
 		if (gyroactive && camOk) {
 			// Rotate Camera
@@ -69,6 +76,7 @@ public class GyroController : MonoBehaviour {
 			//Rotate icon
 			rotateIcon ();
 		}
+		#endif
 	}
 
 	public void InitGyro() {

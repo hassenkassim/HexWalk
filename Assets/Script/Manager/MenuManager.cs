@@ -66,11 +66,6 @@ public class MenuManager : MonoBehaviour {
 		MainMenu.enabled = false;
 		OptionsMenu.enabled = true;
 	}
-
-	public void onShare()
-	{
-		Share.IntentShareText ("This game is awesome! Get the game from play store: balblaLink!");
-	}
 		
 	public void onLeaderboard()
 	{

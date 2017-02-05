@@ -196,19 +196,10 @@ public class Gameplay : MonoBehaviour {
 		if (!Camera.main.GetComponent<Skybox> ().material.name.Equals ("skybox" + LevelPlay.levelmgr.curLevel.getWorld())){
 			Fade.FadeAndNewWorldForGameplay (1.0f, cam);
 		}
+			
 
-//		int pointer = pathfinder.pointer;
 		if (field.getColor ().Equals (Col.Col1))
 			return;
-	
-		int pointer = pathfinder.pointer;
-		//print ("Pointer: " + pointer);
-		/*Color curColor = Gameplay.player.getColor ();
-		Color pathColor = pathfinder.pathcolor [pointer];
-		if(curColor.Equals(pathColor){
-		
-		}
-		//!!!!*/
 
 		if (platePos.x == pathfinder.end.x && platePos.y == pathfinder.end.y && pathfinder.pointer == pathfinder.path.Count-1) {
 			win ();
